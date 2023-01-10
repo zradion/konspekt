@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>html</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <h3 class="theme">html</h3>
+    &lt;!DOCTYPE html&gt; - декларация использования HTML 5<br>
+    Visual Studio Code  html,css, javascript,react, docker<br>
+    расширение - Live Server - для перезапуска автоматом<br>
+    расширение - Prettier -  для форматирования текста<br>
+    Emmet Abbreviat.. - надстройка помогает с оформлением<br>
+    maketext.io - сайт сделать иконку<br>
+    MDN WEB DOC - документация<br>
+    <br>
+    F12(or Ctrl+Shift+J) - веб-консоль<br>
+    <br>
+    Сокращения:<br>
+    alt+Z - сделать читабельным<br>
+    alt+(стрелка) - переместить блок с кодом<br>
+    Shift+alt+(стрелка) - дублировать строку<br>
+    Ctrl+S - сохранить<br>
+    Ctrl+Z - отменить<br>
+    Ctrl+/ - закоментировать (&lt;!--    -->)<br>
+    Ctrl+ (+-)(0) - изменить масштаб<br>
+    Ctrl+Shift+K - убрать пустую строку<br>
+    Shift+(clic) - на элементе - посмотреть размер<br>
+    (точка) +Tab ... &lt;div class=" ">&lt;/div><br>
+    div# +Tab ... &lt;div id=" "&gt;&lt;/div&gt;<br>
+    <br>
+    вставить символ &#(ddd); 
+    амперсанд хэш тег число тчк с зпт<br>
+
+    Bootstrap - стили
+    bootstrapshuffle.com - выбрать стиль
+    Из bootstrap скопировать теги link and script. В них содержится програмный код
+    для классов. Установить в <head>
+    div.container (Tab)>>> <div class="container"></div>
+
+    class="container text-center my-5" - отцентровали содержимое, добавили отступы
+      по вертикали (margin y) - teg div
+    class="row" - teg div
+    class="col-lg-6 col-md-8 col-sm-4 mx-auto" - ширина (от 0 до 12) на большом,
+        среднем или маленьком устройстве - teg div
+    class="fw-light" - класс для текста
+    class="lead text-muted" - класс для текста
+      em, rem -  относительные размеры для родительского тега, корневого
+    class="btn btn-primary" - два класса для тега button
+    тег button можно обернуть в <a(втавить сюда)></a> Сдесь есть ссылка href в
+    которую передаём адресс на кот. переходим по кнопке, добавляем target="_blank",
+    чтобы открылось в отдельной вкладке. Тег button можно опустить, после класса
+    вписать что будет на кнопке. Если убрать класс для кнопки - будет просто ссылка.
+
+    !+ Tab - создать базовый html документ
+    теги: html  head  body  div  a  img  h1  p  meta  link  style  script
+    <html></html> - открывающий и закрывающий html теги
+    <head>
+      <title> Name </title> - заголовок html страницы
+      <meta charset="utf-8">
+    </head>
+    html mdn - справочная инфо
+    <body>
+    <h1> Заголовок </h1>
+    <p id='name of id'> Текст </p> арибут id, чтобы переходить сюда по ссылке
+    <br/> перенос строки
+    <strong></strong>, <b> Жирный текст </b>
+    <em> курсив </em>, <i>
+    <blockquote>, <q> - длинные цытаты(обычно с отступами по краям), короткие
+        (обычно в каввычках). Может указываться cite="http://www..."
+    <hr> - горизонтальная черта
+    <abbr title='значение'>КПСС</abbr> - всплывающая подсказка на аббревиатуру
+    <address> - отображается курсивом
+    <cite>, <dfn> - ссылка на что-то, определение
+    <a href="ссылка"> например ролик </a> - надпись отобразится на странице
+      атрибут target="_blank" - чтобы ссылка открывалась в новом окне
+    <a href="#name of id" Якорь на параграф name of id</a>
+    <mark> - выделение текста
+    <del> - перечёркивание
+    <ins> - подчёркивание
+    <sub> - написать в нижнеь индексе
+    <sup> - в верхнем индексе
+    <bdo dir="rtl">текст справо на лево
+
+    Атрибуты:
+    align
+    valign
+    background
+    id
+    class
+    width
+    height
+    title
+
+      <ul> - вложеные элементы будут с точками
+      <ol> - нумерация цифрами
+        <li>Элемент списка </li>
+        <li>Другой элемент списка </li>
+        <li> <a href='https://ya.ru">Yandex</a> ссылка на главную стр </li>
+      </ul>
+      
+      <table border="1">     - создание талбицы с рамкой
+      border="" - рамка
+      sellspacing="" - расстояние между блоками
+        <thead>   - шапка
+          <tr>    - строка (table row)
+            <th>Наименование фрукта</th> (жирно)
+            <th>Количество</th>
+          </tr>
+        </thead>
+        <tbody>  - тело
+          <tr>
+            <td>Яблоко</td> (table data)
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Апельсин</td>
+            <td>3</td>
+          </tr>
+            
+        </tbody>
+        <tfoot>  - низ таблицы
+          <tr>
+            <td colspan="2">Итог: 5</td> - строка захватывает вторую колонку
+          </tr>
+        </tfoot>
+      </table>
+      <hr>
+
+    <div class="contact">
+      <h2>Связаться со мной</h2>
+      
+      <form action="/"> - action вернёт на домашнюю страницу
+        <div class="form-group" 
+        <label for="name">Ваше имя:</label>
+        <input type="text" id="name" placeholer="Введите имя..">
+        </div>
+
+        <div class="form-group" 
+        <label for="email">Ваш email:</label>
+        <input type="text" id="email" placeholer="Введите email..">    
+        </div>
+
+        <div class="form-group"
+        <label for="text">Ваше сообщение:</label>
+        <textarea id="text" rows="2" cols="15"></textarea>
+        </div>
+    </div>
+      </form>
+    </body>
+      
+    Bootstrap - стили для создания сайтов
+    копируем ссылку link в <head> - подключаются стили CSS
+
+    </head>
+    <body>
+    div.container Tab - 
+
+
+
+    <button class="btn"> - внутри  открывающего тега button есть атрибут -
+    class  и его значение
+
+    <img src="img.jpg" class="rounded-img" alt="My photo" /> - атрибут src -
+    название картинки, атрибут class - стиль, alt - описание для изображения
+
+    <input type="text" list="techs" />
+    <datalist id="tichs">
+        <option value="HTML"></option>
+        <option value="CSS"></option>
+        <option value="JavaSrcipt"></option>
+    </datalist>  - в окне input появится стреловка и возможность выбрать.
+
+    <p>H<sub>2</sub>O</p> ... формула воды
+    <p>E=MC<sup>2</sup>2</p> ... возвели в квадрат
+
+    <details>  ... по умолчанию появится "Сведения", добавить атрибут open и
+                          текст по умолчанию виден
+      <summary>Open?</summary>  ... так можно заменить фразу
+      <p>Some text</p>          ... любой текст (не виден по умолчанию)
+    </details></details> - модальное окно
+</body>
+</html>

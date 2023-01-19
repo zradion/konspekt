@@ -12,13 +12,14 @@ body {
 
 /* Для домашней страницы */
 .cont {
-  align-content: center;
+  height: 100%;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 nav {
-  max-width: 200px;
+  max-width: 700px;
   border-radius: 30px;
-  margin-left: 1rem;
   text-align: center;
   height: 2.5rem;
   background-color: darkgrey;
@@ -30,7 +31,7 @@ nav ul {
 
 nav li {
   list-style-type: none;
-  display:inline;
+  display: inline;
   margin: 0 2rem;
 }
 

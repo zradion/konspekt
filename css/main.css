@@ -99,3 +99,5 @@ text-indent: 20px;
 .name {text-align: center;}
 
 .born {text-align: center;}
+
+.char {font-style: italic; font-weight: bold;}

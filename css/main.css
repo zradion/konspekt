@@ -1,0 +1,105 @@
+/* стили шрифта 'Roboto' */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+    margin: auto;
+    background-color: #f1f1f1;
+    color: #0f141e;
+    font-size: 16px;
+    font-weight: normal;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Для домашней страницы */
+.cont {
+  height: 100%;
+  max-width: 700px;
+  margin: 20px auto;
+}
+
+nav {
+  max-width: 700px;
+  border-radius: 30px;
+  text-align: center;
+  height: 2.5rem;
+  background-color: darkgrey;
+}
+
+nav ul {
+  margin: 0;
+}
+
+nav li {
+  list-style-type: none;
+  display: inline;
+  margin: 0 2rem;
+}
+
+nav img {
+  width: 40px;
+}
+
+.info {
+  display: flex;
+  margin: 20px;
+  margin-bottom: 20px;
+}
+
+.avatar {
+    width: 200px;
+    border-radius: 20px;
+    box-shadow: 10px 14px 2px rgba(13, 52, 124, 0.255);
+}
+
+#infotext {margin-left: 40px; color: blue;}
+
+ /* Для книг (текст) */
+article {
+margin-left: 15px;
+}
+
+article p {
+text-indent: 20px;
+}
+
+.links {
+  display:flex
+}
+
+.link-descr {
+  margin-left: 20px;
+}
+
+.link {
+  width: 20%;
+}
+
+/* для других страниц , English */
+
+.theme {text-align: center;}
+
+/* English book */
+article h1 {text-align: center;}
+
+.text {text-indent: 20px;}
+
+.item1 {margin: 20px;}
+
+.item2 {margin-left: 300px;}
+
+.auther {margin-bottom: 7px;}
+
+.name-book {margin-left: 40px;}
+
+/* О писателе */
+.img_short {width: 200px; border-radius: 30px;}
+
+.writer {display: flex; margin: 1rem 1rem;}
+
+.writer-info {margin-left: 40px;}
+
+.name {text-align: center;}
+
+.born {text-align: center;}
+
+.char {font-style: italic; font-weight: bold;}

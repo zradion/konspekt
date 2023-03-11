@@ -5,70 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>html</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/style1.css">
 </head>
 <body>
-  <nav class="nav">
-    <a href="../index.html"><img src="../img/icon-home.png" alt="home"></a>
-  </nav>
+  <div class="cont">
+    <nav class="nav">
+      <a href="../index.html"><img src="../img/icon-home.png" alt="home"></a>
+    </nav>
+    <div class="left_right">
+      <aside class="left">
+        <p>Введение</p>
+      <p>Горячие клавиши<br>shortcuts</p>
+      <p>Теги</p>
+      </aside>
+
+      <aside class="right">
+      <h1 align="center">HTML</h1>
+      <section id="s1"><h3>Базовый документ.</h3>
+        &lt;!DOCTYPE html&gt; - декларация использования HTML 5<br>&lt;html lang="en"&gt;<br>&lt;head&gt;<br>&nbsp;&nbsp;&lt; meta charset="UTF-8"&gt;<br>&nbsp;&nbsp;&lt;meta&gt;<br>&nbsp;&nbsp;&lt;meta&gt;<br>&nbsp;&nbsp;&lt;title&gt;Name of page&lt;/title&gt;<br>&nbsp;&nbsp;&lt;
+        link rel="stylesheet" href="#"&gt;<br>&nbsp;&nbsp;&lt;script src="#" defer&gt;&lt;/script&gt;<br>
+        &lt;/head&gt;<br>&lt;body&gt;&lt;/body&gt;<br>&lt;/html&gt;
+      </section>
+      <section id="s2"><h3>Горячие клавиши для vs code:</h3>
+        ! + Tab - создать базовый документ<br>
+        lorem10 - десять слов (рыба)<br>
+
+      </section>
+      <p>Новые элементы разметки:</p>
+      </aside>
+    </div>
+    <footer>
+      <h3>Ссылки:</h3>
+      <p><a href="https://developer.mozilla.org/ru/" target="widnow">mdn</a> - documentation</p>
+    </footer>
+  </div>
   
-  <h3 class="theme">html</h3>
-    &lt;!DOCTYPE html&gt; - декларация использования HTML 5<br>
-    Visual Studio Code  html,css, javascript,react, docker<br>
-    расширение - Live Server - для перезапуска автоматом<br>
-    расширение - Prettier -  для форматирования текста<br>
-    Emmet Abbreviat.. - надстройка помогает с оформлением<br>
-    maketext.io - сайт сделать иконку<br>
-    MDN WEB DOC - документация<br>
-    <br>
-    F12(or Ctrl+Shift+J) - веб-консоль<br>
-    <br>
-    Сокращения:<br>
-    alt+Z - сделать читабельным<br>
-    alt+(стрелка) - переместить блок с кодом<br>
-    Shift+alt+(стрелка) - дублировать строку<br>
-    Ctrl+S - сохранить<br>
-    Ctrl+Z - отменить<br>
-    Ctrl+/ - закоментировать (&lt;!--    -->)<br>
-    Ctrl+ (+-)(0) - изменить масштаб<br>
-    Ctrl+Shift+K - убрать пустую строку<br>
-    Shift+(clic) - на элементе - посмотреть размер<br>
-    (точка) +Tab ... &lt;div class=" ">&lt;/div><br>
-    div# +Tab ... &lt;div id=" "&gt;&lt;/div&gt;<br>
-    <br>
-    вставить символ &#(ddd); 
-    амперсанд хэш тег число тчк с зпт<br>
+    <hr>
 
-    Bootstrap - стили
-    bootstrapshuffle.com - выбрать стиль
-    Из bootstrap скопировать теги link and script. В них содержится програмный код
-    для классов. Установить в <head>
-    div.container (Tab)>>> <div class="container"></div>
-
-    class="container text-center my-5" - отцентровали содержимое, добавили отступы
-      по вертикали (margin y) - teg div
-    class="row" - teg div
-    class="col-lg-6 col-md-8 col-sm-4 mx-auto" - ширина (от 0 до 12) на большом,
-        среднем или маленьком устройстве - teg div
-    class="fw-light" - класс для текста
-    class="lead text-muted" - класс для текста
-      em, rem -  относительные размеры для родительского тега, корневого
-    class="btn btn-primary" - два класса для тега button
-    тег button можно обернуть в <a(втавить сюда)></a> Сдесь есть ссылка href в
-    которую передаём адресс на кот. переходим по кнопке, добавляем target="_blank",
-    чтобы открылось в отдельной вкладке. Тег button можно опустить, после класса
-    вписать что будет на кнопке. Если убрать класс для кнопки - будет просто ссылка.
-
-    !+ Tab - создать базовый html документ
     теги: html  head  body  div  a  img  h1  p  meta  link  style  script
-    <html></html> - открывающий и закрывающий html теги
-    <head>
-      <title> Name </title> - заголовок html страницы
-      <meta charset="utf-8">
-    </head>
-    html mdn - справочная инфо
-    <body>
-    <h1> Заголовок </h1>
     <p id='name of id'> Текст </p> арибут id, чтобы переходить сюда по ссылке
     <br/> перенос строки
     <strong></strong>, <b> Жирный текст </b>

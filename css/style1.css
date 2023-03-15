@@ -12,12 +12,11 @@ body {
 .cont {
   height: 100%;
   max-width: 1000px;
-  margin: 20px auto;
 }
 
 nav {
   margin: 0 auto;  
-  max-width: 700px;
+  /* max-width: 700px; */
   border-radius: 30px;
   text-align: center;
   height: 2.5rem;
@@ -40,7 +39,6 @@ nav img {
 
 .left_right {
     display: flex;
-    margin: 10px;
 }
 
 .left {
@@ -55,3 +53,5 @@ nav img {
 }
 
 section {margin: 0 0 15px 0;}
+
+footer {margin: 15px;}

@@ -1,164 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>html</title>
-    <link rel="stylesheet" href="../css/style1.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>html</title>
+  <link rel="stylesheet" href="../css/style1.css">
 </head>
 <body>
-  <div class="cont">
-    <nav class="nav">
-      <a href="../index.html"><img src="../img/icon-home.png" alt="home"></a>
-    </nav>
-    <div class="left_right">
-      <aside class="left">
-        <p>Введение</p>
-      <p>Горячие клавиши<br>shortcuts</p>
-      <p>Теги</p>
-      </aside>
+<div class="cont">
+<nav class="nav">
+  <a href="../index.html"><img src="../img/icon-home.png" alt="home"></a>
+</nav>
+<!-- Левая панель -->
+<div class="left_right">
+  <aside class="left">
+    <p><a href="#s1">Введение</a></p>
+  <p><a href="#s2">Горячие клавиши<br>shortcuts</a></p>
+  <p><a href="#s3">Элементы разметки<br>Теги</a></p>
+  <p><a href="#s4">Атрибуты<br>Теги</a></p>
+  <p><a href="#s5">Ссылки</a></p>
+  <p><a href="#s6">Изображения</a></p>
+  <p><a href="#s7">Таблицы</a></p>
+  </aside>
+<!-- Правая панель -->
+  <aside class="right">
+  <h1 align="center">HTML</h1>
+  <section id="s1"><h3>Базовый документ.</h3>
+    &lt;!DOCTYPE html&gt; - декларация использования HTML 5<br>&lt;html lang="en"&gt;<br>&lt;head&gt;<br>&nbsp;&nbsp;&lt; meta charset="UTF-8"&gt;<br>&nbsp;&nbsp;&lt;meta&gt;<br>&nbsp;&nbsp;&lt;meta&gt;<br>&nbsp;&nbsp;&lt;title&gt;Name of page&lt;/title&gt;<br>&nbsp;&nbsp;&lt;
+    link rel="stylesheet" href="#"&gt;<br>&nbsp;&nbsp;&lt;script src="#" defer&gt;&lt;/script&gt;<br>
+    &lt;/head&gt;<br>&lt;body&gt;&lt;/body&gt;<br>&lt;/html&gt;
+  </section>
+  <section id="s2"><h3>Горячие клавиши для vs code:</h3>
+    Live Server (Five Server) - (расширение)обновление стр. автоматом<br>
+    Emmet Abbreviation - (расширение)автоподстановка<br>
+    ! + Tab - создать базовый документ<br>
+    lorem10 - десять слов (рыба)<br>
+    .name + Tab - div  с классом name <br>
+    #name + Tab - div  с id="name" <br><br>
+    Ctrl + Shift + P - палитра команд<br>
+    Wrap with Abbrreviation - выбрать команду, тег в который нужно обернуть код<br>
+    Ctrl + F - строка поиска<br>
+    Ctrl + Shift + L - выделить выбр.знач; закр строку поиска;удалять или изменять <br>
+    Ctrl + Shift + K - удалить выбранные строки <br>
+    Ctrl + L - удалить строку со всем содержимым <br>
+    Ctrl + Z - отменить действие<br>
+    Ctrl + / - закоментировать<br>
+    Ctrl + (+-)(0) - увеличить массштаб (вернуть по умолчанию) <br>
+    Ctrl + [(]) - сдвигать выделенный блок <br>
 
-      <aside class="right">
-      <h1 align="center">HTML</h1>
-      <section id="s1"><h3>Базовый документ.</h3>
-        &lt;!DOCTYPE html&gt; - декларация использования HTML 5<br>&lt;html lang="en"&gt;<br>&lt;head&gt;<br>&nbsp;&nbsp;&lt; meta charset="UTF-8"&gt;<br>&nbsp;&nbsp;&lt;meta&gt;<br>&nbsp;&nbsp;&lt;meta&gt;<br>&nbsp;&nbsp;&lt;title&gt;Name of page&lt;/title&gt;<br>&nbsp;&nbsp;&lt;
-        link rel="stylesheet" href="#"&gt;<br>&nbsp;&nbsp;&lt;script src="#" defer&gt;&lt;/script&gt;<br>
-        &lt;/head&gt;<br>&lt;body&gt;&lt;/body&gt;<br>&lt;/html&gt;
-      </section>
-      <section id="s2"><h3>Горячие клавиши для vs code:</h3>
-        ! + Tab - создать базовый документ<br>
-        lorem10 - десять слов (рыба)<br>
+    Alt + Z - сделать текст читабельным <br>
+    Alt + стрелка вверх(вниз) - переместить выбранную строку, блок <br>
+    
+  </section>
+  <section id="s3">
+    <h3>Элементы разметки, теги:</h3>
+    <p><a href="https://www.schoolsw3.com/tags/index.php" rel="noopener" target="_blank">Справочник элементов</a> - Список всех элементов на сайте schoolsw3.com</p>
+    Теги: html, head, meta, title, link, script, body, div<br>
+    &lt;header&gt;<br>
+    &lt;nav&gt;<br>
+    &lt;article&gt;<br>
+    &lt;section&gt;<br>
+    &lt;aside&gt;<br>
+    &lt;footer&gt;<br>
+    &lt;details&gt;&lt;summary&gt;What&lt;summary&gt; // разместить инфо, открывающееся по требованию<br>
+    Some Info&lt;details&gt;<br>
+    <details><summary>What</summary>Some Info</details><br>
+    &lt;h1&gt; -Заголовки ( h1-h6)<br>
+    &lt;p&gt; - параграф<br>
+    &lt;a&gt; - ссылка атрибуты="" (href, target, title)<br>
+    &lt;img&gt; - картинка атрибуты="" (src, alt, title, border, widh, height, hspace, vspace)<br>
+    &lt;picture&gt; - Image with semantic description<br>
+    &lt;figure&gt;&lt;figcaption&gt;Simple description&lt;/figcaption&gt;&lt;/figure&gt;<br>
+    &lt;br&gt; - перенос строки<br>
+    &lt;hr&gt; - горизонтальная линия<br>
+    &lt;pre&gt; - предварительно отформатированый текст<br>
+    &lt;code&gt;<br>
+    &lt;strong&gt;, &lt;b&gt; - семантическое знач "важности" и просто жирный<br>
+    &lt;em&gt;, &lt;i&gt;<br> - наклонный "важно" и курсив для слова
+    &lt;blockquote&gt;, &lt;q&gt; - текст с отступом;  добавили двойные ковычки<br>
+    &lt;abbr title="компартия"&gt;КПСС&lt;/abbr&gt; - абревиатура<br>
+    &lt;address&gt; - отображается курсивом<br>
+    &lt;cite&gt;, &lt;dfn&gt; - ссылка на что-то, определение <br>
+    &lt;mark&gt; - выделение текста цветом<br>
+    &lt;del&gt; - перечёркивание<br>
+    &lt;ins&gt; - подчёркивание<br>
+    &lt;sub&gt; - написать в нижнем регистре<br>
+    &lt;sup&gt; - написать в верхнем регистре<br>
+    &lt;bdo dir="rtl"&gt; - текст справо на лево(right to left)<br>
+    &lt;var&gt; - выделить переменную<br>
+  </section>
+  <section id="s4">
+    <h3>Атрибуты:</h3>
+    <p><a href="https://www.schoolsw3.com/tags/ref_attributes.php" rel="noopener" target="_blank">Список стандартных атрибутов</a> - на сайте schoolsw3.com</p>
+    class, id, href, src, style, title, target, border, width, height<br>
+    <pre>&lt;h1 style="font-family: sans-serif; font-size 20px"&gt;Hello!&lt;/h1&gt;</pre>
+  </section>
+  <section id="s5">
+    <h3>Ссылки:</h3>
+    &lt;a <b>href</b>="url" (абсолютный, относительный (внутри сайта), #имя (ссылка по id)) <b>target</b>="_self"(_blank, _parent, _top) <b>title</b>="описание при наведении" &gt;<br>
+    <pre>Ссылка по картинке:<br>&lt;a href='#'&gt;&lt;img src="smile.png" alt="smile" style="width:40px; height:40px;"&lt;/a&gt;</pre>
+    <pre>ССылка, чтобы отправить электронную почту:<br>&lt;a href="mailto:someone@mail.ru"&gt; Send &lt;a&gt;</pre>
+    Ссылка может быть декорирована под кнопку, изменены стили с помощью псевдо классов (:link, :hover, :active, :visited)
+  </section>
+  <section id="s6">
+    <h3>Изображения:</h3>
+    Технически <b>тег &lt;img&gt;</b> - создаёт удерживающее пространство.<br>
+    атрибуты <b>src</b> и <b>alt</b> - обязательные (путь и альтернативный текст)<br>
+    нужно указывать ширину и высоту для правильной загрузки width="40px" height="40px"<br>
+    предпочтительней с атрибутом style="width:40px;height:40px;"<br>
+    изображение ссылка:<pre>
+  &lt;a href="#"&gt;&lt;img src="smile.gif" alt="smile"&gt;&lt;/a&gt;
+    </pre> 
+    style="float: right;"(left) - параграф, внутри картика справа (слева)<br><br>
+    APNG (.apng) - анимированая портативная сетевая графика<br>
+    GIF (.gif) - формат обмена графическими данными<br>
+    ICO (.ico, .cur) - Microsoft значок<br>
+    JPEG (.jpg, .jpeg, .jfif, .pjpeg, .pjp) - фото изображение<br>
+    PNG (.png) - переносимая сетевая графика<br>
+    SVG (.svg) - масштабируемая векторная графика<br><br>
 
-      </section>
-      <p>Новые элементы разметки:</p>
-      </aside>
-    </div>
+    <b>&lt;map&gt;</b> определяет изображение-карту. (с кликабельными областями)<br>
+    <b>&lt;area></b> - определяет активную область внутри изображения<br>
+    <b>&lt; picture></b> - определяет контейнер для нескольких ресурсов<br><br>
+     В &lt;img&gt; добавляется атрибут <b>usemap</b>="#workmap" с # и именем карты.<br>
+  <pre>
+  &lt;map name="workmap">
+    &lt;area shape="rect" coords="34, 44,234,350" alt="Деталь" href="url">
+    &lt;area shape="circle" coords="300, 400, 50" onclick="myFunction()">
+  &lt;/map>
+  &lt;script>
+    function myFunction() {alert("текст при клике на указаный участок");}
+  &lt;/script>
+  </pre>
+  атрибут shape:<br>
+  "rect" - прямоугольник, coords - x,y - верхний левый угол и нижний правый<br>
+  "curcle" - круг, coords - x,y - центр круга, радиус в px<br>
+  "poly" - полигональная область (много точек) coords="x,y,x,y,x,y"<br>
+  "default" -  вся область<br><br>
+  Фоновое изображение на странице:
+  <pre>
+  &lt;style>
+  body {background-image: url('img/home.png')}
+  &lt;/style>
+  </pre>
+  Элемент <b>&lt;picture></b> содержит ряд элементов <b>&lt;source></b>  и последнии элеметн <b>&lt;img></b>. Выводится изображение, которое соовтвтствует условию или последнее.
+  <pre>
+  &lt;picture>
+    &lt;source media="(min-width: 650px)" srcset="img_food.jpg">
+    &lt;source media="(min-width: 450px)" srcset="img_car.jpg">
+    &lt;img src="img_girl.jpg">
+  &lt;/picture>
+  </pre>
+  <section id="s7">
+    <h3>Таблицы:</h3>
+  </section>
+    <br>TODO: изменить стиль ссылок в левом меню.
+  </section>
+  </aside>
+</div>
     <footer>
       <h3>Ссылки:</h3>
-      <p><a href="https://developer.mozilla.org/ru/" target="widnow">mdn</a> - documentation</p>
+      <p><a href="https://developer.mozilla.org/ru/" target="_blank" rel="noopener" >mdn</a> - documentation</p>
+      <p><a href="https://www.schoolsw3.com/index.php" target="_blank" rel="noopener" >schoolsw3.com</a> - Все Учебники</p>
+      <p><a href="https://www.favicon.cc." target="_blank" rel="noopener">favicon.cc.</a> - Нарисовать свой значок</p>
     </footer>
   </div>
-  
-    <hr>
-
-    теги: html  head  body  div  a  img  h1  p  meta  link  style  script
-    <p id='name of id'> Текст </p> арибут id, чтобы переходить сюда по ссылке
-    <br/> перенос строки
-    <strong></strong>, <b> Жирный текст </b>
-    <em> курсив </em>, <i>
-    <blockquote>, <q> - длинные цытаты(обычно с отступами по краям), короткие
-        (обычно в каввычках). Может указываться cite="http://www..."
-    <hr> - горизонтальная черта
-    <abbr title='значение'>КПСС</abbr> - всплывающая подсказка на аббревиатуру
-    <address> - отображается курсивом
-    <cite>, <dfn> - ссылка на что-то, определение
-    <a href="ссылка"> например ролик </a> - надпись отобразится на странице
-      атрибут target="_blank" - чтобы ссылка открывалась в новом окне
-    <a href="#name of id" Якорь на параграф name of id</a>
-    <mark> - выделение текста
-    <del> - перечёркивание
-    <ins> - подчёркивание
-    <sub> - написать в нижнеь индексе
-    <sup> - в верхнем индексе
-    <bdo dir="rtl">текст справо на лево
-
-    Атрибуты:
-    align
-    valign
-    background
-    id
-    class
-    width
-    height
-    title
-
-      <ul> - вложеные элементы будут с точками
-      <ol> - нумерация цифрами
-        <li>Элемент списка </li>
-        <li>Другой элемент списка </li>
-        <li> <a href='https://ya.ru">Yandex</a> ссылка на главную стр </li>
-      </ul>
-      
-      <table border="1">     - создание талбицы с рамкой
-      border="" - рамка
-      sellspacing="" - расстояние между блоками
-        <thead>   - шапка
-          <tr>    - строка (table row)
-            <th>Наименование фрукта</th> (жирно)
-            <th>Количество</th>
-          </tr>
-        </thead>
-        <tbody>  - тело
-          <tr>
-            <td>Яблоко</td> (table data)
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>Апельсин</td>
-            <td>3</td>
-          </tr>
-            
-        </tbody>
-        <tfoot>  - низ таблицы
-          <tr>
-            <td colspan="2">Итог: 5</td> - строка захватывает вторую колонку
-          </tr>
-        </tfoot>
-      </table>
-      <hr>
-
-    <div class="contact">
-      <h2>Связаться со мной</h2>
-      
-      <form action="/"> - action вернёт на домашнюю страницу
-        <div class="form-group" 
-        <label for="name">Ваше имя:</label>
-        <input type="text" id="name" placeholer="Введите имя..">
-        </div>
-
-        <div class="form-group" 
-        <label for="email">Ваш email:</label>
-        <input type="text" id="email" placeholer="Введите email..">    
-        </div>
-
-        <div class="form-group"
-        <label for="text">Ваше сообщение:</label>
-        <textarea id="text" rows="2" cols="15"></textarea>
-        </div>
-    </div>
-      </form>
-    </body>
-      
-    Bootstrap - стили для создания сайтов
-    копируем ссылку link в <head> - подключаются стили CSS
-
-    </head>
-    <body>
-    div.container Tab - 
-
-
-
-    <button class="btn"> - внутри  открывающего тега button есть атрибут -
-    class  и его значение
-
-    <img src="img.jpg" class="rounded-img" alt="My photo" /> - атрибут src -
-    название картинки, атрибут class - стиль, alt - описание для изображения
-
-    <input type="text" list="techs" />
-    <datalist id="tichs">
-        <option value="HTML"></option>
-        <option value="CSS"></option>
-        <option value="JavaSrcipt"></option>
-    </datalist>  - в окне input появится стреловка и возможность выбрать.
-
-    <p>H<sub>2</sub>O</p> ... формула воды
-    <p>E=MC<sup>2</sup>2</p> ... возвели в квадрат
-
-    <details>  ... по умолчанию появится "Сведения", добавить атрибут open и
-                          текст по умолчанию виден
-      <summary>Open?</summary>  ... так можно заменить фразу
-      <p>Some text</p>          ... любой текст (не виден по умолчанию)
-    </details></details> - модальное окно
-</body>
-</html>

@@ -15,22 +15,32 @@
 <!-- Левая панель -->
 <div class="left_right">
   <aside class="left">
-    <p><a href="#s1">Введение</a></p>
-  <p><a href="#s2">Горячие клавиши<br>shortcuts</a></p>
-  <p><a href="#s3">Элементы разметки<br>Теги</a></p>
-  <p><a href="#s4">Атрибуты<br>Теги</a></p>
-  <p><a href="#s5">Ссылки</a></p>
-  <p><a href="#s6">Изображения</a></p>
-  <p><a href="#s7">Таблицы</a></p>
+<p><a href="#s1">Введение</a></p>
+<p><a href="#s2">Горячие клавиши<br>shortcuts</a></p>
+<p><a href="#s3">Элементы разметки<br>Теги</a></p>
+<p><a href="#s4">Атрибуты<br>Теги</a></p>
+<p><a href="#s5">Ссылки</a></p>
+<p><a href="#s6">Изображения</a></p>
+<p><a href="#s7">Цвета</a></p>
+<p><a href="#s8">Таблицы</a></p>
+<p><a href="#s9">Списки</a></p>
   </aside>
 <!-- Правая панель -->
   <aside class="right">
   <h1 align="center">HTML</h1>
+
   <section id="s1"><h3>Базовый документ.</h3>
     &lt;!DOCTYPE html&gt; - декларация использования HTML 5<br>&lt;html lang="en"&gt;<br>&lt;head&gt;<br>&nbsp;&nbsp;&lt; meta charset="UTF-8"&gt;<br>&nbsp;&nbsp;&lt;meta&gt;<br>&nbsp;&nbsp;&lt;meta&gt;<br>&nbsp;&nbsp;&lt;title&gt;Name of page&lt;/title&gt;<br>&nbsp;&nbsp;&lt;
     link rel="stylesheet" href="#"&gt;<br>&nbsp;&nbsp;&lt;script src="#" defer&gt;&lt;/script&gt;<br>
     &lt;/head&gt;<br>&lt;body&gt;&lt;/body&gt;<br>&lt;/html&gt;
+    <h4>Сущности символов:</h4>
+    Между амперсандом и точкой с зпт. вводится имя спецсимвола или его числовой код в десятичной системе или шестнадцатиричной. Например: &amp; lt; или &amp; #60; или &amp; #x0003C; - знак меньше.<br>
+    &amp; lt; &amp; gt; - угловые скобки -  #60, #62<br>
+    &amp; nbsp; - неразрывный пробел - #160<br>
+    &amp; amp; - амперсанд - #38
+    <p><a href="https://www.wm-school.ru/html/html_symbols.html" target="_blank" rel="noopener" >wm-shool.ru</a> - Символы</p>
   </section>
+
   <section id="s2"><h3>Горячие клавиши для vs code:</h3>
     Live Server (Five Server) - (расширение)обновление стр. автоматом<br>
     Emmet Abbreviation - (расширение)автоподстановка<br>
@@ -45,14 +55,14 @@
     Ctrl + Shift + K - удалить выбранные строки <br>
     Ctrl + L - удалить строку со всем содержимым <br>
     Ctrl + Z - отменить действие<br>
-    Ctrl + / - закоментировать<br>
+    Ctrl + / - закоментировать (&lt;!--  --&gt;)<br>
     Ctrl + (+-)(0) - увеличить массштаб (вернуть по умолчанию) <br>
     Ctrl + [(]) - сдвигать выделенный блок <br>
 
     Alt + Z - сделать текст читабельным <br>
     Alt + стрелка вверх(вниз) - переместить выбранную строку, блок <br>
-    
   </section>
+
   <section id="s3">
     <h3>Элементы разметки, теги:</h3>
     <p><a href="https://www.schoolsw3.com/tags/index.php" rel="noopener" target="_blank">Справочник элементов</a> - Список всех элементов на сайте schoolsw3.com</p>
@@ -90,12 +100,14 @@
     &lt;bdo dir="rtl"&gt; - текст справо на лево(right to left)<br>
     &lt;var&gt; - выделить переменную<br>
   </section>
+
   <section id="s4">
     <h3>Атрибуты:</h3>
     <p><a href="https://www.schoolsw3.com/tags/ref_attributes.php" rel="noopener" target="_blank">Список стандартных атрибутов</a> - на сайте schoolsw3.com</p>
     class, id, href, src, style, title, target, border, width, height<br>
     <pre>&lt;h1 style="font-family: sans-serif; font-size 20px"&gt;Hello!&lt;/h1&gt;</pre>
   </section>
+
   <section id="s5">
     <h3>Ссылки:</h3>
     &lt;a <b>href</b>="url" (абсолютный, относительный (внутри сайта), #имя (ссылка по id)) <b>target</b>="_self"(_blank, _parent, _top) <b>title</b>="описание при наведении" &gt;<br>
@@ -103,16 +115,20 @@
     <pre>ССылка, чтобы отправить электронную почту:<br>&lt;a href="mailto:someone@mail.ru"&gt; Send &lt;a&gt;</pre>
     Ссылка может быть декорирована под кнопку, изменены стили с помощью псевдо классов (:link, :hover, :active, :visited)
   </section>
+
   <section id="s6">
     <h3>Изображения:</h3>
     Технически <b>тег &lt;img&gt;</b> - создаёт удерживающее пространство.<br>
     атрибуты <b>src</b> и <b>alt</b> - обязательные (путь и альтернативный текст)<br>
     нужно указывать ширину и высоту для правильной загрузки width="40px" height="40px"<br>
     предпочтительней с атрибутом style="width:40px;height:40px;"<br>
-    изображение ссылка:<pre>
+    <pre>изображение ссылка:
   &lt;a href="#"&gt;&lt;img src="smile.gif" alt="smile"&gt;&lt;/a&gt;
     </pre> 
-    style="float: right;"(left) - параграф, внутри картика справа (слева)<br><br>
+    style="float: right;"(left) - внутри параграфа картика справа (слева)<br>
+    align="bottom"(left, middle, right, top)<br>
+    border="0" - без рамки <br>
+    width, height, hspace, vspace - ширина, высоста, отступ гориз, верт.<br><br>
     APNG (.apng) - анимированая портативная сетевая графика<br>
     GIF (.gif) - формат обмена графическими данными<br>
     ICO (.ico, .cur) - Microsoft значок<br>
@@ -123,8 +139,7 @@
     <b>&lt;map&gt;</b> определяет изображение-карту. (с кликабельными областями)<br>
     <b>&lt;area></b> - определяет активную область внутри изображения<br>
     <b>&lt; picture></b> - определяет контейнер для нескольких ресурсов<br><br>
-     В &lt;img&gt; добавляется атрибут <b>usemap</b>="#workmap" с # и именем карты.<br>
-  <pre>
+  <pre>В &lt;img&gt; добавляется атрибут <b>usemap</b>="#workmap" с # и именем карты.
   &lt;map name="workmap">
     &lt;area shape="rect" coords="34, 44,234,350" alt="Деталь" href="url">
     &lt;area shape="circle" coords="300, 400, 50" onclick="myFunction()">
@@ -138,10 +153,9 @@
   "curcle" - круг, coords - x,y - центр круга, радиус в px<br>
   "poly" - полигональная область (много точек) coords="x,y,x,y,x,y"<br>
   "default" -  вся область<br><br>
-  Фоновое изображение на странице:
-  <pre>
+  <pre>Фоновое изображение на странице:
   &lt;style>
-  body {background-image: url('img/home.png')}
+    body {background-image: url('img/home.png')}
   &lt;/style>
   </pre>
   Элемент <b>&lt;picture></b> содержит ряд элементов <b>&lt;source></b>  и последнии элеметн <b>&lt;img></b>. Выводится изображение, которое соовтвтствует условию или последнее.
@@ -152,17 +166,52 @@
     &lt;img src="img_girl.jpg">
   &lt;/picture>
   </pre>
-  <section id="s7">
-    <h3>Таблицы:</h3>
   </section>
-    <br>TODO: изменить стиль ссылок в левом меню.
+
+  <section id="s7">
+    <h3>Цвета:</h3>
+    RGB(255,127,0) - Red, Green, Blue (100%, 50%, 0%)<br>
+    #FF0000 - шестнадцатиричное значение (HEX)<br>
+  </section>
+
+  <section id="s8">
+    <h3>Таблицы:</h3>
+    <b>&lt;table></b> - контейнер для элементов табл.<br>
+    <b>&lt;tr></b> - table row - вмещает содержимое строки<br>
+    <b>&lt;th></b> - table heading - ячейка заголовка табл.(жирно и по центру)<br>
+    <b>&lt;td></b> - table data - обычная ячейка(текст, числа, картинки..)<br>
+    <pre>По умолчанию без границ. 
+  table, th, td {border: 1px solid black;}
+  table {border-collapse: collapse;} - убрать двойную рамку
+    </pre>
+    <b>colspan="2"</b> - атрибут td(th) - захватывает ячейки по горизонтали<br>
+    <b>rowspan="2"</b> - атрибут td(th) - захватывает ячейки по вертикали<br>
+    <b>align="left | center | right"</b> - выравнивание для таблицы (обтекание)<br>
+    <b>valigh="top | middle | bottom"</b> - выравнивание внутри ячеек<br>
+    <b>bgcolor="color"</b> - цвет фона<br>
+    <b>border, width, tabindex="1"</b>  ..перключение между элементами<br>
+    CSS: td {width: 100%; padding: 15px; text-align: left;}<br>
+    table {border-spacing: 5px;} - между ячейками<br> 
+    tr:nth-child(even) {background-color: #ddd;} - чётные строки<br>
+    <b>&lt;caption></b> - Название таблицы. Располагается внутри table.<br>
+    <b>&lt;thead></b> - верхняя часть таблицы<br>
+    <b>&lt;tbody></b> - тело. Может быть несколько.<br>
+    <b>&lt;tfoot></b> - нижняя часть табл. В коде надо распологать после thead. В длинных таблицах thead and tfoot выводятся сразу; tbody может прокручиватся.<br>
+
+  <section id="s9">
+    <h3>Списки:</h3>
+  </section>
+
+
+    <!-- <br>TODO: изменить стиль ссылок в левом меню, добавиь кнопку вверх -->
   </section>
   </aside>
 </div>
     <footer>
       <h3>Ссылки:</h3>
       <p><a href="https://developer.mozilla.org/ru/" target="_blank" rel="noopener" >mdn</a> - documentation</p>
-      <p><a href="https://www.schoolsw3.com/index.php" target="_blank" rel="noopener" >schoolsw3.com</a> - Все Учебники</p>
+      <p><a href="https://www.wm-school.ru/html/default.html" target="_blank" rel="noopener" >wm-shool.ru</a> - Учебники</p>
+      <p><a href="https://www.schoolsw3.com/index.php" target="_blank" rel="noopener" >schoolsw3.com</a> - Учебники</p>
       <p><a href="https://www.favicon.cc." target="_blank" rel="noopener">favicon.cc.</a> - Нарисовать свой значок</p>
     </footer>
   </div>

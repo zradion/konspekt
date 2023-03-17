@@ -47,6 +47,14 @@ nav img {
     padding: 10px;
 }
 
+.left a {
+  text-decoration: none;
+}
+
+.left p:hover {
+  background-color: aquamarine;
+}
+
 .right {
     width: 80%;
     padding: 0 0 0 10px;

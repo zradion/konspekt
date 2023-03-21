@@ -9,9 +9,11 @@
 </head>
 <body>
 <div class="cont">
-<nav class="nav">
+<nav class="nav" id="s0">
   <a href="../index.html"><img src="../img/icon-home.png" alt="home"></a>
+  <a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a>
 </nav>
+
 <!-- Левая панель -->
 <div class="left_right">
   <aside class="left">
@@ -24,6 +26,8 @@
 <p><a href="#s7">Цвета</a></p>
 <p><a href="#s8">Таблицы</a></p>
 <p><a href="#s9">Списки</a></p>
+<p><a href="#s10">Формы</a></p>
+<p><a href="#s15">Ссылки</a></p>
   </aside>
 <!-- Правая панель -->
   <aside class="right">
@@ -176,6 +180,7 @@
 
   <section id="s8">
     <h3>Таблицы:</h3>
+    <b>&lt;caption></b> - Название таблицы. Располагается внутри table.<br>
     <b>&lt;table></b> - контейнер для элементов табл.<br>
     <b>&lt;tr></b> - table row - вмещает содержимое строки<br>
     <b>&lt;th></b> - table heading - ячейка заголовка табл.(жирно и по центру)<br>
@@ -193,25 +198,38 @@
     CSS: td {width: 100%; padding: 15px; text-align: left;}<br>
     table {border-spacing: 5px;} - между ячейками<br> 
     tr:nth-child(even) {background-color: #ddd;} - чётные строки<br>
-    <b>&lt;caption></b> - Название таблицы. Располагается внутри table.<br>
     <b>&lt;thead></b> - верхняя часть таблицы<br>
     <b>&lt;tbody></b> - тело. Может быть несколько.<br>
     <b>&lt;tfoot></b> - нижняя часть табл. В коде надо распологать после thead. В длинных таблицах thead and tfoot выводятся сразу; tbody может прокручиватся.<br>
 
   <section id="s9">
     <h3>Списки:</h3>
+    <b>&lt;ol></b> - ordered list(нумерованный) - &lt;li> порядковые номера (буквы)<br>
+    type="A | a | I | i | 1" (прописные лат|строчные|большие римск|маленькие|цыфры)<br>
+    style="list-style-type:lower-roman"(lower-alpha, upper-alpha, upper-roman)<br>
+    start="7" - начать с номера 7<br>
+    value="7" - атрибут &lt;li> - порядковый номер 7, сдедуюций 8<br><br>
+    <b>&lt;ul></b> - unordered list(маркированный) - &lt;li> маркеры<br>
+    style="list-style-type:disc"(circle, square, none)<br>
+    style="list-style-image: url(img/star.png);"
+<pre><ul><li>Monday<ol><li>One</li><li>Two</li></ol></li><li>Tusday</li></ul></pre>
+    <b>&lt;dl></b> - definition list - состоит из пар имя/значение<br>
+    <b>&lt;dt></b> - definition term<br>
+    <b>&lt;dd></b> - definition description<br>
+<pre><dl><dt>Первый термин:</dt><dd>Описание первого термина</dd><dt>Второй:</dt><dd>Описание</dd></dl></pre>
   </section>
 
-
-    <!-- <br>TODO: изменить стиль ссылок в левом меню, добавиь кнопку вверх -->
+  <section id="s10">
+    <h3>Формы:</h3>
   </section>
   </aside>
 </div>
-    <footer>
-      <h3>Ссылки:</h3>
-      <p><a href="https://developer.mozilla.org/ru/" target="_blank" rel="noopener" >mdn</a> - documentation</p>
-      <p><a href="https://www.wm-school.ru/html/default.html" target="_blank" rel="noopener" >wm-shool.ru</a> - Учебники</p>
-      <p><a href="https://www.schoolsw3.com/index.php" target="_blank" rel="noopener" >schoolsw3.com</a> - Учебники</p>
-      <p><a href="https://www.favicon.cc." target="_blank" rel="noopener">favicon.cc.</a> - Нарисовать свой значок</p>
-    </footer>
-  </div>
+  <footer>
+    <h3 id="s15">Ссылки:</h3>
+    <p><a href="https://developer.mozilla.org/ru/" target="_blank" rel="noopener" >mdn</a> - documentation</p>
+    <p><a href="https://www.wm-school.ru/html/html_symbols.html" target="_blank" rel="noopener" >wm-shool.ru</a> - Символы</p>
+    <p><a href="https://www.wm-school.ru/html/default.html" target="_blank" rel="noopener" >wm-shool.ru</a> - Учебники;
+    <a href="https://www.schoolsw3.com/index.php" target="_blank" rel="noopener" >schoolsw3.com</a> - Учебники</p>
+    <p><a href="https://www.favicon.cc." target="_blank" rel="noopener">favicon.cc.</a> - Нарисовать свой значок</p>
+  </footer>
+</div>

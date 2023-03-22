@@ -1,190 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>html</title>
-    <link rel="stylesheet" href="../css/main.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>html</title>
+  <link rel="stylesheet" href="../css/style1.css">
 </head>
 <body>
-  <nav class="nav">
-    <a href="../index.html"><img src="../img/icon-home.png" alt="home"></a>
-  </nav>
-  
-  <h3 class="theme">html</h3>
-    &lt;!DOCTYPE html&gt; - декларация использования HTML 5<br>
-    Visual Studio Code  html,css, javascript,react, docker<br>
-    расширение - Live Server - для перезапуска автоматом<br>
-    расширение - Prettier -  для форматирования текста<br>
-    Emmet Abbreviat.. - надстройка помогает с оформлением<br>
-    maketext.io - сайт сделать иконку<br>
-    MDN WEB DOC - документация<br>
-    <br>
-    F12(or Ctrl+Shift+J) - веб-консоль<br>
-    <br>
-    Сокращения:<br>
-    alt+Z - сделать читабельным<br>
-    alt+(стрелка) - переместить блок с кодом<br>
-    Shift+alt+(стрелка) - дублировать строку<br>
-    Ctrl+S - сохранить<br>
-    Ctrl+Z - отменить<br>
-    Ctrl+/ - закоментировать (&lt;!--    -->)<br>
-    Ctrl+ (+-)(0) - изменить масштаб<br>
-    Ctrl+Shift+K - убрать пустую строку<br>
-    Shift+(clic) - на элементе - посмотреть размер<br>
-    (точка) +Tab ... &lt;div class=" ">&lt;/div><br>
-    div# +Tab ... &lt;div id=" "&gt;&lt;/div&gt;<br>
-    <br>
-    вставить символ &#(ddd); 
-    амперсанд хэш тег число тчк с зпт<br>
+<div class="cont">
+<nav class="nav">
+  <a href="../index.html"><img src="../img/icon-home.png" alt="home"></a>
+  <a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a>
+</nav>
 
-    Bootstrap - стили
-    bootstrapshuffle.com - выбрать стиль
-    Из bootstrap скопировать теги link and script. В них содержится програмный код
-    для классов. Установить в <head>
-    div.container (Tab)>>> <div class="container"></div>
+<!-- Левая панель -->
+<div class="left_right">
+  <aside class="left">
+<p><a href="#s1">Введение</a></p>
+<p><a href="#s2">Горячие клавиши<br>shortcuts</a></p>
+<p><a href="#s3">Элементы разметки<br>Теги</a></p>
+<p><a href="#s4">Атрибуты<br>Теги</a></p>
+<p><a href="#s5">Ссылки</a></p>
+<p><a href="#s6">Изображения</a></p>
+<p><a href="#s7">Цвета</a></p>
+<p><a href="#s8">Таблицы</a></p>
+<p><a href="#s9">Списки</a></p>
+<p><a href="#s10">Формы</a></p>
+<p><a href="#s15">Ссылки</a></p>
+  </aside>
+<!-- Правая панель -->
+  <aside class="right">
+  <h1 align="center" id="s0">HTML</h1>
 
-    class="container text-center my-5" - отцентровали содержимое, добавили отступы
-      по вертикали (margin y) - teg div
-    class="row" - teg div
-    class="col-lg-6 col-md-8 col-sm-4 mx-auto" - ширина (от 0 до 12) на большом,
-        среднем или маленьком устройстве - teg div
-    class="fw-light" - класс для текста
-    class="lead text-muted" - класс для текста
-      em, rem -  относительные размеры для родительского тега, корневого
-    class="btn btn-primary" - два класса для тега button
-    тег button можно обернуть в <a(втавить сюда)></a> Сдесь есть ссылка href в
-    которую передаём адресс на кот. переходим по кнопке, добавляем target="_blank",
-    чтобы открылось в отдельной вкладке. Тег button можно опустить, после класса
-    вписать что будет на кнопке. Если убрать класс для кнопки - будет просто ссылка.
+  <section id="s1"><h3>Базовый документ.</h3>
+    &lt;!DOCTYPE html&gt; - декларация использования HTML 5<br>&lt;html lang="en"&gt;<br>&lt;head&gt;<br>&nbsp;&nbsp;&lt; meta charset="UTF-8"&gt;<br>&nbsp;&nbsp;&lt;meta&gt;<br>&nbsp;&nbsp;&lt;meta&gt;<br>&nbsp;&nbsp;&lt;title&gt;Name of page&lt;/title&gt;<br>&nbsp;&nbsp;&lt;
+    link rel="stylesheet" href="#"&gt;<br>&nbsp;&nbsp;&lt;script src="#" defer&gt;&lt;/script&gt;<br>
+    &lt;/head&gt;<br>&lt;body&gt;&lt;/body&gt;<br>&lt;/html&gt;
+    <h4>Сущности символов:</h4>
+    Между амперсандом и точкой с зпт. вводится имя спецсимвола или его числовой код в десятичной системе или шестнадцатиричной. Например: &amp; lt; или &amp; #60; или &amp; #x0003C; - знак меньше.<br>
+    &amp; lt; &amp; gt; - угловые скобки -  #60, #62<br>
+    &amp; nbsp; - неразрывный пробел - #160<br>
+    &amp; amp; - амперсанд - #38
+    <p><a href="https://www.wm-school.ru/html/html_symbols.html" target="_blank" rel="noopener" >wm-shool.ru</a> - Символы</p>
+  </section>
 
-    !+ Tab - создать базовый html документ
-    теги: html  head  body  div  a  img  h1  p  meta  link  style  script
-    <html></html> - открывающий и закрывающий html теги
-    <head>
-      <title> Name </title> - заголовок html страницы
-      <meta charset="utf-8">
-    </head>
-    html mdn - справочная инфо
-    <body>
-    <h1> Заголовок </h1>
-    <p id='name of id'> Текст </p> арибут id, чтобы переходить сюда по ссылке
-    <br/> перенос строки
-    <strong></strong>, <b> Жирный текст </b>
-    <em> курсив </em>, <i>
-    <blockquote>, <q> - длинные цытаты(обычно с отступами по краям), короткие
-        (обычно в каввычках). Может указываться cite="http://www..."
-    <hr> - горизонтальная черта
-    <abbr title='значение'>КПСС</abbr> - всплывающая подсказка на аббревиатуру
-    <address> - отображается курсивом
-    <cite>, <dfn> - ссылка на что-то, определение
-    <a href="ссылка"> например ролик </a> - надпись отобразится на странице
-      атрибут target="_blank" - чтобы ссылка открывалась в новом окне
-    <a href="#name of id" Якорь на параграф name of id</a>
-    <mark> - выделение текста
-    <del> - перечёркивание
-    <ins> - подчёркивание
-    <sub> - написать в нижнеь индексе
-    <sup> - в верхнем индексе
-    <bdo dir="rtl">текст справо на лево
+  <section id="s2"><h3>Горячие клавиши для vs code:</h3>
+    Live Server (Five Server) - (расширение)обновление стр. автоматом<br>
+    Emmet Abbreviation - (расширение)автоподстановка<br>
+    ! + Tab - создать базовый документ<br>
+    lorem10 - десять слов (рыба)<br>
+    .name + Tab - div  с классом name <br>
+    #name + Tab - div  с id="name" <br><br>
+    Ctrl + Shift + P - палитра команд<br>
+    Wrap with Abbrreviation - выбрать команду, тег в который нужно обернуть код<br>
+    Ctrl + F - строка поиска<br>
+    Ctrl + Shift + L - выделить выбр.знач; закр строку поиска;удалять или изменять <br>
+    Ctrl + Shift + K - удалить выбранные строки <br>
+    Ctrl + L - удалить строку со всем содержимым <br>
+    Ctrl + Z - отменить действие<br>
+    Ctrl + / - закоментировать (&lt;!--  --&gt;)<br>
+    Ctrl + (+-)(0) - увеличить массштаб (вернуть по умолчанию) <br>
+    Ctrl + [(]) - сдвигать выделенный блок <br>
 
-    Атрибуты:
-    align
-    valign
-    background
-    id
-    class
-    width
-    height
-    title
+    Alt + Z - сделать текст читабельным <br>
+    Alt + стрелка вверх(вниз) - переместить выбранную строку, блок <br>
+  </section>
 
-      <ul> - вложеные элементы будут с точками
-      <ol> - нумерация цифрами
-        <li>Элемент списка </li>
-        <li>Другой элемент списка </li>
-        <li> <a href='https://ya.ru">Yandex</a> ссылка на главную стр </li>
-      </ul>
-      
-      <table border="1">     - создание талбицы с рамкой
-      border="" - рамка
-      sellspacing="" - расстояние между блоками
-        <thead>   - шапка
-          <tr>    - строка (table row)
-            <th>Наименование фрукта</th> (жирно)
-            <th>Количество</th>
-          </tr>
-        </thead>
-        <tbody>  - тело
-          <tr>
-            <td>Яблоко</td> (table data)
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>Апельсин</td>
-            <td>3</td>
-          </tr>
-            
-        </tbody>
-        <tfoot>  - низ таблицы
-          <tr>
-            <td colspan="2">Итог: 5</td> - строка захватывает вторую колонку
-          </tr>
-        </tfoot>
-      </table>
-      <hr>
+  <section id="s3">
+    <h3>Элементы разметки, теги:</h3>
+    <p><a href="https://www.schoolsw3.com/tags/index.php" rel="noopener" target="_blank">Справочник элементов</a> - Список всех элементов на сайте schoolsw3.com</p>
+    Теги: html, head, meta, title, link, script, body, div<br>
+    &lt;header&gt;<br>
+    &lt;nav&gt;<br>
+    &lt;article&gt;<br>
+    &lt;section&gt;<br>
+    &lt;aside&gt;<br>
+    &lt;footer&gt;<br>
+    &lt;details&gt;&lt;summary&gt;What&lt;summary&gt; // разместить инфо, открывающееся по требованию<br>
+    Some Info&lt;details&gt;<br>
+    <details><summary>What</summary>Some Info</details><br>
+    &lt;h1&gt; -Заголовки ( h1-h6)<br>
+    &lt;p&gt; - параграф<br>
+    &lt;a&gt; - ссылка атрибуты="" (href, target, title)<br>
+    &lt;img&gt; - картинка атрибуты="" (src, alt, title, border, widh, height, hspace, vspace)<br>
+    &lt;picture&gt; - Image with semantic description<br>
+    &lt;figure&gt;&lt;figcaption&gt;Simple description&lt;/figcaption&gt;&lt;/figure&gt;<br>
+    &lt;br&gt; - перенос строки<br>
+    &lt;hr&gt; - горизонтальная линия<br>
+    &lt;pre&gt; - предварительно отформатированый текст<br>
+    &lt;code&gt;<br>
+    &lt;strong&gt;, &lt;b&gt; - семантическое знач "важности" и просто жирный<br>
+    &lt;em&gt;, &lt;i&gt;<br> - наклонный "важно" и курсив для слова
+    &lt;blockquote&gt;, &lt;q&gt; - текст с отступом;  добавили двойные ковычки<br>
+    &lt;abbr title="компартия"&gt;КПСС&lt;/abbr&gt; - абревиатура<br>
+    &lt;address&gt; - отображается курсивом<br>
+    &lt;cite&gt;, &lt;dfn&gt; - ссылка на что-то, определение <br>
+    &lt;mark&gt; - выделение текста цветом<br>
+    &lt;del&gt; - перечёркивание<br>
+    &lt;ins&gt; - подчёркивание<br>
+    &lt;sub&gt; - написать в нижнем регистре<br>
+    &lt;sup&gt; - написать в верхнем регистре<br>
+    &lt;bdo dir="rtl"&gt; - текст справо на лево(right to left)<br>
+    &lt;var&gt; - выделить переменную<br>
+  </section>
 
-    <div class="contact">
-      <h2>Связаться со мной</h2>
-      
-      <form action="/"> - action вернёт на домашнюю страницу
-        <div class="form-group" 
-        <label for="name">Ваше имя:</label>
-        <input type="text" id="name" placeholer="Введите имя..">
-        </div>
+  <section id="s4">
+    <h3>Атрибуты:</h3>
+    <p><a href="https://www.schoolsw3.com/tags/ref_attributes.php" rel="noopener" target="_blank">Список стандартных атрибутов</a> - на сайте schoolsw3.com</p>
+    class, id, href, src, style, title, target, border, width, height<br>
+    <pre>&lt;h1 style="font-family: sans-serif; font-size 20px"&gt;Hello!&lt;/h1&gt;</pre>
+  </section>
 
-        <div class="form-group" 
-        <label for="email">Ваш email:</label>
-        <input type="text" id="email" placeholer="Введите email..">    
-        </div>
+  <section id="s5">
+    <h3>Ссылки:</h3>
+    &lt;a <b>href</b>="url" (абсолютный, относительный (внутри сайта), #имя (ссылка по id)) <b>target</b>="_self"(_blank, _parent, _top) <b>title</b>="описание при наведении" &gt;<br>
+    <pre>Ссылка по картинке:<br>&lt;a href='#'&gt;&lt;img src="smile.png" alt="smile" style="width:40px; height:40px;"&lt;/a&gt;</pre>
+    <pre>ССылка, чтобы отправить электронную почту:<br>&lt;a href="mailto:someone@mail.ru"&gt; Send &lt;a&gt;</pre>
+    Ссылка может быть декорирована под кнопку, изменены стили с помощью псевдо классов (:link, :hover, :active, :visited)
+  </section>
 
-        <div class="form-group"
-        <label for="text">Ваше сообщение:</label>
-        <textarea id="text" rows="2" cols="15"></textarea>
-        </div>
-    </div>
-      </form>
-    </body>
-      
-    Bootstrap - стили для создания сайтов
-    копируем ссылку link в <head> - подключаются стили CSS
+  <section id="s6">
+    <h3>Изображения:</h3>
+    Технически <b>тег &lt;img&gt;</b> - создаёт удерживающее пространство.<br>
+    атрибуты <b>src</b> и <b>alt</b> - обязательные (путь и альтернативный текст)<br>
+    нужно указывать ширину и высоту для правильной загрузки width="40px" height="40px"<br>
+    предпочтительней с атрибутом style="width:40px;height:40px;"<br>
+    <pre>изображение ссылка:
+  &lt;a href="#"&gt;&lt;img src="smile.gif" alt="smile"&gt;&lt;/a&gt;
+    </pre> 
+    style="float: right;"(left) - внутри параграфа картика справа (слева)<br>
+    align="bottom"(left, middle, right, top)<br>
+    border="0" - без рамки <br>
+    width, height, hspace, vspace - ширина, высоста, отступ гориз, верт.<br><br>
+    APNG (.apng) - анимированая портативная сетевая графика<br>
+    GIF (.gif) - формат обмена графическими данными<br>
+    ICO (.ico, .cur) - Microsoft значок<br>
+    JPEG (.jpg, .jpeg, .jfif, .pjpeg, .pjp) - фото изображение<br>
+    PNG (.png) - переносимая сетевая графика<br>
+    SVG (.svg) - масштабируемая векторная графика<br><br>
 
-    </head>
-    <body>
-    div.container Tab - 
+    <b>&lt;map&gt;</b> определяет изображение-карту. (с кликабельными областями)<br>
+    <b>&lt;area></b> - определяет активную область внутри изображения<br>
+    <b>&lt; picture></b> - определяет контейнер для нескольких ресурсов<br><br>
+  <pre>В &lt;img&gt; добавляется атрибут <b>usemap</b>="#workmap" с # и именем карты.
+  &lt;map name="workmap">
+    &lt;area shape="rect" coords="34, 44,234,350" alt="Деталь" href="url">
+    &lt;area shape="circle" coords="300, 400, 50" onclick="myFunction()">
+  &lt;/map>
+  &lt;script>
+    function myFunction() {alert("текст при клике на указаный участок");}
+  &lt;/script>
+  </pre>
+  атрибут shape:<br>
+  "rect" - прямоугольник, coords - x,y - верхний левый угол и нижний правый<br>
+  "curcle" - круг, coords - x,y - центр круга, радиус в px<br>
+  "poly" - полигональная область (много точек) coords="x,y,x,y,x,y"<br>
+  "default" -  вся область<br><br>
+  <pre>Фоновое изображение на странице:
+  &lt;style>
+    body {background-image: url('img/home.png')}
+  &lt;/style>
+  </pre>
+  Элемент <b>&lt;picture></b> содержит ряд элементов <b>&lt;source></b>  и последнии элеметн <b>&lt;img></b>. Выводится изображение, которое соовтвтствует условию или последнее.
+  <pre>
+  &lt;picture>
+    &lt;source media="(min-width: 650px)" srcset="img_food.jpg">
+    &lt;source media="(min-width: 450px)" srcset="img_car.jpg">
+    &lt;img src="img_girl.jpg">
+  &lt;/picture>
+  </pre>
+  </section>
 
+  <section id="s7">
+    <h3>Цвета:</h3>
+    RGB(255,127,0) - Red, Green, Blue (100%, 50%, 0%)<br>
+    #FF0000 - шестнадцатиричное значение (HEX)<br>
+  </section>
 
+  <section id="s8">
+    <h3>Таблицы:</h3>
+    <b>&lt;caption></b> - Название таблицы. Располагается внутри table.<br>
+    <b>&lt;table></b> - контейнер для элементов табл.<br>
+    <b>&lt;tr></b> - table row - вмещает содержимое строки<br>
+    <b>&lt;th></b> - table heading - ячейка заголовка табл.(жирно и по центру)<br>
+    <b>&lt;td></b> - table data - обычная ячейка(текст, числа, картинки..)<br>
+    <pre>По умолчанию без границ. 
+  table, th, td {border: 1px solid black;}
+  table {border-collapse: collapse;} - убрать двойную рамку
+    </pre>
+    <b>colspan="2"</b> - атрибут td(th) - захватывает ячейки по горизонтали<br>
+    <b>rowspan="2"</b> - атрибут td(th) - захватывает ячейки по вертикали<br>
+    <b>align="left | center | right"</b> - выравнивание для таблицы (обтекание)<br>
+    <b>valigh="top | middle | bottom"</b> - выравнивание внутри ячеек<br>
+    <b>bgcolor="color"</b> - цвет фона<br>
+    <b>border, width, tabindex="1"</b>  ..перключение между элементами<br>
+    CSS: td {width: 100%; padding: 15px; text-align: left;}<br>
+    table {border-spacing: 5px;} - между ячейками<br> 
+    tr:nth-child(even) {background-color: #ddd;} - чётные строки<br>
+    <b>&lt;thead></b> - верхняя часть таблицы<br>
+    <b>&lt;tbody></b> - тело. Может быть несколько.<br>
+    <b>&lt;tfoot></b> - нижняя часть табл. В коде надо распологать после thead. В длинных таблицах thead and tfoot выводятся сразу; tbody может прокручиватся.<br>
 
-    <button class="btn"> - внутри  открывающего тега button есть атрибут -
-    class  и его значение
+  <section id="s9">
+    <h3>Списки:</h3>
+    <b>&lt;ol></b> - ordered list(нумерованный) - &lt;li> порядковые номера (буквы)<br>
+    type="A | a | I | i | 1" (прописные лат|строчные|большие римск|маленькие|цыфры)<br>
+    style="list-style-type:lower-roman"(lower-alpha, upper-alpha, upper-roman)<br>
+    start="7" - начать с номера 7<br>
+    value="7" - атрибут &lt;li> - порядковый номер 7, сдедуюций 8<br><br>
+    <b>&lt;ul></b> - unordered list(маркированный) - &lt;li> маркеры<br>
+    style="list-style-type:disc"(circle, square, none)<br>
+    style="list-style-image: url(img/star.png);"
+<pre><ul><li>Monday<ol><li>One</li><li>Two</li></ol></li><li>Tusday</li></ul></pre>
+    <b>&lt;dl></b> - definition list - состоит из пар имя/значение<br>
+    <b>&lt;dt></b> - definition term<br>
+    <b>&lt;dd></b> - definition description<br>
+<pre><dl><dt>Первый термин:</dt><dd>Описание первого термина</dd><dt>Второй:</dt><dd>Описание</dd></dl></pre>
+  </section>
 
-    <img src="img.jpg" class="rounded-img" alt="My photo" /> - атрибут src -
-    название картинки, атрибут class - стиль, alt - описание для изображения
+  <section id="s10">
+    <h3>Формы:</h3>
+    <b>&lt;form></b> - для отправки на сервер исп кнопка &lt;Submit> или нажать клавишу &lt;Enter> в пределах формы<br>
+    action - содержит url на который инфа будет отправлена<br>
+    method="get" (post) - метод HTTP, который будет использован<br><br>
 
-    <input type="text" list="techs" />
-    <datalist id="tichs">
-        <option value="HTML"></option>
-        <option value="CSS"></option>
-        <option value="JavaSrcipt"></option>
-    </datalist>  - в окне input появится стреловка и возможность выбрать.
+    <b>&lt;fieldset></b> - создаст рамку вокруг элементов<br>
+    <b>&lt;legend></b> - надпись на рамке<br><br>
 
-    <p>H<sub>2</sub>O</p> ... формула воды
-    <p>E=MC<sup>2</sup>2</p> ... возвели в квадрат
+    &lt;<b>label</b> for="name">Название&lt;/label><br>
+    <b>&lt;input></b> - создаёт поля ввода. Атрибуты:<br>
+    type="text" (radio - надо выбрать одну опцию (checked), checkbox - можно выбрать несколько опций, number - появятся стрелочки больше меньше, color - выбрать цвет, date - выбрать дату (можно "сегодя"), range - шкала (min='' max=''), кнопки: submit - отправить, reset - очистить форму, button - просто кнопка)<br>
+    id="name" - должно соответствовать значению for в теге lable<br>
+    placeholder="text" - текст будет в окне до начала ввода<br>
+    value="text" - текст или удалить или писать после него<br>
+    tabindex="1" - для перемещений по окнам с помощью Tab<br><br>
 
-    <details>  ... по умолчанию появится "Сведения", добавить атрибут open и
-                          текст по умолчанию виден
-      <summary>Open?</summary>  ... так можно заменить фразу
-      <p>Some text</p>          ... любой текст (не виден по умолчанию)
-    </details></details> - модальное окно
-</body>
-</html>
+    <b>&lt;textarea></b> - поле для вода больших текстов<br>
+    cols="50" rows='15' - кол-во знаков и рядов видимых,<br>
+    readonly - запретить изменять текст<br><br>
+
+    <b>&lt;select></b> - раскрывающийся (выпадающий) список<br>
+    &lt;option> - значение для выбора, атрибут value для js<br>
+  </section>
+  </aside>
+</div>
+  <footer>
+    <h3 id="s15">Ссылки:</h3>
+    <p><a href="https://developer.mozilla.org/ru/" target="_blank" rel="noopener" >mdn</a> - documentation</p>
+    <p><a href="https://www.wm-school.ru/html/html_symbols.html" target="_blank" rel="noopener" >wm-shool.ru</a> - Символы</p>
+    <p><a href="https://www.wm-school.ru/html/default.html" target="_blank" rel="noopener" >wm-shool.ru</a> - Учебники;
+    <a href="https://www.schoolsw3.com/index.php" target="_blank" rel="noopener" >schoolsw3.com</a> - Учебники</p>
+    <p><a href="https://www.favicon.cc." target="_blank" rel="noopener">favicon.cc.</a> - Нарисовать свой значок</p>
+  </footer>
+</div>

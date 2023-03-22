@@ -78,7 +78,7 @@ text-indent: 20px;
 
 .theme {text-align: center;}
 
-/* English book */
+/* Books in English */
 article h1 {text-align: center;}
 
 .text {text-indent: 20px;}
@@ -102,4 +102,5 @@ article h1 {text-align: center;}
 
 .born {text-align: center;}
 
-.char {font-style: italic; font-weight: bold;}
+.char {font-style: italic; font-weight: bold;
+text-decoration: underline;}

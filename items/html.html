@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="cont">
-<nav class="nav" id="s0">
+<nav class="nav">
   <a href="../index.html"><img src="../img/icon-home.png" alt="home"></a>
   <a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a>
 </nav>
@@ -30,8 +30,8 @@
 <p><a href="#s15">Ссылки</a></p>
   </aside>
 <!-- Правая панель -->
-  <aside class="right">
-  <h1 align="center">HTML</h1>
+  <aside class="right"><h1 align="center" id="s0">HTML</h1>
+  <h3 align="center">Hyper Text Markup Language</h3>
 
   <section id="s1"><h3>Базовый документ.</h3>
     &lt;!DOCTYPE html&gt; - декларация использования HTML 5<br>&lt;html lang="en"&gt;<br>&lt;head&gt;<br>&nbsp;&nbsp;&lt; meta charset="UTF-8"&gt;<br>&nbsp;&nbsp;&lt;meta&gt;<br>&nbsp;&nbsp;&lt;meta&gt;<br>&nbsp;&nbsp;&lt;title&gt;Name of page&lt;/title&gt;<br>&nbsp;&nbsp;&lt;
@@ -41,7 +41,8 @@
     Между амперсандом и точкой с зпт. вводится имя спецсимвола или его числовой код в десятичной системе или шестнадцатиричной. Например: &amp; lt; или &amp; #60; или &amp; #x0003C; - знак меньше.<br>
     &amp; lt; &amp; gt; - угловые скобки -  #60, #62<br>
     &amp; nbsp; - неразрывный пробел - #160<br>
-    &amp; amp; - амперсанд - #38
+    &amp; amp; - амперсанд - #38<br>
+    &deg; - градус<br>
     <p><a href="https://www.wm-school.ru/html/html_symbols.html" target="_blank" rel="noopener" >wm-shool.ru</a> - Символы</p>
   </section>
 
@@ -50,6 +51,7 @@
     Emmet Abbreviation - (расширение)автоподстановка<br>
     ! + Tab - создать базовый документ<br>
     lorem10 - десять слов (рыба)<br>
+    . (+Tab) ... &lt;div class=""&gt;&lt;/div><br>
     .name + Tab - div  с классом name <br>
     #name + Tab - div  с id="name" <br><br>
     Ctrl + Shift + P - палитра команд<br>
@@ -61,7 +63,7 @@
     Ctrl + Z - отменить действие<br>
     Ctrl + / - закоментировать (&lt;!--  --&gt;)<br>
     Ctrl + (+-)(0) - увеличить массштаб (вернуть по умолчанию) <br>
-    Ctrl + [(]) - сдвигать выделенный блок <br>
+    Ctrl + [(]) - сдвигать выделенный блок <br><br>
 
     Alt + Z - сделать текст читабельным <br>
     Alt + стрелка вверх(вниз) - переместить выбранную строку, блок <br>
@@ -221,6 +223,27 @@
 
   <section id="s10">
     <h3>Формы:</h3>
+    <b>&lt;form></b> - для отправки на сервер исп кнопка &lt;Submit> или нажать клавишу &lt;Enter> в пределах формы<br>
+    action - содержит url на который инфа будет отправлена<br>
+    method="get" (post) - метод HTTP, который будет использован<br><br>
+
+    <b>&lt;fieldset></b> - создаст рамку вокруг элементов<br>
+    <b>&lt;legend></b> - надпись на рамке<br><br>
+
+    &lt;<b>label</b> for="name">Название&lt;/label><br>
+    <b>&lt;input></b> - создаёт поля ввода. Атрибуты:<br>
+    type="text" (radio - надо выбрать одну опцию (checked), checkbox - можно выбрать несколько опций, number - появятся стрелочки больше меньше, color - выбрать цвет, date - выбрать дату (можно "сегодя"), range - шкала (min='' max=''), кнопки: submit - отправить, reset - очистить форму, button - просто кнопка)<br>
+    id="name" - должно соответствовать значению for в теге lable<br>
+    placeholder="text" - текст будет в окне до начала ввода<br>
+    value="text" - текст или удалить или писать после него<br>
+    tabindex="1" - для перемещений по окнам с помощью Tab<br><br>
+
+    <b>&lt;textarea></b> - поле для вода больших текстов<br>
+    cols="50" rows='15' - кол-во знаков и рядов видимых,<br>
+    readonly - запретить изменять текст<br><br>
+
+    <b>&lt;select></b> - раскрывающийся (выпадающий) список<br>
+    &lt;option> - значение для выбора, атрибут value для js<br>
   </section>
   </aside>
 </div>

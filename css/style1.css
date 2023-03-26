@@ -16,7 +16,7 @@ body {
 
 nav {
   position: fixed;
-  left: 17%;
+  left: 16%;
   margin: 0 auto;  
   /* max-width: 700px; */
   border-radius: 30px;
@@ -38,6 +38,13 @@ nav li {
 nav img {
   width: 40px;
   opacity: 0.7;
+}
+
+img[alt="arrow-top"] {
+  width: 40px;
+  position: fixed;
+  right: 0;
+  bottom: 1em;
 }
 
 .left_right {
@@ -69,11 +76,4 @@ footer {
   border: 1px solid black;
   margin: 15px;
   padding: 15px;
-}
-
-img[alt="arrow-top"] {
-  width: 40px;
-  position: fixed;
-  right: 0;
-  bottom: 1em;
 }

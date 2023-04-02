@@ -1,13 +1,10 @@
-/* стили шрифта 'Roboto' */
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
 body {
     margin: auto;
     background-color: #f1f1f1;
     color: #0f141e;
     font-size: 16px;
     font-weight: normal;
-    font-family: 'Roboto', sans-serif;
+    font-family: sans-serif;
 }
 
 /* Для домашней страницы */

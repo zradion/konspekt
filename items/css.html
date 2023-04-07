@@ -9,13 +9,11 @@
 </head>
 <body>
 <div class="cont">
-  <nav class="nav">
-    <a href="../index.html"><img src="../img/icon-home.png" alt="home"></a>
-    <a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a>
-  </nav>
   <div class="left_right">
 
   <aside class="left">
+    <p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
+    <p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
     <p><a href="#s1">Горячие клавиши<br>shortcuts</a></p>
     <p><a href="#s2">Селекторы</a></p>
     <p><a href="#s3">Цвет<br>color</a></p>
@@ -69,6 +67,7 @@ a[href$=".jpg"] {color: blue} - ссылка заканчивается на .jp
 [title*="брауз"] {} - для элементов у которых атрибут title содержит часть фразы "брауз"<br>
 div p - для всех p вложеных в div<br>
 div > p - только для дочерних p<br>
+h1 ~ p - для всех сестринских p<br>
 div p + span - для span, который идёт после тега p<br>
 .item.selected {} - в классе item к элементу добавляем ещё класс (расширение)<br>
 
@@ -153,6 +152,7 @@ width, height могут иметь значения auto, length (px  и др),
 общая ширина = width + padding + border<br>
 <i>max-width</i> - максимальная ширина элемента<br>
 <i>min-width</i> - при уменьшении окна появится горизонтальная прокрутка.<br>
+<i>@media screen and (min-width: 1200px) {}</i> - адаптивная настройка (медиа запрос) ширины контента для ПК.<br>
   </section>
 
   <section id="s8"><h3>Текст, шрифт:</h3>
@@ -230,6 +230,7 @@ margin:0; padding:0; - удалить поля и отступы добавле�
   <section id="s12"><h3>Display:</h3>
 <i>display: none;</i> - удалить. (block, inline)<br>
 <i>visibility: hidden;</i> - скрыть.<br>
+<i>display: flex;</i>
   </section>
 
   <section id="s13"><h3>Position:</h3>
@@ -243,12 +244,21 @@ margin:0; padding:0; - удалить поля и отступы добавле�
 <i>clip: auto; (shape, initial, inherit)</i><br>
 <i>position: absolute;</i><br>
 <i>clip: rect(0px, 60px, 200px, 0px)</i> - обрезать (верх,справа,низ,лево), (не работает если overflow:visible)<br>
+<i>z-index: -1;</i> - работает с позиционируемыми элементами.<br>
   </section>
 
   <section id="s14"><h3>Overflow:</h3>
+Работает для блочных элементов с заданной высотой.<br>
+<i>overflow: visible;</i> (hidden, scroll, auto)<br>
+<i>overflow-x; overflow-y</i>
   </section>
 
-  <section id="s15"><h3>Float:</h3>
+  <section id="s15"><h3>Float, clear:</h3>
+<i>float: left;</i> (right, none)<br>
+<i>clear: none;</i> (left, right, both, inherit)<br>
+картинка и текст внутри div:<br>
+ <i>div {overflow: auto;}</i><br>
+ <i>img {float: right;}</i><br>
   </section>
 
   <section id="s16"><h3>Анимация:</h3>
@@ -258,9 +268,10 @@ margin:0; padding:0; - удалить поля и отступы добавле�
 
   <footer>
     <h3 id="s20">Ссылки:</h3>
-    <p><a href="https://developer.mozilla.org/ru/" target="_blank"  rel="noopener" >mdn</a> - documentation</p>
-    <p><a href="https://www.wm-school.ru/css-tasks/exercise1.php?filename=exercise_select1" target="_blank" rel="noopener" >wm-shool.ru</a> - Учебники;
-      <a href="https://www.schoolsw3.com/css/index.php" target="_blank" rel="noopener" >schoolsw3.com</a> - Учебники</p>
+<p><a href="https://developer.mozilla.org/ru/" target="_blank"  rel="noopener" >mdn</a> - documentation</p>
+<p><a href="https://www.wm-school.ru/css-tasks/exercise1.php?filename=exercise_select1" target="_blank" rel="noopener" >wm-shool.ru</a> - Учебники;
+<a href="https://www.schoolsw3.com/css/index.php" target="_blank" rel="noopener" >schoolsw3.com</a> - Учебники</p>
+<p><a href="https://fontawesome.ru/" target="_blank"  rel="noopener" >mdn</a> - Font Awesome(иконки)</p>
   </footer>
 </div>
 </body>

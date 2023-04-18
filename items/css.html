@@ -17,7 +17,7 @@
     <p><a href="#s1">Горячие клавиши<br>shortcuts</a></p>
     <p><a href="#s2">Селекторы</a></p>
     <p><a href="#s3">Цвет<br>color</a></p>
-    <p><a href="#s4">Фон<br>background</a></p>
+    <p><a href="#s4">Фон, градиент<br>background</a></p>
     <p><a href="#s5">Граница, контур<br>border, outline</a></p>
     <p><a href="#s6">Margin, padding</a></p>
     <p><a href="#s7">Ширина, высота<br>width, height</a></p>
@@ -29,7 +29,8 @@
     <p><a href="#s13">Position</a></p>
     <p><a href="#s14">Overflow</a></p>
     <p><a href="#s15">Float</a></p>
-    <p><a href="#s16">Анимация</a></p>
+    <p><a href="#s16">Трансформация, Анимация</a></p>
+    <p><a href="#s17">Переменные</a></p>
     <p><a href="#s20">Ссылки</a></p>
   </aside>
 
@@ -114,12 +115,27 @@ hsla(9, 100%, 100%, 0.5) - Tomato, прозрачность 50%<br>
 <i>background-position</i>: 10px 25px; - от левого края 10 сверху 25<br>
 <i>background-origin</i>: padding-box; (border-box, content-box)<br>
 <i>background-clip</i>: padding-box; (border-box, content-box)<br>
-<i>background-attachment</i>: scroll; (fixed, local)
-<ul><li>Порядок при записи в одну строку: 
-<ul><li>background-color</li><li>background-image</li><li>background-repeat</li><li>background-attachment</li><li>background-position</li></ul>
-</li></ul>
-background: linear-gradient(90deg(to bottom,to top), black, white) - изм цвета<br>
-background: radial-gradient()<br>
+<i>background-attachment</i>: scroll; (fixed, local)<br>
+Порядок при записи в одну строку: <br>
+background-color, background-image, background-repeat, background-attachment, background-position
+<h3>Градиент:</h3>
+background: #ddd; - сначала для браузеров не поддерживающих градиенты.<br>
+background: linear-gradient(90deg(to bottom,to top), start color, last color) - изм цвета<br>
+<i>linear-gradient(red, yellow)</i> - переход от красного к желтому сверху вниз.<br>
+<i>linear-gradient(to right, red, yellow);</i> - слева направо.<br>
+<i>linear-gradient(to bottom right, red, yellow);</i> - верх лев к низ прав.<br>
+можно задавать несколько цветов и под углом.<br>
+<i>repeating-linear-gradient(45deg, red, yellow 7%, green 10%);</i> - повторяющийся градиент с неравномерным распостранением.<br><br>
+
+<i>background: radial-gradient(размер фигуры в позиции, start, last);</i> - по умолчанию эллипс, размер - самый дальний угол, позиция - центр.<br>
+<i>radial-gradient(closest-side at 60% 55%, red, black);</i> - размер градиента<br>
+<i>farthest-side</i>(самая дальняя сторона)<br>
+<i>closest-coner</i>(ближайший угол)<br>
+<i>farthest-coner</i>(самый дальний угол)<br>
+<i>repeating-radial-gradient()</i><br><br>
+
+<i>background-image: conic-gradient([from angle] [at position,] color [degree], color [degree], ...);</i> - конический градиент (вокруг центра)<br>
+для создания круговых диаграмм добаввим border-radius: 50%; для цветов задаём начало и конец.<br>
 
   <section id="s5"><h3>Граница, контур (border, outline):</h3>
 <i>border-style</i>: solid; (dotted, dashed, double, groove, ridge, inset, outset, none, hidden)<br>
@@ -128,13 +144,14 @@ background: radial-gradient()<br>
 <i>border-color</i>: black;(rgb, hex, hsl, transporent) - тоже до четырёх значений<br>
 <i>border-top-style, border-right-stile, border-bottom-style, border-left-style</i><br><br>
 <code>border-style: dotted solid;</code> - границы верх и низ, право и лево.<br>
-<code>border-bottom: 5px solid red;</code> - нижняя граница (width style color).<br>
-<code>border-radius: 5px;</code> - закругление<br><br>
+<code>border-bottom: 5px solid red;</code> - нижняя граница (width style color).<br><br>
+<i>border-radius:</i> px | % - закругление границ.<br>
+Одно или четыре знач. - все углы (с верхн лев), два - углы по диогонали, три - верх лев, следующий и подиогонали, прав нижн.<br><br>
 
 <i>outline</i> - рисуется за пределами границы элемента и не связан с общей шириной.<br>
 Св-ва: outline-style, outline-color, outline-width, outline-offset (добавляет пробел между контуром и границей), outline<br>
 <code>p {margin: 30px; border: 1px solid black; outline: 1px solid red;<br>
-outline-offset: 15px;</code>
+outline-offset: 15px;</code><br>
   </section>
 
   <section id="s6"><h3>Margin, padding:</h3>
@@ -175,8 +192,13 @@ width, height могут иметь значения auto, length (px  и др),
 <i>letter-spacing:</i> 5px; - расстояние между знаками.<br>
 <i>word-spacing:</i> 10px; - расстояние между словами.<br>
 <i>line-height:</i> 5px; - интерлиньяж (межстрочный).<br>
-<i>text-shadow:</i> 2px 3px 4px #4c7; (X, Y, радиус размытия, цвет) можно несколько теней в строке.<br>
-<i>direction:</i> ltr; (rtl, inherit) - направление текста.<br>
+<i>text-shadow:</i> 2px 3px 4px #4c7; (X, Y, радиус размытия, цвет) можно несколько теней в строке через зпт.<br>
+<i>direction:</i> ltr; (rtl, inherit) - направление текста.<br><br>
+<i>white-space: normal;</i> - (nowrap, pre, pre-wrap, pre-line, break-spaces)<br>
+<i>word-wrap: break-word;</i> - позволяет длинным словам переносится<br>
+<i>word-break: keep-all;</i> - (break-all) - какие-то правила, без правил.<br>
+<i>text-overflow: clip;</i> - (ellipsis) - обрезается или троеточие.<br>
+<i>writing-mode: horizontal-tb;</i> - (vertical-rl) - 
   </section>
 
   <section id="s9"><h3>Ссылка:</h3>
@@ -257,11 +279,63 @@ margin:0; padding:0; - удалить поля и отступы добавле�
 <i>float: left;</i> (right, none)<br>
 <i>clear: none;</i> (left, right, both, inherit)<br>
 картинка и текст внутри div:<br>
- <i>div {overflow: auto;}</i><br>
- <i>img {float: right;}</i><br>
+<i>div {overflow: auto;}</i><br>
+<i>img {float: right;}</i><br>
   </section>
 
-  <section id="s16"><h3>Анимация:</h3>
+  <section id="s16"><h3>Трансформация, Анимация:</h3>
+<b>CSS 2D Трансформация.</b><br>
+<i>transform: none;</i> (translate(), translateX(), translateY(), rotate(), scaleX(), scaleY(), scale(), skewX(), skewY(), skew(), matrix())<br>
+<i>translate(50px, 50%);</i> - перемещает по оси Х и У<br>
+<i>rotate(20deg);</i> - поворачивает<br>
+<i>scale(2);</i> - увеличит в два раза.<br>
+<i>skew(20deg, 10deg);</i> - наклоняет по осям X и Y<br>
+<i>matrix(1, -0.3, 0, 1, 0, 0);</i> - принимает шесть параметров (scaleX(), ckewY(), skewX(), scaleY(), translateX(), translateY())<br><br>
+
+<b>CSS3 3D Трансформация.</b><br>
+<i>transform: none;</i><br>
+<i>matrix3d()</i> - 16 значений (matrix 4 &#10006; 4)<br>
+<i>translate3d(x,y,z)</i> - translateX(), translateY(), translateZ()<br>
+<i>scale3d(x,y,z)</i> - scaleX(), scaleY(), scaleZ()<br>
+<i>rotate3d(x,y,z,angle)</i> - rotateX(), rotateY(),rotateZ()<br>
+<i>perspective(n)</i><br><br>
+
+<b>CSS3 Переход.</b><br>
+transition, transition-delay, transition-duration, transition-property, transition-timing-function<br>
+Для эффекта перехода добавить в свойство эффект и длительность. Потом ещё свойство (изменённое напр. при наведении)<br>
+<i>transition: width 2s, height 4s;</i> - изменение двух свойств. (задать изменение свойств при наведении)<br>
+<i>transition-property: width;</i> - указать св-во отдельно.<br>
+<i>transition-duration: 1s;</i> - указать длительность.<br>
+<i>transition-timing-function: ease;</i> (linear, ease-in, ease-out, ease-in-out, cubic-bzier(n,n,n,n)) - кривая скорости эффекта.<br>
+<i>transition-delay: 1s;</i> - задержка.<br>
+<i>transition: width 2s, height 2s, transform 2s;</i> - добавили изменение (при наведении) ширины высоты и поворот.<br>
+(-webkit-transition:width 2s; /*Safari*/)<br><br>
+
+<b>CSS3 Анимации.</b><br>
+@keyframes, animation-name, animation-duration, animation-delay, animation-iteration-count, animation-direction: normal; (reverse, alternate, alternate-reverse), animation-timing-function: ease; (linear, ease-in, ease-out, ease-in-out, cubic-bezier(n,n,n,n)) - скорость воспроизведения, animation-fill-mode: none; (backwards, both, forwards) - стиль до или после анимации, animation<br><br>
+К свойствам элемента добавить имя, длительность анимации и кол-во повторов (infinite - вечно):<br>
+<i>animation-name: example;</i><br>
+<i>animation-duration: 4s;</i> затем:<br>
+<i>@keyframes example {</i><br>
+  &nbsp;&nbsp;&nbsp;<i>from { }</i><br>
+  &nbsp;&nbsp;&nbsp;<i>to { }</i> (или % от всего времени.)<br>
+}<br><br>
+
+<i>animation: example 5s linear 2s infinite alternate;</i> - имя длительность скорость задержка повтор направление<br>
+(@-webkit-keyframes - /*Safary*/)
+  </section>
+
+  <section id="s17"><h3>Переменные:</h3>
+<i>:root {--white: #fff; --blue: #190;}</i> - задать переменные с глобальной областью видимости.<br>
+Если задать внутри селектора, то переменная только в нём и будет видна.<br>
+<i>background: var(--white, value);</i> - применить переменную или значение по умолчанию.<br>
+&lt;script><br>
+<i>var r = document.querySelector(':root');</i> - корневой элемент.<br>
+<i>function myFunction_get() {</i> - ф-ция для получения значения переменной.<br>
+  &nbsp;&nbsp;&nbsp<i>var rs = getComutedstyle(r);</i> - получить стили  для root.<br>
+  &nbsp;&nbsp;&nbsp<i>alert("--blue равно - " + rs.getPropertyValue('--blue'));}</i><br>
+<i>functio myFunction_set() {</i> - ф-ция для установки значения переменной.<br>
+  &nbsp;&nbsp;&nbsp<i>r.style.setProperty('--blue', 'lightblue');}</i>
   </section>
   </aside>
   </div>

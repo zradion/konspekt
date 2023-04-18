@@ -4,13 +4,62 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/style1.css" />
     <title>JavaScript</title>
 </head>
 <body>
-    <nav class="nav">
-        <a href="../index.html"><img src="../img/icon-home.png" alt="home"></a>
-      </nav>
+<div class="cont">
+  <div class="left_right">
+      
+  <aside class="left">
+<p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
+<p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
+<p><a href="#s1"></a>Введение.</p>
+<p><a href="#s2"></a>Арифметика</p>
+<p><a href="#s3"></a></p>
+<p><a href="#s4"></a></p>
+<p><a href="#s5"></a></p>
+  </aside>
+      
+  <aside class="right"><h1 align="center" id="s0">JavaScript</h1>
 
+    <section id="s1"> <h3>Введение:</h3>
+<i>&lt;script src="myScript.js"> &lt;/script></i> - скрипт из внешнего файла<br>
+<i>innerHTML, document.write(), window.alert(), console.log </i>- используются  для вывода JS.<br>
+<i>window.print()</i> - вызов метода в браузере - распечатать текущее окно.<br>
+Код JavaScript - программа или список заявлений.<br>
+<i>break, continue, debugger, do ... while, for, function, if ... else, return, switch, try ... catch, var</i> - ключевые слова.<br>
+' // ', '/* ... */' - коментарий. (Ctrl + /)<br>
+Индетификаторы начинаются с буквы, (_) или ($).<br>
+<i>first_name, FirstName, firstName</i> - нижнее подчёркивание, регистр Паскаля, верблюжая нотация.<br>
+<i>var, let, const</i> - способы объявить переменную.<br>
+<i>var</i> можно переназначать и объявленная внутри блока будет видна и глобально. Переменные объяленные с помощью <i>var</i> являются подъёмными сверху (можно использовать до объявления).<br>
+<i>const</i> значение должно быть присвоено при объявлении. Видна только внутри блока (как и <i>let</i>).<br>
+    </section>
+
+    <section id="s2"><h3>Арифметика:</h3>
+(+, -, *, **, /, %, ++, --) - операторы.<br>
+(=, +=, -=, *=, /=, %=, **=) - операторы присвоения.<br>
+(==, ===, !=, !==, >, &lt;, >=, &lt;=, ?) - операторы сравнения.<br>
+(&&, ||, !) - логические операторы (возвращает true или false).<br>
+(typeof, instanceof) - операторы типов.<br>
+typeof возвращает string, number, boolean, underfined - примитивные типы.<br>
+function - функции, object - для объектов, массивов и нуля.<br>
+(&, |, ~, ^, &lt;&lt;, >>, >>>) - побитовые операторы.<br>
+x ** y == Math.pow(x,y)<br>
+var x = 123e5;  // 1230000 - экспоненциальная нотация<br>
+<i>undefine</i> - значение и тип не определён.<br>
+<i>null</i> - значит "ничего", тип - объект.<br>
+    </section>
+  </aside>
+</div>
+      
+  <footer>
+    <h3 id="s20">Ссылки:</h3>
+    <p><a href="https://developer.mozilla.org/ru/" target="_blank"  rel="noopener" >mdn</a> - documentation</p>
+    <p><a href="https://wm-school.ru/js/index.php" target="_blank" rel="noopener" >wm-shool.ru</a> - Учебники;
+    <a href="https://www.schoolsw3.com/js/index.php" target="_blank" rel="noopener" >schoolsw3.com</a> - Учебники</p>
+  </footer>
+</div>
 </body>
 </html>

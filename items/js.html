@@ -4,13 +4,101 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/style1.css" />
     <title>JavaScript</title>
 </head>
 <body>
-    <nav class="nav">
-        <a href="../index.html"><img src="../img/icon-home.png" alt="home"></a>
-      </nav>
+<div class="cont">
+  <div class="left_right">
+      
+  <aside class="left">
+<p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
+<p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
+<p><a href="#s1">Введение.</a></p>
+<p><a href="#s2">Арифметика.</a></p>
+<p><a href="#s3">Строки.</a></p>
+<p><a href="#s4">Числа.</a></p>
+<p><a href="#s5"></a></p>
+  </aside>
+      
+  <aside class="right"><h1 align="center" id="s0">JavaScript</h1>
 
+    <section id="s1"> <h3>Введение:</h3>
+<i>&lt;script defer src="myScript.js"> &lt;/script></i> - скрипт из внешнего файла, синхронное поведение (async - асинхронное).
+Скрипт будет выполняться после загрузки html.<br><br>
+<i>innerHTML, document.write(), window.alert(), console.log </i>- используются  для вывода JS.<br>
+<i>window.print()</i> - вызов метода в браузере - распечатать текущее окно.<br><br>
+Код JavaScript - программа или список заявлений.<br>
+<i>break, continue, debugger, do ... while, for, function, if ... else, return, switch, try ... catch, var</i> - ключевые слова.<br>
+' // ', '/* ... */' - коментарий. (Ctrl + /)<br>
+Индетификаторы начинаются с буквы, (_) или ($).<br>
+<i>first_name, FirstName, firstName</i> - нижнее подчёркивание, регистр Паскаля, верблюжая нотация.<br>
+<i>var, let, const</i> - способы объявить переменную.<br>
+<b>var</b> можно переназначать и объявленная внутри блока будет видна и глобально. Переменные объяленные с помощью <i>var</i> являются подъёмными сверху (можно использовать до объявления).<br>
+<b>const</b> значение должно быть присвоено при объявлении. Видна только внутри блока (как и <i>let</i>).<br>
+    </section>
+
+    <section id="s2"><h3>Арифметика:</h3>
+(+, -, *, **, /, %, ++, --) - операторы (..остаток от деления, инкремент, декремент).<br>
+(=, +=, -=, *=, /=, %=, **=) - операторы присвоения.<br>
+(==, ===, !=, !==, >, &lt;, >=, &lt;=, ?) - операторы сравнения.<br>
+(&&, ||, !) - логические операторы (возвращает true или false).<br>
+(typeof, instanceof) - операторы типов.<br>
+typeof возвращает string, number, boolean, underfined - примитивные типы.<br>
+function - функции, object - для объектов, массивов и нуля.<br>
+(&, |, ~, ^, &lt;&lt;, >>, >>>) - побитовые операторы.<br>
+x ** y == Math.pow(x,y)<br>
+var x = 123e5;  // 1230000 - экспоненциальная нотация<br>
+x.toFixed(2); - округлить до двух знаков.<br>
+<i>undefined</i> - значение и тип не определён.<br>
+<i>null</i> - значит "ничего", тип - объект.<br>
+    </section>
+
+    <section id="s3"><h3>Строки:</h3>
+var txt = "Dfdlsurty njsj"; var len = txt.length;<br><br>
+\ - escape, backslash - для экранирования спец символов и для разбиения длинной строки на части (но лучше использовать +).<br>
+Обратные ковычки - литералы шаблонов. Для определения строки, внутри можно использовать  как одинарные, так и двойные, допускают многострочные строки, способ интерполяции переменных и выражений в строки. <i>`${...}`</i>, а так же используются для создания шаблонов в html.<br><br>
+
+<i>length</i> - txt.length - кол-во символов.<br>
+<i>indexOf()</i> - txt.indexOf('sur', 5) - возвращает индекс первого вхождения (или -1). Второй параметр - начальная позиция.<br>
+<i>lastIndexOf()</i> - тоже, но с другого конца.<br>
+<i>search()</i> - возвращает индекс, нет второго параметра, может принимать регулярные выражения.<br>
+<i>slice(start, end)</i> - txt.slice(4, 7) - срез (вкл, невкл), с нулевого индекса, если отрицательные значения - с конца (-7, -4), если одно значение - от него до конца.<br>
+<i>substring(start, end)</i> - не может принимать отрицательные индексы.<br>
+<i>substr(start, length)</i> - второй параметр указываетт длину извлечённой части (без него - до конца).<br><br>
+
+<i>replace()</i> - var n = txt.replace('sur', 'boom');<br>
+Заменить совпадение (по умолчанию одно), не изменяет строку - возвращает новую, можно использовать регулярные выражения. (/SUR/i, 'boom') - не чувтвителен к регистру; (/sur/g, 'boom') - все совпадения.<br><br>
+
+<i>toUpperCase()</i> - txt.toLowerCase() -  в верхний регистр.<br>
+<i>toLowerCase()</i> - в нижний<br>
+<i>concat()</i> - txt1.concat(' ', txt2, " ", "more")<br>
+<i>trim()</i> - удаляет пробелы с двух сторон.<br><br>
+
+<i>charAt()</i> - txt.charAt(0); - вернёт символ по указаному индексу.<br>
+<i>charCodeAt()</i> - вернёт юникод символа (UTF-16).<br>
+txt[0]; - вернёт символ с индексом 0 (свойство).<br><br>
+
+txt.split(''); - строку в массив по символьно. Если не указать разделитель - вся строка будет с индексом 0. Не изменяет txt.<br><br>
+
+<i>string.match(regexp)</i> - 
+txt.match(/sur/g); - поиск с регулярным выражением, возвращает совпадения в виде массива или <i>null</i>.<br>
+<i>string.includes(searchvalue, start)</i> - возвращает булевое значение.<br>
+<i>string.startWith(searchvalue, start)</i> - булевое (start включено).<br>
+<i>string.endWith(searchvalue, length)</i> - булевое (кол-во символов от начала).<br>
+    </section>
+
+    <section id="s4"><h3>Числа:</h3>
+    </section>
+  </aside>
+</div>
+      
+  <footer>
+    <h3 id="s20">Ссылки:</h3>
+    <p><a href="https://developer.mozilla.org/ru/" target="_blank"  rel="noopener" >mdn</a> - documentation</p>
+    <p><a href="https://wm-school.ru/js/index.php" target="_blank" rel="noopener" >wm-shool.ru</a> - Учебники;
+    <a href="https://www.schoolsw3.com/js/index.php" target="_blank" rel="noopener" >schoolsw3.com</a> - Учебники</p>
+  </footer>
+</div>
 </body>
 </html>

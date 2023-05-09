@@ -42,12 +42,16 @@
     <section id="s2"> <h3>Числа:</h3>
 (+, -, *, **, /, %, ++, --) - операторы (..остаток от деления, инкремент, декремент).<br>
 (=, +=, -=, *=, /=, %=, **=) - операторы присвоения.<br>
-(==, ===, !=, !==, >, &lt;, >=, &lt;=, ?) - операторы сравнения.<br>
-(&&, ||, !) - логические операторы (возвращает true или false).<br>
+<b>false</b> - ноль, минус ноль, пустая строка, underfined, null, NaN and false.<br>
+(==, ===, !=, !==, >, &lt;, >=, &lt;=, ?) - операторы сравнения (возвр булевое знач).<br>
+(&&, ||, !) - логические операторы и, или, не (возвращает true или false).<br>
 (typeof, instanceof) - операторы типов.<br>
 typeof возвращает string, number, boolean, underfined - примитивные типы.<br>
 function - функции, object - для объектов, массивов и нуля.<br>
 (&, |, ~, ^, &lt;&lt;, >>, >>>) - побитовые операторы.<br><br>
+
+<b>Тернарный (условный) оператор.</b><br>
+var voteable = (age < 18) ? "Меньше 18" : "Больше 18"<br><br>
 
 <i>x ** y == Math.pow(x,y);</i> - x  в степени  y<br>
 <i>Math.PI;</i> - 3.141592653589793<br>
@@ -59,9 +63,16 @@ function - функции, object - для объектов, массивов и
 <i>Math.sin(x);</i> - синус от x в радианах.<br>
 <i>Math.sin(x * Math.PI / 180);</i> - x преобразовать из градусов в радианы.<br>
 <i>Math.abs(x);</i> - модуль от x;<br>
-<i>Math.min(); Math.max();</i> - поиск мин или макс знач в списке.<br>
+<i>Math.min(); Math.max();</i> - поиск мин или макс знач в списке.<br><br>
+
 <i>Math.random();</i> - случайное знач оот 0 до 1 (не вкл)<br>
-<i>Math.floor(Math.random() * i)</i> - случайное целое  значение от 0 до i.<br><br>
+<i>Math.floor(Math.random() * i);</i> - случайное целое  значение от 0 до i.<br>
+<i>Math.floor(Math.random() * i) + 1;</i> - случайное целое  значение от 1 до i.<br><br>
+function getRndInteger(min, max) {<br>
+  return Math.floor(Math.random() * (max - min) ) + min;} - от min(вкл) до max(не вкл)<br><br>
+function getRndInteger(min, max) {<br>
+  return Math.floor(Math.random() * (max - min + 1) ) + min;} от min до max (оба вкл)<br><br>
+
 <i>undefined</i> - значение и тип не определён.<br>
 <i>null</i> - значит "ничего", тип - объект.<br>
 var x = 123e5;  // 1230000 - экспоненциальная нотация<br>
@@ -205,18 +216,39 @@ var words = mix.filter((item) => typeof item === 'string' && isNaN(item));<br><b
 JS хранит время в милисекундах; 24часа = 86 400 000 милисек.<br>
 UTC (Universal Time Coordinated) == GMT (Greenwich Mean Time).<br>
 <i>var d = new Date()</i> ...Thu May 04 2023 17:32:56 GMT+0300 (Москва, стандартное время) - текущее время.<br>
-<i>var d = new Date(2023, 4, 5, 16, 18, 45, 0);</i> ...Fri May 05 2023 16:18:45 GMT+0300 (Москва, стандартное время) - установить время; одно число - милисекунды от начала эпохи (отрицательное знач - до начала эры); два - год и месяц (от 0); три, четыре, пять, шесть, семь - соответственно.<br><br>
-
-<i>var d = new Date("5 may 2023 11:00");</i> - в виде строки; в любом порядке, не чуствителен к регистру.<br>
-<i>d.getFullYear(); d.getMonth() + 1; d.getDate(); d.getHours(); d.getMinutes(); d.get.Seconds(); d.getTime(); - милисек от начала; d.getDay(); - день недели(0(Вск)-6); Date.now(); - ECMASript 5 (милисек)</i><br>
+<i> Date.now(); - ECMASript 5 (милисек от начала эпохи).</i><br>
+<i>d.getFullYear(); d.getMonth() + 1; d.getDate(); d.getHours(); d.getMinutes(); d.get.Seconds(); d.getTime(); - милисек от начала; d.getDay(); - день недели(0(Вск)-6);</i><br>
 <i>d.toString();</i> - так преобразуется по умолчанию (местное время).<br>
 <i>d.toUTCString();</i> - время UTC.<br>
 <i>d.toDateString();</i> - Fri May 05 2023.<br>
 <i>d.toISOString()</i> - 2023-05-05T13:54:24.674Z<br><br>
 
+<b>Установить время.</b><br>
+<i>var d = new Date(2023, 4, 5, 16, 18, 45, 0);</i> ...Fri May 05 2023 16:18:45 GMT+0300 (Москва, стандартное время) - семь чисел через зпт; если одно число - милисекунды от начала эпохи (отрицательное знач - до начала эпохи); два - год и месяц (от 0); три, четыре, пять, шесть, семь - соответственно.<br>
+<i>var d = new Date("5 may 2023 11:00");</i> - в виде строки; в любом порядке, не чуствителен к регистру.<br>
 <i>var d = new Date("2023-05-06T16:30:00Z");</i> - ISO Даты; время рзделяется T; Z - время UTC; чтобы изменить время относительно UTC Z заменить на +HH:MM или -HH:MM.<br>
 <i>var msec = Date.parse("1 jan 2023");</i> - кол-во милисек от начала эпохи.<br>
-<i>var d = new Date(msec);</i> - вернёт обратно дату.<br>
+<i>var d = new Date(msec);</i> - вернёт обратно дату.<br><br>
+
+<i>d.setFullYear(2023, 4, 9); </i> - установить год, месяц, день (или только год).<br>
+<i>d.setMonth(); d.setDate(); d.setHours(); d.setMinutes(); d.setSeconds()</i><br><br>
+
+<b>Сравнить время.</b><br>
+var d =  new Date(), d1 = new Date();<br>
+d1.setFullYear(2023, 4, 5);<br>
+
+if (d >= d1) {var text = 'Yes'}
+else {text = 'No'};<br>
+document.querySelector('#try').innerHTML = text;<br>
+      </section>
+
+      <section id="s6">
+
+      </section>
+
+      <section id="s7">
+        
+      </section>
   </aside>
 </div>
       

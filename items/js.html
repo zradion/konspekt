@@ -26,6 +26,8 @@
 <p><a href="#s10">Регулярные выражения.</a></p>
 <p><a href="#s11">Ошибки.</a></p>
 <p><a href="#s12">import, export.</a></p>
+<p><a href="#s13">Классы и прототипы.</a></p>
+<p><a href="#s14">Промисы.</a></p>
 <p><a href="#s20">Ссылки.</a></p>
   </aside>
       
@@ -425,9 +427,39 @@ export {one, two}; - экспорт нескольких переменных.<b
 import {one, two} from './moduleOne.js'; - названия сохраняются.<br>
 import {one as oneRenamed, two} from './moduleOne.js'; - или изменить.<br>
     </section>
+
+    <section id="s13"><h3>Классы и прототипы:</h3>
+На основании прототипов создаются экземпляры.<br>
+Экземплляры наследуют св-ва и методы прототипов.<br> 
+<i><b>class</b> Comment {</i><br> 
+  <i>constructor(text) {</i><br> 
+    <i>this.text = text</i><br> 
+    <i>this.votesQty = 0</i><br> 
+  }<br>
+  <i>upvote() {</i><br> 
+    this.votesQty += 1<br> 
+  }<br>
+  <i><b>static</b> mergeCocmments(first, second) {</i><br>
+    return `${first} ${second}`}<br>
+}<br> 
+  Создание нового экземпляра:<br> 
+  <i>const firstComment = new Comment('First comment')</i><br><br> 
+
+  <i>firstComment instanceof Comment</i> //true - экземпляр?<br>
+  <i>firstComment instanceof Object</i> //true<br> <br> 
+
+  <i>firstComment.upvote()</i> - вызвать метод для этого класса. (увеличение на 1)<br> 
+  firstComment.hasOwnProperty('text') // true; - text - собственное св-во firstComment<br>
+  firstComment.hasOwnProperty('upvote') // false; - это св-во Comment;<br>
+  Метод static доступен как св-во класса и не наследуется экземплярами класса.<br>
+  <i>Comment.mergeComments('First comment.', 'Second comment.')</i><br>
+    </section>
+
+    <section id="s14"><h3>Промисы:</h3>
+    
+    </section>
   </aside>
-</div>
-      
+ </div>     
   <footer>
     <h3 id="s20">Ссылки:</h3>
     <p><a href="https://developer.mozilla.org/ru/" target="_blank"  rel="noopener" >mdn</a> - documentation</p>

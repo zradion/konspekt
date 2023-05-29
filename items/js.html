@@ -368,7 +368,7 @@ const [car1,,car3] = cars; - теперь первая и третья маши�
 <i>set.delete(value)</i><br>
 <i>set.has(value)</i><br>
 <i>set.clear()</i><br>
-<i>set.size</i><br><br>
+<i>set.size</i><br><br> 
     </section>
 
     <section id="s8"><h3>Дата:</h3>
@@ -429,7 +429,28 @@ const fnWhithError = () => {throw new Error('Some error')} Ошибка - объ
 try {fnWhithError()}<br>
 catch (error) {<br>
   console.error(error)<br>
-  console.log(error.message)}<br><br>
+  console.log(error.message)}<br>
+finally {}<br><br>
+
+throw&lt;объект ошибки><br>
+<ul><li>Error - общие ошибки</li>
+<li>SyntaxError - синтаксические</li>
+<li>TypeError - тип данных</li>
+<li>ReferenceError - несуществующия переменная</li></ul>
+
+function divide(a, b) {<br>
+  if (b == 0) {throw new Error('Деление на 0');}<br>
+  return a/b;<br>
+}<br>
+let res = 0;<br>
+try {<br>
+  res = divide(1, 2);<br>
+  console.log(res)<br>
+}<br>
+catch(error) {<br>
+  console.log(error.name); // Error<br>
+  console.log(error.message); // Деление на 0<br>
+}<br>
     </section>
 
     <section id="s12"><h3>import, export:</h3>
@@ -465,23 +486,41 @@ import {one as oneRenamed, two} from './moduleOne.js'; - или изменить
 get coords() {return [this.sp.x, this.sp.y];},<br>
 set coords(coords) {this.sp.x = coords[0], this.sp.y = coords[1];}<br><br>
 
-  Создание нового экземпляра:<br> 
-  <i>const firstComment = new Comment('First comment')</i><br><br> 
+Создание нового экземпляра:<br> 
+<i>const firstComment = new Comment('First comment')</i><br><br> 
 
-  <i>firstComment instanceof Comment</i> //true - экземпляр?<br>
-  <i>firstComment instanceof Object</i> //true<br> <br> 
+<i>firstComment instanceof Comment</i> //true - экземпляр?<br>
+<i>firstComment instanceof Object</i> //true<br> <br> 
 
-  <i>firstComment.upvote()</i> - вызвать метод для этого класса. (увеличение на 1)<br> 
-  firstComment.hasOwnProperty('text') // true; - text - собственное св-во firstComment<br>
-  firstComment.hasOwnProperty('upvote') // false; - это св-во Comment;<br>
-  Метод static доступен как св-во класса и не наследуется экземплярами класса.<br>
-  <i>Comment.mergeComments('First comment.', 'Second comment.')</i><br><br>
+<i>firstComment.upvote()</i> - вызвать метод для этого класса. (увеличение на 1)<br> 
+firstComment.hasOwnProperty('text') // true; - text - собственное св-во firstComment<br>
+firstComment.hasOwnProperty('upvote') // false; - это св-во Comment;<br>
+Метод static доступен как св-во класса и не наследуется экземплярами класса.<br>
+<i>Comment.mergeComments('First comment.', 'Second comment.')</i><br><br>
 
-  Методы <i>create, getPrototypeOf, setPrototypeOf</i><br>
-  Object.create(proto, [descriptors])<br>
-  Object.getPrototypeOf(obj)<br>
-  Object.setPrototypeOf(obj, proto)<br>
-  let clone = Object.create(object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj)); - создать копию объекта obj<br>
+Методы <i>create, getPrototypeOf, setPrototypeOf</i><br>
+Object.create(proto, [descriptors])<br>
+Object.getPrototypeOf(obj)<br>
+Object.setPrototypeOf(obj, proto)<br>
+let clone = Object.create(object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj)); - создать копию объекта obj<br><br>
+
+<b>расширение класса:</b><br>
+class Prop { // создаём класс Prop<br>
+  constructor(width, color) {<br>
+    this.width = width;<br>
+    this.color = color;
+  }<br>
+}<br>
+class Line extends Prop { // создаём ещё класс, который расширяет Prop<br>
+  constructor(sp, ep, width, color) {<br>
+    super(width, color); // нужно чтобы this ссылалось на главный класс<br>
+    this.sp = sp; //объект с двумя координатами<br>
+    this.ep = ep;<br>
+  }<br>
+  draw() {console.log(`line: ${this.sp.x}, ${this.sp.y}, ${this.ep.x}, ${this.ep.y}`);}<br>
+}<br>
+let line1 = new Line({x: 0, y: 0}, {x: 10, y: 20}, 1, 'red');<br>
+console.log(line1)<br>
     </section>
 
     <section id="s14"><h3>Промисы:</h3>
@@ -505,6 +544,7 @@ set coords(coords) {this.sp.x = coords[0], this.sp.y = coords[1];}<br><br>
     <p><a href="https://developer.mozilla.org/ru/" target="_blank"  rel="noopener" >mdn</a> - documentation</p>
     <p><a href="https://wm-school.ru/js/index.php" target="_blank" rel="noopener" >wm-shool.ru</a> - Учебники;
     <a href="https://www.schoolsw3.com/js/index.php" target="_blank" rel="noopener" >schoolsw3.com</a> - Учебники</p>
+    <a href="https:proproprogs.ru" target="_blank" rel="noopener" >proproprogs.ru</a> - selfedu</p>    
   </footer>
 </div>
 </body>

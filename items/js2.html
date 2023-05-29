@@ -15,7 +15,7 @@
 <p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
 <p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
 <p><a href="#s1">Введение.</a></p>
-<p><a href="#s2">Two.</a></p>
+<p><a href="#s2">Навигация по DOM.</a></p>
 <p><a href="#s3">Three.</a></p>
 <p><a href="#s4">Fore.</a></p>
 <p><a href="#s5">Five.</a></p>
@@ -24,9 +24,24 @@
   <aside class="right"><h1 align="center" id="s0">JavaScriptDOM</h1>
 
     <section id="s1"> <h3>Введение:</h3>
+<b>DOM</b> (Document Object Model) - для управления содержимым HTML документа.<br>
+<b>BOM </b>(Browser Object Model) - дополнительные объекты браузера.<br>
+<b>window</b> (корневой объект) содержит DOM (document), BOM (navigator), JavaScript (Object)<br>
+<i>window.innerHeight</i> - высота клиентской области браузера.<br>
+<i>document.body.style.background = "green";</i> - изменить стилль тега body.<br>
+<i>navigator.platform</i> ..win32 - платформа на которой запущен браузер.<br>
+document - объект; точка входа в DOM. HTML - корневой узел; HEAD, BODY - дочернии элементы.<br><br>
+
+<i>let html = document.documentElement;</i><br>
+<i>let body = document.body;</i><br>
+<i>let head = document.head;</i><br>
     </section>
 
-    <section id="Two"></section>
+    <section id="s2"><h3>Навигация по DOM:</h3>
+<i>дочернии узлы (дети)</i> - непосредственно дети узла.<br>
+<i>потомки</i> - все элементы внутри узла.<br>
+
+    </section>
 
     <section id="Three"></section>
 
@@ -42,6 +57,7 @@
     <p><a href="https://developer.mozilla.org/ru/" target="_blank"  rel="noopener" >mdn</a> - documentation</p>
     <p><a href="https://wm-school.ru/js/index.php" target="_blank" rel="noopener" >wm-shool.ru</a> - Учебники;
     <a href="https://www.schoolsw3.com/js/index.php" target="_blank" rel="noopener" >schoolsw3.com</a> - Учебники</p>
+    <a href="https:proproprogs.ru" target="_blank" rel="noopener" >proproprogs.ru</a> - selfedu</p>
   </footer>
 </div>
 </body>

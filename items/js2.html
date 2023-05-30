@@ -35,12 +35,65 @@ document - объект; точка входа в DOM. HTML - корневой �
 <i>let html = document.documentElement;</i><br>
 <i>let body = document.body;</i><br>
 <i>let head = document.head;</i><br>
+<i>console.dir(body)</i> - структура элемента body<br>
+<i>console.log(body)</i> - содержимое элемента body<br>
     </section>
 
     <section id="s2"><h3>Навигация по DOM:</h3>
 <i>дочернии узлы (дети)</i> - непосредственно дети узла.<br>
-<i>потомки</i> - все элементы внутри узла.<br>
+<i>потомки</i> - все элементы внутри узла.<br><br>
 
+<b>childNodes</b> - псевдомассив; только для чтения.<br>
+<i>for (let child of document.body.childNodes) {console.log(child);}</i> - перебрать все элементы body<br><br>
+
+<i>let arr = Array.from(document.body.childNodes);</i> - массив<br>
+<i>arr.forEach((el) => console.log(el));</i><br><br>
+
+<i>let first = html.<b>firstChild</b>;</i> // head<br>
+<i>let first = html.childNodes[0];</i> // head<br>
+<i>let last = html.<b>lastChild</b>;</i> // body<br>
+<i>let last = html.childNodes[html.childNodes.length-1];</i> // body<br>
+<i>html.<b>hasChildNodes()</b></i> - содержит ли дочернии узлы?<br>
+<i>body.<b>children</b></i> - только дочернии элементы в body.<br>
+<b>соседи:</b><br>
+head.<b>nextSibling</b> // body<br>
+body.<b>previousSibling</b> // head<br>
+body.<b>parentNode</b> // html<br><br>
+
+<b>по доченим элементам:</b><br>
+div.<b>parentElement</b><br>
+div.<b>nextElementSibling</b><br>
+div.<b>previousElementSibling</b><br>
+div.<b>children</b>(<b>firstElementChild, lastElementChild)</b><br><br>
+
+<b>для таблиц:</b><br>
+<i>table.rows</i><br>
+<i>table.caption/tHead/tFoot</i><br>
+<i>table.tBodies</i><br>
+<i>tr.cells</i><br>
+<i>tr.sectionRowIndex</i><br>
+<i>tr.rowIndex</i><br>
+<i>td.cellIndex</i><br><br>
+
+console.log(digs.rows[0].cells[1].innerHTML) - для таблицы с id="digs" содержимое первого ряда второй ячейки.<br><br>
+
+<i>document.getElementById('digs');</i> - возвращает живую коллекцию.<br>
+<i>document.querySelector('li.star');</i> - используется css селектор; вернёт первый элемент.<br>
+<i>document.querySelectorAll('ul > li');</i> - вернёт список.<br>
+
+<b>matches</b><br>
+let list = document.querySelectorAll('ul.stars > li');<br>
+for (let item of list) {<br>
+  if (item.matches('li.star')) console.log(item);<br>
+} - выбрать элементы li у которых class='star'<br>
+
+<b>closest</b><br>
+console.log(li.closest('.stars-list')); - выбрать ближайшего предка с указаным селектором; возвр предка или null<br>
+
+<b>contains</b><br>
+let div = document.querySelector('div.content');<br>
+let ul = document.qurySelector('ul.stars');<br>
+if (div.contains(ul)) console.log('ul inside div');<br>
     </section>
 
     <section id="Three"></section>

@@ -16,8 +16,8 @@
 <p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
 <p><a href="#s1">Введение.</a></p>
 <p><a href="#s2">Навигация по DOM.</a></p>
-<p><a href="#s3">Three.</a></p>
-<p><a href="#s4">Fore.</a></p>
+<p><a href="#s3">Св-ва DOM-узлов.</a></p>
+<p><a href="#s4">Lorem.</a></p>
 <p><a href="#s5">Five.</a></p>
   </aside>
       
@@ -96,7 +96,31 @@ let ul = document.qurySelector('ul.stars');<br>
 if (div.contains(ul)) console.log('ul inside div');<br>
     </section>
 
-    <section id="Three"></section>
+    <section id="s3"><h3>Св-ва DOM-узлов:</h3>
+<b>EventTarget</b> - <b>Node</b> (<i>Text; Element; Comment</i>)<br>
+<b>Element</b> (<i>HTMLElement; SVGElement</i>)<br>
+<b>HTMLElement</b> (<i>HTMLInputElement; HTMLBodyElement; HTMLAnchorElement</i>)<br><br>
+
+<i>console.log(document.body.constructor.name)</i> .. HTMLBodyElement<br>
+<i>document.body insanceof HTMLBodyElement</i> .. true<br><br>
+
+<b>nodeName and tagName</b><br>
+<i>anyElement.nodeName</i> .. UL, TABLE, BODY - (tegName только у тегов)<br><br>
+
+<b>innerHTML, outerHTML, nodeValue, data, textContent</b><br>
+let h1, comm; - присвоим этим переменным ссылки на h1  и коментарий.<br>
+<i>console.log(h1.innerHTML); h1.innerHTML = "Изменённый &lt;u>заголовок&lt;u>"</i> - можно прочитать или заменить содержимое элемента используя теги форматирования (кроме script) или добавить (+= - браузер обновит весь тег).<br>
+<i>h1.outerHTML = "&lt;h2>"Заголовок с другим тегом&lt;h2></i> - прочитать или изменить тег целиком.d<br>
+<i>comm.data = "Изменить коментарий"</i> - для коментариев используется nodeValue или data.<br>
+<i>h1.textContent = "&lt;h3&gt; thing &lt;/h3&gt;</i> - напечатает теги как сущности или прочитать без тегов.<br><br>
+
+<b>hidden</b><br>
+со значением true - скрыть элемент; аналогичен style="display:none"<br>
+<i>&lt;div id="msg">Any message&lt;/div></i> - что бы msg мигал:<br>
+<i>let msg = document.getElementById('msg');</i><br>
+<i>msg.hidden = true</i><br>
+<i>setInterval(() => msg.hidden = !msg.hidden, 500);</i><br>
+    </section>
 
     <section id="Fore"></section>
 

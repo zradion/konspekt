@@ -417,7 +417,13 @@ var nameUser = <b>prompt</b>('Your name?', 'Ben'); - модальное окно
     </section>
 
     <section id="s10"><h3>Регулярные выражения:</h3>
+<b>Regex</b> - искать, заменять, извлекать.<br><br>
 
+<i>var str = "This is the text where we will search 'Mr.'";</i><br>
+<i>var regex = /Mr\./;</i> - литеральный синтаксис.<br>
+<i>var regex = new RegExp("Mr\\.");</i> - синтаксис конструктора (дважды экранируем спецсимволы).<br><br>
+
+<i>if(regex.test(str)) console.log('There is match');</i><br>
     </section>
 
     <section id="s11"><h3>Ошибки:</h3>

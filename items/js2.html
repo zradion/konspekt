@@ -239,10 +239,41 @@ div будет мигать:<br>
 
 <b>getComputedStyle.</b> - получить стили элемента.<br>
 <i>let objStyles = getComputedStyle(elem);</i><br>
-<i>console.log(objStyles.width);</i> - св-во width у elem.<br>
+<i>console.log(objStyles.width);</i> - св-во width у elem (минус scroll).<br>
+<i>(console.log(getComputedStyle(elem).width);</i>
     </section>
 
     <section id="s6"><h3>Метрики:</h3>
+<i>window.innerWidth; window.innerHeight;</i> - полная ширина и высота клиентского окна.<br>
+<i>html.scrollWidth; html.scrollHeight</i> - (html-переменная) вся ширина и высота документа.<br>
+<i>window.pageXOffset; window.pageYOfset;</i> - на сколько прокручен документ (только для чтения).<br>
+<i>window.scrollBy(offX, offY);</i> - прокрутить страницу относительно текущего положения в px.<br>
+<i>window.scrollTo(offX, offY);</i> - прокрутить страницу до указанных координат в px.<br><br>
+
+<i>setInterval(function() {window.scrollBy(0,5)}, 100);</i> - автоматическая прокрутка.<br><br>
+
+<i>html.scrollTop; html.scrollLeft;</i> - на сколько прокручен документ (можно менять).<br>
+<i>elem.clientWidth</i> - ширина клиентской области (px); к заданной ширине прибавится padding и вычтется scroll; только для чтения.<br>
+<i>elem.style.width = 100 + 'px';</i> - изменить ширину.<br>
+<i>elem.clientHeight</i> - высота клиентской области (px)<br><br>
+
+<i>elem.scrollTop</i> - сколько px прокручено вверх (можно менять).<br>
+<i>elem.scrollTop = 100; elem.scrollTop += 20px;</i><br>
+<i>elem.scrollLeft</i> - сколько px прокручено влево (можно менять).<br>
+<i>elem.scrollWidth</i> - вся ширина с учётом скрытого(+padding-scroll); только для чтения.<br>
+<i>elem.scrollHeigh</i> - вся высота с учётом скрытого; только для чтения.<br><br>
+
+<i>elem.offsetParent</i> - от какого блока отсчитывается смещение (обычно от body).<br>
+<i>elem.offsetLeft</i> - смещение блока от левого края.<br>
+<i>elem.offsetTop</i> - смещение блока от верхнего края.<br>
+<i>elem.clientLeft</i> - толщина border-left.<br>
+<i>elem.clientTop</i> - толщина border-top.<br>
+<i>elem.offsetWidth</i> - ширина элемента с учётом всех отсупов (width+padding+border).<br>
+<i>elem.offsetHeight</i> - высота элемента с учётом всех отступов.<br><br>
+
+<i>setTimeout(function() {</i><br>
+<i>elem.scrollIntoView(top=true);});</i> - прокрутить страницу, чтобы elem был вверху (false - внизу); работает только после полной загрузке страницы.<br>
+<i>document.body.style.overflow = 'hidden'</i> - спрятать прокрутку страницы (чтобы сбросить - присвоить пустую строку).<br>
     </section>
 
   </aside>

@@ -20,6 +20,7 @@
 <p><a href="#s4">Создание и добавление элементов.</a></p>
 <p><a href="#s5">Управление стилями.</a></p>
 <p><a href="#s6">Метрики.</a></p>
+<p><a href="#s7">Обработчики событий.</a></p>
   </aside>
       
   <aside class="right"><h1 align="center" id="s0">JavaScriptDOM</h1>
@@ -239,10 +240,60 @@ div будет мигать:<br>
 
 <b>getComputedStyle.</b> - получить стили элемента.<br>
 <i>let objStyles = getComputedStyle(elem);</i><br>
-<i>console.log(objStyles.width);</i> - св-во width у elem.<br>
+<i>console.log(objStyles.width);</i> - св-во width у elem (минус scroll).<br>
+<i>(console.log(getComputedStyle(elem).width);</i>
     </section>
 
     <section id="s6"><h3>Метрики:</h3>
+<i>window.innerWidth; window.innerHeight;</i> - полная ширина и высота клиентского окна.<br>
+<i>html.scrollWidth; html.scrollHeight</i> - (html-переменная) вся ширина и высота документа (минус scroll).<br>
+<i>window.pageXOffset; window.pageYOfset;</i> - на сколько прокручен документ (только для чтения).<br>
+<i>window.scrollBy(offX, offY);</i> - прокрутить страницу относительно текущего положения в px.<br>
+<i>window.scrollTo(offX, offY);</i> - прокрутить страницу до указанных координат в px.<br><br>
+
+<i>setInterval(function() {window.scrollBy(0,5)}, 100);</i> - автоматическая прокрутка.<br><br>
+
+<i>html.scrollTop; html.scrollLeft;</i> - на сколько прокручен документ (можно менять).<br>
+<i>elem.clientWidth</i> - ширина клиентской области (px); к заданной ширине прибавится padding и вычтется scroll; только для чтения.<br>
+<i>elem.style.width = 100 + 'px';</i> - изменить ширину.<br>
+<i>elem.clientHeight</i> - высота клиентской области (px)<br><br>
+
+<i>elem.scrollTop</i> - сколько px прокручено вверх (можно менять).<br>
+<i>elem.scrollTop = 100; elem.scrollTop += 20px;</i><br>
+<i>elem.scrollLeft</i> - сколько px прокручено влево (можно менять).<br>
+<i>elem.scrollBy(x,y); elem.scrollTo(x,y)</i> - как с window.<br>
+<i>elem.scrollWidth</i> - вся ширина с учётом скрытого(+padding-scroll); только для чтения.<br>
+<i>elem.scrollHeigh</i> - вся высота с учётом скрытого; только для чтения.<br><br>
+
+<i>elem.offsetParent</i> - от какого блока отсчитывается смещение (обычно от body).<br>
+<i>elem.offsetLeft</i> - смещение блока от левого края.<br>
+<i>elem.offsetTop</i> - смещение блока от верхнего края.<br>
+<i>elem.clientLeft</i> - толщина border-left.<br>
+<i>elem.clientTop</i> - толщина border-top.<br>
+<i>elem.offsetWidth</i> - ширина элемента с учётом всех отсупов (width+padding+border).<br>
+<i>elem.offsetHeight</i> - высота элемента с учётом всех отступов.<br><br>
+
+<i>setTimeout(function() {</i><br>
+<i>elem.scrollIntoView(top=true);});</i> - прокрутить страницу, чтобы elem был вверху (false - внизу); работает только после полной загрузке страницы.<br>
+<i>document.body.style.overflow = 'hidden'</i> - спрятать прокрутку страницы (чтобы сбросить - присвоить пустую строку).<br><br>
+
+<i>position: absolute (fixed);</i> - координаты расчитываются от всего документа (от границ окна браузера).<br> 
+<i>let coords = elem.getBoundingClientRect();</i> - получить все координаты.<br>
+console.log(coords); ..DOMRect {x: 100.5, y: -20, width: 370, height: 270, ..} - x, left; y, top - верхний левый угол; right, bottom - левый нижний угол; width, height - размеры.<br><br>
+
+<i>let elem = document.elementFromPoint(x,y);</i> - в указаной точке самый глубокий элемент. (если есть наложение - элемент, который в html идёт раньше).<br><br>
+
+function getCoordFromDocument(elem) { // elem - переменная<br>
+    let coords = elem.getBoundingClientRect();<br>
+    return {<br>
+      top: coords.top + window.pageYOffset,<br>
+      left: coords.left + widnow.pageXOffset<br>
+    };<br>
+} - ф-ция вернёт координаты левой верхней точки от границ документа.<br>
+    </section>
+
+    <section id="s7"><h3>Обработчики событий:</h3>
+    
     </section>
 
   </aside>

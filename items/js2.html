@@ -338,15 +338,45 @@ function show(event) {console.log(event.currentTarget.tagName)};<br><br>
 можно в каждом li добавить нестандартный аргумент со значением (например: <i>data-command="open"</i>)  и выбирать эти команды: <i>console.log(li.dataset.command);</i><br><br>
 
 можно создать объект с методами и запускать эти методы при клике:<br>
-<i>const menuAct = {</i><br>
+<i>const menuAct = {</i><br> 
 <i>open() {alert('open..')},</i><br>
 <i>close() {aler('close..)},</i><br>
 };<br>
 <i>main_menu.addEventListener('click', function(event) {</i><br>
   <i>let li = event.target;</i><br>
   <i>let act = li.dataset.command;</i><br>
-  <i>if(menuAct[act]) menuAct[act]();</i><br><br>
-  
+  <i>if(menuAct[act]) menuAct[act]();})</i><br><br>
+ 
+<i>event.target</i> - элемент на котором произошло событие.<br>
+<i>event.target.tagName</i> - название тега.<br>
+<i>onclick = "return false;"</i> - отменить действие браузера по умолчанию.<br>
+<i>event.preventDefault();</i> - отменить действие браузера по умолчанию.<br><br>
+
+<b>События мыши.</b><br>
+"mausedown" => "mauseup" => "click" => "dblclick"<br>
+"mausemove", "mouseover", "mouseout", "mouseenter", "mouseleave"<br>
+<ul><li> event.which == 1 - левая кнопка.</li>
+<li> event.which == 2 - средняя кнопка.</li>
+<li> event.which == 3 - правая кнопка.</li></ul>
+<ul><li>event.shiftKey - зажат ли shift?</li>
+<li>event.altKey - зажат ли Alt (Opt)?</li>
+<li>event.ctrlKey - зажат ли Ctrl?</li>
+<li>event.metaKey - зажат ли Cmd для Mac?</li></ul>
+зажаты ли Sift and Ctrl при клике:<br>
+<i>document.addEventListener("click", (event) => {</i><br>
+    <i>if (event.shiftKey && (event.ctrlKey || event.metaKey)) console.log("click");});</i><br><br>
+
+кроме клавиш объект event для событий мыши содержит св-ва:
+<ul><li>clientX/clientY - коорд курсора мыши относ окна браузера</li>
+<li>pageX/pageY - коорд курсора мыши относ HTML-документа</li></ul>
+
+<i>"mouseover" и "mouseout"</i> - наведение курсора и покидание курсора.<br>
+<i>target and relatedTarget</i> - св-ва event - объект над которым находится курсор и объект с которого ушел курсор (для 'mouseout' наоборот).<br><br>
+
+<i>"mouseenter" и "mouseleave"</i> - не всплявают.<br><br>
+
+<b>События клавиатуры keydown and keyup.</b><br>
+
     </section>
 
   </aside>

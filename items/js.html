@@ -28,6 +28,8 @@
 <p><a href="#s12">import, export.</a></p>
 <p><a href="#s13">Классы и прототипы.</a></p>
 <p><a href="#s14">Промисы.</a></p>
+<p><a href="#s15">Canvas.</a></p>
+<p><a href="#s16">Разное.</a></p>
 <p><a href="#s20">Ссылки.</a></p>
   </aside>
       
@@ -337,7 +339,7 @@ array_num.sort((a,b) => 0.5 - Math.random()); - сортировка в случ
 
 <i>Array.set()</i>
 
-<i>Array.filter()</i> - создаёт новый массив, проводит тест для элементов, может принимать три аргумента - value, index, array.<br>
+<i>Array.filter(function(item, index, array))</i> - создаёт новый массив, проводит тест для элементов, может принимать три аргумента - value, index, array.<br>
 var mix = [45, 'one', true, '2', 'word', 34, 12, 67, 23];<br>
 var words = mix.filter((item) => typeof item === 'string' && isNaN(item));<br><br>
 
@@ -347,7 +349,7 @@ var words = mix.filter((item) => typeof item === 'string' && isNaN(item));<br><b
 <i>Array.some()</i> - проверяет некоторые значения ; возвр булевое значение.<br>
 <i>Array.indexOf(itex [,start])</i> - возвр индекс элемента или -1.<br>
 <i>Array.lastIndexOf()</i> - тоже, с конца.<br>
-<i>Array.find()</i> - вернёт первое совпадение.<br>
+<i>Array.find(function(item, index, array))</i> - вернёт первое совпадение.<br>
 <i>Aaray.findIndex()</i> - вернёт индекс первого совпадения.<br><br>
 
 <b>деструктуризация массивов.</b><br>
@@ -422,8 +424,15 @@ var nameUser = <b>prompt</b>('Your name?', 'Ben'); - модальное окно
 <i>var str = "This is the text where we will search 'Mr.'";</i><br>
 <i>var regex = /Mr\./;</i> - литеральный синтаксис.<br>
 <i>var regex = new RegExp("Mr\\.");</i> - синтаксис конструктора (дважды экранируем спецсимволы).<br><br>
-
+<b>test</b><br>
+console.log(/Mr\./.test(str));<br>
 <i>if(regex.test(str)) console.log('There is match');</i><br>
+<b>exec</b><br>
+console.log(/Mr/.exec(str)); - вернёт массив ['Mr', inex: 0, input: '...']<br>
+/Mr/.exec(str)[0]; /Mr/.exec(str).index;<br>
+<b>mach</b><br>
+<b>replace</b><br>
+
     </section>
 
     <section id="s11"><h3>Ошибки:</h3>
@@ -543,6 +552,62 @@ console.log(line1)<br>
  <i>.then(json => console.log(json))</i><br> 
  <i>.catch(error => console.error(error))</i><br> 
     </section>
+
+    <section id="s15"><h3>Canvas:</h3>
+&lt;canvas id="c1" width="400" height="200">&lt;/canvas><br>
+var canvas = document.getElementById('c1')<br>
+var ctx = canvas.getContext('2d')<br><br>
+
+clearRect() - стереть; stroke() - отрисовать; fill() - заполнить.<br>
+fillStyle=color; strokeStyle=color; - цвет заливки, линий; ("red", "#fff", "rgb(255,165, 0)")<br>
+beginPath() - передкажым элементом для различных стилей<br>
+colosePath() - закончить.<br><br>
+
+<b>прямоугольник:</b><br>
+strokeRect(), rect() - прямоугольник; fillRect() - квадрат.<br>
+
+ctx.fillStyle = 'red'; // изменили цвет заливки.<br>
+ctx.fillRect(100, 50, 150, 75); // x, y width, height (по умолчанию чёрный)<br>
+ctx.clearRect(120,70,200,100); // стереть от x,y указанную ширину и высоту.<br><br>
+ctx.rect(75,25,150,150); ctx.strokeStyle='green'; ctx.lineWidth = '10'; // цвет и ширина рамки.<br>
+ctx.stroke(); ctx.fillStyle = 'orange'; ctx.fill(); если не указать цвет заливки сдесь - возьмёт предыдущий.<br><br>
+
+<b>Линии:</b><br>
+moveTo() - начало; lineTo() - вторая точка;<br>
+ctx.beginPath(); - добавляем перед каждой линией, если надо сделать различные стили.<br>
+ctx.moveTo(100,50); ctx.lineTo(150,150); ctx.lineTo(300,50);<br>
+ctx.strokeStyle = 'red'; ctx.lineWidth = '5'; // цвет и толщина.<br>
+ctx.lineCap = 'round';(butt, square) - как заканчиваются линии.<br>
+ctx.closePath(); - если нарисованы две линии треугольника - эта команда дорисует остальное.<br>
+ctx.fillStyle = 'yellow'; stx.fill(); - залить цветом получившуюся фигуру.<br>
+ctx.stroke();<br> <br>
+
+<b>Дуги и круги:</b><br>
+луч от центра окр. до координаты x; угол по часовой стрелки.<br>
+ctx.arc(150,100, 50, 3/4*Math.PI, 1/4Math.PI, true); - x,y(центра окр), radius, начало дуги, конец дуги, направл.рисования (против часовой).<br>
+ctx.arc(150,150,50, 2*Math.PI, false); - круг.<br>
+
+<b>Текст.</b><br>
+ctx.font = '40px serif'; по умолчанию sans-serif 10px<br>
+textAlign=start(end, left, right, center),<br>
+textBaseline=alphabetic(top, hanging, midle,ideographic, bottom),<br>
+direction=inherit(ltr,rtl)<br> 
+ctx.fillText('Hello!', 10,50); - текст и нижняя левая точка.<br><br>
+
+ctx.strokeText('Hello!', 10,50); - обводка букв.<br>
+    </section>
+
+    <section id="s16"><h3>Разное:</h3>
+function palindrom(str) {<br>
+  str = str.toLowerCase();<br>
+  return str == str.split('').reverse().join('');<br>
+}<br>
+console.log(palindrom('abba')); ..true<br><br>
+
+var ground = new Image(32,32); - объект картинка (размер).<br>
+ground.src = "img/name.png"; - путь до картинки.<br>
+ctx.drawImage(ground, 0,0); - название переменной и верхняя левая точка расположения.<br><br>
+    </section>
   </aside>
  </div>     
   <footer>
@@ -550,7 +615,8 @@ console.log(line1)<br>
     <p><a href="https://developer.mozilla.org/ru/" target="_blank"  rel="noopener" >mdn</a> - documentation</p>
     <p><a href="https://wm-school.ru/js/index.php" target="_blank" rel="noopener" >wm-shool.ru</a> - Учебники;
     <a href="https://www.schoolsw3.com/js/index.php" target="_blank" rel="noopener" >schoolsw3.com</a> - Учебники</p>
-    <a href="https:proproprogs.ru" target="_blank" rel="noopener" >proproprogs.ru</a> - selfedu</p>    
+    <a href="https:proproprogs.ru" target="_blank" rel="noopener" >proproprogs.ru</a> - selfedu</p> 
+      
   </footer>
 </div>
 </body>

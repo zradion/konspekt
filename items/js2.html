@@ -21,6 +21,7 @@
 <p><a href="#s5">Управление стилями.</a></p>
 <p><a href="#s6">Метрики.</a></p>
 <p><a href="#s7">Обработчики событий.</a></p>
+<p><a href="#s8">Элементы форм.</a></p>
   </aside>
       
   <aside class="right"><h1 align="center" id="s0">JavaScriptDOM</h1>
@@ -293,7 +294,7 @@ function getCoordFromDocument(elem) { // elem - переменная<br>
     </section>
 
     <section id="s7"><h3>Обработчики событий:</h3>
-<ul><li>onclick</li>
+<ul><li>onclick</li><li>oninput</li>
 <li>mousemove</li>
 <li>keydown/keyup</li>
 <li>DOMContentLoaded - документ польностью загружен.</li>
@@ -355,6 +356,7 @@ function show(event) {console.log(event.currentTarget.tagName)};<br><br>
 <b>События мыши.</b><br>
 "mausedown" => "mauseup" => "click" => "dblclick"<br>
 "mausemove", "mouseover", "mouseout", "mouseenter", "mouseleave"<br>
+"onclick", "onmouseenter" - если в качестве аргумента.<br>
 <ul><li> event.which == 1 - левая кнопка.</li>
 <li> event.which == 2 - средняя кнопка.</li>
 <li> event.which == 3 - правая кнопка.</li></ul>
@@ -370,15 +372,31 @@ function show(event) {console.log(event.currentTarget.tagName)};<br><br>
 <ul><li>clientX/clientY - коорд курсора мыши относ окна браузера</li>
 <li>pageX/pageY - коорд курсора мыши относ HTML-документа</li></ul>
 
-<i>"mouseover" и "mouseout"</i> - наведение курсора и покидание курсора.<br>
+<i>"onmouseover" и "mouseout"</i> - наведение курсора и покидание курсора.<br>
 <i>target and relatedTarget</i> - св-ва event - объект над которым находится курсор и объект с которого ушел курсор (для 'mouseout' наоборот).<br><br>
 
 <i>"mouseenter" и "mouseleave"</i> - не всплявают.<br><br>
 
 <b>События клавиатуры keydown and keyup.</b><br>
+<i>input id='inp' onkeydown='key(event)' onkeyup='key(event)'</i><br>
+<i>function key(event) {console.log(event.type);}</i> type - keydown, keyup<br>
+<i>event.repeat ...true</i> - автоповтор.<br>
+<i>event.key</i> - символ нажатой клавиши (c,d,п,ф,Alt, Control).<br>
+<i>event.code</i> - код нажатой клавши(Numpad1, Digit1, AltLeft, KeyD).<br><br>
 
+<i>window.addEventListener("scroll", function(event) {</i><br>
+  <i>inp.value = pageYOffset;});</i> - в inp отобразится смещение докум по вертикали.<br><br>
+
+<b>События при загрузке.</b><br>
+<ul><li>DOMContentLoaded - браузер загрузил HTML, внешние ресурсы нет (img, css)</li>
+<li>load - всё загружено</li>
+<li>beforeunload/unload - пользователь собрался покинуть стр.(предупредить) / покинул страницу (собрать статистику)</li></ul>
+<i>if (document.readyState == "loading")</i> - докум. в процессе загрузки; "interactive" - парсинг завершён; "complete" - полностью прочитан и всё загружено.<br>
     </section>
 
+    <section id="s8"><h3>Элементы форм:</h3>
+    
+    </section>
   </aside>
 </div>
       

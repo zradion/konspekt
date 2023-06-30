@@ -21,6 +21,7 @@
 <p><a href="#s5">Управление стилями.</a></p>
 <p><a href="#s6">Метрики.</a></p>
 <p><a href="#s7">Обработчики событий.</a></p>
+<p><a href="#s8">Элементы форм.</a></p>
   </aside>
       
   <aside class="right"><h1 align="center" id="s0">JavaScriptDOM</h1>
@@ -293,9 +294,109 @@ function getCoordFromDocument(elem) { // elem - переменная<br>
     </section>
 
     <section id="s7"><h3>Обработчики событий:</h3>
-    
+<ul><li>onclick</li><li>oninput</li>
+<li>mousemove</li>
+<li>keydown/keyup</li>
+<li>DOMContentLoaded - документ польностью загружен.</li>
+<li>transitionend - завершение css-анимации.</li></ul>
+<i>&lt;p>&lt;a id="link" href="#" onclick="show()">Push&lt;/a>&lt;p></i> - атрибут тега анонимная ф-ция; чтобы она работала с this:<br>
+link.onclick = show;<br>
+другой способ - указать в ф-ции аргумент (event) (в атрибутах), а в самой ф-ции этот аргумент и вызов event.currentTarget.tagName<br><br>
+
+<i>let inp = document.querySelector('input');</i> - ссылка на тег iput.<br>
+<i>inp.onclick = show;</i> - ссылка (не ф-ция).<br>
+<i>inp.onclick = null</i> - удалить обработчик.<br><br>
+
+<i>function show() {console.log(this.tagName)};</i> - имя тега в котором ф-ция запустится.<br><br>
+
+<b>element.addEventListener(event, handler[,options]);</b><br>
+<i>inp.addEventListener("click", show);</i><br>
+<i>inp.addEventListener("click", function(event) {</i><br>
+  console.log(event.clientX, event.clientY);<br>
+});<br>
+function show(event) {console.log(event.currentTarget.tagName)};<br><br>
+
+<i>inp.removeEventListener('click', show);</i> - удалить обработчик.<br><br>
+
+<b>Погружение и всплытие событии.</b><br>
+(не работает с событием focus)<br>
+Напишим html: блок див; в нём параграф; в параграфе спан.<br>
+Если только на див повесить обработчик. <i>onclick = "showTag(event)"</i><br>
+<i>function showTag(event) {console.log(event.currentTarget.tagName);}</i><br>
+то при клике на любой тег будет отображаться DIV.<br><br>
+
+Если на каждый тег повесить обработчик, то при клике на спан console.log отобразит три события; в каждом <i>event.currentTarget.tegName</i> - отобразит название текущего тега, а <i>event.target.tagName</i> - название первого тега в котором произошло событие.<br><br>
+
+<i>event.stopPropogation();</i> - остоновить (всплытие) обработку событий.<br>
+<i>event.stopImmediatePropogation();</i> - если несколько обработчиков на событии.<br><br>
+
+<b>Делегирование событий.</b><br>
+Напишим html: список ul c id="main_menu"; <br>
+<i>main_menu.addEventListener("click", function(event) {</i><br>
+  <i>let li = event.target.closest('li');</i> // ближайший к li<br>
+  <i>if(li == null) return;</i> // если нет li - ничего не возвр.<br>
+  <i>console.log(li.innerHTML);});</i> // или содержимое пункта.<br>
+можно в каждом li добавить нестандартный аргумент со значением (например: <i>data-command="open"</i>)  и выбирать эти команды: <i>console.log(li.dataset.command);</i><br><br>
+
+можно создать объект с методами и запускать эти методы при клике:<br>
+<i>const menuAct = {</i><br> 
+<i>open() {alert('open..')},</i><br>
+<i>close() {aler('close..)},</i><br>
+};<br>
+<i>main_menu.addEventListener('click', function(event) {</i><br>
+  <i>let li = event.target;</i><br>
+  <i>let act = li.dataset.command;</i><br>
+  <i>if(menuAct[act]) menuAct[act]();})</i><br><br>
+ 
+<i>event.target</i> - элемент на котором произошло событие.<br>
+<i>event.target.tagName</i> - название тега.<br>
+<i>onclick = "return false;"</i> - отменить действие браузера по умолчанию.<br>
+<i>event.preventDefault();</i> - отменить действие браузера по умолчанию.<br><br>
+
+<b>События мыши.</b><br>
+"mausedown" => "mauseup" => "click" => "dblclick"<br>
+"mausemove", "mouseover", "mouseout", "mouseenter", "mouseleave"<br>
+"onclick", "onmouseenter" - если в качестве аргумента.<br>
+<ul><li> event.which == 1 - левая кнопка.</li>
+<li> event.which == 2 - средняя кнопка.</li>
+<li> event.which == 3 - правая кнопка.</li></ul>
+<ul><li>event.shiftKey - зажат ли shift?</li>
+<li>event.altKey - зажат ли Alt (Opt)?</li>
+<li>event.ctrlKey - зажат ли Ctrl?</li>
+<li>event.metaKey - зажат ли Cmd для Mac?</li></ul>
+зажаты ли Sift and Ctrl при клике:<br>
+<i>document.addEventListener("click", (event) => {</i><br>
+    <i>if (event.shiftKey && (event.ctrlKey || event.metaKey)) console.log("click");});</i><br><br>
+
+кроме клавиш объект event для событий мыши содержит св-ва:
+<ul><li>clientX/clientY - коорд курсора мыши относ окна браузера</li>
+<li>pageX/pageY - коорд курсора мыши относ HTML-документа</li></ul>
+
+<i>"onmouseover" и "mouseout"</i> - наведение курсора и покидание курсора.<br>
+<i>target and relatedTarget</i> - св-ва event - объект над которым находится курсор и объект с которого ушел курсор (для 'mouseout' наоборот).<br><br>
+
+<i>"mouseenter" и "mouseleave"</i> - не всплявают.<br><br>
+
+<b>События клавиатуры keydown and keyup.</b><br>
+<i>input id='inp' onkeydown='key(event)' onkeyup='key(event)'</i><br>
+<i>function key(event) {console.log(event.type);}</i> type - keydown, keyup<br>
+<i>event.repeat ...true</i> - автоповтор.<br>
+<i>event.key</i> - символ нажатой клавиши (c,d,п,ф,Alt, Control).<br>
+<i>event.code</i> - код нажатой клавши(Numpad1, Digit1, AltLeft, KeyD).<br><br>
+
+<i>window.addEventListener("scroll", function(event) {</i><br>
+  <i>inp.value = pageYOffset;});</i> - в inp отобразится смещение докум по вертикали.<br><br>
+
+<b>События при загрузке.</b><br>
+<ul><li>DOMContentLoaded - браузер загрузил HTML, внешние ресурсы нет (img, css)</li>
+<li>load - всё загружено</li>
+<li>beforeunload/unload - пользователь собрался покинуть стр.(предупредить) / покинул страницу (собрать статистику)</li></ul>
+<i>if (document.readyState == "loading")</i> - докум. в процессе загрузки; "interactive" - парсинг завершён; "complete" - полностью прочитан и всё загружено.<br>
     </section>
 
+    <section id="s8"><h3>Элементы форм:</h3>
+    
+    </section>
   </aside>
 </div>
       

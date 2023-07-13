@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style1.css" />
+    <title>JavaScriptDOM</title>
+</head>
+<body>
+<div class="cont">
+  <div class="left_right">
+      
+  <aside class="left">
+<p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
+<p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
+<p><a href="#s1">Введение.</a></p>
+<p><a href="#s2">Навигация по DOM.</a></p>
+<p><a href="#s3">Св-ва DOM-узлов.</a></p>
+<p><a href="#s4">Создание и добавление элементов.</a></p>
+<p><a href="#s5">Управление стилями.</a></p>
+<p><a href="#s6">Метрики.</a></p>
+<p><a href="#s7">Обработчики событий.</a></p>
+<p><a href="#s8">Элементы форм.</a></p>
+<p><a href="#s20">Ссылки.</a></p>
+  </aside>
+      
+  <aside class="right"><h1 align="center" id="s0">JavaScriptDOM</h1>
+
+    <section id="s1"> <h3>Введение:</h3>
+<b>DOM</b> (Document Object Model) - для управления содержимым HTML документа.<br>
+<b>BOM </b>(Browser Object Model) - дополнительные объекты браузера.<br>
+<b>window</b> (корневой объект) содержит DOM (document), BOM (navigator), JavaScript (Object)<br>
+<i>window.innerHeight</i> - высота клиентской области браузера.<br>
+<i>document.body.style.background = "green";</i> - изменить стилль тега body.<br>
+<i>navigator.platform</i> ..win32 - платформа на которой запущен браузер.<br>
+document - объект; точка входа в DOM. HTML - корневой узел; HEAD, BODY - дочернии элементы.<br><br>
+
+<i>let html = document.documentElement;</i><br>
+<i>let body = document.body;</i><br>
+<i>let head = document.head;</i><br>
+<i>console.dir(body)</i> - структура элемента body<br>
+<i>console.log(body)</i> - содержимое элемента body<br>
+    </section>
+
+    <section id="s2"><h3>Навигация по DOM:</h3>
+<i>дочернии узлы (дети)</i> - непосредственно дети узла.<br>
+<i>потомки</i> - все элементы внутри узла.<br><br>
+
+<b>childNodes</b> - псевдомассив; только для чтения.<br>
+<i>for (let child of document.body.childNodes) {console.log(child);}</i> - перебрать все элементы body<br><br>
+
+<i>let arr = Array.from(document.body.childNodes);</i> - массив<br>
+<i>arr.forEach((el) => console.log(el));</i><br><br>
+
+<i>let first = html.<b>firstChild</b>;</i> // head<br>
+<i>let first = html.childNodes[0];</i> // head<br>
+<i>let last = html.<b>lastChild</b>;</i> // body<br>
+<i>let last = html.childNodes[html.childNodes.length-1];</i> // body<br>
+<i>html.<b>hasChildNodes()</b></i> - содержит ли дочернии узлы?<br>
+<i>body.<b>children</b></i> - только дочернии элементы в body.<br>
+<b>соседи:</b><br>
+head.<b>nextSibling</b> // body<br>
+body.<b>previousSibling</b> // head<br>
+body.<b>parentNode</b> // html<br><br>
+
+<b>по доченим элементам:</b><br>
+div.<b>parentElement</b><br>
+div.<b>nextElementSibling</b><br>
+div.<b>previousElementSibling</b><br>
+div.<b>children</b>(<b>firstElementChild, lastElementChild)</b><br><br>
+
+<b>для таблиц:</b><br>
+<i>table.rows</i><br>
+<i>table.caption/tHead/tFoot</i><br>
+<i>table.tBodies</i><br>
+<i>tr.cells</i><br>
+<i>tr.sectionRowIndex</i><br>
+<i>tr.rowIndex</i><br>
+<i>td.cellIndex</i><br><br>
+
+console.log(digs.rows[0].cells[1].innerHTML) - для таблицы с id="digs" содержимое первого ряда второй ячейки.<br><br>
+
+<i>document.getElementById('digs');</i> - возвращает живую коллекцию.<br>
+<i>document.querySelector('li.star');</i> - используется css селектор; вернёт первый элемент.<br>
+<i>document.querySelectorAll('ul > li');</i> - вернёт список.<br>
+
+<b>matches</b><br>
+let list = document.querySelectorAll('ul.stars > li');<br>
+for (let item of list) {<br>
+  if (item.matches('li.star')) console.log(item);<br>
+} - выбрать элементы li у которых class='star'<br>
+
+<b>closest</b><br>
+console.log(li.closest('.stars-list')); - выбрать ближайшего предка с указаным селектором; возвр предка или null<br>
+
+<b>contains</b><br>
+let div = document.querySelector('div.content');<br>
+let ul = document.qurySelector('ul.stars');<br>
+if (div.contains(ul)) console.log('ul inside div');<br>
+    </section>
+
+    <section id="s3"><h3>Св-ва DOM-узлов:</h3>
+<b>EventTarget</b> - <b>Node</b> - (<i>Text; Element; Comment</i>)<br>
+<b>Element</b> - (<i>HTMLElement; SVGElement</i>)<br>
+<b>HTMLElement</b> - (<i>HTMLInputElement; HTMLBodyElement; HTMLAnchorElement</i>)<br><br>
+
+<i>console.log(document.body.constructor.name)</i> .. HTMLBodyElement<br>
+<i>document.body instanceof HTMLBodyElement</i> .. true<br><br>
+
+<b>nodeName and tagName</b><br>
+<i>anyElement.nodeName</i> .. UL, TABLE, BODY - (tegName только у тегов)<br><br>
+
+<b>innerHTML, outerHTML, nodeValue, data, textContent</b><br>
+let h1, comm; - присвоим этим переменным ссылки на h1  и коментарий.<br>
+<i>console.log(h1.innerHTML); h1.innerHTML = "Изменённый &lt;u>заголовок&lt;u>"</i> - можно прочитать или заменить содержимое элемента используя теги форматирования (кроме script) или добавить (+= - браузер обновит весь тег).<br>
+<i>h1.outerHTML = "&lt;h2>"Заголовок с другим тегом&lt;h2></i> - прочитать или изменить тег целиком.<br>
+<i>comm.data = "Изменить коментарий"</i> - для коментариев используется nodeValue или data.<br>
+h1.textContent = "&lt;h3&gt; thing &lt;/h3&gt;</i> - напечатает теги как сущности или прочитать без тегов.<br><br>
+
+<b>hidden</b><br>
+со значением true - скрыть элемент; аналогичен style="display:none"<br>
+<i>&lt;div id="msg">Any message&lt;/div></i> - что бы msg мигал:<br>
+<i>let msg = document.getElementById('msg');</i><br>
+<i>msg.hidden = true</i><br>
+<i>setInterval(() => msg.hidden = !msg.hidden, 500);</i><br><br>
+
+<b>getAtribute, setAttribute</b><br>
+console.log(div.id + div.style.color) - (div-переменная) так можно получить только стандартные аргументы; весь их список в console.dir(div)<br>
+<ul>
+  <li><i>elem.hasAttribute(name)</i> - проверить наличие атрибута.</li>
+  <li><i>elem.getAttribute(name)</i> - получить значение.</li>
+  <li><i>elems.setAttribute(name, value)</i> - установить атрибут и значение.</li>
+  <li><i>elem.removeAttribute(name)</i> - удалить.</li>
+</ul>
+<i>for (let val of elem.attributes) console.log(val)</i> - перебрать атрибуты.<br>
+Для нестандартных атрибутов используем префикс <i>data-</i><br>
+Эти св-ва будут доступны через коллекцию <i>dataset</i><br>
+Св-во, например, data-cell-red будет вызываться: <i>elem.dataset.cellRed</i><br>
+    </section>
+
+    <section id="s4"><h3>Создание и добавление элементов:</h3>
+<i>let div = document.createElement('div');</i><br>
+<i>div.className = 'msg';</i><br>
+<i>div.innerHTML = "Impotant info";</i><br>
+
+<ul>
+  <li><i>node.before(..nodes or string)</i> - вставить узлы или строки до node.</li>
+  <li><i>node.prepend(..nodes or string)</i> - в начало node</li>
+  <li><i>node.append(..nodes or string)</i> - в конец node</li>
+  <li><i>node.after(..nodes or string)</i> - после node</li>
+  <li><i>node.replaceWith(..nodes or string)</i> - вместо node</li>
+</ul>
+let hr = document.createElement('hr');<br>
+let br = document.createElement('br');<br>
+div.replaceWith('info', hr, 'boom', br, 'bam') - вместо созданного div (если тег не создан, то это просто значёк)<br>
+Если мы вставляем уже имеющийся элемент, то он просто перемещается со своего места.<br>
+let textNode = document.createTextNode('просто текст');<br>
+document.body.append(textNode);<br><br>
+
+<b>insertAdjacentHTML</b> - вставить вместе с тегом<br>
+<ul>
+  <li><i>"beforebegin"</i> - вставить html перед элементом</li>
+  <li><i>"afterbegin"</i> - как первый дочерний</li>
+  <li><i>"beforeend"</i> - как последний дочерний</li>
+  <li><i>"afterend"</i> - после элемента</li>
+</ul>
+<i>let ul = document.querySelector('ul');</i><br>
+<i>ul.insertAdjacentHTML("afterbegin", "&lt;li>First&lt;/li>");</i> - вставили в список первый элемент.<br><br>
+
+<b>node.remove()</b><br>
+<i>let liRemove = setInterval(function() {</i><br>
+  <i>let li = document.querySelector("ul.list > li:last-child");</i><br>
+  <i>if(li === null) {</i><br>
+    <i>clearInterval(liRemove);</i><br>
+    <i>alert("Список удалён");</i><br>
+  <i>} else li.remove();</i><br>
+  <i>}, 500);</i> - удалять все путкты списка по одному.<br><br>
+
+<b>cloneNode</b> - клон узла DOM дерева.<br>
+<i>let t = document.querySelector("table");</i><br>
+<i>let r = document.querySelector("table>tbody>tr:last-child");</i><br>
+<i>let row = r.cloneNode(true);</i> - при значении false получаем клон без дочерних элементов.<br>
+<i>row.firstChild.innerHTML = "Венера";</i> - изменили содержимое первой ячейки.<br>
+<i>t.append(row);</i><br><br>
+
+<b>DocumentFragment</b> - объект специального вида.<br>
+<i>&lt;ul>&lt;/ul></i> - создали пустой список.<br>
+<i>let fr = new DocumentFragment();</i><br>
+<i>let list = ["Mercury", "Venus", "Earth"];</i><br>
+<i>for (let p of list) {</i><br>
+  <i>let item = document.createElement('li');</i><br>
+  <i>item.innerHTML = p;</i><br>
+  <i>fr.append(item);}</i><br>
+  <i>let ul = document.querySelector('ul');</i><br>
+  <i>ul.append(fr);</i> - создали список в виде фрагмента и вставили его целиком в ul.<br><br>
+
+Другой способ создать список:<br>
+<i>let list=["Меркурий", "Венера", "Земля", "Марс"];</i><br>
+<i>let ul = document.querySelector("ul");</i><br>
+<i>for(let p of list) {</i><br>
+    <i>let item = document.createElement('li');</i><br>
+    <i>item.innerHTML = p;</i><br>
+    <i>ul.append(item);}</i><br>
+    </section>
+
+    <section id="s5"><h3>Управление стилями:</h3>
+<i>elem.className</i> - получить или изменить название класса тега.<br>
+<i>elem.style</i> - в теге атрибут 'style', точка, св-во.<br>
+<ul>
+  <li>elem.classList.add/remove("class") - добавить/удалить класс.</li>
+  <li>elem.classList.toggle("class") - добавить класс или удалить(если уже есть).</li>
+  <li>elem.classList.contains("class") - проверить наличие.</li>
+</ul>
+for (el of elem.classList) console.log(el); - перебрать все вложенные классы.<br><br>
+Изменение позиционирования в стилях:<br>
+<i>let elem = document.querySelector('div');</i><br>
+<i>let coordY = 0;</i><br>
+<i>let idMove = setInterval(function() {</i><br>
+       <i>coordY += 5;</i><br>
+       <i>elem2.style.top = coordY+"px";</i><br>
+<i>}, 50);</i><br>
+ 
+<i>setTimeout(()=>clearInterval(idMove), 5000);</i><br><br>
+
+Если имя св-ва составное - используется верблюжая нотация:<br>
+<i>elem.style.fontSize = '20px';</i><br>
+Если в имени есть префикс, то оно начинается с заглавной буквы.<br>
+Что бы 'сбросить' св-во через style нужно присвоить ему пустую строку.<br><br>
+
+div будет мигать:<br>
+<i>let elem2 = elem.nextSibling.nextSibling;</i><br>
+<i>let idMove = setInterval(function() {</i><br>
+    <i>if(!elem2.style.display) elem2.style.display = "none";</i><br>
+    <i>else elem2.style.display = "";</i><br>
+<i>}, 100);</i><br>
+ 
+<i>setTimeout(()=>clearInterval(idMove), 3000);</i><br><br>
+
+несколько св-в в виде строки:<br>
+<i>elem.style.cssText = `color:red; font-size: 18px; background-color: green`;</i><br><br>
+
+<b>getComputedStyle.</b> - получить стили элемента.<br>
+<i>let objStyles = getComputedStyle(elem);</i><br>
+<i>console.log(objStyles.width);</i> - св-во width у elem (минус scroll).<br>
+<i>(console.log(getComputedStyle(elem).width);</i>
+    </section>
+
+    <section id="s6"><h3>Метрики:</h3>
+<i>window.innerWidth; window.innerHeight;</i> - полная ширина и высота клиентского окна.<br>
+<i>html.scrollWidth; html.scrollHeight</i> - (html-переменная) вся ширина и высота документа (минус scroll).<br>
+<i>window.pageXOffset; window.pageYOfset;</i> - на сколько прокручен документ (только для чтения).<br>
+<i>window.scrollBy(offX, offY);</i> - прокрутить страницу относительно текущего положения в px.<br>
+<i>window.scrollTo(offX, offY);</i> - прокрутить страницу до указанных координат в px.<br><br>
+
+<i>setInterval(function() {window.scrollBy(0,5)}, 100);</i> - автоматическая прокрутка.<br><br>
+
+<i>html.scrollTop; html.scrollLeft;</i> - на сколько прокручен документ (можно менять).<br>
+<i>elem.clientWidth</i> - ширина клиентской области (px); к заданной ширине прибавится padding и вычтется scroll; только для чтения.<br>
+<i>elem.style.width = 100 + 'px';</i> - изменить ширину.<br>
+<i>elem.clientHeight</i> - высота клиентской области (px)<br><br>
+
+<i>elem.scrollTop</i> - сколько px прокручено вверх (можно менять).<br>
+<i>elem.scrollTop = 100; elem.scrollTop += 20px;</i><br>
+<i>elem.scrollLeft</i> - сколько px прокручено влево (можно менять).<br>
+<i>elem.scrollBy(x,y); elem.scrollTo(x,y)</i> - как с window.<br>
+<i>elem.scrollWidth</i> - вся ширина с учётом скрытого(+padding-scroll); только для чтения.<br>
+<i>elem.scrollHeigh</i> - вся высота с учётом скрытого; только для чтения.<br><br>
+
+<i>elem.offsetParent</i> - от какого блока отсчитывается смещение (обычно от body).<br>
+<i>elem.offsetLeft</i> - смещение блока от левого края.<br>
+<i>elem.offsetTop</i> - смещение блока от верхнего края.<br>
+<i>elem.clientLeft</i> - толщина border-left.<br>
+<i>elem.clientTop</i> - толщина border-top.<br>
+<i>elem.offsetWidth</i> - ширина элемента с учётом всех отсупов (width+padding+border).<br>
+<i>elem.offsetHeight</i> - высота элемента с учётом всех отступов.<br><br>
+
+<i>setTimeout(function() {</i><br>
+<i>elem.scrollIntoView(top=true);});</i> - прокрутить страницу, чтобы elem был вверху (false - внизу); работает только после полной загрузке страницы.<br>
+<i>document.body.style.overflow = 'hidden'</i> - спрятать прокрутку страницы (чтобы сбросить - присвоить пустую строку).<br><br>
+
+<i>position: absolute (fixed);</i> - координаты расчитываются от всего документа (от границ окна браузера).<br> 
+<i>let coords = elem.getBoundingClientRect();</i> - получить все координаты.<br>
+console.log(coords); ..DOMRect {x: 100.5, y: -20, width: 370, height: 270, ..} - x, left; y, top - верхний левый угол; right, bottom - левый нижний угол; width, height - размеры.<br><br>
+
+<i>let elem = document.elementFromPoint(x,y);</i> - в указаной точке самый глубокий элемент. (если есть наложение - элемент, который в html идёт раньше).<br><br>
+
+function getCoordFromDocument(elem) { // elem - переменная<br>
+    let coords = elem.getBoundingClientRect();<br>
+    return {<br>
+      top: coords.top + window.pageYOffset,<br>
+      left: coords.left + widnow.pageXOffset<br>
+    };<br>
+} - ф-ция вернёт координаты левой верхней точки от границ документа.<br>
+    </section>
+
+    <section id="s7"><h3>Обработчики событий:</h3>
+<ul><li>onclick</li><li>oninput</li>
+<li>mousemove</li>
+<li>keydown/keyup</li>
+<li>DOMContentLoaded - документ польностью загружен.</li>
+<li>transitionend - завершение css-анимации.</li></ul>
+<i>&lt;p>&lt;a id="link" href="#" onclick="show()">Push&lt;/a>&lt;p></i> - атрибут тега анонимная ф-ция; чтобы она работала с this:<br>
+link.onclick = show;<br>
+другой способ - указать в ф-ции аргумент (event) (в атрибутах), а в самой ф-ции этот аргумент и вызов event.currentTarget.tagName<br><br>
+
+<i>let inp = document.querySelector('input');</i> - ссылка на тег iput.<br>
+<i>inp.onclick = show;</i> - ссылка (не ф-ция).<br>
+<i>inp.onclick = null</i> - удалить обработчик.<br><br>
+
+<i>function show() {console.log(this.tagName)};</i> - имя тега в котором ф-ция запустится.<br><br>
+
+<b>element.addEventListener(event, handler[,options]);</b><br>
+<i>inp.addEventListener("click", show);</i><br>
+<i>inp.addEventListener("click", function(event) {</i><br>
+  console.log(event.clientX, event.clientY);<br>
+});<br>
+function show(event) {console.log(event.currentTarget.tagName)};<br><br>
+
+<i>inp.removeEventListener('click', show);</i> - удалить обработчик.<br><br>
+
+<b>Погружение и всплытие событии.</b><br>
+(не работает с событием focus)<br>
+Напишим html: блок див; в нём параграф; в параграфе спан.<br>
+Если только на див повесить обработчик. <i>onclick = "showTag(event)"</i><br>
+<i>function showTag(event) {console.log(event.currentTarget.tagName);}</i><br>
+то при клике на любой тег будет отображаться DIV.<br><br>
+
+Если на каждый тег повесить обработчик, то при клике на спан console.log отобразит три события; в каждом <i>event.currentTarget.tegName</i> - отобразит название текущего тега, а <i>event.target.tagName</i> - название первого тега в котором произошло событие.<br><br>
+
+<i>event.stopPropogation();</i> - остоновить (всплытие) обработку событий.<br>
+<i>event.stopImmediatePropogation();</i> - если несколько обработчиков на событии.<br><br>
+
+<b>Делегирование событий.</b><br>
+Напишим html: список ul c id="main_menu"; <br>
+<i>main_menu.addEventListener("click", function(event) {</i><br>
+  <i>let li = event.target.closest('li');</i> // ближайший к li<br>
+  <i>if(li == null) return;</i> // если нет li - ничего не возвр.<br>
+  <i>console.log(li.innerHTML);});</i> // или содержимое пункта.<br>
+можно в каждом li добавить нестандартный аргумент со значением (например: <i>data-command="open"</i>)  и выбирать эти команды: <i>console.log(li.dataset.command);</i><br><br>
+
+можно создать объект с методами и запускать эти методы при клике:<br>
+<i>const menuAct = {</i><br> 
+<i>open() {alert('open..')},</i><br>
+<i>close() {aler('close..)},</i><br>
+};<br>
+<i>main_menu.addEventListener('click', function(event) {</i><br>
+  <i>let li = event.target;</i><br>
+  <i>let act = li.dataset.command;</i><br>
+  <i>if(menuAct[act]) menuAct[act]();})</i><br><br>
+ 
+<i>event.target</i> - элемент на котором произошло событие.<br>
+<i>event.target.tagName</i> - название тега.<br>
+<i>onclick = "return false;"</i> - отменить действие браузера по умолчанию.<br>
+<i>event.preventDefault();</i> - отменить действие браузера по умолчанию.<br><br>
+
+<b>События мыши.</b><br>
+"mausedown" => "mauseup" => "click" => "dblclick"<br>
+"mausemove", "mouseover", "mouseout", "mouseenter", "mouseleave"<br>
+"onclick", "onmouseenter" - если в качестве аргумента.<br>
+<ul><li> event.which == 1 - левая кнопка.</li>
+<li> event.which == 2 - средняя кнопка.</li>
+<li> event.which == 3 - правая кнопка.</li></ul>
+<ul><li>event.shiftKey - зажат ли shift?</li>
+<li>event.altKey - зажат ли Alt (Opt)?</li>
+<li>event.ctrlKey - зажат ли Ctrl?</li>
+<li>event.metaKey - зажат ли Cmd для Mac?</li></ul>
+зажаты ли Sift and Ctrl при клике:<br>
+<i>document.addEventListener("click", (event) => {</i><br>
+    <i>if (event.shiftKey && (event.ctrlKey || event.metaKey)) console.log("click");});</i><br><br>
+
+кроме клавиш объект event для событий мыши содержит св-ва:
+<ul><li>clientX/clientY - коорд курсора мыши относ окна браузера</li>
+<li>pageX/pageY - коорд курсора мыши относ HTML-документа</li></ul>
+
+<i>"onmouseover" и "mouseout"</i> - наведение курсора и покидание курсора.<br>
+<i>target and relatedTarget</i> - св-ва event - объект над которым находится курсор и объект с которого ушел курсор (для 'mouseout' наоборот).<br><br>
+
+<i>"mouseenter" и "mouseleave"</i> - не всплявают.<br><br>
+
+<b>События клавиатуры keydown and keyup.</b><br>
+<i>input id='inp' onkeydown='key(event)' onkeyup='key(event)'</i><br>
+<i>function key(event) {console.log(event.type);}</i> type - keydown, keyup<br>
+<i>event.repeat ...true</i> - автоповтор.<br>
+<i>event.key</i> - символ нажатой клавиши (c,d,п,ф,Alt, Control).<br>
+<i>event.code</i> - код нажатой клавши(Numpad1, Digit1, AltLeft, KeyD).<br><br>
+
+<i>window.addEventListener("scroll", function(event) {</i><br>
+  <i>inp.value = pageYOffset;});</i> - в inp отобразится смещение докум по вертикали.<br><br>
+
+<b>События при загрузке.</b><br>
+<ul><li>DOMContentLoaded - браузер загрузил HTML, внешние ресурсы нет (img, css)</li>
+<li>load - всё загружено</li>
+<li>beforeunload/unload - пользователь собрался покинуть стр.(предупредить) / покинул страницу (собрать статистику)</li></ul>
+<i>if (document.readyState == "loading")</i> - докум. в процессе загрузки; "interactive" - парсинг завершён; "complete" - полностью прочитан и всё загружено.<br>
+    </section>
+
+    <section id="s8"><h3>Элементы форм:</h3>
+    
+    </section>
+  </aside>
+</div>
+      
+  <footer>
+    <h3 id="s20">Ссылки:</h3>
+    <p><a href="https://developer.mozilla.org/ru/" target="_blank"  rel="noopener" >mdn</a> - documentation</p>
+    <p><a href="https://wm-school.ru/js/index.php" target="_blank" rel="noopener" >wm-shool.ru</a> - Учебники;
+    <a href="https://www.schoolsw3.com/js/index.php" target="_blank" rel="noopener" >schoolsw3.com</a> - Учебники</p>
+    <a href="https:proproprogs.ru" target="_blank" rel="noopener" >proproprogs.ru</a> - selfedu</p>
+  </footer>
+</div>
+</body>
+</html>

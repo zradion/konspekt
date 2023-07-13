@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style1.css" />
+    <title>JavaScript</title>
+</head>
+<body>
+<div class="cont">
+  <div class="left_right">
+      
+  <aside class="left">
+<p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
+<p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
+<p><a href="#s1">Введение.</a></p>
+<p><a href="#s2">Числа.</a></p>
+<p><a href="#s3">Строки.</a></p>
+<p><a href="#s4">Условные операторы.</a></p>
+<p><a href="#s5">Циклы.</a></p>
+<p><a href="#s6">Массивы.</a></p>
+<p><a href="#s7">Set(), Map().</a></p>
+<p><a href="#s8">Дата.</a></p>
+<p><a href="#s9">Диалоговые окна.</a></p>
+<p><a href="#s10">Регулярные выражения.</a></p>
+<p><a href="#s11">Ошибки.</a></p>
+<p><a href="#s12">import, export.</a></p>
+<p><a href="#s13">Классы и прототипы.</a></p>
+<p><a href="#s14">Промисы.</a></p>
+<p><a href="#s15">Canvas.</a></p>
+<p><a href="#s16">Разное.</a></p>
+<p><a href="#s20">Ссылки.</a></p>
+  </aside>
+      
+  <aside class="right"><h1 align="center" id="s0">JavaScript</h1>
+
+    <section id="s1"> <h3>Введение:</h3>
+<i>&lt;script defer src="myScript.js"> &lt;/script></i> - скрипт из внешнего файла, синхронное поведение (async - асинхронное).
+Скрипт будет выполняться после загрузки html.<br><br>
+<i>"use strict"</i> - код будет читаться по новым правилам.<br>
+<i>innerHTML, document.write(), window.alert(), console.log(), console.error(), console.dir() - св-ва объекта, console.table()</i><br>
+<i>window.print()</i> - вызов метода в браузере - распечатать текущее окно.<br><br>
+
+JavaScript - динамически типизируемый язык (тип меняетс динамически).<br>
+Код JavaScript - программа или список заявлений.<br>
+В консоли можно напечатать имя объекта (window, console...) и увидеть все его св-ва (методы).<br>
+<i>window</i> - глобальный объект в веб браузере; <i>global</i> - в Node.js<br>
+<i>console</i> - объект, являющийся св-вом window or global<br>
+<i>метод</i> - св-во объекта, значение которого - ф-ция.<br>
+выражение и ф-ция - возвращают значение.<br>
+инструкция - выполняет действие (не возвр. знач); заканчивается ';'<br>
+<i>break, continue, debugger, do ... while, for, function, if ... else, return, switch, try ... catch, var</i> - ключевые слова.<br>
+' // ', '/* ... */' - коментарий. (Ctrl + /)<br>
+<b>Индетификаторы</b> начинаются с буквы, (_) или ($).<br>
+<i>first_name, PascalCase (типы и классы), camelCase (переменные)</i> - нижнее подчёркивание, регистр Паскаля, верблюжая нотация.<br>
+<i>var, let, const</i> - <b>способы объявить переменную</b> (инструкции).<br>
+<b>var</b> можно переназначать и объявленная внутри блока будет видна и глобально. Переменные объяленные с помощью <i>var</i> являются подъёмными сверху (можно использовать до объявления).<br>
+<b>const</b> значение должно быть присвоено при объявлении. Видна только внутри блока (как и <i>let</i>).<br><br>
+
+<b>Типы данных</b> typeof.<br>
+- простые: числа ('number'), строки ('string'), логический тип ('boolean'; true or false), null, undefined, символ ('symbol').<br>
+- объекты: обычные; массив, функция, объект даты, регулярные выражения, ошибки.<br><br>
+
+<i>var mySymbol = Symbol('name');</i> - создать символ - вызвать ф-цию Symbol(); необязательный параметр - описание символа; значение символа уникально (они не равны).<br><br>
+
+<b>функция</b> - это объект; у неё есть св-ва; с именем и параметрами или без - объявленная ф-ция и функциональное выражение, анонимная; инструкция <i>return</i> параметры могут иметь значения по умолчанию.<br>
+funnction func() {console.log('Hei there')} - <b>создание ф-ции</b>; func - имя (переменная; может быть переназначена); func() - вызвать ф-цию.<br>
+const func = () => console.log('Hei there'); func() - вызвать ф-цию (в скобках <i>аргументы</i>).<br><br>
+
+<i>const newPost = (post, addedAt = Date()) => ({</i>(параметры по умолчанию; применится если не введён второй параметр)<br>
+  <i>...post,</i><br>
+  <i>addedAt,})</i> - добавить к объекту (post) дату. Круглые скобки, чтобы вернуть р-т 'неявно'<br><br>
+
+<i>setTimeout(func, 1000)</i> - встроенная ф-ция; параметры: название ф-ции (collback), время задержки в мсек.<br>
+
+<b>Объекты.</b><br>
+<i>const obj = {"name": "Kity", "legs": 4};</i> - создание объекта с помощью литерала; если св-во создаётся из переменной с одноимённым названием можно :<br>
+<i>const obj = {name, legs}</i><br>
+<i>const obj = new Object();</i> - с помощью метода конструктор.<br>
+<i>cat.name = "Kity"; cat.legs = 4;</i> - присвоить значение с помощью точечной нотации.<br>
+<i>cat['name'] = "Kity;"</i> - со скобками можно составные имена в кавычках.<br>
+const propertyName = 'color';<br>
+cat[propertyName] = 'grey'; - добавить св-во <i>color</i> и его значение.<br>
+<i>Object.keys(obj)</i> - массив из св-в (можно перебрать с помощью forEach).<br>
+<i>Object.values(obj)</i> - массив из значений.<br>
+<i>delete obj.name</i> - удалить св-во объекта.<br><br>
+
+В объекте может быть вложенный объект. Тогда для доступа к значению - имяОбъекта.имяСвойства.имяСв-ва вложеного объекта (используем оператор точка или с []).<br>
+Если в объекте есть метод (myfunc: function () {conslole.log('Hi')})<br>
+то его можно вызвать: cat.myfunc();<br>
+Объекты можно сложить или добавить св-ва, используя оператор 'спред' (порядок имеет значение).<br><br>
+
+<b>деструктуризация объектов</b><br>
+const {name, legs} = obj; - теперь name и legs переменные объявленные с помощью const; так можно передать их в качестве аргументов ф-ции (<i>деструктуризация в ф-циях</i>)<br>
+<i>cont text = ({name, legs}) => `${name} has ${legs} legs.`</i><br>
+<i>text(obj); </i>- вызвать ф-цию<br><br>
+
+<b>JSON</b> - javascript object notation (объект - можно посмотреть его св-ва.)<br>
+{"userId": 1, "id": 1, "title": "test title", "status": {"completed": false}}<br>
+JSON.parse() - из JSON распарсить в JuvaScript<br>
+JSON.stringify() - из JuvaScript в JSON<br>
+Инструмент разработчика - 'Fetch/XHR' - выбрать запрос - 'Response' - строка в JSON<br>
+'Preview' - строка конвертирована в JS<br><br>
+
+<b>копирование:</b><br>
+const obj2 = Object.assign({}, obj) - копия не коснётся вложеных объектов.<br>
+const obj2 = {...person} - с помощью оператора 'спред' - то же самое.<br>
+const obj2 = JSON.parse(JSON.stringify(obj)) - полная копия.<br> 
+    </section>
+
+    <section id="s2"> <h3>Числа:</h3>
+переменная, число,... - операнды.<br>
+(+, -, *, **, /, %, ++, --) - операторы (..остаток от деления, инкремент, декремент).<br>
+(=, +=, -=, *=, /=, %=, **=) - операторы присвоения.<br>
+<i>Boolean(value)</i> - ф-ция возвр true or false (!!value - то же).<br>
+<b>false</b> - ноль, минус ноль, пустая строка, underfined, null, NaN and false.<br>
+(==, ===, !=, !==, >, &lt;, >=, &lt;=, ?) - операторы сравнения (возвр булевое знач).<br>
+(&&, ||, !) - логические операторы и, или, не (возвращает true или false).<br>
+<i>&&</i> - если первое ложно, второе не рассматривается.<br>
+<i>||</i> - если первое истино, второе не рассматривается.<br>
+(typeof, instanceof) - операторы типов.<br>
+typeof возвращает string, number, boolean, underfined - примитивные типы.<br>
+function - функции, object - для объектов, массивов и нуля.<br>
+(&, |, ~, ^, &lt;&lt;, >>, >>>) - побитовые операторы.<br><br>
+
+Тернарный (условный) оператор.<br>
+var voteable = (age < 18) ? "Меньше 18" : "Больше 18"<br><br>
+
+<i>x ** y == Math.pow(x,y);</i> - x  в степени  y<br>
+<i>Math.PI;</i> - 3.141592653589793<br>
+<i>x.toFixed(2);</i> - округлить до двух знаков.<br>
+<i>Math.round(x)</i>; - округлить до ближайшего целого.<br>
+<i>Math.ceil();</i> - округлить вверх.<br>
+<i>Math.floor();</i> - округлить вниз.<br>
+<i>Math.sqrt(x);</i> - квадратный корень из x;<br>
+<i>Math.sin(x);</i> - синус от x в радианах.<br>
+<i>Math.sin(x * Math.PI / 180);</i> - x преобразовать из градусов в радианы.<br>
+<i>Math.abs(x);</i> - модуль от x;<br>
+<i>Math.min(); Math.max();</i> - поиск мин или макс знач в списке.<br>
+<i>Math.min(...[1,2,3]);</i>// 1<br><br>
+
+<i>Math.random();</i> - случайное знач оот 0 до 1 (не вкл)<br>
+<i>Math.floor(Math.random() * i);</i> - случайное целое  значение от 0 до (i-1).<br>
+<i>Math.floor(Math.random() * i) + 1;</i> - случайное целое  значение от 1 до i.<br><br>
+function getRndInteger(min, max) {<br>
+  return Math.floor(Math.random() * (max - min) ) + min;} - от min(вкл) до max(не вкл)<br><br>
+function getRndInteger(min, max) {<br>
+  return Math.floor(Math.random() * (max - min + 1) ) + min;} от min до max (оба вкл)<br><br>
+
+<i>undefined</i> - значение и тип не определён.<br>
+<i>null</i> - значит "ничего", тип - объект.<br>
+var x = 123e5;  // 1230000 - экспоненциальная нотация<br>
+В JS только один тип числа, всегда 64-битные с плавающей зпт (от 0 до 51 - число, от 52 до 62 - показатель степени, 63 - знак), точность до 15 цифр, кол-во десятичных знаков - 17.<br>
+<i>typeof()</i> ...number<br>
+число + строка = строка<br>
+"100" / "10" = 10 (так же с другими операторами).<br>
+100 / "строка" = NaN - not a number, (арифм операции с NaN = NaN или конкатенация; typeof NaN - number)<br>
+<i>isNaN(x);</i> - проверить x (не число ...true)<br>
+<i>Infininty</i> - вернёт, если вычисляемое число за пределами возможного и при делении на 0 (тип number).<br>
+var x = 0xFF; - запись шестнадцатиричного числа (255).<br>
+<i>x.toString(2);</i> - вернёт число в двоичной записи (можно до 36).<br>
+<i>x.toString();</i> - вернёт в виде строки<br>
+<i>x.toExponential(2);</i> - округлит и вернёт в эксоненциальной нотации параметр необязательный.<br>
+<i>x.toFixed(2)</i> - возвращает строку с указанным кол-вом десятичных знаков.<br>
+<i>x.valueOf();</i> - возвращает число как число.<br>
+<i>Number()</i> - преобразует переменные в числа. true - 1; false - 0; " 10 " - 10; '10,33'; '10 33'; 'word' - NaN; null - 0; undefined - NaN; <br>
+Number(new Date("2017-09-30")); ...1506729600000 - кол-во милисек с 1.1.1970<br>
+<i>parseInt()</i> - анализирует строку, возвр целое число или NaN. (только первое)<br>
+<i>parseFloat()</i> - возвр число.<br>
+Свойства Number: Number.MAX_VALUE(.MIN_VALUE, .POSITIVE_INFINITY, .NEGATIVE_INFINETY, .NaN)<br><br>
+
+var num = 5; bin = 101;<br>
+num.toString(2); ...'101'<br>
++parseInt(bin, 2).toString(10); ...5<br>
+Побитовые операторы изменяют двоичный код
+    </section>
+
+    <section id="s3"><h3>Строки:</h3>
+<i>typeof, instanseof, new, delete</i> - текстовые операторы.<br>
+<i>typeof() </i>...string<br>
+<i>String(123)</i> ...'123'<br>
+String.prototype.toUpperCase = function() {return this;} - в объекте 'String' можно изменить св-во. (Сдесь св-во toUpperCase не будет работать.)<br>
+<i>typeof x[0] === 'string' && isNan(x[0]) ? 'Yes' : 'No'</i> - является ли этот элемент строкой и словом?<br>
+var txt = "Dfdlsurty njsj"; var len = txt.length;<br><br>
+\ - escape, backslash - для экранирования спец символов и для разбиения длинной строки на части (но лучше использовать +).<br>
+Обратные ковычки - литералы шаблонов. Для определения строки, внутри можно использовать  как одинарные, так и двойные, допускают многострочные строки, способ интерполяции переменных и выражений в строки. <i>`${...}`</i>, а так же используются для создания шаблонов в html.<br><br>
+
+<i>length</i> - txt.length - кол-во символов.<br>
+<i>indexOf()</i> - txt.indexOf('sur', 5) - возвращает индекс первого вхождения (или -1). Второй параметр - начальная позиция.<br>
+<i>lastIndexOf()</i> - тоже, но с другого конца.<br>
+<i>isNaN()</i> - 
+<i>search()</i> - возвращает индекс, нет второго параметра, может принимать регулярные выражения.<br>
+<i>slice(start, end)</i> - txt.slice(4, 7) - срез (вкл, невкл), с нулевого индекса, если отрицательные значения - с конца (-7, -4), если одно значение - от него до конца.<br>
+<i>substring(start, end)</i> - не может принимать отрицательные индексы.<br>
+<i>substr(start, length)</i> - второй параметр указываетт длину извлечённой части (без него - до конца).<br><br>
+
+<i>replace()</i> - var n = txt.replace('sur', 'boom');<br>
+Заменить совпадение (по умолчанию одно), не изменяет строку - возвращает новую, можно использовать регулярные выражения. (/SUR/i, 'boom') - не чувтвителен к регистру; (/sur/g, 'boom') - все совпадения.<br><br>
+
+<i>toUpperCase()</i> - txt.toLowerCase() -  в верхний регистр.<br>
+<i>toLowerCase()</i> - в нижний<br>
+<i>concat()</i> - txt1.concat(' ', txt2, " ", "more")<br>
+<i>trim()</i> - удаляет пробелы с двух сторон.<br><br>
+
+str = str.replace(/ +/g, ' ') - удалить лишние пробелы.<br><br>
+
+<i>charAt()</i> - txt.charAt(0); - вернёт символ по указаному индексу.<br>
+<i>charCodeAt()</i> - вернёт юникод символа (UTF-16).<br>
+txt[0]; - вернёт символ с индексом 0 (свойство).<br><br>
+
+txt.split(''); - строку в массив по символьно. Если не указать разделитель - вся строка будет с индексом 0. Не изменяет txt.<br><br>
+
+<i>string.match(regexp)</i> - 
+txt.match(/sur/g); - поиск с регулярным выражением, возвращает совпадения в виде массива или <i>null</i>.<br>
+<i>string.includes(searchvalue, start)</i> - возвращает булевое значение.<br>
+<i>string.startWith(searchvalue, start)</i> - булевое (start включено).<br>
+<i>string.endWith(searchvalue, length)</i> - булевое (кол-во символов от начала).<br>
+    </section>
+
+    <section id="s4"><h3>Условные операторы:</h3>
+<i>if</i> (условие) {инструкция}; условие преобразуется в логическое знач; однострочную инструкцию можно без фигурных скобок.<br><br>
+<i>if</i> (условие) {инструкция}<br>
+else {инструкция}; для true и для false<br><br>
+<i>if</i> (условие 1) {инструкция 1}<br>
+<i>else if</i> (условие 2) {инструкция 2}<br>
+<i>else if</i> (условие 3) {инструкция 3}<br>
+<i>else</i> {инструкция 4} много условий и инструкций; если использовать только if - прочитаются все условия.<br><br>
+Тернарный (условный) оператор.<br>
+var voteable = (age < 18) ? "Меньше 18" : "Больше 18"<br>
+Вложеные инструкции можно записать последовательностью тернарных операторов или с использованием логических И и Или; ассоциативность справо налево.<br><br>
+
+var a = 3; switch (a) {<br>
+  case 1: alert('x = 1'); break;<br>
+  case 'two': alert('two'); break;<br>
+  default: alert('нет совпадений');<br>
+}<br>
+Инструкция switch начинается с вычисления выражения (работает со всеми типами данных); в каждом случае проверяется строгое соответсвие (значения case могут быть константами, переменными или выражениями); если найдено - break, нет - default; break and default - необязательные; внутри цикла или функции могут быть использованы return and continue соответственно.<br>
+Можно после нескольких case (условие): одна инструкция; или switch (true), а в case выражение.<br>
+<i>swith (new Date().getDay()) {</i><br>
+  <i>default:</i><br>
+  <i>day = "Not this";</i><br>
+  <i>break;</i><br>
+  <i>case 0:</i><br>
+  <i>day = "Вск.";</i><br>
+  <i>break;</i><br>
+  <i>case 1:</i><br>
+  <i>day = "Пн.";</i><br>
+  <i>break;</i>}<br>
+    </section>
+      
+    <section id="s5"><h3>Циклы:</h3>
+(for, for/in, for/of, while, do/while)<br><br>
+
+var text = '', i;<br>
+<i>for (i = 0; i < 5; i++) </i>{ // оператор 1 выполняется один раз (в него можно инициализировать множество знач.); оператор 2 - условие (можно перенести его в тело и break;); оператор 3 - каждый раз после выполнения блока (может быть внутри блока); все три необязательные выражения (";" - обязательно).<br>
+  text += "number " + i + "&lt;br>";<br>
+  text += `cube ${i} = ${i**3}&lt;br>`}<br><br>
+
+for/in - перебирает св-ва объектов.<br>
+<i>var x, txt = '', person = {name: "Bob", age: 25};</i><br>
+<i>for (x in person) {</i><br>
+  <i>txt += `${person[x]} `};</i><br><br>
+
+for/of - перебирает значения итерируемых объекотв (массивы, строки, карты, списки узлов Node и т.д)<br>
+<i>for (let x of cars) {console.log(x)}</i><br><br>
+
+while (condition) { блок кода} (булево знач)<br>
+<i>var text = ""; i = 0;</i><br>
+<i>while (i < 10) {text += "&lt;br> Number: " + i; i++;}</i><br><br>
+
+<i>do {text += "&lt;br> Number: " + i; i++;}</i><br>
+<i>while (i < 10);</i><br><br>
+
+<b>break</b> - оператор; прервать цикл.<br>
+<b>continue</b> - оператор; прервать одну итерацию.<br><br>
+    </section>
+
+    <section id="s6"><h3>Массивы:</h3>
+Массив - особый ввид объектов с пронумерованными индексами.<br>
+<b>var cars = ["Saab", "Volvo", "BMW"];</b><br>
+var cars = new Array("Saab", "Volvo", "BMW"); - не рекомендуется.<br>
+typeof(cars) - object<br>
+<i>Object.keys(cars);</i> - массив индексов.<br>
+<i>var name = cars[0]</i> - получение первого элемента массива по индексу.<br>
+<i>cars[0] = 'Opel';</i> - изменить значение первого элемента.<br>
+<i>delete cars[0];</i> - удалит значение, но останется дырка.<br>
+<i>cars.length</i> - свойство длина массива (может не соответствовать реальной длине).<br>
+<i>cars[cars.length] = 'Lada'</i> - тоже (можно добавить любой индекс)<br>
+При использовании именованых индексов массив превратится в стандартный объект.<br>
+<i>Array.isArray(cars);</i> - является ли cars настоящим массивом?(новое)<br>
+<i>cars instanceof Array;</i> - вернёт true, если объект создан с помощью данного конструктора.<br>
+<i>cars.toString();</i> - массив в строку значений разделённых зпт.<br>
+<i>cars.join(';');</i> - массив в строку; можно указать разделитель.<br>
+<i>cars.pop();</i> - удаляет (и возвращает) последний элемент. mutable.<br>
+<i>cars.slice(0, -1);</i> - срез; (вкл, не вкл); создаёт новый массив; без аргументов или (0) - копия; (1) - от первого до конца; (0, -1) - без последнего элемента.<br>
+Что бы исходный массив не мутировал надо брать копию (cars.slice() or [...cars]).<br>
+<i>cars.push('Opel');</i> - добавляет новый элемент (несколько через зпт) в конец; возвращает длину масива; mutable.<br>
+<i>var cars2 = [...cars, 'Opel'];</i> - добавить элемент в новый массив с помощью 'спред'.<br>
+<i>cars.shift();</i> - удалит (и вернёт) первый элемент; mutable.<br>
+<i>var cars2 = cars.slice(1);</i> - новый массив без первого элемента.<br>
+<i>var item; [item, ...cars2] = cars;</i> - с помомощью "спред".<br>
+<i>cars.unshift('Opel')</i>; - добавляет элемент первым; возвращает длину массива; mutable.<br>
+<i>cars2 = ['Opel', ...cars];</i> - добавить первый элемент в новый массив.<br>
+<i>cars.reverse();</i> - перевернёт массив; mutable.<br>
+<i>cars.splice(2, 2, 'Lada', 'Niva');</i> - со второго индекса удалить два элемента и вставить указанные. cars.splice(1) - первый элемент; cars.splice(2) - два первых; cars.splice(2, 1) - удалить третий; возвращает массив с удалёнными элементами.<br>
+<i>var cars2 = cars.concat(['Lada', 'Niva'], cars3);</i> - метод создаёт новый массив складывая всё. mutable<br>
+var cars3 = cars.concat('Lada', 'Niva'); - можно.<br><br>
+
+<i>cars.sort()</i> - метод сортирует строки. mutable.<br>
+Для сортировки чисел применяем ф-цию: <i>(a, b) => a - b; - по возростанию и b - a - по убыванию.</i><br>
+array_num.sort((a,b) => 0.5 - Math.random()); - сортировка в случайном порядке.<br>
+Метод Фишера Йейтса для сортировки в случайном порядке:<br>
+  <i>var num = [45, 32, 43, 78, 11];</i><br>
+  <i>for (i = num.length - 1; i > 0; i--) {</i><br>
+  <i>j = Math.floor(Math.random() * i)</i><br>
+  <i>k = num[i]</i><br>
+  <i>num[i] = num[j]</i><br>
+  <i>num[j] = k};</i><br>
+<i>cars.reverse()</i> - после сортировки можно перевернуть. mutable.</i><br>
+Для поиска минимального или максимального знач можно в отсортированном массиве выбрать нулевой или последний индекс.<br>
+Или использовать <i>Math.min.apply and Math.max.apply</i><br>
+<i>function myArrayMax(arr) {</i><br>
+  <i>return Math.max.apply(null, arr);}</i><br><br>
+
+<b>Итерация массива.</b><br>
+<i>for (let i=0; i < cars.length; i++) {</i><br>
+  <i>console.log(cars[i]);}</i> - все элементы.<br><br>
+
+<i>for (let index in cars) {</i><br>
+  <i>console.log(cars[index]);}</i> - перебирает по индесам (обольше подходит для объектов).<br><br>
+
+<i>for (let elem of cars) {</i><br>
+  <i>console.log(elem);}</i> - перебирает элементы.<br><br>
+
+<i>Array.forEach(function(item, index, arr) {</i><br>
+<i>console.table({item, index});})</i> - вызывает ф-цию обратного вызова один раз для каждого элемента; ничего не возвращает (underfined); Ф-ция принимает три аргумента - value, index, array.<br>
+<i>cars.forEach((item) => console.log(item));</i><br><br>
+
+<i>Array.map()</i> - создаёт новый массив, выполняя ф-цию для каждого элемента имеющего значение. Не изменяет исх массив. Ф-ция принимает три аргумента - value, index, array; стрелочная ф-ция без фигурных скобок вернёт неявно, или нужен return.<br>
+<i> var cars2 = cars.map(myFunction);</i><br>
+<i>let arr = [1,3,5,15].map(el => el*2);</i> // [2,6,10,30]<br><br>
+
+<i>Array.filter(function(item, index, array))</i> - создаёт новый массив, проводит тест для элементов, может принимать три аргумента - value, index, array.<br>
+var mix = [45, 'one', true, '2', 'word', 34, 12, 67, 23];<br>
+var words = mix.filter((item) => typeof item === 'string' && isNaN(item));<br><br>
+
+<i>Array.reduce()</i> - запускает ф-цию для каждого элемента массива; может принимать четыре аргумента; первый аккумулятор или итого; если колбэк ф-ция возвращает acc + item - сумма всех элементов массива; acc.concat(item) - собрать из двумерного массива одномерный.<br><br>
+
+<i>Array.every()</i> - проверяет все значения массива; в качестве аргумента - ф-ция; возвр булевое значение.<br>
+<i>[12,5,31,7].every(elem => elem > 10);</i> // false<br>
+<i>Array.some()</i> - проверяет некоторые значения ; возвр булевое значение.<br>
+<i>Array.indexOf(itex [,start])</i> - возвр индекс элемента или -1.<br>
+<i>Array.lastIndexOf()</i> - тоже, с конца.<br>
+<i>Array.find(function(item, index, array))</i> - вернёт первое совпадение.<br>
+<i>Aaray.findIndex()</i> - вернёт индекс первого совпадения.<br><br>
+
+<b>деструктуризация массивов.</b><br>
+const [car1,,car3] = cars; - теперь первая и третья машины в массиве сохранены в своих переменных.<br><br>
+
+<i>Array.from(Array(10+1).keys()).slice(1)</i> - массив чисел [1,..10]<br>
+    </section>
+
+    <section id="s7"><h3>Set(), Map():</h3>
+<i>new Map()</i><br>
+<i>map.set(key, value)</i><br>
+<i>map.get(key)</i><br>
+<i>map.has(key)</i><br>
+<i>map.delete(key)</i><br>
+<i>map.clear()</i><br>
+<i>map.size</i><br><br>
+
+<i>new Set(iterable)</i><br>
+<i>set.add(value)</i><br>
+<i>set.delete(value)</i><br>
+<i>set.has(value)</i><br>
+<i>set.clear()</i><br>
+<i>set.size</i><br><br> 
+    </section>
+
+    <section id="s8"><h3>Дата:</h3>
+Нулевое время (начало эпохи UNIX) - 1 января 1970г., 00:00:00 UTC.<br>
+JS хранит время в милисекундах; 24часа = 86 400 000 милисек.<br>
+UTC (Universal Time Coordinated) == GMT (Greenwich Mean Time).<br>
+ISO даты - "2023-05-13" (Международный стандарт)<br>
+Длинный формат - "13 Jun 2023"<br><br>
+<i>var d = new Date()</i> ...Thu May 04 2023 17:32:56 GMT+0300 (Москва, стандартное время) - текущее время.<br>
+<i> Date.now(); - ECMASript 5 (милисек от начала эпохи).</i><br>
+<i>d.getFullYear(); d.getMonth() + 1; d.getDate(); d.getHours(); d.getMinutes(); d.get.Seconds(); d.getTime(); - милисек от начала; d.getDay(); - день недели(0(Вск)-6);</i><br>
+<i>var days = ["Воскресение", "Понедельник" ...];</i> - использовать массив, чтобы вызвать день недели.<br>
+<i>days[d.getDay()]</i> ...Воскресение<br>
+<i>d.toString();</i> - так преобразуется по умолчанию (местное время).<br>
+<i>d.toUTCString();</i> - время UTC.<br>
+<i>d.toDateString();</i> - Fri May 05 2023.<br>
+<i>d.toISOString()</i> - 2023-05-05T13:54:24.674Z<br><br>
+
+<b>Установить время.</b><br>
+<i>var d = new Date(2023, 4, 5, 16, 18, 45, 0);</i> ...Fri May 05 2023 16:18:45 GMT+0300 (Москва, стандартное время) - семь чисел через зпт; если одно число - милисекунды от начала эпохи (отрицательное знач - до начала эпохи); два - год и месяц (от 0); три, четыре, пять, шесть, семь - соответственно.<br>
+<i>var d = new Date("5 may 2023 11:00");</i> - в виде строки; в любом порядке, не чуствителен к регистру; можно только год.<br>
+<i>var d = new Date("2023-05-06T16:30:00Z");</i> - ISO Даты; время рзделяется T; Z - время UTC; чтобы изменить время относительно UTC Z заменить на +HH:MM или -HH:MM.<br>
+<i>var msec = Date.parse("1 jan 2023");</i> - кол-во милисек от начала эпохи.<br>
+<i>var d = new Date(msec);</i> - вернёт обратно дату.<br><br>
+
+<i>d.setFullYear(2023, 4, 9); </i> - установить год, месяц, день (или только год).<br>
+<i>d.setMonth(); d.setDate(); d.setHours(); d.setMinutes(); d.setSeconds()</i><br><br>
+
+<b>Сравнить время.</b><br>
+var d =  new Date(), d1 = new Date();<br>
+d1.setFullYear(2023, 4, 5);<br>
+
+if (d >= d1) {var text = 'Yes'}
+else {text = 'No'};<br>
+document.querySelector('#try').innerHTML = text;<br><br>
+
+Math.abs(d - d1) - разница дат в милисек.<br>
+86400 секунд в сутках (х 1000 - милисек)<br>
+    </section>
+
+    <section id="s9"><h3>Диалоговые окна:</h3>
+<b>alert</b>('messages'); - модальное окно (остонов последующих действий); выводит сообщение; строки разделяются '\n'; одна кнопка "закрыть";<br><br>
+
+var result = <b>confirm</b>('message'); - модальное окно предлагает выбор; возвращает true или false; две кнопки "Да" и "Нет";<br>
+if (confirm('Are you shure')) {alert ('Good')}<br>
+  else {alert ('Not good')};<br><br>
+
+var nameUser = <b>prompt</b>('Your name?', 'Ben'); - модальное окно предлагает ввести инфо и значение по умолчанию (не обязательно; если ничего не введено или окно закрыто)<br>
+    </section>
+
+    <section id="s10"><h3>Регулярные выражения:</h3>
+<b>Regex</b> - объект (искать, заменять, извлекать).<br>
+<b>test, exec</b> - методы для объекта Regex<br>
+<b>match, replace, search, split</b> - для объекта String<br>
+/.?/ - для задания пустого рег выражения.<br>
+флаги: g - все совпадения<br>
+i - не зависит от ригистра<br>
+m - многострочный режим<br>
+s - режим dotall (точка соответствует символу перевода строки)<br>
+y - поиск начиная с позиции св-ва lastindex<br>
+u - поддерка Unicode<br><br>
+
+^; $ - якоря для привязки к началу или концу./^banana$/<br>
+* - повторение 0 и больше<br>
+? - повторение 0 или 1<br>
++ - повторение 1 и больше<br>
+. - любой символ, кроме символа новой строки<br><br>
+
+(pattern) - Соответствует строке pattern и запоминает найденное соответствие.<br>
+
+(?:pattern) - Соответствует строке pattern, но не запоминает найденное соответствие. Используется для группировки частей образца, например, /ко(?:т|шка)/ - это краткая запись выражения /кот|кошка/.<br>
+
+(?=pattern) - Соответствие с "заглядыванием вперед", происходит при соответствии строки pattern без запоминания найденного соответствия. Например, /Windows (?=95|98|NT|2000)/ соответствует "Windows " в строке "Windows 98", но не соответствует в строке "Windows 3.1". После сопоставления поиск продолжается с позиции, следующей за найденным соответствием, без учета заглядывания вперед.<br>
+
+(?!pattern) - Соответствие с "заглядыванием вперед", происходит при несоответствии строки pattern без запоминания найденного соответствия. Например, /Windows (?!95|98|NT|2000)/ соответствует "Windows " в строке "Windows 3.1", но не соответствует в строке "Windows 98". После сопоставления поиск продолжается с позиции, следующей за найденным соответствием, без учета заглядывания вперед.<br>
+
+x|y - Соответствует x или y.<br>
+
+{n} - n - неотрицательное число. Соответствует ровно n вхождениям предыдущего символа.<br>
+
+{n,} - n - неотрицательное число. Соответствует n или более вхождениям предыдущего символа. /x{1,}/ эквивалентно /x+/. /x{0,}/ эквивалентно /x*/.<br>
+
+{n,m} - n и m - неотрицательное числа. Соответствует не менее чем n и не более чем m вхождениям предыдущего символа. /x{0,1}/ эквивалентно /x?/.<br>
+
+[xyz] - Соответствует любому символу из заключенных в квадратные скобки.<br>
+
+[^xyz] - Соответствует любому символу, кроме заключенных в квадратные скобки.<br>
+
+[a-z] - Соответствует любому символу в указанном диапазоне.<br>
+
+[^a-z] - Соответствует любому символу, кроме лежащих в указанном диапазоне.<br>
+
+\b - Соответствует границе слова, т. е. позиции между словом и пробелом или переводом строки.<br>
+
+\B - Соответствует любой позиции, кроме границе слова.<br>
+
+\сX - Соответствует символу Ctrl+X. Например, /\cI/ эквивалентно /\t/.<br>
+
+\d - Соответствует цифре. Эквивалентно [0-9].<br>
+
+\D - Соответствует нецифровому символу. Эквивалентно [^0-9].<br>
+
+\f - Соответствует символу перевода формата (FF).<br>
+
+\n - Соответствует символу перевода строки (LF).<br>
+
+\r - Соответствует символу возврата каретки (CR).<br>
+
+\s - Соответствует символу пробела. Эквивалентно /[ \f\n\r\t\v]/.<br>
+
+\S - Соответствует любому непробельному символу. Эквивалентно /[^ \f\n\r\t\v]/.<br>
+
+\t - Соответствует символу табуляции (HT).<br>
+
+\v - Соответствует символу вертикальной табуляции (VT).<br>
+
+\w - Соответствует латинской букве, цифре или подчеркиванию. Эквивалентно /[A-Za-z0-9_] /.<br>
+
+\W - Соответствует любому символу, кроме латинской буквы, цифры или подчеркивания.
+Эквивалентно /[^A-Za-z0-9_] /.<br>
+
+\nn - положительное число. Соответствует n-ной запомненной подстроке. Вычисляется путем подсчета левых круглых скобок. Если левых скобок до этого символа меньше, чем n, то эквивалентно \0n.<br>
+
+\0nn - восьмеричное число, не большее 377. Соответствует символу с восьмеричным кодом n. Например, /\011/ эквивалентно /\t/.<br>
+
+\xnn - шестнадцатеричное число, состоящее из двух цифр. Соответствует символу с шестнадцатеричным кодом n. Например, /\x31/ эквивалентно /1/.<br>
+
+\unn - шестнадцатеричное число, состоящее из четырех цифр. Соответствует символу Unicode с шестнадцатеричным кодом n. Например, /\u00A9/ эквивалентно /c/.<br><br>
+
+<i>var str = "This is the text where we will search 'Mr.'";</i><br>
+<i>var regex = /Mr\./;</i> - литеральный синтаксис.<br>
+<i>var regex = new RegExp("Mr\\.");</i> - синтаксис конструктора (дважды экранируем спецсимволы).<br><br>
+
+<b>test</b> - проверяет строку на соответствие возвр. true или false<br>
+console.log(/Mr\./.test(str));<br>
+<i>regex.test(str)? 'есть совпадение' : 'Нет';</i><br>
+<i>if(regex.test(str)) console.log('There is match');</i><br><br>
+
+<b>exec</b> - находит все совпадения; возвр. массив или null;  с модификатором <b>g</b> при каждом вызове ф-ции возвр следующее совпадение<br>
+console.log(/Mr/.exec(str)); - вернёт массив ['Mr', inex: 0, input: '...']<br>
+/Mr/.exec(str)[0]; /Mr/.exec(str).index;<br><br>
+
+let reg = /(\d+).(\d+).(\d+)/;<br>
+let text = reg.exec("This is simple text 1.07.1969");<br>
+
+function myFunc() {<br>
+  return `Date of birth: ${text[0]}<br>
+  day: ${text[1]}<br>
+  month: ${text[2]}<br>
+  year: ${text[3]}`
+};<br>
+<b>mach</b> - если указан модификатор <b>g</b> - возвр. массив всех совпадений или null; без модификатора как exec<br><br>
+
+<b>replace</b> - возвр. строку изменённую в соответствии с шаблоном; с модификатором <b>g</b> заменяет все вхождения; второй параметр <b>mix</b><br>
+
+    </section>
+
+    <section id="s11"><h3>Ошибки:</h3>
+<i>try { блок кода}</i><br>
+<i>catch (error) {блок кода в случае ошибки}</i><br><br>
+
+const fnWhithError = () => {throw new Error('Some error')} Ошибка - объект; её св-во - message.<br><br>
+
+try {fnWhithError()}<br>
+catch (error) {<br>
+  console.error(error)<br>
+  console.log(error.message)}<br>
+finally {}<br><br>
+
+throw&lt;объект ошибки><br>
+<ul><li>Error - общие ошибки</li>
+<li>SyntaxError - синтаксические</li>
+<li>TypeError - тип данных</li>
+<li>ReferenceError - несуществующия переменная</li></ul>
+
+function divide(a, b) {<br>
+  if (b == 0) {throw new Error('Деление на 0');}<br>
+  return a/b;<br>
+}<br>
+let res = 0;<br>
+try {<br>
+  res = divide(1, 2);<br>
+  console.log(res)<br>
+}<br>
+catch(error) {<br>
+  console.log(error.name); // Error<br>
+  console.log(error.message); // Деление на 0<br>
+}<br>
+    </section>
+
+    <section id="s12"><h3>import, export:</h3>
+Пишем ф-цию в одном модуле (файле); например myfunc в файле ./moduleleOne.mjs; модули должны быть одноцелевыми; все export инструкции располагаются внизу файла.<br>
+<i>export default myfunc</i><br>
+В другом файле в начале страницы: <i>import myfunc from './moduleOne'</i>; название можно изменить.<br><br>
+
+const one = 1, two = 'two';<br>
+export {one, two}; - экспорт нескольких переменных.<br>
+import {one, two} from './moduleOne.js'; - названия сохраняются.<br>
+import {one as oneRenamed, two} from './moduleOne.js'; - или изменить.<br>
+    </section>
+
+    <section id="s13"><h3>Классы и прототипы:</h3>
+На основании прототипов создаются экземпляры.<br>
+Экземплляры наследуют св-ва и методы прототипов.<br> 
+Что бы obj2 унаследовал св-ва obj1:<br>
+<i>obj2.__proto__ = obj1</i> или прописать как св-во:<br>
+<i>__proto__: obj1</i><br>
+Создание класса с помощью конструктора:<br>
+<i><b>class</b> Comment {</i><br> 
+  <i>constructor(text) {</i><br> 
+    <i>this.text = text;</i><br> 
+    <i>this.votesQty = 0;</i><br> 
+  }<br>
+  <i>upvote() {</i><br> 
+    this.votesQty += 1<br> 
+  }<br>
+  <i><b>static</b> mergeCocmments(first, second) {</i><br>
+    return `${first} ${second}`}<br>
+}<br> <br>
+Св-ва аксессоры (сдесь в классе есть св-во 'sp', а в нём св-ва 'x' и 'y'):<br>
+get coords() {return [this.sp.x, this.sp.y];},<br>
+set coords(coords) {this.sp.x = coords[0], this.sp.y = coords[1];}<br><br>
+
+Создание нового экземпляра:<br> 
+<i>const firstComment = new Comment('First comment')</i><br><br> 
+
+<i>firstComment instanceof Comment</i> //true - экземпляр?<br>
+<i>firstComment instanceof Object</i> //true<br> <br> 
+
+<i>firstComment.upvote()</i> - вызвать метод для этого класса. (увеличение на 1)<br> 
+firstComment.hasOwnProperty('text') // true; - text - собственное св-во firstComment<br>
+firstComment.hasOwnProperty('upvote') // false; - это св-во Comment;<br>
+Метод static доступен как св-во класса и не наследуется экземплярами класса.<br>
+<i>Comment.mergeComments('First comment.', 'Second comment.')</i><br><br>
+
+Методы <i>create, getPrototypeOf, setPrototypeOf</i><br>
+Object.create(proto, [descriptors])<br>
+Object.getPrototypeOf(obj)<br>
+Object.setPrototypeOf(obj, proto)<br>
+let clone = Object.create(object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj)); - создать копию объекта obj<br><br>
+
+<b>расширение класса:</b><br>
+class Prop { // создаём класс Prop<br>
+  constructor(width, color) {<br>
+    this.width = width;<br>
+    this.color = color;
+  }<br>
+}<br>
+class Line extends Prop { // создаём ещё класс, который расширяет Prop<br>
+  constructor(sp, ep, width, color) {<br>
+    super(width, color); // нужно чтобы this ссылалось на главный класс<br>
+    this.sp = sp; //объект с двумя координатами<br>
+    this.ep = ep;<br>
+  }<br>
+  draw() {console.log(`line: ${this.sp.x}, ${this.sp.y}, ${this.ep.x}, ${this.ep.y}`);}<br>
+}<br>
+let line1 = new Line({x: 0, y: 0}, {x: 10, y: 20}, 1, 'red');<br>
+console.log(line1)<br>
+    </section>
+
+    <section id="s14"><h3>Промисы:</h3>
+Промисы позволяют обрабатывать отложенные во времени события.<br>
+Состояния промиса: ожидание (pending), исполнен или отклонён.<br> 
+<i>const myPromise = new Promise((resolve, reject) => {</i><br> 
+});<br>
+<i>myPromise</i><br> 
+  <i>.then(value => {действия при успешном исполнении (value - значение переданное в ф-ции resolve)}</i><br> 
+  <i>.catch(error => {действие в случае отклонения})</i><br> 
+Получение данных с помощью fetch api:<br> 
+<i>fetch('https://jsonplaceholder.typicode.com/dodos')</i><br> 
+ <i>.then(response => response.json())</i><br> 
+ <i>.then(json => console.log(json))</i><br> 
+ <i>.catch(error => console.error(error))</i><br> 
+    </section>
+
+    <section id="s15"><h3>Canvas:</h3>
+&lt;canvas id="c1" width="400" height="200">&lt;/canvas><br>
+var canvas = document.getElementById('c1')<br>
+var ctx = canvas.getContext('2d')<br><br>
+
+clearRect() - стереть; stroke() - отрисовать; fill() - заполнить.<br>
+fillStyle=color; strokeStyle=color; - цвет заливки, линий; ("red", "#fff", "rgb(255,165, 0)")<br>
+beginPath() - передкажым элементом для различных стилей<br>
+colosePath() - закончить.<br><br>
+
+<b>прямоугольник:</b><br>
+strokeRect(), rect() - прямоугольник; fillRect() - квадрат.<br>
+
+ctx.fillStyle = 'red'; // изменили цвет заливки.<br>
+ctx.fillRect(100, 50, 150, 75); // x, y width, height (по умолчанию чёрный)<br>
+ctx.clearRect(120,70,200,100); // стереть от x,y указанную ширину и высоту.<br><br>
+ctx.rect(75,25,150,150); ctx.strokeStyle='green'; ctx.lineWidth = '10'; // цвет и ширина рамки.<br>
+ctx.stroke(); ctx.fillStyle = 'orange'; ctx.fill(); если не указать цвет заливки сдесь - возьмёт предыдущий.<br><br>
+
+<b>Линии:</b><br>
+moveTo() - начало; lineTo() - вторая точка;<br>
+ctx.beginPath(); - добавляем перед каждой линией, если надо сделать различные стили.<br>
+ctx.moveTo(100,50); ctx.lineTo(150,150); ctx.lineTo(300,50);<br>
+ctx.strokeStyle = 'red'; ctx.lineWidth = '5'; // цвет и толщина.<br>
+ctx.lineCap = 'round';(butt, square) - как заканчиваются линии.<br>
+ctx.closePath(); - если нарисованы две линии треугольника - эта команда дорисует остальное.<br>
+ctx.fillStyle = 'yellow'; stx.fill(); - залить цветом получившуюся фигуру.<br>
+ctx.stroke();<br> <br>
+
+<b>Дуги и круги:</b><br>
+луч от центра окр. до координаты x; угол по часовой стрелки.<br>
+ctx.arc(150,100, 50, 3/4*Math.PI, 1/4Math.PI, true); - x,y(центра окр), radius, начало дуги, конец дуги, направл.рисования (против часовой).<br>
+ctx.arc(150,150,50, 2*Math.PI, false); - круг.<br>
+
+<b>Текст.</b><br>
+ctx.font = '40px serif'; по умолчанию sans-serif 10px<br>
+textAlign=start(end, left, right, center),<br>
+textBaseline=alphabetic(top, hanging, midle,ideographic, bottom),<br>
+direction=inherit(ltr,rtl)<br> 
+ctx.fillText('Hello!', 10,50); - текст и нижняя левая точка.<br><br>
+
+ctx.strokeText('Hello!', 10,50); - обводка букв.<br>
+    </section>
+
+    <section id="s16"><h3>Разное:</h3>
+function palindrom(str) {<br>
+  str = str.toLowerCase();<br>
+  return str == str.split('').reverse().join('');<br>
+}<br>
+console.log(palindrom('abba')); ..true<br><br>
+
+var ground = new Image(32,32); - объект картинка (размер).<br>
+ground.src = "img/name.png"; - путь до картинки.<br>
+ctx.drawImage(ground, 0,0); - название переменной и верхняя левая точка расположения.<br><br>
+    </section>
+  </aside>
+ </div>     
+  <footer>
+    <h3 id="s20">Ссылки:</h3>
+    <p><a href="https://developer.mozilla.org/ru/" target="_blank"  rel="noopener" >mdn</a> - documentation</p>
+    <p><a href="https://wm-school.ru/js/index.php" target="_blank" rel="noopener" >wm-shool.ru</a> - Учебники;
+    <a href="https://www.schoolsw3.com/js/index.php" target="_blank" rel="noopener" >schoolsw3.com</a> - Учебники</p>
+    <a href="https:proproprogs.ru" target="_blank" rel="noopener" >proproprogs.ru</a> - selfedu</p> 
+      
+  </footer>
+</div>
+</body>
+</html>

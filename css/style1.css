@@ -27,6 +27,7 @@ img[alt="arrow-top"] {
 
 .left_right {
     display: flex;
+    flex-direction: row;
     max-width: 1000px;
 }
 

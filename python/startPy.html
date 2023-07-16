@@ -13,7 +13,7 @@
 <p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
 <p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
 <p><a href="#s1">Введение.</a></p>
-<p><a href="#s2">2</a></p>
+<p><a href="#s2">Строки.</a></p>
 <p><a href="#s3">3</a></p>
 <p><a href="#s4">4</a></p>
 <p><a href="#s5">5</a></p>
@@ -25,15 +25,59 @@
         </aside>
 
         <aside class="right"><h1 align="center" id="s0">Python.</h1>
-The Python interpreter is usually installed as /usr/local/bin/python3.11<br>
+    <section id="s1"><h3>Введение:</h3>
+PEP8 - python enhancement proposal<br>
+Всё в Python - объекты (экземпляры классов, а класс - шаблон(прототип) для создания объектов)<br>
+У всех объектов есть атрибуты; атрибут называется методом, если его значение - ф-ция;<br>
 Первая строка файла "shebang" line - <i>#!/bin/python3</i><br>
 По умолчанию все исходные файлы обрабатываются  в UTF-8.
 Для другой кодировки во второй строке объявляем:<br>
 <i># -*- coding: cp1252 -*-</i>  (например Windows-1252)<br>
-# - hash character - используется для коментарий.<br>
+# - hash character - используется для комментариев.<br><br>
+
+expressions (выражения) - результат - значение.<br>
+statements (инструскции) - выполняет действие (условная инструкция, импортирование модуля).<br><br>
+
+<b>переменные</b> начинаются с буквы или символа подчёркивания (A-z, 0-9, _)<br>
+x, y, z = 'Orange', 'Banana', 'Chery' - присвоить значения трём переменным.<br>
+global x - используем ключевое слово, чтобы создать глобальную переменную внутри ф-ции.<br>
+snake_case - переменные, ф-ции, методы, модули<br>
+PascalCase - классы<br>
+DB_PASSWORD - константы<br><br>
+
+<b>основные типы в Python:</b><br>
+str (строка), int, float, complex (числовые), bool (логический), list, tuple, range (последовательности), dict (отображение), set, frozenset (типы наборов), bytes, bytearray, memoryview (бинарные)<br>
+type(x) - тип данных в x<br><br>
+
+<b>Numbers</b><br>
+/ - деление; возвращает с дробной частью<br>
+// - деление; возвращает целое число<br>
+% - возвращает остаток от деления<br>
+** - возведение в степень (to the power of)<br>
+_ - в интерактивном режиме последнее значение присваеватся переменной _<br><br>
+
+встроенные ф-ции:<br>
+print(), input('enter your name: '),<br>
+ф-ция dir('name') - возвращает атрибуты объектов (сдесь методы для str).<br>
+dir(__builtins__) - список встроенных ф-ций (двойные подчёркивания - системные атрибуты)<br>
+print(id(name)) - адрес объекта с именем name; цифры<br>
+ф-ция print(); в качестве аргумента передаём значение типа str.<br>
+<i>def my_fn(a,b): </i>//ф-ция; имя; аргументы<br>
+ &nbsp;&nbsp;&nbsp;&nbsp; <i>c = a + b </i> //тело ф-ции<br>
+ &nbsp;&nbsp;&nbsp;&nbsp; <i>return c </i> //ключевое слово для возврата рез-та<br><br>
+    </section>
+
+    <section id="s2"><h3>Строки:</h3>
+Экземпляр класса 'str'. &lt;class 'str'><br>
+    </section>
 
         </aside>
+
     </div>
+<footer><h3 id="s20">Ссылки:</h3>
+    <p><a href="https://docs.python.org/3/tutorial/introduction.html" target="_blank" rel="noopener" >The Python Tutorial</a> - Python 3.11.4 documentation</p>
+    <p><a href="http://automatetheboringstuff.com/2e/chapter1/" target="_blank" rel="noopener" >automatetheboringsruff</a> - AlSweigart</p>
+</footer>
 </div>  
 </body>
 </html>

@@ -13,9 +13,9 @@
 <p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
 <p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
 <p><a href="#s1">Введение.</a></p>
-<p><a href="#s2">2</a></p>
-<p><a href="#s3">3</a></p>
-<p><a href="#s4">4</a></p>
+<p><a href="#s2">Числа.</a></p>
+<p><a href="#s3">Строки.</a></p>
+<p><a href="#s4">Список.</a></p>
 <p><a href="#s5">5</a></p>
 <p><a href="#s6">6</a></p>
 <p><a href="#s7">7</a></p>
@@ -25,15 +25,87 @@
         </aside>
 
         <aside class="right"><h1 align="center" id="s0">Python.</h1>
-The Python interpreter is usually installed as /usr/local/bin/python3.11<br>
+    <section id="s1"><h3>Введение:</h3>
+PEP8 - python enhancement proposal<br>
+Всё в Python - объекты (экземпляры классов, а класс - шаблон(прототип) для создания объектов)<br>
+У всех объектов есть атрибуты; атрибут называется методом, если его значение - ф-ция;<br>
 Первая строка файла "shebang" line - <i>#!/bin/python3</i><br>
 По умолчанию все исходные файлы обрабатываются  в UTF-8.
 Для другой кодировки во второй строке объявляем:<br>
 <i># -*- coding: cp1252 -*-</i>  (например Windows-1252)<br>
-# - hash character - используется для коментарий.<br>
+# - hash character - используется для комментариев.<br><br>
+
+expressions (выражения) - результат - значение.<br>
+statements (инструкции) - выполняют действие (условная инструкция, импортирование модуля).<br><br>
+
+<b>переменные</b> начинаются с буквы или символа подчёркивания (A-z, 0-9, _)<br>
+x, y, z = 'Orange', 'Banana', 'Chery' - присвоить значения трём переменным.<br>
+global x - используем ключевое слово, чтобы создать глобальную переменную внутри ф-ции.<br>
+snake_case - переменные, ф-ции, методы, модули<br>
+PascalCase - классы<br>
+DB_PASSWORD - константы<br><br>
+
+<b>основные типы в Python:</b><br>
+str, int, float, complex (числовые), bool (логический) - True | False, list, tuple, range (последовательности), dict (отображение), set, frozenset (типы наборов), bytes, bytearray, memoryview (бинарные)<br>
+type(x) - тип данных в x<br><br>
+
+встроенные ф-ции:<br>
+print(), input('enter your name: '),<br>
+ф-ция dir('name') - возвращает атрибуты объектов (сдесь методы для str).<br>
+dir(__builtins__) - список встроенных ф-ций (двойные подчёркивания - системные атрибуты или магические методы)<br>
+print(id(name)) - адрес объекта с именем name; цифры<br>
+ф-ция print(); в качестве аргумента передаём значение типа str.<br>
+<i>def my_fn(a,b): </i>//ф-ция; имя; аргументы<br>
+ &nbsp;&nbsp;&nbsp;&nbsp; <i>c = a + b </i> //тело ф-ции<br>
+ &nbsp;&nbsp;&nbsp;&nbsp; <i>return c </i> //ключевое слово для возврата рез-та<br><br>
+    </section>
+
+    <section id="s2"><h3>Числа:</h3>
+Экземпляры классов '&lt;class 'int'>, &lt;class 'float'>, &lt;class 'complex'>; неизменяемый тип;<br>
+/ - деление; возвращает с дробной частью<br>
+// - деление; возвращает целое число<br>
+% - возвращает остаток от деления<br>
+** - возведение в степень (to the power of)<br>
+pow(10, 2) // 100<br>
+_ - в интерактивном режиме последнее значение присваеватся переменной _<br>
+1_000_000 - сдесь подчёркивание для удобства<br><br>
+
+<i>round(number, ndigits=None)</i> - округление с точностью до.<br>
+
+<b>Форматирование чисел: format()</b><br>    
+    </section>
+
+    <section id="s3"><h3>Строки:</h3>
+Экземпляры класса  &lt;class 'str'>; неизменяемый тип;<br>
+данные заключённые в кавычки, двойные ковычки или тройные (для многострочной строки); \ - обратный слеш может использоватся для экранирования ковычек внутри строки, а в многострочных строках поможет не пропускать первую строку.<br>
+строки могут быть склеены + и повторятся с помощью *; зпт между строками (в prin) - добавит пробел.<br>
+print(r'C:\some\name')- сырая строка (row string)<br><br>  
+
+string = 'What a beautiful world!'<br><br>
+
+<i>len(string)</i> - длина строки.<br>
+<i>string.count('a',[start],[end])</i> - кол-во знаков 'a'<br>
+<i>string[0]</i> - первый знак по индексу; <i>string[-1]</i> - последний.<br>
+<i>string[0, 4] (string[:4])</i> - срез от(вкл) до (невкл)<br>
+<i>string[-3:]</i> - последние три знака.<br>
+<i>string[::-1]</i> - задать шаг (вся строка в обратном порядке)<br>
+<i>string[3::2]</i> - с третьего символа через два.<br>
+другие методы (можно посмотреть, поставив точку после переменной):<br>
+.upper(), .lower(), .capitalize(), .title(), .strip([chars]) - удаление пробельных (или других) символов, .find(str,[sart],[end]), .index(str,[sart],[end]), .replace(old, new[,maxcount]), .split(символ) - список по разделителю, .partition(шаблон), .isdigit(), .isalpha(), .isalnum(), .islower(), .isupper(), .startwith(str), .endwith(str), .join(список) - строка из списка<br>
+.format(*args, **kwargs)<br>
+    </section>
+
+    <section id="s4"><h3>Список:</h3>
+Экземпляры класса  &lt;class 'list'>; изменяемый тип;<br>
+    </section>
 
         </aside>
+
     </div>
+<footer><h3 id="s20">Ссылки:</h3>
+    <p><a href="https://docs.python.org/3/tutorial/introduction.html" target="_blank" rel="noopener" >The Python Tutorial</a> - Python 3.11.4 documentation</p>
+    <p><a href="http://automatetheboringstuff.com/2e/chapter1/" target="_blank" rel="noopener" >automatetheboringsruff</a> - AlSweigart</p>
+</footer>
 </div>  
 </body>
 </html>

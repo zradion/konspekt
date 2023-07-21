@@ -16,10 +16,10 @@
 <p><a href="#s2">Числа.</a></p>
 <p><a href="#s3">Строки.</a></p>
 <p><a href="#s4">Список.</a></p>
-<p><a href="#s5">5</a></p>
-<p><a href="#s6">6</a></p>
-<p><a href="#s7">7</a></p>
-<p><a href="#s8">8</a></p>
+<p><a href="#s5">Словарь.</a></p>
+<p><a href="#s6">Кортеж.</a></p>
+<p><a href="#s7">Set.</a></p>
+<p><a href="#s8">Exception.</a></p>
 <p><a href="#s9">9</a></p>
 <p><a href="#s20">Ссылки.</a></p>            
         </aside>
@@ -36,10 +36,10 @@ PEP8 - python enhancement proposal<br>
 # - hash character - используется для комментариев.<br><br>
 
 expressions (выражения) - результат - значение.<br>
-statements (инструкции) - выполняют действие (условная инструкция, импортирование модуля).<br><br>
+statements (инструкции) - выполняют действие (def, if, else, elif, while, break, continue, for in, импортирование модуля).<br><br>
 
 <b>переменные</b> начинаются с буквы или символа подчёркивания (A-z, 0-9, _)<br>
-x, y, z = 'Orange', 'Banana', 'Chery' - присвоить значения трём переменным.<br>
+x, y, z = 'Orange', 'Banana', 12 + 5 - присвоить значения трём переменным (multiple assignment).<br>
 global x - используем ключевое слово, чтобы создать глобальную переменную внутри ф-ции.<br>
 snake_case - переменные, ф-ции, методы, модули<br>
 PascalCase - классы<br>
@@ -49,8 +49,8 @@ DB_PASSWORD - константы<br><br>
 str, int, float, complex (числовые), bool (логический) - True | False, list, tuple, range (последовательности), dict (отображение), set, frozenset (типы наборов), bytes, bytearray, memoryview (бинарные)<br>
 type(x) - тип данных в x<br><br>
 
-встроенные ф-ции:<br>
-print(), input('enter your name: '),<br>
+<b>встроенные ф-ции:</b><br>
+print([,end=','][,sep=','][file=None]), input('enter your name: '),<br>
 ф-ция dir('name') - возвращает атрибуты объектов (сдесь методы для str).<br>
 dir(__builtins__) - список встроенных ф-ций (двойные подчёркивания - системные атрибуты или магические методы)<br>
 print(id(name)) - адрес объекта с именем name; цифры<br>
@@ -58,9 +58,22 @@ print(id(name)) - адрес объекта с именем name; цифры<br>
 <i>def my_fn(a,b): </i>//ф-ция; имя; аргументы<br>
  &nbsp;&nbsp;&nbsp;&nbsp; <i>c = a + b </i> //тело ф-ции<br>
  &nbsp;&nbsp;&nbsp;&nbsp; <i>return c </i> //ключевое слово для возврата рез-та<br><br>
+
+ <b>диапазон &lt;class 'range'>:</b><br>
+ my_range = range([start],stop[,step]) от(вкл, incusive) до(не вкл, exclusive)<br>
+ my_range[0] - элемент по индексу<br>
+ list(range(10)) ..[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]<br>
+ my_range.index(3) - индекс числа 3<br>
+ my_range.count(3) ..1 - или 1 или 0 (нет таких)<br><br>
+
+ <b>zip - &lt;class 'zip'>:</b><br>
+fruits = ['apl', 'ban', 'lime']; qnt = range(1, 4); str1 = 'abc'<br>
+new_zip = zip(fruits, qnt, str1)<br>
+print(list(new_zip)) .. [('apl', 1, 'a'), ('ban', 2, 'b'), ('lime', 3, 'c')]<br>
+new_dict = dict(new_zip) - если в new_zip два элемента можно его конвертировать в словарь<br>
     </section>
 
-    <section id="s2"><h3>Числа:</h3>
+    <section id="s2"><h3>Числа (numbers):</h3>
 Экземпляры классов '&lt;class 'int'>, &lt;class 'float'>, &lt;class 'complex'>; неизменяемый тип;<br>
 / - деление; возвращает с дробной частью<br>
 // - деление; возвращает целое число<br>
@@ -68,14 +81,19 @@ print(id(name)) - адрес объекта с именем name; цифры<br>
 ** - возведение в степень (to the power of)<br>
 pow(10, 2) // 100<br>
 _ - в интерактивном режиме последнее значение присваеватся переменной _<br>
-1_000_000 - сдесь подчёркивание для удобства<br><br>
+1_000_000 - сдесь подчёркивание для удобства<br>
+a,b = 10, 'word' - множественное присвоение<br><br>
 
-<i>round(number, ndigits=None)</i> - округление с точностью до.<br>
+<i>round(number, ndigits=None)</i> - округление с точностью до.<br><br>
+
+<i>list(range(1,20,2))</i> - список от 1 до 20(невкл), шаг 2<br>
+for i in range(20):<br>
+&nbsp;&nbsp;&nbsp;&nbsp; print(i)<br><br>
 
 <b>Форматирование чисел: format()</b><br>    
     </section>
 
-    <section id="s3"><h3>Строки:</h3>
+    <section id="s3"><h3>Строки (string):</h3>
 Экземпляры класса  &lt;class 'str'>; неизменяемый тип;<br>
 данные заключённые в кавычки, двойные ковычки или тройные (для многострочной строки); \ - обратный слеш может использоватся для экранирования ковычек внутри строки, а в многострочных строках поможет не пропускать первую строку.<br>
 строки могут быть склеены + и повторятся с помощью *; зпт между строками (в prin) - добавит пробел.<br>
@@ -91,14 +109,101 @@ string = 'What a beautiful world!'<br><br>
 <i>string[::-1]</i> - задать шаг (вся строка в обратном порядке)<br>
 <i>string[3::2]</i> - с третьего символа через два.<br>
 другие методы (можно посмотреть, поставив точку после переменной):<br>
-.upper(), .lower(), .capitalize(), .title(), .strip([chars]) - удаление пробельных (или других) символов, .find(str,[sart],[end]), .index(str,[sart],[end]), .replace(old, new[,maxcount]), .split(символ) - список по разделителю, .partition(шаблон), .isdigit(), .isalpha(), .isalnum(), .islower(), .isupper(), .startwith(str), .endwith(str), .join(список) - строка из списка<br>
-.format(*args, **kwargs)<br>
+.upper(), .lower(), .capitalize(), .title(), .strip([chars]) - удаление пробельных (или других) символов, .rstrip(), lstrip(), .find(str,[sart],[end]), .index(str,[sart],[end]), .replace(old, new[,maxcount]), .split(символ) - список по разделителю (без аргумента - по пробелам), .partition(шаблон), .isdigit(), .isalpha(), .isalnum(), .islower(), .isupper(), .startwith(str), .endwith(str), .join(список) - строка из списка<br>
+.format(*args, **kwargs)<br><br>
+
+<b>Форматирование строк:</b>
     </section>
 
-    <section id="s4"><h3>Список:</h3>
-Экземпляры класса  &lt;class 'list'>; изменяемый тип;<br>
+    <section id="s4"><h3>Список (list):</h3>
+Экземпляры класса  &lt;class 'list'>; изменяемый тип (mutable);<br>
+list1 = [1, 4, 9, 16, 25]; list2 = [23, 12]; a = 'abcd'<br>
+one, two = list2 - множественное присвоение (multiple)<br>
+print(list(a)) .. ['a','b','c','d']; <i>len</i>(list1) .. 5 - длина списка<br>
+list[start:end:step] - срез<br>
+list1[0] .. 1; list1[-1] .. 25; list1[:] .. весь список; list1[1:3] .. [4,9]; list1[3:] .. [16, 25]; list1[:3] .. [1,4,9]; list1 + list2..[1,4,9,16,25,23,12] - сложить два списка<br>
+list2 = list1[:] - присвоить list2 копию list1<br>
+list2 = list1.<i>copy()</i>
+<i>del list1[1]</i> - удалить элемент с индексом 1<br>
+x = [list1, list2]; x .. [[1, 4, 9, 16, 25], [23, 12]] - список списков<br>
+x[0][1] .. 4 - индексация по списку списков<br>
+list1[0] = 5 .. [5,4,9,16,25] - присвоить значение по индексу.<br>
+list1[1:4] = [7,8,9] .. [5,7,8,9,16,25] - присвоить по срезу.<br>
+list1[1:4] = [] .. удалить элементы по срезу; list1[:] = [] .. очистить список<br>
+list1<i>.append(36)</i> | list1<i>.append(6**2)</i> .. [5,4,9,16,25,36]<br>
+<i>.pop() </i>- удалит последний элемент списка и вернёт его.<br>
+<i>.pop(2)</i> - удалит и вернёт элемент с индексом '2'<br>
+<i>.remove('item')</i> - удалить значение из списка.<br>
+<i>.sort([reverse=True][key=str.lower])</i> - по умолчинию (без аргумента) сортирует по возростанию.<br>
+<i>.reverse()</i>
+<i>.count(el)</i> - кол-во el в списке.<br>
+<i>.insert(2, el)</i> - вставить el перед индесом 2<br>
+<i>clear()</i> - очистить список<br>
+<i>.extend('abc')</i> - в список добавятся 'a','b','c'<br>
+<i>min</i>(list1); <i>max</i>(list1); <i>sum</i>(list1) - минимальное, максимальное значение списка; сумма всех элементов.<br><br>
+
+for index, item in enumerate(list):<br>
+&nbsp;&nbsp;&nbsp;&nbsp; print(f'Index {index} item - {item})<br>
     </section>
 
+    <section id="s5"><h3>Словарь (dictionary):</h3>
+Экземпляры класса  &lt;class 'dict'>; изменяемый тип (mutable);<br>
+Содержит пары ключ: значение; разделены зпт; порядок не имеет значения; ключи уникальны; если задать ключ с таким же назвнием он перезапишится.<br>
+(print(my_car.__doc__)) - документация<br>
+my_car = {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp; 'brend': 'Solaris',<br>
+    &nbsp;&nbsp;&nbsp;&nbsp; 'price': 1000,<br>
+}    <br>
+
+my_car = dict(brend='Solaris', price=1000)<br>
+my_car = dict(список списков или кортежей)<br><br>
+
+my_car['brend'] - вызов значения по ключу; присвоение нового значения или добавить новую пару.<br>
+В качестве значения может быть вложенный словарь. Тогда доступ к значению будет например: car['brend']['price']<br>
+В  качестве ключей и значений могут быть переменные. Тогда ковычки не нужны<br>
+<i>len(my_car)</i> - длина словаря<br>
+<i>del my_car['price']</i> - удалить пару.<br>
+<i>my_car.get('brend')</i> - получить значение по ключу (при его отсутствии в словаре не вызовет ошибку, а вернёт None)<br>
+<i>my_car.get('qty', 0)</i> - добавить значение по умолчанию (если ключа нет)<br>
+<i>my_car2 = my_caar.copy()</i><br>
+<i>my_car.items()</i> - список кортежей ('ключ', знач); класс dict_items<br>
+<i>list(my_car.items())</i> - в обычный список<br>
+<i>my_car.keys()</i> - список ключей; класс dict_keys<br>
+<i>my_car.values()</i> - список значений; класс dict_values<br>
+    </section>
+
+    <section id="s6"><h3>Кортеж (tuple):</h3>
+my_tuple = ('one', 2, True)<br>
+&lt;class 'tuple'>; не изменяемый тип (не изменить, не удалить); порядок элементов важен; методы: len(), count(), index(Any,[,start][,stop]) - длина кортежа, посчитать кол-во элементов и индекс конкретного элемента.<br>
+можно конвертировать кортеж в список, сделать изменения и конвертировать его обратно в кортеж; list(my_tuple); tuple(my_list)<br>
+tuple('abcd'); tuple(dict()) - кортеж из любых итерируемых объектов.<br>
+Кортеж из словарей: my_tuple = ({'id': 123, 'name': 'Al'}, {'id': 321, 'name': 'Bob'})<br>
+my_tuple[0]['id'] = 567 - данные словарей можно изменить<br>
+tuple1 + tuple2 - один кортеж, состоящий из двух<br>
+    </section>
+
+    <section id="s7"><h3>Set:</h3>
+my_set = {'apple', 'banana', ' lime'} &lt;class 'set'>; <br>
+Набор - неупорядоченая последовательность элементов; содержит только уникальные элементы (обычно одного типа); в set не добавить список или словарь, но кортеж можно<br>
+set() - создать пустой набор<br>
+методы наборов:<br>
+my_set.add('chery') - добавить элемент<br>
+my_set.remove('chery') - удалить элемент(если его небыло error)<br>
+my_set.discard('chery') - удалить элемент(не вызовет обшибки)<br>
+set3 = my_set.union(set2); my_set | set2 - объединеие двух наборов (одинаковые элементы один раз)<br>
+set3 = my_set.intersection(set2) - пересечение множеств (аргумент - любой итерируемый объект 'abcd') (оператор &)<br>
+my_set.issubset(set2) .. False - является ли подмножеством?<br>
+my_set.issuperset(set2) .. True - включает ли в себя?
+set3 = my_set.symmetric_difference(set2) - элементы, которые не пересекаются<br>
+print((a | b) - (a & b)) - объеденить два множества и вычесть из него пересечение этих множеств<br>
+set3 = my_set.difference(set2)
+set3 = set2.copy() - скопировать сет<br>
+clear,update,pop<br>
+    </section>
+
+    <section id="s8"><h3>Обработка исключений (Exception handling):</h3>
+
+    </section>
         </aside>
 
     </div>

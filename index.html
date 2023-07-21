@@ -9,33 +9,20 @@
 </head>
 
 <body>
-  <header class="cont">
+  <div class="cont">
     <header class="info">
-      <a href="./img/avatar.jpg">
-        <img src="./img/avatar.jpg" alt="АВАТАР" class="avatar"></a>
+      <div class="img">
+        <a href="./img/avatar.jpg">
+          <img src="./img/avatar.jpg" alt="АВАТАР" class="avatar"></a>
+      </div>
       <div id="infotext">
         <h1>План изучения.</h1>
       </div>
-  </header>
+    </header>
   
-    <ul>
-      <li>Books
-        <ul>
-          <li><a href="./books/english.html">Books in English</a></li>
-          <li><a href="./subjects/math.html">Математика</a></li>
-          <li><a href="./subjects/environment.html">Окружение</a></li>
-        </ul>
-      </li>
-      <li>Frontend
-        <ul>
-          <li><a href="./frontend/css.html">HTML</a></li>
-          <li><a href="./frontend/css.html">CSS</a></li>
-          <li><a href="./frontend/js.html">JavaScript</a></li>
-          <li><a href="./frontend/jsDom.html">JavaScript DOM</a></li>
-          <li>react</li>
-        </ul>
-      </li>
-      <li>Python
+    <div class="subjects">
+      <div class="python">
+        <h3 align="center">Python</h3>
         <ul>
           <li><a href="./python/startPy.html">startPy</a></li>
           <li><a href="./python/libraryPy.html">libraryPy</a></li>
@@ -65,24 +52,29 @@
             </ul>
           </li>
         </ul>
-       </li> 
-    </ul>
-  
-    <h3>Ссылки:</h3>
-  <div class="links">
-    <div class="link">
-      <a href="https://developer.mozilla.org/ru/" rel="noopener"
-      target="_blank"><p>MDN Web Docs</p></a>
+      </div>
+
+      <div class="frontend">
+        <h3 align="center">Frontend</h3>
+        <ul>
+          <li><a href="./frontend/html.html">HTML</a></li>
+          <li><a href="./frontend/css.html">CSS</a></li>
+          <li><a href="./frontend/js.html">JavaScript</a></li>
+          <li><a href="./frontend/jsDom.html">JavaScript DOM</a></li>
+          <li>react</li>
+        </ul>
+      </div>
+
+      <div class="books">
+        <h3 align="center">Books</h3>
+        <ul>
+          <li><a href="./books/english.html">Books in English</a></li>
+          <li><a href="./subjects/math.html">Математика</a></li>
+          <li><a href="./subjects/environment.html">Окружение</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="link-descr"><p> - Ресурс фронтенд разработчика</p></div>
-  </div>
   
-  <div class="links">
-    <div class="link">
-      <a href="https://wm-school.ru/index.html" rel="noopener" target="_blank">wm-school</a>
-    </div>
-    <div class="link-descr"><p> - Школа фронтенд разработчика</p></div>
-  </div>
-  </header>
+</div>
 </body>
 </html>

@@ -12,16 +12,20 @@
             <aside class="left">
     <p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
     <p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
-     <p>Встроенные модули</p>
+     <p><i>Встроенные модули</i></p>
     <p><a href="#s1">random</a></p>
     <p><a href="#s2">sys</a></p>
     <p><a href="#s3">time</a></p>
-    <p><a href="#s4">4</a></p>
-    <p><a href="#s5">5</a></p>
-    <p><a href="#s6">6</a></p>
-    <p><a href="#s7">7</a></p>
-    <p><a href="#s8">8</a></p>
-    <p><a href="#s9">9</a></p>
+    <p><a href="#s4">datetime</a></p>
+    <p><a href="#s5">copy</a></p>
+    <p><a href="#s6">math</a></p>
+    <p><a href="#s7">Regex</a></p>
+    <p><a href="#s8">pandas</a></p>
+    <p><i>Сторонние модули</i></p>
+    <p><a href="#s10">pyperclip</a></p>
+    <p><a href="#s11">requests</a></p>
+    <p><a href="#s12">BeautifulSoup</a></p>
+    <p><a href="#s13">selenium</a></p>
     <p><a href="#s20">Ссылки.</a></p>            
             </aside>
     
@@ -64,8 +68,119 @@
     math.floor(5.99) .. 5<br>
     .sqrt(); .sin(); .cos();<br>
   </section>
+
+  <section id="s7">
+    <b>import re</b><br>
+Regular expressions (regexes)<br>
+Специальные символы: <b>\ . $ ? + * {} [] () | </b> - надо экранировать (\) или использовать сырую строку (r"txt")<br>
+pattern = re.compile(r'\d{3}) - pattern to re.compile() and store regex object<br>
+result = re.match(r"word", txt) - только в начале строки<br>
+result = patern.search(txt).group()<br>
+result = re.search(r"word", txt)[0] - первое совпадение<br>
+print(result[0] if result else 'NO')<br>
+result.group<b><ins>s</ins></b>() - вернёт кортеж из всех групп; можно исп множественное присвоение для разных частей патерна<br><br>
+
+re.fullmatch(pattern, string) - проверить полное совпадение под шаблон<br>
+print('Yes' if result else 'No')<br><br>
+
+re.split(pattern, string, maxsplit=0) - разделение по подстрокам, подходящим под шаблон<br>
+print(re.split(r"\W+", "Где скажите мне, мои очки?"))<br>
+...["Где", "скажите", "мне", "мои", "очки"]<br>
+
+re.findall(pattern, string) - вернёт список строк, если нет групп и список кортежей, если есть (все непересекающиеся шаблоны).<br>
+result = re.findall(r"стеклянн?ый", text) - вернёт список всех совпадений.<br>
+result = te.findall(r"(\w+)\s*=\s*([^;]+)", text) - группа букв.цифр до ,возможно, прбелов; потом =; возможно пробелы; любые символы кроме ';'<br>
+print(result)<br><br>
+
+re.finditer(pattern, string) - итератор по непересекающимся шаблонам<br><br>
+
+re.sub(pattern, repl, string, count=0) - заменить все непересекающиесся шаблоны на repl<br>
+result2 = re.sub(r"old", r"new", txt) - заменить<br>
+print(result2)<br><br>
+
+Символьные классы: [A-z][0-9] // одна буква и одна цифра; спец символы здесь не работают(кроме \)<br>
+<table>
+  <tr><td><b>.</b></td><td>любой символ; кроме \n; с флагом re.DOTALL - весь текст (wildcard)</td></tr>
+  <tr><td><b>\d</b></td><td>любая цифра [0-9]</td></tr>
+  <tr><td><b>\D</b></td><td>любой не цифровой символ [^0-9]</td></tr>
+  <tr><td><b>\s</b></td><td>любой пробельный символ [\t\n\r\f\v]</td></tr>
+  <tr><td><b>\S</b></td><td>любой непробельный символ</td></tr>
+  <tr><td><b>\w</b></td><td>буквы и цифры, знак подчёрк [a-zA-Z0-9] (\w+ выберет слова</td></tr>
+  <tr><td><b>\W</b></td><td>не буквы и цифры [^а-яА-Я0-9Ёё]</td></tr>
+  <tr><td>  </td></tr>
+  <tr><td><b>|</b></td><td>или</td></tr>
+  <tr><td><b>\b</b></td><td>граница слова</td></tr>
+  <tr><td><b>^</b></td><td>отрицание для символьного класса или начало строки</td></tr>
+  <tr><td><b>$</b></td><td>конец строки</td></tr>
+  <tr><td><b>\A</b></td><td>начало текста</td></tr>
+  <tr><td><b>\B</b></td><td>отсутствие границы слова</td></tr>
+  <tr><td><b>\Z</b></td><td>конец текста</td></tr>
+  <tr><td><b>(?:=exp)</b></td><td>не сохраняющие скобки</td></tr>
+  <tr><td><b>(?!exp)</b></td><td></td></tr>
+  <tr><td><b>(?&lt;!exp)</b></td><td></td></tr>
+</table><br>
+<i>Квантификаторы</i><br>
+ {m} - повторений; {mix,max}; {min,}; {,max}<br>
+ жадные(мажорные, greedy) - по максимуму, нежадные(минорные, non-greedy) {2,5}? <br>
+ <b>?</b> - {0,1} re.findall(r"стеклянн?ый")<br>
+ <b>*</b> - {0,}<br>
+ <b>+</b> - {1,}<br><br>
+
+ (?:lat|lon) - или lat или lon в несохраняющих скобках<br>
+ <b>flags:</b><br>
+ <i>re.A (re.ASCII)</i><br>
+ <i>re.I (re.IGNORCASE)</i> - без учёта реистра символов.(case-insensitive)<br>
+ <i>re.M (re.MULTILINE)</i> - влияет на проверки ^, $<br>
+ <i>re.S (re.DOTALL)</i> - ищет по всему тексту<br>
+ <i>re.X (re.VERBOSE)</i> - позволяет вкл коментарии. <br>
+ <i>re.DEBUG</i> - режим отладки.<br><br>
+
+ <p><a href="https://habr.com/ru/articles/349860/" target="_blank" rel="noopener" >ShashkovS</a> - регулярные выражения</p>
+ <p><a href="https://docs.python.org/3/library/re.html" target="_blank" rel="noopener" >The Python Tutorial</a> - Python 3.11.4 documentation</p>
+ <p><a href=" https://www.regular-expressions.info/" target="_blank" rel="noopener" >regular-expressions</a> - подробный материал</p>
+  </section>
+
+  <section id="s8">
+    <b>import pandas as pd</b><br>
+  </section>
+
+  <h3 align="center">Сторонние модули:</h3> 
+windowsPowerShell(Администратор)<br>
+  <section id="s10">
+pip install pyperclip<br>
+<b>import pyperclip</b><br>
+pyperclip.copy('Hello, world')<br>
+pyperclip.paste()<br>
+  </section>
+
+  <section id="11">
+pip install requests<br>
+<b>import requests</b><br>
+url = "https:\.."<br>
+r = requests.get(url)<br>
+r.encoding<br>
+r.text<br>
+r.json()<br>
+  </section>
+
+  <section id="12">
+pip install bs4<br>
+<b>from bs4 import BeautifulSoup as bs</b><br>
+soup = BeautifulSoup(r.text, 'html')<br>
+soup.find('div', class_="class_name").find('a', "class_name")<br>
+  </section>
+
+  <section id="13">
+pip install selenium<br>
+<b>import selenium</b><br>
+  </section>
             </aside>
         </div>
+        <footer><h3 id="s20">Ссылки:</h3>
+<p><a href="https://docs.python.org/3/tutorial/introduction.html" target="_blank" rel="noopener" >The Python Tutorial</a> - Python 3.11.4 documentation</p>
+<p><a href="http://automatetheboringstuff.com/2e/chapter1/" target="_blank" rel="noopener" >automatetheboringsruff</a> - AlSweigart</p>
+<p><a href="https://pythex.org/" target="_blank" rel="noopener" >pythex</a> - regex</p>
+      </footer>
     </div>  
 </body>
 </html>

@@ -21,12 +21,22 @@
     <p><a href="#s6">math</a></p>
     <p><a href="#s7">Regex</a></p>
     <p><a href="#s8">pandas</a></p>
+    <p><a href="#s9">pathlib</a></p>
+    <p><a href="#s10">os</a></p>
+    <p><a href="#s11">shutil</a></p>
+    <p><a href="#s12">zipfile</a></p>
+    <p><a href="#s13">shelve</a></p>
+    <p><a href="#s14">pprint</a></p>
     <p><i>Сторонние модули</i></p>
-    <p><a href="#s10">pyperclip</a></p>
-    <p><a href="#s11">requests</a></p>
-    <p><a href="#s12">BeautifulSoup</a></p>
-    <p><a href="#s13">selenium</a></p>
-    <p><a href="#s20">Ссылки.</a></p>            
+    <p><a href="#s50">pyperclip</a></p>
+    <p><a href="#s51">requests</a></p>
+    <p><a href="#s52">BeautifulSoup</a></p>
+    <p><a href="#s53">selenium</a></p>
+    <p><a href="#s54">pyinputplus</a></p>
+    <p><a href="#s55">lxml</a></p>
+    <p><a href="#s56">win32</a></p>
+    <p><a href="#s57">send2trash</a></p>
+    <p><a href="#s99">Ссылки.</a></p>            
             </aside>
     
             <aside class="right"><h1 align="center" id="s0">Library for Python.</h1>
@@ -73,30 +83,46 @@
     <b>import re</b><br>
 Regular expressions (regexes)<br>
 Специальные символы: <b>\ . $ ? + * {} [] () | </b> - надо экранировать (\) или использовать сырую строку (r"txt")<br>
-pattern = re.compile(r'\d{3}) - pattern to re.compile() and store regex object<br>
+pattern = re.compile(r'\d{3}) - pattern передаём в  re.compile() и сохраняем в regex object<br>
 result = re.match(r"word", txt) - только в начале строки<br>
 result = patern.search(txt).group()<br>
-result = re.search(r"word", txt)[0] - первое совпадение<br>
+result = re.<b>search</b>(r"word", txt)[0] - первое совпадение<br>
 print(result[0] if result else 'NO')<br>
 result.group<b><ins>s</ins></b>() - вернёт кортеж из всех групп; можно исп множественное присвоение для разных частей патерна<br><br>
 
-re.fullmatch(pattern, string) - проверить полное совпадение под шаблон<br>
-print('Yes' if result else 'No')<br><br>
+re.<b>fullmatch</b>(pattern, string) - проверить полное совпадение под шаблон<br>
+print('Yes' if result else 'No')<br>
+re.search, re.fullmatch - возвращают match-объект или None<br>
+match.start(), match.end() - индекс начала совпадения и следующий после<br>
+re.findinter - ничего не выдаёт<br><br>
 
-re.split(pattern, string, maxsplit=0) - разделение по подстрокам, подходящим под шаблон<br>
-print(re.split(r"\W+", "Где скажите мне, мои очки?"))<br>
-...["Где", "скажите", "мне", "мои", "очки"]<br>
+Сохраняющие скобки (при search, fullmatch and finditer) не изменяют вывод, но можно получить инфо по каждой группе (если не исп квантификатор; тогда только для последнего соответсвия).<br>
+Нумерация в группах: pattern = r"((\d)(\d))((\d)(\d))<br>
+0 - весь шаблон; 1 - первые две цифры; 2 - первая цифра; 3 - вторая; 4 - вторые две цифры; 5 - третья цифра; 6 - четвёртая<br>
+match = re.search(r"\s*([А-Яа-яЁё]+)(\d+)\s*", r"--Опять45--")<br>
+print(match[0], match.start(0), match.end(0)) - весь шаблон<br>
+print(match[1], match.start(1), match.end(1)) - первая группа<br><br>
 
-re.findall(pattern, string) - вернёт список строк, если нет групп и список кортежей, если есть (все непересекающиеся шаблоны).<br>
+re.<b>split</b>(pattern, string, maxsplit=0) - разделение по подстрокам, подходящим под шаблон<br>
+print(re.split(r"\W+", "Где скажите мне, мои очки?"))
+... ["Где", "скажите", "мне", "мои", "очки"]<br>
+
+re.<b>findall</b>(pattern, string) - вернёт список строк, если нет групп и список кортежей, если есть (все непересекающиеся шаблоны).<br>
 result = re.findall(r"стеклянн?ый", text) - вернёт список всех совпадений.<br>
 result = te.findall(r"(\w+)\s*=\s*([^;]+)", text) - группа букв.цифр до ,возможно, прбелов; потом =; возможно пробелы; любые символы кроме ';'<br>
 print(result)<br><br>
 
-re.finditer(pattern, string) - итератор по непересекающимся шаблонам<br><br>
+re.<b>finditer</b>(pattern, string) - итератор по непересекающимся шаблонам<br><br>
 
-re.sub(pattern, repl, string, count=0) - заменить все непересекающиесся шаблоны на repl<br>
+re.<b>sub</b>(pattern, repl, string, count=0) - заменить все непересекающиесся шаблоны на repl<br>
 result2 = re.sub(r"old", r"new", txt) - заменить<br>
+второй аргумент может быть имя ф-ции.<br>
 print(result2)<br><br>
+
+Использование групп при замене:<br>
+Можно ссылаться на соответсвующую группу при помоощи \1, \2, ...(если групп больше 9, то \g<12>)<br>
+print(re.sub(r"(\d\d)/(\d\d)/(\d{4})", r"\2.\1.\3", "03/25/2023")) - дата по амер; вернёт в нормальном порядке через точку<br><br>
+
 
 Символьные классы: [A-z][0-9] // одна буква и одна цифра; спец символы здесь не работают(кроме \)<br>
 <table>
@@ -105,7 +131,7 @@ print(result2)<br><br>
   <tr><td><b>\D</b></td><td>любой не цифровой символ [^0-9]</td></tr>
   <tr><td><b>\s</b></td><td>любой пробельный символ [\t\n\r\f\v]</td></tr>
   <tr><td><b>\S</b></td><td>любой непробельный символ</td></tr>
-  <tr><td><b>\w</b></td><td>буквы и цифры, знак подчёрк [a-zA-Z0-9] (\w+ выберет слова</td></tr>
+  <tr><td><b>\w</b></td><td>буквы и цифры, знак подчёрк [a-zA-Z0-9] (\w+ выберет слова)</td></tr>
   <tr><td><b>\W</b></td><td>не буквы и цифры [^а-яА-Я0-9Ёё]</td></tr>
   <tr><td>  </td></tr>
   <tr><td><b>|</b></td><td>или</td></tr>
@@ -126,7 +152,7 @@ print(result2)<br><br>
  <b>*</b> - {0,}<br>
  <b>+</b> - {1,}<br><br>
 
- (?:lat|lon) - или lat или lon в несохраняющих скобках<br>
+ (?:lat|lon){3} - или lat или lon в несохраняющих скобках<br>
  <b>flags:</b><br>
  <i>re.A (re.ASCII)</i><br>
  <i>re.I (re.IGNORCASE)</i> - без учёта реистра символов.(case-insensitive)<br>
@@ -136,6 +162,7 @@ print(result2)<br><br>
  <i>re.DEBUG</i> - режим отладки.<br><br>
 
  <p><a href="https://habr.com/ru/articles/349860/" target="_blank" rel="noopener" >ShashkovS</a> - регулярные выражения</p>
+ <p><a href="https://proproprogs.ru/modules/literaly-i-simvolnyy-klass" target="_blank" rel="noopener" >proproprogs</a> - регулярные выражения</p>
  <p><a href="https://docs.python.org/3/library/re.html" target="_blank" rel="noopener" >The Python Tutorial</a> - Python 3.11.4 documentation</p>
  <p><a href=" https://www.regular-expressions.info/" target="_blank" rel="noopener" >regular-expressions</a> - подробный материал</p>
   </section>
@@ -144,16 +171,140 @@ print(result2)<br><br>
     <b>import pandas as pd</b><br>
   </section>
 
+  <section id="s9">
+    <b>from pathlib import Path</b><br>
+<i>p = Path("C:/Users/Al/spam.txt")</i><br>
+Path.cwd() - текущая рабочая папка (current working directory)<br>
+Path('spam', 'bacon', 'eggs') ..WindowsPath('spam/bacon/eggs') - объект<br>
+str(Path(r'E:/spam') / 'bacon' / 'eggs') .. 'E:\\spam\\bacon\\eggs'<br>
+if not p.exist():<br>
+&nbsp;&nbsp;&nbsp;&nbsp; Path(r"E:/waffles").mkdir() - создать папку, если такой нет<br><br>
+
+p.anchor .."C:\\"<br>
+p.parent ..WindowsPath(("C:/Users/Al")) - объект<br>
+p.name .. 'spam.txt'<br>
+p.stem .. 'spam'<br>
+p.suffix .. 'txt'<br>
+p.drive .. 'C:'<br><br>
+
+p.parents[0] - вернёт путь в виде строки<br>
+p.parents[1] - часть пути на звено меньше<br><br>
+
+list(p.glob('*')) - список из генератора всех файлов папки<br>
+('*.txt') - список файлов с расширением .txt<br>
+('*.?x?') - ? заменяет еденичный символ<br><br>
+
+for file in list(p.glob('*.py')):<br>
+&nbsp;&nbsp;&nbsp;&nbsp; print(file) - файлы с расширением .py<br><br>
+
+p.exists() - Этот файл существует?<br>
+p.is_file() - Это файл?<br>
+p.is_dir() - Это папка?<br><br>
+
+g = Path(r"G:/"); g.exists() .. False - флэшка не вставлена<br><br>
+
+p = p / 'hello.txt' - сохранили в p путь до текстового файла (или создали его)<br>
+p.write_text('Hello') - записали в файл слово; вернёт кол-во знаков<br>
+p.read_text() .. 'Hello'<br><br>
+
+
+  </section>
+
+  <section id="s10">
+    <b>import os</b><br>
+os.chdir(r"E:/My Documens/книги/my_py") - сделать рабочей указаную папку.<br>
+os.makedirs(r"E:/waffles") - создать новую папку<br>
+os.path.abspath(path) - способ конвертировать относительный путь  в абсолютный<br>
+os.path.isabs(path) - это абсолютный путь?<br>
+os.path.relpath(path, start) - вернёт относительный путь от cwd или от указаного 'start'<br><br>
+
+os.path.basename(r"E:/книги/spam.txt") .. spam.txt<br>
+os.path.dirname(r"E:/книги/spam.txt") .. r"E:/книги"<br>
+os.path.split(r"E:/книги/spam.txt") .. ("E:/книги", "spam.txt")<br>
+(r"E:/книги/spam.txt").split(os.sep) .. ['E:', 'книги', 'spam.txt']<br><br>
+
+os.listdir(path) - список файлов<br>
+os.path.getsize(path) - размер файла в байтах (bytes)<br>
+totalsize = 0<br>
+for filename in os.listdir(path):<br>
+&nbsp;&nbsp;&nbsp;&nbsp; totalsize += os.path.getsize(os.path.join(path, filename)) - список файлов в папке; с помощью <i>join</i> получаем абсолютный путь до файла<br><br>
+
+os.path.join() - соединить путь и файл<br>
+
+<i>os.unlink(path)</i> - удалить файл по указаному пути<br>
+<i>os.rmdir(path)</i> - удалить папку по указаному пути<br>
+<i>os.rmtree(path)</i> - удалить папку рекурсивно<br><br>
+
+<i>os.walk(path)</i><br>
+for folderName, subfolders, filenames in os.walk(path):<br>
+&nbsp;&nbsp;&nbsp;&nbsp; print(f"current folder is {folderName}")<br>
+&nbsp;&nbsp;&nbsp;&nbsp; for subfolder in subfolders:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print(f"{folderName}:{subfolder})<br>
+&nbsp;&nbsp;&nbsp;&nbsp; for filename in filenames:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print(f"{folderName}:{filename})<br>
+&nbsp;&nbsp;&nbsp;&nbsp; print()<br>
+
+safe Deletes with the send2trash module.
+  </section>
+
+  <section id="s11">
+    <b>import shutil</b><br>
+<i>shutil.copy(source, destination)</i> - копирует файлы и папки; пути должны быть строками или Path obj; если в назначении определена только папка - название файла копируется; если папка и название файла - файл копируется с новым именем.<br><br>
+
+<i>shutil.copytree(source, destination)</i> - копирует рекурсивно всё, что есть в папке.<br>
+<i>shutil.move(source, destenation)</i> - переместит файл (в существующую папку) или папку<br>
+<i>shutil.rmtree(path)</i> - удалит папку рекурсивно<br>
+
+  </section>
+
+  <section id="s12">
+<b>import zipfile</b>; from pathlib import Path; import os<br>
+p = Path.home()<br>
+exampleZip = zipfile.ZipFile(p / 'example.zip')<br>
+examleZip.namelist() - список спресованых файлов.<br>
+fileInfo = exampleZip.getinfo(file) - инфо отдельного файла.<br>
+fileInfo.file_size; fileInfo.compress_size; <br>
+exampleZip.extractall() - извлечёт все файлы в текущую папку или по указанному пути.<br>
+exampleZip.extract('spam.txt', [path]) - извлечь указанный файл по указанному пути(или создать папку).<br>
+exampleZip.close()<br><br>
+
+newZip = zipfile.ZipFile('new.zip', 'w') - открыть ZipFile object в режиме записи или добавления 'a'.<br>
+newZip.write('spam.txt', compress_type=zipfile.ZIP_DEFLATED)<br>
+newZip.close()
+  </section>
+
+  <section id="s13">
+    <b>import shelve</b><br>
+сохранить как бинарные файлы.<br>
+shelfFile = shelf.open('mydata') - принемает строку (не Path obj)<br>
+cats = ['Zophie', 'Poork', 'Simon']<br>
+shelfFile['cats'] = cats - сохранить как словарь по кллючу<br>
+shelfFile.close(); появятся три файла с расширениями <i>.bak, .dat, .dir</i><br><br>
+
+shelfFile = shelf.open('mydata') <br>
+shelfFile['cats'] .. ['Zophie', 'Poork', 'Simon']<br>
+list(shelfFile.keys()) .. ['cats']<br>
+list(shefFile.values()) .. [['Zophie', 'Poork', 'Simon']]<br>
+shelfFile.close()<br><br>
+
+with shelve.open as sf:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; cats = sf['cats']<br>
+  </section>
+
+  <section id="s14">
+    <b>import pprint</b><br>
+  </section>
+
   <h3 align="center">Сторонние модули:</h3> 
 windowsPowerShell(Администратор)<br>
-  <section id="s10">
+  <section id="s50">
 pip install pyperclip<br>
 <b>import pyperclip</b><br>
 pyperclip.copy('Hello, world')<br>
 pyperclip.paste()<br>
   </section>
 
-  <section id="11">
+  <section id="51">
 pip install requests<br>
 <b>import requests</b><br>
 url = "https:\.."<br>
@@ -163,20 +314,55 @@ r.text<br>
 r.json()<br>
   </section>
 
-  <section id="12">
+  <section id="52">
 pip install bs4<br>
 <b>from bs4 import BeautifulSoup as bs</b><br>
 soup = BeautifulSoup(r.text, 'html')<br>
 soup.find('div', class_="class_name").find('a', "class_name")<br>
   </section>
 
-  <section id="13">
+  <section id="53">
 pip install selenium<br>
 <b>import selenium</b><br>
   </section>
+
+  <section id="54">
+    pip install --user pyinputplus  (для строки "выполнить")<br>
+    <b>import pyinputplus as pyip</b><br>
+<i>inputStr()</i><br>
+<i>inputNum()</i> min=None, greaterThan=None, lessThan=None<br>
+<i>inputChoice()</i><br>
+<i>inputMenu()</i><br>
+<i>inputDatetime()</i><br>
+<i>inputYesNo()</i><br>
+<i>inputBool()</i><br>
+<i>inputEmail()</i><br>
+<i>inputFilepath()</i><br>
+<i>inputPassword()</i><br>
+  </section>
+
+  <section id="s55">
+pip install --user lxml<br>
+используется вместо <i>'html.parser'</i>  (встроенного в Python) <br>
+  </section>
+
+  <section id="s56">
+pip install pywin32; import win32api<br>
+модуль для работы с windows<br><br>
+
+pip install py32printing; import win32print<br>
+вывод на принтер через windows<br>
+  </section>
+
+  <section id="s57">
+    <i>pip install send2trash</i>
+        <b>import send2trash</b>
+  </section>
+
             </aside>
         </div>
-        <footer><h3 id="s20">Ссылки:</h3>
+
+      <footer><h3 id="s99">Ссылки:</h3>
 <p><a href="https://docs.python.org/3/tutorial/introduction.html" target="_blank" rel="noopener" >The Python Tutorial</a> - Python 3.11.4 documentation</p>
 <p><a href="http://automatetheboringstuff.com/2e/chapter1/" target="_blank" rel="noopener" >automatetheboringsruff</a> - AlSweigart</p>
 <p><a href="https://pythex.org/" target="_blank" rel="noopener" >pythex</a> - regex</p>

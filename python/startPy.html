@@ -20,7 +20,7 @@
 <p><a href="#s6">Кортеж.</a></p>
 <p><a href="#s7">Set.</a></p>
 <p><a href="#s8">Exception.</a></p>
-<p><a href="#s9">9</a></p>
+<p><a href="#s9">Папки и файлы</a></p>
 <p><a href="#s20">Ссылки.</a></p>            
         </aside>
 
@@ -49,6 +49,8 @@ statements (инструкции) - выполняют действие (def, if
 
 <b>переменные</b> начинаются с буквы или символа подчёркивания (A-z, 0-9, _)<br>
 x, y, z = 'Orange', 'Banana', 12 + 5 - присвоить значения трём переменным (multiple assignment).<br>
+Используем нижнее подчёркивание в качестве переменной и *_ в качестве переменной для остальных значений.<br>
+year, month, *_ = [2023, 7, 15, 20, 54]<br>
 global x - используем ключевое слово, чтобы создать глобальную переменную внутри ф-ции.<br>
 snake_case - переменные, ф-ции, методы, модули<br>
 PascalCase - классы<br>
@@ -119,6 +121,7 @@ fruits = ['apl', 'ban', 'lime']; qnt = range(1, 4); str1 = 'abc'<br>
 new_zip = zip(fruits, qnt, str1)<br>
 print(list(new_zip)) .. [('apl', 1, 'a'), ('ban', 2, 'b'), ('lime', 3, 'c')]<br>
 new_dict = dict(new_zip) - если в new_zip два элемента можно его конвертировать в словарь<br>
+new_dict = {k:v for k,v in zip(gnt, fruits)}<br>
     </section>
 
     <section id="s2"><h3>Числа (numbers):</h3>
@@ -317,12 +320,39 @@ except KeyboardInterrupt:<br>
 <i>KeyboardInterrupt</i><br>
 <i>Invalid argument</i>
     </section>
+
+    <section id="s9"><h3>Папки и файлы</h3>
+<i>from pathlib import Path; import os, shutil, send2tresh, shelve</i><br>
+cwd - current working directory  (текущий католог (папка)) <br>
+./ - cwd<br>
+../ - родительская (parent) папка<br><br>
+
+<b>open(); read(); write(); close()</b><br>
+helloFile = open(Path(r"E:/waffles) / 'hello.txt') - с использованием Path строки<br>
+helloFile = open(r"E:/waffles/hello.txt", r) - с использованием строки; создаётся File object по умолчанию для чтения; второй аргумент может быть 'w' - для записи; 'a' - режим добавления текста<br>
+helloContent = helloFile.read(); helloFile.readline()<br>
+helloContent.close() - всегда закрывать файлы<br>
+helloContent.open(r"E:/waffles/hello.txt", a)<br>
+helloContent.write(' world') - дописать в файл<br>
+helloContent.close(); print(helloContent)<br><br>
+
+try:                         - с этим менеджером файл закроется автоматом<br>
+&nbsp;&nbsp;&nbsp;&nbsp; with open('path') as k:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; content = k.read()<br>
+except FileNotFoundError:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; content = 'not found'<br>
+print(content)<br>
+finally:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(k.colsed)  - файл закрыт?<br><br>
+
+    </section>
         </aside>
 
     </div>
 <footer><h3 id="s20">Ссылки:</h3>
     <p><a href="https://docs.python.org/3/tutorial/introduction.html" target="_blank" rel="noopener" >The Python Tutorial</a> - Python 3.11.4 documentation</p>
     <p><a href="http://automatetheboringstuff.com/2e/chapter1/" target="_blank" rel="noopener" >automatetheboringsruff</a> - AlSweigart</p>
+    <p><a href="https://proproprogs.ru/index.php" target="_blank" rel="noopener" >proproprogs</a> - Про программирование</p>
 </footer>
 </div>  
 </body>

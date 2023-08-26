@@ -322,28 +322,21 @@ except KeyboardInterrupt:<br>
     </section>
 
     <section id="s9"><h3>Папки и файлы</h3>
-<i>from pathlib import Path; import os, shutil, send2tresh, shelve</i><br>
+<i>from pathlib import Path; import os, shutil, send2tresh, shelve, csv, pickle</i><br>
 cwd - current working directory  (текущий католог (папка)) <br>
 ./ - cwd<br>
 ../ - родительская (parent) папка<br><br>
 
-<b>open(); read(); write(); close()</b><br>
-helloFile = open(Path(r"E:/waffles) / 'hello.txt') - с использованием Path строки<br>
-helloFile = open(r"E:/waffles/hello.txt", r) - с использованием строки; создаётся File object по умолчанию для чтения; второй аргумент может быть 'w' - для записи; 'a' - режим добавления текста<br>
-helloContent = helloFile.read(); helloFile.readline()<br>
-helloContent.close() - всегда закрывать файлы<br>
-helloContent.open(r"E:/waffles/hello.txt", a)<br>
-helloContent.write(' world') - дописать в файл<br>
-helloContent.close(); print(helloContent)<br><br>
+<i>open(file, mode)</i>; (r, w, a, b); myfile = open("hello", 'w'); <i>myfile.close()</i><br><br>
+ 
+with open(file, mode, encoding="utf8") as myfile:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; инструкции<br><br>
 
-try:                         - с этим менеджером файл закроется автоматом<br>
-&nbsp;&nbsp;&nbsp;&nbsp; with open('path') as k:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; content = k.read()<br>
-except FileNotFoundError:<br>
-&nbsp;&nbsp;&nbsp;&nbsp; content = 'not found'<br>
-print(content)<br>
-finally:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;print(k.colsed)  - файл закрыт?<br><br>
+print(myfile.readline(), end='') - считывает по одной строке из файла<br>
+myfile.read()- считывает всё содержимое в одну строку<br>
+myfile.readlines() - считывает все строки в список<br>
+
+
 
     </section>
         </aside>

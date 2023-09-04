@@ -38,6 +38,8 @@
     <p><a href="#s55">lxml</a></p>
     <p><a href="#s56">win32</a></p>
     <p><a href="#s57">send2trash</a></p>
+    <p><a href="#s58">pprint</a></p>
+    <p><a href="#s59">pass</a></p>
     <p><a href="#s99">Ссылки.</a></p>            
             </aside>
     
@@ -60,11 +62,62 @@
 
   <section id="s3">
 <b>import time</b><br>
+time.time() - время в секундах с начала эпохи(1970-01-01 12:00:00)<br>
+time.ctime() - UTC - Thu Aug 31 15:52:18 2023<br>
 <i>time.sleep(1)</i> - задержка 1с<br>
   </section>
 
   <section id="s4">
-    <b>import datetime</b><br>
+<b>import datetime</b>; import datetime as dt<br>
+Классы: date, time, datetime<br>
+<i>.date</i><br>
+date(year, month, day)<br>
+print(datetime.date(2023,8,31)) .. 2023-08-31<br>
+today = datetime.date.today() .. 2023-08-31<br>
+print(f"{today.day}.{today.manth}.{today.year}") .. 31.8.2023<br><br>
+
+<i>.time</i><br>
+time([hour][, min][, sec][, microsec]) (без параметров 0:0:0)<br>
+print(datetime.time(10,47,20)) .. 10:47:20<br><br>
+
+<i>.datetime</i><br>
+datetime(year, month, day [, hour][, min][, sec][, microsec])<br>
+print(datetime.datetime(2023,8,31)) .. 2023-08-31 00:00:00<br>
+now = datetime.datetime.now()<br> ..2023-08-31 10:58:03.968252<br>
+now.date; now.month; now.year; now.hour, now.minute, now.microsecond<br><br>
+
+<i>strptime(str, format)</i> - распарсить строку; преобразовать в дату<br>
+%d; %m; %y; %Y; %H; %M; %S - день; номер месяца; год (две цифры); год (4 цифры); час; минута; секунда<br>
+deadline = datetime.datetime.strptime("05-22-2017 12:30", "%m-%d-%Y %H:%M")<br>
+print(deadtime) .. 2017-05-22 12:30:00<br><br>
+
+<i>strftime(format)</i> - для объектов <i>date</i> и <i>time</i>; принимает один параметр - формат<br>
+%a - Wed; %A - Wednesday; %b - Oct; %B - October<br>
+%d - 01(день); %m - 05(месяц); %y - 23; %Y - 2023<br>
+%H - 13(часов); %I - 01(час); %M; %S; %f - микросекунда<br>
+%p - AM/PM; %c - дата и время местный формат<br>
+%x; %X - дата; время - местный формат<br>
+print(now.strftime("%d %b (%A)")) .. 31 Aug (Thursday)<br><br>
+
+<i>import locale</i><br>
+<i>locale.setlocale(locale.LC_ALL, "")</i> - для использования русских(местных) слов<br><br>
+
+from datetime import timedelta<br>
+<i>timedelta([days][, seconds][, microseconds][, milliseconds][, minutes][, hours][, weeks])</i> - класс;<br>
+three_hours = timedelta(hours=3, minutes=25) .. 3:25:00<br>
+two_days = timedelta(2, 25) .. 2 days, 0:00:25<br>
+delta = three_hours + two_days .. 2 days, 3:25:25<br><br>
+
+методы: <i>days, seconds, microseconds, total_seconds()</i><br>
+delta.seconds; delta.total_seconds()<br><br>
+
+if now > deadline:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Time is over")<br>
+elif now.day == deadline.day and now.month == deadline.month:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("today")<br>
+else:
+&nbsp;&nbsp;&nbsp;&nbsp;period = deadline - now<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(f"осталось {period.days} дней")<br>
   </section>
 
   <section id="s5">
@@ -259,7 +312,7 @@ p.read_text() .. 'Hello'<br><br>
     <b>import os</b><br>
 os.chdir(r"E:/My Documens/книги/my_py") - сделать рабочей указаную папку.<br>
 os.mkdir() - создать папку(ошибка, если уже существует)<br>
-os.rmdir() - удалить папку<br>
+os.rmdir() - удалить папку (пустую)<br>
 os.rename(source, target) - переименовать файл (путь мб абс или относ)<br>
 os.makedirs(r"E:/waffles/valnut") - создать папки рекурсивно<br>
 os.remove(path) - удалить путь к файлу<br>
@@ -303,16 +356,26 @@ safe Deletes with the send2trash module.
     <b>import shutil</b><br>
 <i>shutil.copy(source, destination)</i> - копирует файлы и папки; пути должны быть строками или Path obj; если в назначении определена только папка - название файла копируется; если папка и название файла - файл копируется с новым именем.<br><br>
 
-<i>shutil.copytree(source, destination)</i> - копирует рекурсивно всё, что есть в папке.<br>
+<i>shutil.copytree(source, destination, ignore=None)</i> - копирует рекурсивно всё, что есть в папке.<br>
+ignore=ignore_patterns('tmp*') - копировать всё кроме имён начинающихся с tmp<br>
 <i>shutil.move(source, destenation)</i> - переместит файл или папку (в существующую папку)<br>
-<i>shutil.rmtree(path)</i> - удалит папку рекурсивно<br>
+<i>shutil.rmtree(path, ignore_errors=False)</i> - удалит папку рекурсивно<br>
+<i>shutil.make_archive(base_name, format[, root_dir[, bse_dir[, verbose[,dry_run[, oner[, group[, logger]]]]]]])</i> - имя архивного файла без расширения, расширение ('zip'), путь до папки, которую надо архивировать; архивированый файл будет создан в текущей директории<br>
+<i>shutil.unpack_archive(filename[, extract_dir[, format[, filter]]])</i><br>
+base_name - имя архива<br>
+format - 'zip'<br>
+root_dir - корневой каталог архива (откуда копировать)<br>
 
   </section>
 
   <section id="s12">
 <b>import zipfile</b><br>
 <i>archive file</i> - упакованый файл<br>
-класс ZipFile; методы: close(); getinfo(); namelist(); infolist(); open(); read(); extract(); extractall(); setpassword(); printdir()<br><br>
+класс ZipFile(file, mode='r', compression=ZIP_STORED, allowZip64=True, compresslevel=None, strict_timestamps=True, metadata_encoding=None);<br>
+Параметры: r, w, a - чтение, запись добавление.<br>
+ZIP_STORED - без сжатия (по умолчанию)<br>
+ZIP_DEFLATED - стандартный тип сжатия.<br>
+методы: close(); getinfo(); namelist(); infolist(); open(); read(); extract(); extractall(); setpassword(); printdir()<br><br>
 
 класс ZipInfo; атрибуты:<br>
 filename - название файла<br>
@@ -327,12 +390,17 @@ with ZipFile("meta.zip", "r") as myzip:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print(f"File Name: {item.filename} Date: {item.date_time} Size: {item.file_size}") - перечислит инфо для каждого файла<br><br>
 
 exampleZip = zipfile.ZipFile('example.zip')<br>
+dir(exampleZip) .. namelist, open, read...<br>
 examleZip.namelist() - список спресованых файлов.<br>
 fileInfo = exampleZip.getinfo(file) - инфо отдельного файла.<br>
-fileInfo.file_size; fileInfo.compress_size; <br>
-exampleZip.extractall() - извлечёт все файлы в текущую папку или по указанному пути.<br>
-exampleZip.extract('spam.txt', [path]) - извлечь указанный файл по указанному пути(или создать папку).<br>
-exampleZip.close()<br><br>
+fileInfo.file_size; fileInfo.compress_size; <br><br>
+
+extractall(path, members=None, pwd=None)<br>
+path - куда извлекать (по умолчанию в cwd; можно 'files' - создали папку для извлечения)<br>
+members - список названий файлов, которые надо извлечь<br>
+pwd - пароль, если архив запоролен<br>
+myzip.extract('hello.txt') - извлечь один файл<br>
+content = mysip.read('hello.txt')<br>
 
 newZip = zipfile.ZipFile('new.zip', 'w') - открыть ZipFile object в режиме записи или добавления 'a'.<br>
 newZip.write('spam.txt', compress_type=zipfile.ZIP_DEFLATED)<br>
@@ -341,7 +409,10 @@ newZip.close()<br><br>
 with ZipFile('spam.zip', 'w') as myzyp: - менеджер контекста<br>
 &nbsp;&nbsp;&nbsp;&nbsp; pass - пустой zipfile создан и закрыт. <br><br>
 
-
+При записи первый параметр - записываемый файл, второй - имя внутри архива (если добавляем файл с уже имеющимся именем); ZIP_DEFLATED надо импортировать из zipfile<br>
+with ZipFile('new.zip', 'a', compression=ZIP_DEFLATED, compresslevel=3) as myzip:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;myzip.write('hello.txt', 'hello1.txt')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;myzip.write('forest.jpg')<br>
   </section>
 
   <section id="s13">
@@ -430,15 +501,15 @@ with open('users', 'rb') as file:<br>
   </section>
 
   <h3 align="center">Сторонние модули:</h3> 
-windowsPowerShell(Администратор)<br>
-  <section id="s50">
+
+  <section id="s50">   
 pip install pyperclip<br>
 <b>import pyperclip</b><br>
 pyperclip.copy('Hello, world')<br>
 pyperclip.paste()<br>
   </section>
 
-  <section id="51">
+  <section id="s51">
 pip install requests<br>
 <b>import requests</b><br>
 url = "https:\.."<br>
@@ -448,21 +519,21 @@ r.text<br>
 r.json()<br>
   </section>
 
-  <section id="52">
+  <section id="s52">
 pip install bs4<br>
 <b>from bs4 import BeautifulSoup as bs</b><br>
 soup = BeautifulSoup(r.text, 'html')<br>
 soup.find('div', class_="class_name").find('a', "class_name")<br>
   </section>
 
-  <section id="53">
+  <section id="s53">
 pip install selenium<br>
 <b>import selenium</b><br>
   </section>
 
-  <section id="54">
-    pip install pyinputplus  (для строки "выполнить")<br>
-    <b>import pyinputplus as pyip</b><br>
+  <section id="s54">
+pip install pyinputplus<br>
+<b>import pyinputplus as pyip</b><br>
 <i>inputStr()</i><br>
 <i>inputNum()</i> min=None, greaterThan=None, lessThan=None<br>
 <i>inputChoice()</i><br>
@@ -492,6 +563,24 @@ pip install py32printing; import win32print<br>
 <i>pip install send2trash</i><br>
 <b>import send2trash</b><br>
 send2trash.send2trash(path)<br>
+  </section>
+
+  <section id="s58">
+<i>pip install pprint</i><br>
+<b>import pprint</b><br>
+<i>pprint.pprint</i> - печать списков<br>
+<i>pprint.pformat</i> - вернёт текст в виде строки<br><br>
+
+with open('myCats.py', 'w') as file:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;file.write('cats = ' + pprint.pformat(cats) + '\n' ) # записали в файл с расширением .py список словарей <br>
+теперь можно вызвать import myCats; myCats.cats - вернёт список; к папке с файлом должен быть путь в 'переменных среды'<br>
+  </section>
+
+  <section id="s59">
+pip install openpyxl<br>
+<b>import openpyxl</b><br>
+
+pass
   </section>
 
             </aside>

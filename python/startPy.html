@@ -21,6 +21,7 @@
 <p><a href="#s7">Set.</a></p>
 <p><a href="#s8">Exception.</a></p>
 <p><a href="#s9">Папки и файлы</a></p>
+<p><a href="#s10">Время</a></p>
 <p><a href="#s20">Ссылки.</a></p>            
         </aside>
 
@@ -30,7 +31,7 @@ PEP8 - python enhancement proposal<br>
 ASCII - кодовая таблица.<br>
 Всё в Python - объекты (экземпляры классов, а класс - шаблон(прототип) для создания объектов)<br>
 У всех объектов есть атрибуты; атрибут называется методом, если его значение - ф-ция;<br>
-Первая строка файла "shebang" line - <i>#!/bin/python3</i><br>
+Первая строка файла "shebang" line - <i>#! python</i><br>
 По умолчанию все исходные файлы обрабатываются  в UTF-8.
 Для другой кодировки во второй строке объявляем:<br>
 <i># -*- coding: cp1252 -*-</i>  (например Windows-1252)<br>
@@ -311,6 +312,8 @@ clear,update,pop<br>
     </section>
 
     <section id="s8"><h3>Обработка исключений (Exception handling):</h3>
+raise Exception("This is the error massage")<br>
+try: ...; except Exception as err: print(str(err))<br>
 import sys<br>
 try: (блок кода)<br>
 except KeyboardInterrupt:<br>
@@ -327,17 +330,27 @@ cwd - current working directory  (текущий католог (папка)) <b
 ./ - cwd<br>
 ../ - родительская (parent) папка<br><br>
 
-<i>open(file, mode)</i>; (r, w, a, b); myfile = open("hello", 'w'); <i>myfile.close()</i><br><br>
- 
+<i>open(file, mode)</i>; (r, w, a, b); myfile = open("hello", 'w'); <i>myfile.close()</i> - встроенная ф-ция; открыть (создать) файл; записать, переписать.<br><br>
+
 with open(file, mode, encoding="utf8") as myfile:<br>
-&nbsp;&nbsp;&nbsp;&nbsp; инструкции<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; инструкции - менеджер контекста; закроется автоматически<br><br>
 
 print(myfile.readline(), end='') - считывает по одной строке из файла<br>
 myfile.read()- считывает всё содержимое в одну строку<br>
-myfile.readlines() - считывает все строки в список<br>
+myfile.readlines() - считывает все строки в список<br><br>
 
+<i>pathlib</i> - создать объект из пути; создать папку, текстовый файл; написать (сложить) путь, разобрать путь на состаляющие; генератор списка файлов; проверить файл это или папка; существует ли такой путь.<br><br>
 
+<i>os</i> - создать папку, папки рекурсивно, переместится в другую папку, переименовать, проверить папка это или файл, показать относительный путь или абсолютный, сложить путь к папке и файл, вывести список папок и файлов, удалить файл, папку (пустую), папки рекурсивно (только пустые), пройтись по всем файлам и папкам рекурсивно<br><br>
 
+<i>shutil</i> - копировать файлы и папки; папку рекурсивно; переместить, переименовать, удалить рекурсивно, сделать архив рекурсивно<br><br>
+
+<i>send2trash</i> - для удаления файлов и папок в корзину
+    </section>
+
+    <section id="s10"><h3>Время</h3>
+UTC - Coordinated Universal Time<br>
+Unix epoch - 1970-01-01 12:00:00<br>
     </section>
         </aside>
 

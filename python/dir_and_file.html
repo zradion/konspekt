@@ -13,11 +13,292 @@
 <p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
 <p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
 <p><a href="#s1">Введение</a></p>
+<p><a href="#s2">Path</a></p>
+<p><a href="#s3">os</a></p>
+<p><a href="#s4">shutil</a></p>
+<p><a href="#s5">send2trash</a></p>
+<p><a href="#s6">zipfile</a></p>
+<p><a href="#s7">Офисные документы</a></p>
 </aside>
 
             <aside class="right"><h2 align="center" id="s0">Папки и файлы</h2>
     <section id="s1"><h3>Введение</h3>
-Путь к файлу, 
+<i>pathlib, os, shutil, send2trash, shelve, csv, pickle, zipfile</i><br>
+электронные таблицы, pdf<br>
+<i>cwd (./)</i> - current working directory (текущий католог (папка))<br>
+<i>../ - родительская (parent) папка</i><br>
+Путь к файлу может быть строкой или объектом Path<br><br>
+
+<i>open(file, mode)</i>; ('r', 'w', 'a', 'b') - встроенный модуль; путь к файлу, флаг (по умолчанию 'r'); открыть (создать) файл; прочитать, записать, переписать, добавить; бинарный ('br', 'bw');<br>
+myfile = open("hello", 'w'); myfile.write('Hello'); <i>myfile.close()</i><br><br>
+
+with open(file, mode, encoding="utf8") as myfile:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; инструкции - <i>менеджер контекста</i>; закроется автоматически<br><br>
+
+print(myfile.readline(), end='') - считывает по одной строке из файла<br>
+myfile.read()- считывает всё содержимое в одну строку<br>
+myfile.readlines() - считывает все строки в список<br>
+myfile.write("Text in file") - записать текст в файл; флаг 'w' - перезапишет, 'a' - добавление<br>
+    </section>
+
+    <section id="s2">
+<b>from pathlib import Path</b><br>
+создать объект из пути; создать папку (не рекурсивно), текстовый файл; написать (сложить) путь, разобрать путь на состаляющие; генератор списка файлов; проверить файл это или папка; существует ли такой путь.<br><br>
+
+<i>dir(Path)</i> - все методы.<br>
+<i>p = Path("C:/Users/Al/spam.txt")</i><br>
+Path.cwd() - текущая рабочая папка (current working directory)<br>
+Path('spam', 'bacon', 'eggs') ..WindowsPath('spam/bacon/eggs') - объект<br>
+str(Path(r'E:/spam') / 'bacon' / 'eggs') .. 'E:\\spam\\bacon\\eggs'<br><br>
+
+g = Path(r"G:/"); g.exists() .. False - флэшка не вставлена<br><br>
+
+p = Path.home(); print(p) .. C:\Users\zradi<br><br>
+
+for file in [list_of_files]:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(Path(p, file)) .. абсолюный путь до файла.<br><br>
+
+if not p.exist():<br>
+&nbsp;&nbsp;&nbsp;&nbsp; Path(r"E:/waffles").mkdir() - создать папку, если такой нет<br><br>
+
+p = p / 'hello.txt' - сохранили в p путь до текстового файла (или создали его)<br>
+p.write_text('Hello') - записали в файл слово; вернёт кол-во знаков<br>
+p.read_text() .. 'Hello'<br><br>
+
+p.anchor .."C:\\"<br>
+p.parent ..WindowsPath(("C:/Users/Al")) - объект<br>
+p.name .. 'spam.txt'<br>
+p.stem .. 'spam'<br>
+p.suffix .. 'txt'<br>
+p.drive .. 'C:'<br><br>
+
+p.parent - path (до папки)<br>
+p.parents[0] - вернёт путь в виде Path<br>
+p.parents[1] - часть пути на звено меньше<br><br>
+
+list(p.glob('*')) - список из генератора всех файлов папки<br>
+('*.txt') - список файлов с расширением .txt<br>
+('*.?x?') - ? заменяет еденичный символ<br><br>
+
+for file in list(p.glob('*.py')):<br>
+&nbsp;&nbsp;&nbsp;&nbsp; print(file) - файлы с расширением .py<br><br>
+
+p.exists() - Этот файл существует?<br>
+p.is_file() - Это файл?<br>
+p.is_dir() - Это папка?<br>
+    </section>
+
+    <section id="s3">
+<b>import os</b><br>
+создать папку, папки рекурсивно, переместится в другую папку, переименовать, проверить папка это или файл, показать относительный путь или абсолютный, сложить путь к папке и файл, вывести список папок и файлов, удалить файл, папку (пустую), папки рекурсивно (только пустые), пройтись по всем файлам и папкам рекурсивно<br><br>
+
+<i>dir(os); dir(os.path)</i> - все методы.<br>
+<i>os.getcwd()</i> - вернёт cwd<br>
+<i>os.chdir(r"D:/") </i>- сделать рабочей указаную папку (раздел).<br>
+<i>os.mkdir(path)</i> - создать папку(ошибка, если уже существует)<br>
+<i>os.rmdir(path)</i> - удалить папку (пустую)<br>
+<i>os.rename(source, target)</i> - переименовать файл (путь м.б абс. или относ.)<br>
+<i>os.makedirs(r"E:/waffles/valnut")</i> - создать папки рекурсивно<br>
+<i>os.remove(path)</i> - удалить путь к файлу<br>
+<i>os.unlink(path)</i> - удалить файл по указаному пути<br>
+<i>os.rmdir(path)</i> - удалить папку по указаному пути<br>
+<i>os.rmtree(path)</i> - удалить папку рекурсивно<br>
+<i>os.listdir(path)</i> - список файлов<br><br>
+
+<i>os.path.abspath(path)</i> - способ конвертировать относительный путь  в абсолютный<br>
+<i>os.path.isabs(path)</i> - это абсолютный путь?<br>
+<i>os.path.exists(path)</i> - существует?<br>
+<i>os.path.isdir(path)</i> - это папка?<br>
+<i>os.path.isfile(path)</i> - эо файл?<br>
+<i>os.path.join(path)</i> - получить абсолютный путь до файла<br>
+<i>os.path.getsize(path)</i> - получить размер файла в Байтах<br>
+<i>os.path.relpath(path, start)</i> - вернёт относительный путь от cwd или от указаного 'start'<br><br>
+
+<i>os.path.basename(r"E:/книги/spam.txt") </i>.. spam.txt<br>
+<i>os.path.dirname(r"E:/книги/spam.txt")</i> .. r"E:/книги"<br>
+<i>os.getcwd.split(os.sep)</i> .. ['C:', 'Users', 'zradi', 'Documents', 'scr_py']<br><br>
+
+<i>os.path.getsize(path)</i> - размер файла в байтах (bytes)<br>
+totalsize = 0<br>
+for filename in os.listdir(path):<br>
+&nbsp;&nbsp;&nbsp;&nbsp; totalsize += os.path.getsize(os.path.join(path, filename)) - список файлов в папке; с помощью <i>join</i> получаем абсолютный путь до файла<br><br>
+
+<i>os.walk(path)</i><br>
+for folderName, subfolders, filenames in os.walk(path):<br>
+&nbsp;&nbsp;&nbsp;&nbsp; print(f"current folder is {folderName}")<br>
+&nbsp;&nbsp;&nbsp;&nbsp; for subfolder in subfolders:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print(f"{folderName}:{subfolder})<br>
+&nbsp;&nbsp;&nbsp;&nbsp; for filename in filenames:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print(f"{folderName}:{filename})<br>
+&nbsp;&nbsp;&nbsp;&nbsp; print()<br><br>
+
+Удаление в корзину - send2trash module.
+    </section>
+
+    <section id="s4">
+<b>import shutil</b><br>
+копировать файлы и папки; папку рекурсивно; переместить, переименовать, удалить рекурсивно, сделать архив рекурсивно.<br><br>
+
+<i>shutil.copy(source, destination)</i> - копирует файлы; пути должны быть строками или Path obj; если в назначении определена только папка - название файла копируется; если папка и название файла - файл копируется с новым именем.<br><br>
+
+<i>shutil.copytree(source, destination, ignore=None)</i> - копирует рекурсивно всё, что есть в папке.<br>
+ignore=ignore_patterns('tmp*') - копировать всё кроме имён начинающихся с tmp<br>
+<i>shutil.move(source, destenation)</i> - переместит файл или папку (в существующую папку); переименовать файл.<br>
+<i>shutil.rmtree(path, ignore_errors=False)</i> - удалит папку рекурсивно.<br>
+<i>shutil.make_archive(base_name, format[, root_dir[, bse_dir[, verbose[,dry_run[, oner[, group[, logger]]]]]]])</i> - имя архивного файла без расширения, расширение ('zip'), путь до папки, которую надо архивировать; архивированый файл будет создан в текущей директории (изменить - os.chdir()); степень компрессии автомат.<br>
+<i>shutil.unpack_archive(filename[, extract_dir[, format[, filter]]])</i><br>
+base_name - имя архива<br>
+format - 'zip'<br>
+root_dir - корневой каталог архива (откуда копировать).<br>
+
+    </section>
+
+    <section id="s5">
+<i>pip install send2trash</i><br>
+<b>import send2trash</b><br>
+send2trash.send2trash(path) - удалить файл в корзину (путь писать с '\').<br>
+    </section>
+
+    <section id="s6">
+        <b>import zipfile</b><br>
+<i>archive file</i> - упакованый файл<br>
+класс ZipFile(file, mode='r', compression=ZIP_STORED, allowZip64=True, compresslevel=None, strict_timestamps=True, metadata_encoding=None);<br>
+Параметры: r, w, a - чтение, запись добавление.<br>
+ZIP_STORED - без сжатия (по умолчанию)<br>
+ZIP_DEFLATED - стандартный тип сжатия.<br>
+методы: close(); getinfo(); namelist(); infolist(); open(); read(); extract(); extractall(); setpassword(); printdir()<br><br>
+
+класс ZipInfo; атрибуты:<br>
+filename - название файла<br>
+date_time - последнее изменение файла (год, месяц, день, час, минута, секунда)<br>
+compress_type - тип сжатия<br>
+compress_size - размер после сжатия<br>
+file_size - оригинальный размер файла<br>
+is_dir() - это папка (else: это файл)<br><br>
+
+with ZipFile("meta.zip", "r") as myzip:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; for item in myzip.infolist():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print(f"File Name: {item.filename} Date: {item.date_time} Size: {item.file_size}") - перечислит инфо для каждого файла<br><br>
+
+exampleZip = zipfile.ZipFile('example.zip')<br>
+dir(exampleZip) .. namelist, open, read...<br>
+examleZip.namelist() - список спресованых файлов.<br>
+fileInfo = exampleZip.getinfo(file) - инфо отдельного файла.<br>
+fileInfo.file_size; fileInfo.compress_size; <br><br>
+
+extractall(path, members=None, pwd=None)<br>
+path - куда извлекать (по умолчанию в cwd; можно 'files' - создали папку для извлечения)<br>
+members - список названий файлов, которые надо извлечь<br>
+pwd - пароль, если архив запоролен<br>
+myzip.extract('hello.txt') - извлечь один файл<br>
+content = mysip.read('hello.txt')<br>
+
+newZip = zipfile.ZipFile('new.zip', 'w') - открыть ZipFile object в режиме записи или добавления 'a'.<br>
+newZip.write('spam.txt', compress_type=zipfile.ZIP_DEFLATED)<br>
+newZip.close()<br><br>
+
+with ZipFile('spam.zip', 'w') as myzyp: - менеджер контекста<br>
+&nbsp;&nbsp;&nbsp;&nbsp; pass - пустой zipfile создан и закрыт. <br><br>
+
+При записи первый параметр - записываемый файл, второй - имя внутри архива (если добавляем файл с уже имеющимся именем); ZIP_DEFLATED надо импортировать из zipfile<br>
+with ZipFile('new.zip', 'a', compression=ZIP_DEFLATED, compresslevel=3) as myzip:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;myzip.write('hello.txt', 'hello1.txt')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;myzip.write('forest.jpg')<br>
+    </section>
+
+    <section id="s7"><b>Офисные документы</b><br>
+<i>Excel Spreadsheets</i> <a href="https://openpyxl.readthedocs.io/en/stable/tutorial.html" target="_blank" rel="noopener" >OpenPyXL Tutorial</a><br>
+pip install openpyxl; <b>import openpyxl</b><br><br>
+
+wb = openpyxl.load_workbook(r"D:/example.xlsx")<br>
+print(type(wb)) .. class 'openpyxl.workbook.workbook.Workbook'<br>
+wb.sheetnames .. ['one', 'two']<br>
+sheet = wb['one']; sheet .. Worksheet "one" - object<br>
+sheet.title .. 'one'<br>
+wb.active - active sheet<br>
+sheet['A1'].value .. 'date'<br>
+c = sheet['A2']; c.value .. datetime.datetime(2023, 9, 1, 0, 0)<br>
+f"Row {c.row}, Column {c.column} is {c.value} ({c.coordinate})" .. 'Row 2, Column 1 is 2023-09-01 00:00:00 (A2)'<br><br>
+
+d = ws.cell(row=2, column=5, value=10) - Worksheet.cell() method<br>
+пустая таблица 10х10<br>
+for x in range(1,11):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for y in range(1,11):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ws.cell(x,y)<br><br>
+
+sheet.cell(row=2, column=1).value .. datetime.datetime(2023, 9, 1, 0, 0)<br><br>
+
+распечатать первые десять строк(через одну) первой колонки:<br>
+for i in range(1,10,2):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(i, sheet.cell(i,1).value)<br><br>
+
+for row ws.values:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for value in row:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(value, end='; ')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print()<br><br>
+
+sheet.max_row; sheet.max_column - сколько строк, колонок на странице<br><br>
+
+<i>from openpyxl.utils import get_column_letter, column_index_from_string</i><br>
+get_column_letter(2) .. 'B'<br>
+get_column_letter(sheet_max_column) - буквенное обозначение последней колонки.<br>
+column_index_from_string('gjl') .. 5004<br><br>
+
+cell_range = ws['A1':'C2'] - выбрана прямоугольная область.<br>
+colC = ws['C'] - колонка C<br>
+col_range = ws['A:C'] - три колонки<br>
+row10 = ws[10] - ряд 10<br>
+row_range = ws[5:10] - с 5 по 10 ряд<br><br>
+
+wb.template = True - сохранить в качестве шаблона<br>
+wb.save(path)<br><br>
+
+<i>MS Word</i> <a href="https://vc.ru/dev/185015-analiz-dokumentov-word-s-ispolzovaniem-python" target="_blank" rel="noopener" >VC.RU</a><br>
+<i>pip install python-docx</i><b>; import docx</b><br><br>
+
+paths = [] - сдесь соберём все файлы с нужным расширением.<br>
+folder = os.getcwd()<br>
+for root, dirs, files in os.walk(folder):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for file in files:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if file.endswith('docx') and not.startwith('~'): // с тильды начинаются временные файлы.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path.append(os.path.join(root, file))<br><br>
+
+for path in paths:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;doc = docx.Document(path)<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;properties = doc.core_properties<br>
+<i>properties.author</i> - автор<br>
+<i>properties.last_modified_by</i> - автор последней правки<br>
+<i>properties.created</i> - дата создания (UTC+0)<br>
+<i>properties.modified</i> - дата последней правки<br>
+<i>properties.last_printed</i> - дата последней печати<br>
+<i>properties.revision</i> - кол-во сохранений<br><br>
+
+Объект Document - весь документ; в него входят:<br>
+* Список объектов Paragraph - абзацы документа<br>
+Список объектов Run - фрагменты текста с разл форматированием<br>
+* Список объектов Table - таблицы документа<br>
+Список объектов Row - строки маблицы<br>
+Список объектов Cell - ячейки в строке<br>
+Список объектов Column - столбцы<br>
+Список объектов Cell - ячейкки в столбце<br>
+* Список объектов InlineShape - иллюстрации документа<br><br>
+
+Получить весь текст (перебрать параграфы)<br>
+text = []<br>
+for paragraph in doc.paragraphs:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;text.append(paragraph.text)<br>
+print('\n'.join(text))<br><br>
+
+wb = openpyxl.Workbook() - создать пустой документ<br>
+wb.sheetnames .. ['Sheet']<br>
+wb.active.title = 'Spam boom' - название новой страницы<br>
+sheet = wb.active; sheet.title = 'Spam boom'<br>
+wb.create_sheet([index=0][, title=None]) - ещё одна стр. на первом месте<br>
+del wb['Spam boom'] - удалить<br>
+wb.save(path) - сохранить с новым назаванием<br><br>
+
+<i>PDF Documents</i><br>
+<i>pip install PyPDF2</i>; <b>import PyPDF2</b><br>
     </section>
             </aside>
         </div>

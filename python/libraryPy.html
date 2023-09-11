@@ -21,7 +21,7 @@
     <p><a href="#s6">math</a></p>
     <p><a href="#s7">Regex</a></p>
     <p><a href="#s8">pandas</a></p>
-    <p><a href="#s9">pathlib</a></p>
+    <p><a href="#s9">pass</a></p>
     <p><a href="#s10">os</a></p>
     <p><a href="#s11">shutil</a></p>
     <p><a href="#s12">zipfile</a></p>
@@ -122,6 +122,7 @@ else:
 
   <section id="s5">
     <b>import copy</b><br>
+копирование объектов<br>
 <i>copy.copy(test)</i> - поверхносная копия<br>
 <i>copy.deepcopy(test)</i> - глубокое копирование<br>
   </section>
@@ -269,42 +270,6 @@ match = re.findall(r"([-\w]+)[ \t]*=[ \t]*[\" ']([^\" ']+)(?&lt;![ \t])", text, 
   </section>
 
   <section id="s9">
-    <b>from pathlib import Path</b><br>
-<i>p = Path("C:/Users/Al/spam.txt")</i><br>
-Path.cwd() - текущая рабочая папка (current working directory)<br>
-Path('spam', 'bacon', 'eggs') ..WindowsPath('spam/bacon/eggs') - объект<br>
-str(Path(r'E:/spam') / 'bacon' / 'eggs') .. 'E:\\spam\\bacon\\eggs'<br>
-if not p.exist():<br>
-&nbsp;&nbsp;&nbsp;&nbsp; Path(r"E:/waffles").mkdir() - создать папку, если такой нет<br><br>
-
-p.anchor .."C:\\"<br>
-p.parent ..WindowsPath(("C:/Users/Al")) - объект<br>
-p.name .. 'spam.txt'<br>
-p.stem .. 'spam'<br>
-p.suffix .. 'txt'<br>
-p.drive .. 'C:'<br><br>
-
-p.patent - path<br>
-p.parents[0] - вернёт путь в виде path<br>
-p.parents[1] - часть пути на звено меньше<br><br>
-
-list(p.glob('*')) - список из генератора всех файлов папки<br>
-('*.txt') - список файлов с расширением .txt<br>
-('*.?x?') - ? заменяет еденичный символ<br><br>
-
-for file in list(p.glob('*.py')):<br>
-&nbsp;&nbsp;&nbsp;&nbsp; print(file) - файлы с расширением .py<br><br>
-
-p.exists() - Этот файл существует?<br>
-p.is_file() - Это файл?<br>
-p.is_dir() - Это папка?<br><br>
-
-g = Path(r"G:/"); g.exists() .. False - флэшка не вставлена<br><br>
-
-p = p / 'hello.txt' - сохранили в p путь до текстового файла (или создали его)<br>
-p.write_text('Hello') - записали в файл слово; вернёт кол-во знаков<br>
-p.read_text() .. 'Hello'<br><br>
-
 
   </section>
 
@@ -313,7 +278,7 @@ p.read_text() .. 'Hello'<br><br>
 os.chdir(r"E:/My Documens/книги/my_py") - сделать рабочей указаную папку.<br>
 os.mkdir() - создать папку(ошибка, если уже существует)<br>
 os.rmdir() - удалить папку (пустую)<br>
-os.rename(source, target) - переименовать файл (путь мб абс или относ)<br>
+os.rename(source, target) - переименовать файл (путь м.б абс. или относ.)<br>
 os.makedirs(r"E:/waffles/valnut") - создать папки рекурсивно<br>
 os.remove(path) - удалить путь к файлу<br>
 os.path.abspath(path) - способ конвертировать относительный путь  в абсолютный<br>
@@ -353,19 +318,20 @@ safe Deletes with the send2trash module.
   </section>
 
   <section id="s11">
-    <b>import shutil</b><br>
-<i>shutil.copy(source, destination)</i> - копирует файлы и папки; пути должны быть строками или Path obj; если в назначении определена только папка - название файла копируется; если папка и название файла - файл копируется с новым именем.<br><br>
+<b>import shutil</b><br>
+копировать файлы и папки; папку рекурсивно; переместить, переименовать, удалить рекурсивно, сделать архив рекурсивно.<br><br>
+
+<i>shutil.copy(source, destination)</i> - копирует файлы; пути должны быть строками или Path obj; если в назначении определена только папка - название файла копируется; если папка и название файла - файл копируется с новым именем.<br><br>
 
 <i>shutil.copytree(source, destination, ignore=None)</i> - копирует рекурсивно всё, что есть в папке.<br>
 ignore=ignore_patterns('tmp*') - копировать всё кроме имён начинающихся с tmp<br>
-<i>shutil.move(source, destenation)</i> - переместит файл или папку (в существующую папку)<br>
-<i>shutil.rmtree(path, ignore_errors=False)</i> - удалит папку рекурсивно<br>
-<i>shutil.make_archive(base_name, format[, root_dir[, bse_dir[, verbose[,dry_run[, oner[, group[, logger]]]]]]])</i> - имя архивного файла без расширения, расширение ('zip'), путь до папки, которую надо архивировать; архивированый файл будет создан в текущей директории<br>
+<i>shutil.move(source, destenation)</i> - переместит файл или папку (в существующую папку); переименовать файл.<br>
+<i>shutil.rmtree(path, ignore_errors=False)</i> - удалит папку рекурсивно.<br>
+<i>shutil.make_archive(base_name, format[, root_dir[, bse_dir[, verbose[,dry_run[, oner[, group[, logger]]]]]]])</i> - имя архивного файла без расширения, расширение ('zip'), путь до папки, которую надо архивировать; архивированый файл будет создан в текущей директории (изменить - os.chdir()).<br>
 <i>shutil.unpack_archive(filename[, extract_dir[, format[, filter]]])</i><br>
 base_name - имя архива<br>
 format - 'zip'<br>
-root_dir - корневой каталог архива (откуда копировать)<br>
-
+root_dir - корневой каталог архива (откуда копировать).<br>
   </section>
 
   <section id="s12">

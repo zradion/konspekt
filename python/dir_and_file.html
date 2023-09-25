@@ -24,7 +24,7 @@
             <aside class="right"><h2 align="center" id="s0">Папки и файлы</h2>
     <section id="s1"><h3>Введение</h3>
 <i>pathlib, os, shutil, send2trash, shelve, csv, pickle, zipfile</i><br>
-электронные таблицы, pdf<br>
+txt, pdf, odf, xlsx, docx<br>
 <i>cwd (./)</i> - current working directory (текущий католог (папка))<br>
 <i>../ - родительская (parent) папка</i><br>
 Путь к файлу может быть строкой или объектом Path<br><br>
@@ -35,10 +35,10 @@ myfile = open("hello", 'w'); myfile.write('Hello'); <i>myfile.close()</i><br><br
 with open(file, mode, encoding="utf8") as myfile:<br>
 &nbsp;&nbsp;&nbsp;&nbsp; инструкции - <i>менеджер контекста</i>; закроется автоматически<br><br>
 
-print(myfile.readline(), end='') - считывает по одной строке из файла<br>
-myfile.read()- считывает всё содержимое в одну строку<br>
-myfile.readlines() - считывает все строки в список<br>
-myfile.write("Text in file") - записать текст в файл; флаг 'w' - перезапишет, 'a' - добавление<br>
+<i>myfile.readline()</i>- считывает по одной строке из файла<br>
+<i>myfile.read()</i>- считывает всё содержимое в одну строку<br>
+<i>myfile.readlines()</i>- считывает все строки в список<br>
+<i>myfile.write("Text in file")</i> - записать текст в файл; флаг 'w' - перезапишет, 'a' - добавление<br>
     </section>
 
     <section id="s2">
@@ -62,30 +62,30 @@ if not p.exist():<br>
 &nbsp;&nbsp;&nbsp;&nbsp; Path(r"E:/waffles").mkdir() - создать папку, если такой нет<br><br>
 
 p = p / 'hello.txt' - сохранили в p путь до текстового файла (или создали его)<br>
-p.write_text('Hello') - записали в файл слово; вернёт кол-во знаков<br>
-p.read_text() .. 'Hello'<br><br>
+<i>p.write_text('Hello') </i>- записали в файл слово; вернёт кол-во знаков<br>
+<i>p.read_text()</i> .. 'Hello'<br><br>
 
-p.anchor .."C:\\"<br>
-p.parent ..WindowsPath(("C:/Users/Al")) - объект<br>
-p.name .. 'spam.txt'<br>
-p.stem .. 'spam'<br>
-p.suffix .. 'txt'<br>
-p.drive .. 'C:'<br><br>
+<i>p.anchor</i> .."C:\\"<br>
+<i>p.parent</i> ..WindowsPath(("C:/Users/Al")) - объект<br>
+<i>p.name </i>.. 'spam.txt'<br>
+<i>p.stem </i>.. 'spam'<br>
+<i>p.suffix</i> .. 'txt'<br>
+<i>p.drive</i> .. 'C:'<br><br>
 
-p.parent - path (до папки)<br>
-p.parents[0] - вернёт путь в виде Path<br>
-p.parents[1] - часть пути на звено меньше<br><br>
+<i>p.parent </i>- path (до папки)<br>
+<i>p.parents[0]</i> - вернёт путь в виде Path<br>
+<i>p.parents[1]</i> - часть пути на звено меньше<br><br>
 
-list(p.glob('*')) - список из генератора всех файлов папки<br>
-('*.txt') - список файлов с расширением .txt<br>
-('*.?x?') - ? заменяет еденичный символ<br><br>
+<i>list(p.glob('*'))</i> - список из генератора всех файлов папки<br>
+<i>('*.txt') </i>- список файлов с расширением .txt<br>
+<i>('*.?x?')</i> - ? заменяет еденичный символ<br><br>
 
 for file in list(p.glob('*.py')):<br>
 &nbsp;&nbsp;&nbsp;&nbsp; print(file) - файлы с расширением .py<br><br>
 
-p.exists() - Этот файл существует?<br>
-p.is_file() - Это файл?<br>
-p.is_dir() - Это папка?<br>
+<i>p.exists()</i> - Этот файл существует?<br>
+<i>p.is_file()</i> - Это файл?<br>
+<i>p.is_dir()</i> - Это папка?<br>
     </section>
 
     <section id="s3">
@@ -99,9 +99,9 @@ p.is_dir() - Это папка?<br>
 <i>os.rmdir(path)</i> - удалить папку (пустую)<br>
 <i>os.rename(source, target)</i> - переименовать файл (путь м.б абс. или относ.)<br>
 <i>os.makedirs(r"E:/waffles/valnut")</i> - создать папки рекурсивно<br>
-<i>os.remove(path)</i> - удалить путь к файлу<br>
+<i>os.remove(path)</i> - удалить файл<br>
 <i>os.unlink(path)</i> - удалить файл по указаному пути<br>
-<i>os.rmdir(path)</i> - удалить папку по указаному пути<br>
+<i>os.rmdir(path)</i> - удалить папку по указаному пути (пустую)<br>
 <i>os.rmtree(path)</i> - удалить папку рекурсивно<br>
 <i>os.listdir(path)</i> - список файлов<br><br>
 
@@ -297,8 +297,38 @@ wb.create_sheet([index=0][, title=None]) - ещё одна стр. на перв
 del wb['Spam boom'] - удалить<br>
 wb.save(path) - сохранить с новым назаванием<br><br>
 
+<i>ODF Document</i><br>
+<a href="https://pythonhosted.org/ezodf/howtos.html" target="_blank" rel="noopener" >ezodf</a><br>
+<i>pip install ezodf</i>; <b>import ezodf</b><br><br>
+
+<i>pip install odfpy</i>; <b>import odf</b><br><br>
+<i>from odf.opendocument import Spreadsheet</i><br>
+<i>from odf.opendocument import load</i><br>
+<i>from odf.table import TableRow, TableCell</i><br>
+<i>from odf.text import paragraph, header</i><br><br>
+
+myfile = zipfile.ZipFile(path); dir(myfile)<br>
+listoffiles = myfile.infolist(); dir(listoffiles[0])<br>
+for s in listoffiles:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(s.orig_filename, s.date_time, s.filename, s.file_size, s.compress_size) - список файлов в архиве.<br><br>
+
+content.xml; mimetype; meta.xml; styles.xml; META-INF/manifest.xml<br><br>
+
+
 <i>PDF Documents</i><br>
 <i>pip install PyPDF2</i>; <b>import PyPDF2</b><br>
+<i>obj = open(path, 'rb')</i> - read-binary<br>
+<i>reader = PyPDF2.PdfReader(obj)</i><br>
+<i>len(reader.pages)</i> - кол-во страниц.<br>
+<i>reader.pages[0].extract_text()</i> - распечатать одной строкой.<br>
+<i>obj.close()</i><br>
+<i>reader.is_encrypted</i> .. True - запаролен<br>
+<i>reader.decrypt('7777')</i> .. 1 - ввести пароль.<br><br>
+
+<i>writer = PyPDF2.PdfWriter()</i> - объект для записи<br>
+<i>writer.add_page(reader.pages[0])</i> - поместить в объект открытую страницу.<br>
+<i>with open(path, 'wb) as obj:</i> - write-binary<br>
+&nbsp;&nbsp;&nbsp;&nbsp;writer.write(obj) - записать writer в новый файл.<br>
     </section>
             </aside>
         </div>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style1.css" />
+    <title>Web scraping</title>
+</head>
+<body>
+    <div class="cont">
+        <div class="left_right">
+            <aside class="left">
+<p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
+<p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
+<p><a href="#s1">webbrowser</a></p>
+<p><a href="#s2">requests</a></p>
+<p><a href="#s3">beautiful soup</a></p>
+</aside>
+
+            <aside class="right"><h2 align="center" id="s0">Web scraping</h2>
+    <section id="s1"><h3>webbrowser</h3>
+<b>import webbrowser</b><br>
+url = "https://eirc.spb.ru/info/tarif/energosnabzhenie/" - ЕИРЦ<br>
+<i>webbrowser.open(url)</i> - открыть страницу с тарифами<br>
+    </section> 
+
+    <section id="s2"><h3>requests</h3></section>
+<i>pip install requests</i>; <b>import requests</b><br>
+response = requests.get(url) Response object<br>
+type(response) .. &lt;class 'requests.models.Response'><br>
+response.status_code == requests.codes.ok .. 200<br>
+len(response.text) - кол-во знаков<br>
+print(response.text[:250]) - печать части текста<br>
+try:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;response.raise_for_status()<br>
+except Exception as exc:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(f"problem: {exc}")<br><br>
+
+Чтобы сохранить содержимое response в файле:<br>
+playFile = open('RomeoAndJuliet.txt', 'wb') - открыть объект для бинарной записи.<br>
+for chunk in response.iter_content(100_000):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;playFile.write(chunk)<br>
+    </aside>
+    </div>
+    </div>
+</body>
+</html>

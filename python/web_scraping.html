@@ -15,6 +15,7 @@
 <p><a href="#s1">webbrowser</a></p>
 <p><a href="#s2">requests</a></p>
 <p><a href="#s3">beautiful soup</a></p>
+<p><a href="#s4">selenium</a></p>
 </aside>
 
             <aside class="right"><h2 align="center" id="s0">Web scraping</h2>
@@ -25,11 +26,13 @@ url = "https://eirc.spb.ru/info/tarif/energosnabzhenie/" - ЕИРЦ<br>
     </section> 
 
     <section id="s2"><h3>requests</h3></section>
+<p><a href="https://youtu.be/lOfm04oLD1U?si=TBC3Dm3u0Hb0Bd9A" target="_blank" rel="noopener" >Python Hub Studio</a> - (YouTube) генератор для парсинга сайтов.</p>
 <i>pip install requests</i>; <b>import requests</b><br>
-response = requests.get(url) Response object<br>
+response = requests.get(url, headers) Response object<br>
+Использовать time.sleep(3) и headers = headers(инфо о компе, оболочке)<br>
 type(response) .. &lt;class 'requests.models.Response'><br>
-response.status_code == requests.codes.ok .. 200<br>
-len(response.text) - кол-во знаков<br>
+if response.status_code == requests.codes.ok .. 200<br>
+len(response.text) - кол-во знаков<br>`
 print(response.text[:250]) - печать части текста<br>
 try:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;response.raise_for_status()<br>
@@ -40,6 +43,24 @@ except Exception as exc:<br>
 playFile = open('RomeoAndJuliet.txt', 'wb') - открыть объект для бинарной записи.<br>
 for chunk in response.iter_content(100_000):<br>
 &nbsp;&nbsp;&nbsp;&nbsp;playFile.write(chunk)<br>
+playFile.close()
+
+    </section>
+
+    <section id="s3"><h3>BeautifulSoup</h3>
+<i>pip install bs4, lxml</i> <b>from bs4 import BeautifulSoup</b><br>
+
+    </section>
+
+    <section id="s4"><h3>selenium</h3>
+<i>pip install selenium</i><br>
+<b>from selenium import webdriver</b><br>
+browser = webdriver.Chrome() - объект; браузер открылся.<br>
+browser.get(url) - открылась запрашиваемая страница.<br>
+методы find_element_*; fine_elements_* (возвращает список)<br>
+Локаторы: ID, NAME, LINK_TEXT, PARTIAL_LINK_TEXT, TAG_NAME, CLASS_NAME, CSS_SELECTOR, XPATH<br>
+browser.find_element(By.LINK_TEXT, 'Sign in') - кнопка Sign in в github<br>
+    </section>
     </aside>
     </div>
     </div>

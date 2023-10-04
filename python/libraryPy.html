@@ -7,44 +7,30 @@
     <title>libraryPy</title>
 </head>
 <body>
-    <div class="cont">
-        <div class="left_right">
-            <aside class="left">
+  <div class="cont">
+    <div class="left_right">
+      <aside class="left">
     <p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
     <p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
-     <p><i>Встроенные модули</i></p>
+  
     <p><a href="#s1">random</a></p>
     <p><a href="#s2">sys</a></p>
-    <p><a href="#s3">time</a></p>
-    <p><a href="#s4">datetime</a></p>
-    <p><a href="#s5">copy</a></p>
-    <p><a href="#s6">math</a></p>
-    <p><a href="#s7">Regex</a></p>
-    <p><a href="#s8">pandas</a></p>
-    <p><a href="#s9">pass</a></p>
-    <p><a href="#s10">os</a></p>
-    <p><a href="#s11">shutil</a></p>
-    <p><a href="#s12">zipfile</a></p>
-    <p><a href="#s13">shelve</a></p>
-    <p><a href="#s14">pprint</a></p>
-    <p><a href="#s15">csv</a></p>
-    <p><a href="#s16">pickle</a></p>
-    <p><i>Сторонние модули</i></p>
-    <p><a href="#s50">pyperclip</a></p>
-    <p><a href="#s51">requests</a></p>
-    <p><a href="#s52">BeautifulSoup</a></p>
-    <p><a href="#s53">selenium</a></p>
-    <p><a href="#s54">pyinputplus</a></p>
-    <p><a href="#s55">lxml</a></p>
-    <p><a href="#s56">win32</a></p>
-    <p><a href="#s57">send2trash</a></p>
-    <p><a href="#s58">pprint</a></p>
-    <p><a href="#s59">pass</a></p>
+    <p><a href="#s3">copy</a></p>
+    <p><a href="#s4">pyperclip</a></p>
+    <p><a href="#s5">math</a></p>
+    <p><a href="#s6">shelve</a></p>
+    <p><a href="#s7">pickle</a></p>
+    <p><a href="#s8">pprint</a></p>
+    <p><a href="#s9">pyinputplus</a></p>
+    <p><a href="#s10">Время</a></p>
+    <p><a href="#s11">Regex</a></p>
+    <p><a href="#s12">Pandas</a></p>
+    <p><a href="#s13">pywin32</a></p>
     <p><a href="#s99">Ссылки.</a></p>            
-            </aside>
+      </aside>
     
-            <aside class="right"><h1 align="center" id="s0">Library for Python.</h1>
-                <h3 align="center">Встроенные модули:</h3>
+      <aside class="right"><h1 align="center" id="s0">Library for Python.</h1>
+
   <section id="s1">
 <b>import random</b><br>
 <i>random.randint(a, b)</i> - случайное число от a до b, включая оба<br>
@@ -61,19 +47,126 @@
   </section>
 
   <section id="s3">
+<b>import copy</b><br>
+копирование объектов<br>
+<i>copy.copy(test)</i> - поверхносная копия<br>
+<i>copy.deepcopy(test)</i> - глубокое копирование<br>
+  </section>
+
+  <section id="s5">
+<b>import math</b><br>
+math.pi<br>
+math.ceil(5.2) .. 6<br>
+math.floor(5.99) .. 5<br>
+.sqrt(); .sin(); .cos();<br>
+  </section>
+
+  <section id="s4">   
+pip install pyperclip<br>
+<b>import pyperclip</b><br>
+pyperclip.copy('Hello, world')<br>
+pyperclip.paste()<br>
+  </section>
+
+  <section id="s6">
+<b>import shelve</b><br>
+сохранить как бинарные файлы; появятся три файла с расширениями <i>.bak, .dat, .dir</i>;<br>
+open(path[, flag='c'[, protocol=None[, writeback=False]]])<br>
+<i>c</i> (по умолчанию) - чтение и запись<br>
+<i>r; w</i> - только для чтения или записи<br>
+<i>n</i> - для записи создаётся или перезаписывается<br><br>
+
+shelfFile = shelf.open('mydata') - принемает строку (не Path obj)<br>
+cats = ['Zophie', 'Poork', 'Simon']<br>
+shelfFile['cats'] = cats - сохранить как словарь по ключу<br>
+shelfFile.close()<br><br>
+
+shelfFile = shelf.open('mydata') <br>
+shelfFile['cats'] .. ['Zophie', 'Poork', 'Simon']<br>
+list(shelfFile.keys()) .. ['cats']<br>
+list(shefFile.values()) .. [['Zophie', 'Poork', 'Simon']]<br>
+shelfFile.close()<br><br>
+
+with shelve.open('mydata') as shelve_f:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if 'cats' in shelve_f:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print(cats = shelve_f['cats'])<br><br>
+
+для перебора всех ключей используем цикл.<br>
+метод keys() - верёт все ключи; метод values() - все значения; items() - набор кортежей<br>
+pop(key, value) - удалит и вернёт ключ и значение по умолчанию (если ключ на найден)<br>
+del shelve_f['key'] - удалить<br>
+shelve_f.clear() - удалить всё<br>
+  </section>
+
+  <section id="s7">
+<b>import pickle</b><br>
+к режиму записи или чтения добавляем <i>'b'</i> ("wb", "rb")<br>
+<i>dump(obj, file)</i> - записывавет объект в бинарный файл.<br>
+<i>load(file)</i> - считывает данные из бинарного файла в объект.<br><br>
+
+name = "Tom"; age = "19"<br>
+with open("user.dat", "wb") as file:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; pickle.dump(namee, file)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; pickle.dump(age, file)<br><br>
+
+with open("user.dat", "rb") as file:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; name = pickle.load(file)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; age = pickle.load(file)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; print('Name: ', name, 'Age: ', age)<br><br>
+
+users = [['Tom', 34, True], ['Alice', 23, False]]<br>
+with open('users.dat', 'wb') as file:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; pickle.dump(users, file)<br><br>
+
+with open('users', 'rb') as file:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; usersF = pickle.load(file)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; for user in usersF:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print(f"Name {user[0]}, age: {user[1]}, married: {user[2]})<br>
+    </section>
+
+  <section id="s8">
+<i>pip install pprint</i><br>
+<b>import pprint</b><br>
+<i>pprint.pprint</i> - печать списков<br>
+<i>pprint.pformat</i> - вернёт текст в виде строки<br><br>
+
+with open('myCats.py', 'w') as file:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;file.write('cats = ' + pprint.pformat(cats) + '\n' ) # записали в файл с расширением .py список словарей <br>
+теперь можно вызвать import myCats; myCats.cats - вернёт список; к папке с файлом должен быть путь в 'переменных среды'<br>
+  </section>
+
+  <section id="s9">
+pip install pyinputplus<br>
+<b>import pyinputplus as pyip</b><br>
+<i>inputStr()</i><br>
+<i>inputNum()</i> min=None, greaterThan=None, lessThan=None<br>
+<i>inputChoice()</i><br>
+<i>inputMenu()</i><br>
+<i>inputDatetime()</i><br>
+<i>inputYesNo()</i><br>
+<i>inputBool()</i><br>
+<i>inputEmail()</i><br>
+<i>inputFilepath()</i><br>
+<i>inputPassword()</i><br>
+  </section>
+
+  <section id="s10"><h3 align="center">Время</h3>
+
+UTC - Coordinated Universal Time<br>
+EST, EDT - восточное, западное побережье Америки.<br>
+Unix epoch - начало эпохи (1970, 1, 1, 12, 0, 0)<br><br>
+
 <b>import time</b><br>
 time.time() - время в секундах с начала эпохи(1970-01-01 12:00:00)<br>
 time.ctime() - UTC - Thu Aug 31 15:52:18 2023<br>
-<i>time.sleep(1)</i> - задержка 1с<br>
-  </section>
+<i>time.sleep(1)</i> - задержка 1с<br><br>
 
-  <section id="s4">
-<b>import datetime</b>; import datetime as dt<br>
+<b>import datetime as dt</b><br>
 Классы: date, time, datetime<br>
 <i>.date</i><br>
 date(year, month, day)<br>
-print(datetime.date(2023,8,31)) .. 2023-08-31<br>
-today = datetime.date.today() .. 2023-08-31<br>
+print(dt.date(2023,8,31)) .. 2023-08-31<br>
+today = dt.date.today() .. 2023-08-31<br>
 print(f"{today.day}.{today.manth}.{today.year}") .. 31.8.2023<br><br>
 
 today.replace(day=20)<br>
@@ -81,18 +174,18 @@ today - anotherday .. n day 00:00:00<br>
 
 <i>.time</i><br>
 time([hour][, min][, sec][, microsec]) (без параметров 0:0:0)<br>
-print(datetime.time(10,47,20)) .. 10:47:20<br><br>
+print(dt.time(10,47,20)) .. 10:47:20<br><br>
 
 <i>.datetime</i><br>
 datetime(year, month, day [, hour][, min][, sec][, microsec])<br>
-print(datetime.datetime(2023,8,31)) .. 2023-08-31 00:00:00<br>
-now = datetime.datetime.now()<br> ..2023-08-31 10:58:03.968252<br>
+print(dt.datetime(2023,8,31)) .. 2023-08-31 00:00:00<br>
+now = dt.datetime.now()<br> ..2023-08-31 10:58:03.968252<br>
 now.date; now.month; now.year; now.hour, now.minute, now.microsecond<br><br>
 
 <i>strptime(str, format)</i> - распарсить строку; преобразовать в дату<br>
 %d; %m; %y; %Y; %H; %M; %S - день; номер месяца; год (две цифры); год (4 цифры); час; минута; секунда<br>
-deadline = datetime.datetime.strptime("05-22-2017 12:30", "%m-%d-%Y %H:%M")<br>
-print(deadtime) .. 2017-05-22 12:30:00<br><br>
+deadline = dt.datetime.strptime("05-22-2017 12:30", "%m-%d-%Y %H:%M")<br>
+print(deadline) .. 2017-05-22 12:30:00<br><br>
 
 <i>strftime(format)</i> - для объектов <i>date</i> и <i>time</i>; принимает один параметр - формат<br>
 %a - Wed; %A - Wednesday; %b - Oct; %B - October<br>
@@ -105,10 +198,9 @@ print(now.strftime("%d %b (%A)")) .. 31 Aug (Thursday)<br><br>
 <i>import locale</i><br>
 <i>locale.setlocale(locale.LC_ALL, "")</i> - для использования русских(местных) слов<br><br>
 
-from datetime import timedelta<br>
-<i>timedelta([days][, seconds][, microseconds][, milliseconds][, minutes][, hours][, weeks])</i> - класс;<br>
-three_hours = timedelta(hours=3, minutes=25) .. 3:25:00<br>
-two_days = timedelta(2, 25) .. 2 days, 0:00:25<br>
+<i>dt.timedelta([days][, seconds][, microseconds][, milliseconds][, minutes][, hours][, weeks])</i> - класс;<br>
+three_hours = dt.timedelta(hours=3, minutes=25) .. 3:25:00<br>
+two_days = dt.timedelta(2, 25) .. 2 days, 0:00:25<br>
 delta = three_hours + two_days .. 2 days, 3:25:25<br><br>
 
 методы: <i>days, seconds, microseconds, total_seconds()</i><br>
@@ -123,22 +215,8 @@ else:
 &nbsp;&nbsp;&nbsp;&nbsp;print(f"осталось {period.days} дней")<br>
   </section>
 
-  <section id="s5">
-    <b>import copy</b><br>
-копирование объектов<br>
-<i>copy.copy(test)</i> - поверхносная копия<br>
-<i>copy.deepcopy(test)</i> - глубокое копирование<br>
-  </section>
+  <section id="s11"><h3 align="center">Regex</h3>
 
-  <section id="s6">
-    <b>import math</b><br>
-    math.pi<br>
-    math.ceil(5.2) .. 6<br>
-    math.floor(5.99) .. 5<br>
-    .sqrt(); .sin(); .cos();<br>
-  </section>
-
-  <section id="s7">
     <b>import re</b><br>
 Regular expressions (regexes)<br>
 Специальные символы: <b>\ . $ ? + * {} [] () | </b> - надо экранировать (\) или использовать сырую строку (r"txt")<br>
@@ -268,298 +346,280 @@ match = re.findall(r"([-\w]+)[ \t]*=[ \t]*[\" ']([^\" ']+)(?&lt;![ \t])", text, 
  <p><a href=" https://www.regular-expressions.info/" target="_blank" rel="noopener" >regular-expressions</a> - подробный материал</p>
   </section>
 
-  <section id="s8">
-    <b>import pandas as pd</b><br>
-  </section>
+  <section id="s12"><h3 align="center">Pandas</h3>
 
-  <section id="s9">
+<i>pip insall pandas</i>; <b>import pandas as pd</b><br>
+mySeries = pd.Series(my_dict)<br>
+..type(mySeries) ..class 'pandas.core.series.Series'<br><br>
 
-  </section>
+<i>df = pd.DataFrame(data, columns=[list], index=[list])</i><br> 
+..&lt;class 'pandas.core.frame.DataFrame'></class><br><br>
 
-  <section id="s10">
-    <b>import os</b><br>
-os.chdir(r"E:/My Documens/книги/my_py") - сделать рабочей указаную папку.<br>
-os.mkdir() - создать папку(ошибка, если уже существует)<br>
-os.rmdir() - удалить папку (пустую)<br>
-os.rename(source, target) - переименовать файл (путь м.б абс. или относ.)<br>
-os.makedirs(r"E:/waffles/valnut") - создать папки рекурсивно<br>
-os.remove(path) - удалить путь к файлу<br>
-os.path.abspath(path) - способ конвертировать относительный путь  в абсолютный<br>
-os.path.isabs(path) - это абсолютный путь?<br>
-os.path.exists(path) - существует?<br>
-os.path.isdir(path) - это папка?<br>
-os.path.isfile(path) - эо файл?<br>
-os.path.relpath(path, start) - вернёт относительный путь от cwd или от указаного 'start'<br><br>
+data - список списков, словарь, список словарей<br>
+data = {'a':[list], 'b':[list]} ключи - назв.колонок, списки - значения(колонки)<br>
+data = [['Alex', 10], ['Bob', 12], ['Clar', 13]]- список строк, две колонки(стр)<br>
+data = [{dict1}, {dict2}] - каждый словарь - строка<br>
+data = {'a':{'1': 'a1', '2': 'a2'}, 'b':{'1': 'b1', '2': 'b2'}} - словари со вложеными; a - назв.столбцов, '1'- индекс; 'a1' - значение<br>
+df = pd.DataFrame([Series1, Series2]) - две строки в df<br><br>
 
-os.path.basename(r"E:/книги/spam.txt") .. spam.txt<br>
-os.path.dirname(r"E:/книги/spam.txt") .. r"E:/книги"<br>
-os.path.split(r"E:/книги/spam.txt") .. ("E:/книги", "spam.txt")<br>
-(r"E:/книги/spam.txt").split(os.sep) .. ['E:', 'книги', 'spam.txt']<br><br>
+df = pd.read_csv(path, index_col='date', sep=';') - индексами сделать 'date'
+   sep- разделитель, header=None, skiprow=[0,1,3], usecols=None,
+   encoding='1251'<br>
+df = pd.read_csv(path, parse_dates=['date']) - 'date' - Dtype - datetime64[ns]
+    (index_col='date', parse_dates=True)<br>
+df = pd.read_excel(path, engine='odf', sheet_name='вещи', index_col='Дата')<br>
+df = pd.read_sql_query(query, db)<br>
+df.rename(index={'old': 'new'}, columns={'old': 'new'}, inplace=True)<br>
+df.describe() - статистики по столбцам<br>
+pd.options.mode.chained_assignment = None <br>
+df.fillna(0, inplace=True) - заменим пропуски данных нулями<br><br>
 
-os.listdir(path) - список файлов<br>
-os.path.getsize(path) - размер файла в байтах (bytes)<br>
-totalsize = 0<br>
-for filename in os.listdir(path):<br>
-&nbsp;&nbsp;&nbsp;&nbsp; totalsize += os.path.getsize(os.path.join(path, filename)) - список файлов в папке; с помощью <i>join</i> получаем абсолютный путь до файла<br><br>
+col_names = [список новых заголовков]<br>
+data = pd.read_csv(path, names=col_names, skiprows=[0]) - новые заголовки,
+строку со старыми пропустить<br>
+skiprows = [0,3,5] - пропустить указанные строки<br>
+header= None, skiprows=[0] -  удалить заголовки<br><br>
 
-os.path.join() - соединить путь и файл<br>
+Поменять в столбце "вид" название растений на цифры<br>
+lablel_encode = {'вид': {'iris0': 0, 'iris1': 1, 'iris2': 2}}<br>
+df1 = df.replace(label_encode)<br><br>
 
-<i>os.unlink(path)</i> - удалить файл по указаному пути<br>
-<i>os.rmdir(path)</i> - удалить папку по указаному пути<br>
-<i>os.rmtree(path)</i> - удалить папку рекурсивно<br><br>
+df['date'] = pd.to_datetime(df[date])<br>
+df.date = pd.to_datetime(df.date, format('%d %b %Y'))- формат,
+который надо прочитать; будет YYYY-mm-dd<br>
+df['date', 'start'] = df[['date', 'start']].apply(pd.to_datetime) - два столбца<br><br>
 
-<i>os.walk(path)</i><br>
-for folderName, subfolders, filenames in os.walk(path):<br>
-&nbsp;&nbsp;&nbsp;&nbsp; print(f"current folder is {folderName}")<br>
-&nbsp;&nbsp;&nbsp;&nbsp; for subfolder in subfolders:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print(f"{folderName}:{subfolder})<br>
-&nbsp;&nbsp;&nbsp;&nbsp; for filename in filenames:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print(f"{folderName}:{filename})<br>
-&nbsp;&nbsp;&nbsp;&nbsp; print()<br>
+df.info() - кол-во строк(entries), индексы, название колонок, кол-во знач в них<br>
+df.shape - кортеж (tupl) кол-во строк, кол-во колонок<br>
+df.size - кол-во клеток в таблице<br>
+df.T - transpose - меняет строки и столбцы местами<br>
+df.dtypes - назв. колонок и тип данных в каждой<br>
+df.values - список списков всех данных<br>
+df.columns - список колонок<br>
+df.index -  список индексов<br>
+df.axes - список индексов и колонок<br>
+df.head() - начало df<br>
+df.tail() - конец df<br>
+df.sample() - случайные строки<br><br>
 
-safe Deletes with the send2trash module.
-  </section>
+df.loc['name_str', 'name_column']<br>
+df.loc[1] - первая строка Series<br>
+df.loc[1:], df.loc[:5], df.loc[2:4] (не вкл.)<br>
+df.loc[[5]] - строка по индексу DataFrame<br>
+df.iloc[5], df.iloc[0,5] - по цифровому индексу [строка,колонка]<br>
+df.loc[len(df)-1] - последняя строка Series<br>
+df.loc[len(df)-1, ['data', 'note']] - посл. строка в двух колонках<br>
+df.loc[:, 'name_column'] - весь сттолбец<br>
+df.loc[:, ['name1', 'name2']] - два столбца<br>
+df.loc[:, 'name1':'name2'] - несколько столбцов подряд<br>
+df.iloc[[1,3]] - первая и третья строка<br><br>
 
-  <section id="s11">
-<b>import shutil</b><br>
-копировать файлы и папки; папку рекурсивно; переместить, переименовать, удалить рекурсивно, сделать архив рекурсивно.<br><br>
+df['name_columns'], df.name_columns - колонка Series<br>
+df[2:4] - сокращённое две строки df<br><br>
 
-<i>shutil.copy(source, destination)</i> - копирует файлы; пути должны быть строками или Path obj; если в назначении определена только папка - название файла копируется; если папка и название файла - файл копируется с новым именем.<br><br>
+Индексы.<br>
+df.reset_index(inplace=True) - индексы стали первым столбцом<br>
+df.reset_index(drop=True, inplace-True)- переустановить индексы<br>
+df.set_index('month', inplace=True) - столбец 'month' стал индексами<br>
+df = pd.read_csv(path, index_col='month') - прочитать csv 'month' - индексы<br>
+df.to_csv(path, index_label='month') - сохран. в csv столбец индексов с именем<br>
+df.svechi.dropna().index - список индексов соотв. не пустым знач. в 'svechi'<br>
+df.svechi.dropna().index [-1] -  последний индекс в списке<br>
+df.index[df.svechi == 206795]  - индекс значения 206795<br>
+df.sort_index()<br>
+df.rename(index={'old': 'new'}, inplace=True)<br>
+df.index = [список новых индексов]<br>
+df.index.names = ['month'] - переименовали колонку с индексами<br><br>
 
-<i>shutil.copytree(source, destination, ignore=None)</i> - копирует рекурсивно всё, что есть в папке.<br>
-ignore=ignore_patterns('tmp*') - копировать всё кроме имён начинающихся с tmp<br>
-<i>shutil.move(source, destenation)</i> - переместит файл или папку (в существующую папку); переименовать файл.<br>
-<i>shutil.rmtree(path, ignore_errors=False)</i> - удалит папку рекурсивно.<br>
-<i>shutil.make_archive(base_name, format[, root_dir[, bse_dir[, verbose[,dry_run[, oner[, group[, logger]]]]]]])</i> - имя архивного файла без расширения, расширение ('zip'), путь до папки, которую надо архивировать; архивированый файл будет создан в текущей директории (изменить - os.chdir()).<br>
-<i>shutil.unpack_archive(filename[, extract_dir[, format[, filter]]])</i><br>
-base_name - имя архива<br>
-format - 'zip'<br>
-root_dir - корневой каталог архива (откуда копировать).<br>
-  </section>
+Столбец<br>
+df = pd.read_csv(path, names=[list], skiprows=[0])- поменяли заголовки,
+     оригинальные пропустили<br>
+df['name_column'] - столбец в Series (df.name_column)<br>
+df[['name1', 'name2']] - несколько столбцов<br>
+df.astype({'name_column': 'int'}) - преобразовать тип данных в столбце<br>
+df.name.dropna() - вызвать стобец 'name' без пустых значений<br>
+subset =[] -  аргумент в котором указываются столбцы в которых искать<br>
+df.rename(columns={'name1': 'new_name1'}, inplace=True) - переименовать<br>
+df = df[['b', 'c', 'a', 'd']] - поменять порядок столбцов<br>
+df.columns = ['name1', name2...nameN] - переименовать список столбцов<br>
+df['new_name'] = [1,2,3] - новый столбец и значения соответсвуют кол. строк<br>
+    одно значение  - повторится во всех строках<br>
+df.insert(2, 'Team', [list values]) - (индекс колонки перед которой вставляем,
+    название, данные)<br>
+df.date = pd.DatetimeIndex(df.date) - колонка date - формат времени<br>
+df = df.astype({'price': 'int', 'usdprice': 'float'})<br>
+del df['name_column']                                   - удалить столбец<br>
+df.drop(['name_column'], axsis=1, inplace=True)         - удалить столбец<br>
+df = df.drop(['name1_column', 'name2_column'], axis=1)  - удалить столбец<br>
+df.pop('name_column')                                   - удалить столбец<br>
+df.groupby('Cluster').mean() - сгрупировали по столбцу Cluster и посчитали
+  среднее значение<br>
+df.loc[df.Name == 'Bob', 'Name'] = 'Kat' - в столбце Name заменили имя<br><br>
 
-  <section id="s12">
-<b>import zipfile</b><br>
-<i>archive file</i> - упакованый файл<br>
-класс ZipFile(file, mode='r', compression=ZIP_STORED, allowZip64=True, compresslevel=None, strict_timestamps=True, metadata_encoding=None);<br>
-Параметры: r, w, a - чтение, запись добавление.<br>
-ZIP_STORED - без сжатия (по умолчанию)<br>
-ZIP_DEFLATED - стандартный тип сжатия.<br>
-методы: close(); getinfo(); namelist(); infolist(); open(); read(); extract(); extractall(); setpassword(); printdir()<br><br>
+room3 = df.room3<br>
+room3.loc[room3 > 100] - в столбце room3 значения больше 100<br><br>
 
-класс ZipInfo; атрибуты:<br>
-filename - название файла<br>
-date_time - последнее изменение файла (год, месяц, день, час, минута, секунда)<br>
-compress_type - тип сжатия<br>
-compress_size - размер после сжатия<br>
-file_size - оригинальный размер файла<br>
-is_dir() - это папка (else: это файл)<br><br>
+df.names.unique() - уникальные значения в столбце names<br>
+.isnull() - возвращает True or False<br>
+.sum() - суммирует<br>
+df.room.isnull().sum()<br>
+.fillna()<br>
+df.name = df['name'].fillna('unknown') - заменить значения в столбце<br>
+.dropna() - пропустить все пустые<br>
+.duplicated()<br>
+.drop_duplicates(inplace=True)<br>
+.replace(name1, name2)<br>
+df['room'].min(); df['room'].max()<br><br>
 
-with ZipFile("meta.zip", "r") as myzip:<br>
-&nbsp;&nbsp;&nbsp;&nbsp; for item in myzip.infolist():<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print(f"File Name: {item.filename} Date: {item.date_time} Size: {item.file_size}") - перечислит инфо для каждого файла<br><br>
+tenis.name = tenis.name.replace('Roger', 'Robert')<br>
+label_encode = {'column_name': {'iris0': 0, 'iris1': 1}}<br>
+df1 = df.replace(label_encode)<br>
+df[name].count() - посчитать количество элементов<br>
+df[name].value_counts() - посчитать кол-во каждого элемента<br>
+x = iris.iloc[:,:-1].values - список списков - значения 4 из 5 столбцов<br><br>
 
-exampleZip = zipfile.ZipFile('example.zip')<br>
-dir(exampleZip) .. namelist, open, read...<br>
-examleZip.namelist() - список спресованых файлов.<br>
-fileInfo = exampleZip.getinfo(file) - инфо отдельного файла.<br>
-fileInfo.file_size; fileInfo.compress_size; <br><br>
+Строки<br>
+df.loc['May'] = [list] - изменить/создать строку с индексом 'May'<br>
+df.loc[len(df)] - последняя строка<br>
+df.loc['name']  - строка с именем<br>
+df.append({'A': 'bar', 'B': 4}, ignor_index=True)<br>
+df.append(pd.Series(['bar', 4], index=['A', 'B'], ignor_index=True))<br>
+df = df.drop(1, axis=0) - удалить первую строку<br>
+df.drop('name_index',axis=0, inplace=True) - удалить строку<br>
+df.drop(df.tail(1).index, inplace=True) - удалить последнюю строку<br><br>
 
-extractall(path, members=None, pwd=None)<br>
-path - куда извлекать (по умолчанию в cwd; можно 'files' - создали папку для извлечения)<br>
-members - список названий файлов, которые надо извлечь<br>
-pwd - пароль, если архив запоролен<br>
-myzip.extract('hello.txt') - извлечь один файл<br>
-content = mysip.read('hello.txt')<br>
+line = pd.DataFrame({dict}, index=[3]) - вставить строку<br>
+df2 = concat([df.iloc[:2], line, df.liloc[3:]].reset_index(drop=True))<br>
 
-newZip = zipfile.ZipFile('new.zip', 'w') - открыть ZipFile object в режиме записи или добавления 'a'.<br>
-newZip.write('spam.txt', compress_type=zipfile.ZIP_DEFLATED)<br>
-newZip.close()<br><br>
+line = pd.DataFrame({dict}, index=[2,5])<br>
+df2 = df.append(line, ignor_index=True)<br>
+df2 = df2.sort_index().reset_index(drop=True)<br><br>
 
-with ZipFile('spam.zip', 'w') as myzyp: - менеджер контекста<br>
-&nbsp;&nbsp;&nbsp;&nbsp; pass - пустой zipfile создан и закрыт. <br><br>
+третий способ вставить строку<br>
 
-При записи первый параметр - записываемый файл, второй - имя внутри архива (если добавляем файл с уже имеющимся именем); ZIP_DEFLATED надо импортировать из zipfile<br>
-with ZipFile('new.zip', 'a', compression=ZIP_DEFLATED, compresslevel=3) as myzip:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;myzip.write('hello.txt', 'hello1.txt')<br>
-&nbsp;&nbsp;&nbsp;&nbsp;myzip.write('forest.jpg')<br>
+Сортировка<br>
+df.sort_values(by='name_column, or list columns', ascending=False, inplace=False, <br>
+ kind='quicksort', no_position='last', ignore_index=False, key=None)
+ ascending - по возрастанию<br>
+ kind= [quicksort, mergesort, heapsort]<br>
+ key = любая ф-ция<br>
+df.sort_values(by=['date', 'start'], ascending=[True, False], inplace=True)<br><br>
+ 
+df = pd.concat([df1, dff2], ignore_index=True) - индексы(цифры) переустановить<br>
+ 
+set_option<br>
+pd.set_option('display.max_rows', None)<br>
+pd.set_option('display.max_columns', None)<br>
+pd.set_option('display.max_colwidth', None)<br>
+
+df = pd.read_csv(path, usecols=[], nrows=100) - выбрать колонки и кол-во строк/вывода<br>
+
+df.reset_index(inplace=True) - индексы в первую колонку<br>
+df['date'] = pd.to_datetime(df['date'], dayfirst=True)<br>
+df['date'] = pd.to_datetime(df['date'], format="%Y %B %d")<br>
+df.sort_values(by='date', inplace=True)<br>
+df.to_csv(path, index=False) - сохранить без столбца индексов<br>
+df.set_index('date', inplace=True)<br>
+.to_pydatetime() - <br>
+
+pd.date_range(start=datetime(year=2020, month=1, day=1), <br>
+periods=30,
+freq='D')   ...   DatetimeIndex(['2020-01-01', '2020-01-02', ... '2020-01-30'])<br><br>
+
+Диапазон дат<br>
+date = pd.date_range('1/1/2022', periods=5, freq='H')<br>
+DatetimeIndex(['2022-01-01 00:00:00', ...  '2022-01-01 05:00:00'])<br>
+
+df = pd.concat([df1, df2], ignor_index=True) - восстановить порядок индексов<br>
+
+update:<br>
+обновит только существующие колонки или строки (лишнее игнорирует)<br>
+df = pd.DataFrame(dict(A=[1,2,3], B=[4, 5, 6], C=[7, 8, 9]))<br>
+new_column = pd.Series([40, 50], name='B', index=[0, 1])<br>
+df.update(new_column) ... обновит стобец "В" два значения<br><br>
+
+new_df = pd.DataFrame(dict(B=[40, 50]), index=[0,1])<br>
+new_df = pd.DataFrame(dict(B=[40, 50, np.nan]))<br>
+df.update(new_df) ... обновит стобец "В" два значения<br><br>
+
+Join<br>
+DataFrame.join(self, other, on=None, how='left', \
+                lsuffix='', rsuffix='', sort=False)<br>
+df1.join(df2, lsuffix='_') - к одинаковым названиям прибавится суфикс '_'<br>
+df = df1.set_index('key').join(df2.set_index('key')) - по одному индексу<br>
+df1.join(df2.set_index('key'), on='key') - использовать столбец из df1<br><br>
+
+Merge<br>
+DataFrame.merge(self, right, how='inner', on=None, left_on=None, \
+    right_on=None, left_index=False, right_index=False, sort=False, \
+    suffixes=('_x', '_y'), copy=True, indicator=False, validate=None) <br>
+df1.merge(df2, left_on='A', right_on='A1', how='inner')- из левого фрэйма 'A' \
+    из  правого 'A1' по значениям, которые совпадают<br><br>
+
+Concatenate<br>
+pandas.concat(objs, axis=0, join='outer', join_axes=None, ignore_index=False, \
+    keys=None, levels=None, names=None, verify_integrity=False, sort=None, \
+    copy=True)<br>
+pd.concat([df1, df2], sort=False, axis=0)<br>
+df3 = pd.concat([df1, df2]) - сложились по столбцу<br>
+df3 = pd.concat([df1, df2], axis=1) - получилось два столбца<br>
+
+df1.apdate(df2)- у обоих df колонка с индексами и стобцы совпадают<br><br>
+
+Среднее значение .mean()<br>
+df_marks = pd.DataFrame(mydict)<br>
+mean = df_marks.mean() ... среднее знач. по каждой колонке<br>
+mean = df_marks.mean().mean() ... по всем колонкам<br>
+mean = df_marks.mean(axis=1) ... по строкам<br>
+print(pd.concat([df_marks['names'], mean], axis=1)) - столбецы 'name' + 'mean'<br>
+
+extr = df['name_column'].str.extract(r"^(\d{4})", flag=0, expand=False)
+   выбрали необходимое с помощью рег.выраж.<br><br>
+
+for index, row in df.iterrows():<br>
+    if row['date'] > 10:<br>
+        print(row['date'])<br><br>
+        
+df = pd.DataFrame(np.random.rand(100000,2), columns=['a','b']) - тестовый df<br>
+df.describe()<br>
+fin=[] - сумма а и b<br>
+for i,row in df.iterrows():<br>
+    fin.append(row['a'] + row['b']) - медленно<br>
+for i in range(len(df)):<br>
+    fin.append(df['a'].loc[i]+df['b'].loc[i])<br>
+for i in range(len(df)):<br>
+    fin.append(df['a'].iloc[i]+df['b'].iloc[i])<br>
+df.apply(lambda row: row['a']+row['b'], axis=1).to_list()<br>
+for row in df.itertuples():<br>
+    fin.append(row[1]+row[2])<br>
+%timeit [a+b for a,b in zip(df['a'],df['b'])]<br>
+(df['a'] + df['b']).to_list()<br>
+%timeit (df['a'].values + df['b'].values).tolist() - быстро<br><br>
+
+for col in df: - посчитать в % пустые значения в столбце<br>
+    mis = np.mean(df[col].isnull())<br>
+    print('{} - {}%'.format(col, round(mis*100)))<br>
+med = df['name'].median() - заменить пустые знач на среднее<br>
+df['name'] = df['name'].fillna(med)<br>
+
+from pandas.plotting import scatter_matrix<br>
   </section>
 
   <section id="s13">
-    <b>import shelve</b><br>
-сохранить как бинарные файлы; появятся три файла с расширениями <i>.bak, .dat, .dir</i>;<br>
-open(path[, flag='c'[, protocol=None[, writeback=False]]])<br>
-<i>c</i> (по умолчанию) - чтение и запись<br>
-<i>r; w</i> - только для чтения или записи<br>
-<i>n</i> - для записи создаётся или перезаписывается<br><br>
-
-shelfFile = shelf.open('mydata') - принемает строку (не Path obj)<br>
-cats = ['Zophie', 'Poork', 'Simon']<br>
-shelfFile['cats'] = cats - сохранить как словарь по ключу<br>
-shelfFile.close()<br><br>
-
-shelfFile = shelf.open('mydata') <br>
-shelfFile['cats'] .. ['Zophie', 'Poork', 'Simon']<br>
-list(shelfFile.keys()) .. ['cats']<br>
-list(shefFile.values()) .. [['Zophie', 'Poork', 'Simon']]<br>
-shelfFile.close()<br><br>
-
-with shelve.open('mydata') as shelve_f:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if 'cats' in shelve_f:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print(cats = shelve_f['cats'])<br><br>
-
-для перебора всех ключей используем цикл.<br>
-метод keys() - верёт все ключи; метод values() - все значения; items() - набор кортежей<br>
-pop(key, value) - удалит и вернёт ключ и значение по умолчанию (если ключ на найден)<br>
-del shelve_f['key'] - удалить<br>
-shelve_f.clear() - удалить всё<br>
-  </section>
-
-  <section id="s14">
-    <b>import pprint</b><br>
-  </section>
-
-  <section id="s15">
-    <b>import csv</b><br>
-список списков; запись в файл 'w' или добавление'a'; третий параметр позволяет коректно считывать в разл. операц. системах; методы writerows and writerow<br>
-with open('users.csv', 'w', newline='', encoding='utf8') as file:<br>
-&nbsp;&nbsp;&nbsp;&nbsp; writer = csv.writer(file)<br>
-&nbsp;&nbsp;&nbsp;&nbsp; writer.writeros(list_of_users)<br><br>
-
-для чтения объект reader<br>
-with open('users.csv', 'r', newline='') as file:<br>
-&nbsp;&nbsp;&nbsp;&nbsp; reader = csv.reader(file)<br>
-&nbsp;&nbsp;&nbsp;&nbsp; for row in reader:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print(row[1], '-', row[2])<br><br>
-
-список словарей; каждая трока - словарь; отдельно список заголовков;<br>
-writer = csv.DictWriter(file, fieldnames=column)<br>
-writer.writeheader()<br>
-writer.writerows(users)<br>
-writer.writerow(user)<br><br>
-
-with open('users.csv', 'r', newline='') as file:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;reader = cssv.DictReader(file)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;for row in reader:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(row['name'], ' - ', row['age'])
-  </section>
-
-  <section id="s16">
-    <b>import pickle</b><br>
-к режиму записи или чтения добавляем <i>'b'</i> ("wb", "rb")<br>
-<i>dump(obj, file)</i> - записывавет объект в бинарный файл.<br>
-<i>load(file)</i> - считывает данные из бинарного файла в объект.<br><br>
-
-name = "Tom"; age = "19"<br>
-with open("user.dat", "wb") as file:<br>
-&nbsp;&nbsp;&nbsp;&nbsp; pickle.dump(namee, file)<br>
-&nbsp;&nbsp;&nbsp;&nbsp; pickle.dump(age, file)<br><br>
-
-with open("user.dat", "rb") as file:<br>
-&nbsp;&nbsp;&nbsp;&nbsp; name = pickle.load(file)<br>
-&nbsp;&nbsp;&nbsp;&nbsp; age = pickle.load(file)<br>
-&nbsp;&nbsp;&nbsp;&nbsp; print('Name: ', name, 'Age: ', age)<br><br>
-
-users = [['Tom', 34, True], ['Alice', 23, False]]<br>
-with open('users.dat', 'wb') as file:<br>
-&nbsp;&nbsp;&nbsp;&nbsp; pickle.dump(users, file)<br><br>
-
-with open('users', 'rb') as file:<br>
-&nbsp;&nbsp;&nbsp;&nbsp; usersF = pickle.load(file)<br>
-&nbsp;&nbsp;&nbsp;&nbsp; for user in usersF:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print(f"Name {user[0]}, age: {user[1]}, married: {user[2]})<br>
-  </section>
-
-  <h3 align="center">Сторонние модули:</h3> 
-
-  <section id="s50">   
-pip install pyperclip<br>
-<b>import pyperclip</b><br>
-pyperclip.copy('Hello, world')<br>
-pyperclip.paste()<br>
-  </section>
-
-  <section id="s51">
-pip install requests<br>
-<b>import requests</b><br>
-url = "https:\.."<br>
-r = requests.get(url)<br>
-r.encoding<br>
-r.text<br>
-r.json()<br>
-  </section>
-
-  <section id="s52">
-pip install bs4<br>
-<b>from bs4 import BeautifulSoup as bs</b><br>
-soup = BeautifulSoup(r.text, 'html')<br>
-soup.find('div', class_="class_name").find('a', "class_name")<br>
-  </section>
-
-  <section id="s53">
-pip install selenium<br>
-<b>import selenium</b><br>
-  </section>
-
-  <section id="s54">
-pip install pyinputplus<br>
-<b>import pyinputplus as pyip</b><br>
-<i>inputStr()</i><br>
-<i>inputNum()</i> min=None, greaterThan=None, lessThan=None<br>
-<i>inputChoice()</i><br>
-<i>inputMenu()</i><br>
-<i>inputDatetime()</i><br>
-<i>inputYesNo()</i><br>
-<i>inputBool()</i><br>
-<i>inputEmail()</i><br>
-<i>inputFilepath()</i><br>
-<i>inputPassword()</i><br>
-  </section>
-
-  <section id="s55">
-pip install --user lxml<br>
-используется вместо <i>'html.parser'</i>  (встроенного в Python) <br>
-  </section>
-
-  <section id="s56">
 pip install pywin32; import win32api<br>
 модуль для работы с windows<br><br>
 
 pip install py32printing; import win32print<br>
 вывод на принтер через windows<br>
   </section>
-
-  <section id="s57">
-<i>pip install send2trash</i><br>
-<b>import send2trash</b><br>
-send2trash.send2trash(path)<br>
-  </section>
-
-  <section id="s58">
-<i>pip install pprint</i><br>
-<b>import pprint</b><br>
-<i>pprint.pprint</i> - печать списков<br>
-<i>pprint.pformat</i> - вернёт текст в виде строки<br><br>
-
-with open('myCats.py', 'w') as file:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;file.write('cats = ' + pprint.pformat(cats) + '\n' ) # записали в файл с расширением .py список словарей <br>
-теперь можно вызвать import myCats; myCats.cats - вернёт список; к папке с файлом должен быть путь в 'переменных среды'<br>
-  </section>
-
-  <section id="s59">
-pip install openpyxl<br>
-<b>import openpyxl</b><br>
-
-pass
-  </section>
-
-            </aside>
-        </div>
+      </aside>
+    </div>
 
       <footer><h3 id="s99">Ссылки:</h3>
 <p><a href="https://docs.python.org/3/tutorial/introduction.html" target="_blank" rel="noopener" >The Python Tutorial</a> - Python 3.11.4 documentation</p>
 <p><a href="http://automatetheboringstuff.com/2e/chapter1/" target="_blank" rel="noopener" >automatetheboringsruff</a> - AlSweigart</p>
 <p><a href="https://pythex.org/" target="_blank" rel="noopener" >pythex</a> - regex</p>
       </footer>
-    </div>  
+  </div>  
 </body>
 </html>

@@ -95,10 +95,10 @@ for file in list(p.glob('*.py')):<br>
 <i>dir(os); dir(os.path)</i> - все методы.<br>
 <i>os.getcwd()</i> - вернёт cwd<br>
 <i>os.chdir(r"D:/") </i>- сделать рабочей указаную папку (раздел).<br>
-<i>os.mkdir(path)</i> - создать папку(ошибка, если уже существует)<br>
+<i>os.mkdir(path)</i> - создать папку()<br>
 <i>os.rmdir(path)</i> - удалить папку (пустую)<br>
 <i>os.rename(source, target)</i> - переименовать файл (путь м.б абс. или относ.)<br>
-<i>os.makedirs(r"E:/waffles/valnut")</i> - создать папки рекурсивно<br>
+<i>os.makedirs(r"E:/waffles/valnut", exist_ok=True)</i> - создать папки рекурсивно<br>
 <i>os.remove(path)</i> - удалить файл<br>
 <i>os.unlink(path)</i> - удалить файл по указаному пути<br>
 <i>os.rmdir(path)</i> - удалить папку по указаному пути (пустую)<br>

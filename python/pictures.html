@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style1.css" />
+    <title>Картинки и графики</title>
+</head>
+<body>
+    <div class="cont">
+        <div class="left_right">
+            <aside class="left">
+<p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
+<p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
+<p><a href="#s1">PIL</a></p>
+<p><a href="#s2">two</a></p>
+<p><a href="#s3">three</a></p>
+<p><a href="#s4">fore</a></p>
+            </aside>
+
+            <aside class="right"><h2 align="center" id="s0">Pictures</h2>
+
+<section id="s1">
+<p><a href="https://habr.com/ru/articles/681248/" target="_blank" rel="noopener" >библиотека Pillow</a></p>
+<i>pip install pillow</i><br>
+<b>from PIL import ImageColor</b> - Python Imaging Library<br><br>
+
+RGBA (red, green, blue, alfha value) (or transparency)<br>
+White (255,255,255,255);  Red (255,0,0,255)<br>
+Green (0,128,0,255);      Blue(0,0,255,255)<br>
+Grey  (128,128,128,255);  Yellow(252,255,0,255)<br>
+Black (0,0,0,255);        Purple(128,0,128,255)<br><br>
+
+ImageColor.getcolor('red', 'RGBA') ... (255, 0, 0, 255)<br><br>
+
+Coordinates and Box Tupls (0, 0) - x,y - верхняя левая точка<br><br>
+
+<b>from PIL import Image</b><br>
+with Image.open(filename) as img:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; img.load() - прочитали из файла и сохранили в памяти; теперь файл можно закрыть.<br>
+img.show() - сохраняет как временный файл и отображает.<br><br>
+
+img.filename .. имя картинки (или абсол.путь).<br>
+img.format .. 'JPEG'<br>
+img.size .. (1920, 1273) - width, height<br>
+img.mode .. 'RGB'<br><br>
+
+img_cropped = img.crop((300,150,700,1000)) - верхн.левая и нижняя правая точки (обрезаное изображение).<br>
+img_copy = img.copy() - копия.<br>
+img_copy.paste(img_new, (0,0)) - вставить новое изображение, координата верхнего левого угла (не создаёт нового файла).<br>
+img_low = img.resize((img.width//4, img.height//4)) - изменить разрешение.<br>
+img_low = img.reduce(4) - то же.<br>
+
+img.save(filename.jpg) - сохранить изображение в любом формате.<br><br>
+
+img_new = Image.new('RGBA', (200,200), 'red') - красный квадрат 200х200 (если цвет не указывать - бесцветный (transprent), или чёрный для пустого листа)<br><br>
+
+converted_img = img.transpose(Image.FLIP_TOP_BOTTOM) - перевернуть сверху вниз.<br>
+Image.FLIP_LEFT_RIGHT - слева направо<br>
+Image.ROTATE_90 - повернуть против часовой стрелки на (90, 180, 270) градусов<br>
+Image.TRANSPOSE<br>
+Image.TRANSVERSE<br>
+.rotate(45, expand=True) - на 45 градусов против часовой с сохранением углов.<br>
+</section>
+
+
+<li>Графики, картинки
+    <ul>
+    <li>Matplotlib</li>
+    <li>PIL</li>
+    <li>cv2</li>
+    </ul>
+    </li>  
+            </aside>
+        </div>
+    </div>
+
+</body>
+</html>

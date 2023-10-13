@@ -26,6 +26,7 @@
     <p><a href="#s11">Regex</a></p>
     <p><a href="#s12">Pandas</a></p>
     <p><a href="#s13">pywin32</a></p>
+    <p><a href="#s14">threading</a></p>
     <p><a href="#s99">Ссылки.</a></p>            
       </aside>
     
@@ -157,20 +158,28 @@ EST, EDT - восточное, западное побережье Америк�
 Unix epoch - начало эпохи (1970, 1, 1, 12, 0, 0)<br><br>
 
 <b>import time</b><br>
-time.time() - время в секундах с начала эпохи(1970-01-01 12:00:00)<br>
-time.ctime() - UTC - Thu Aug 31 15:52:18 2023<br>
+t = <i>time.time()</i> - без аргумента; привязана к системным часам; время в секундах с начала эпохи(1970-01-01 0:00:00 utc)<br>
+Дальше можно подставлять аргумент (секунды)<br>
+<i>time.gmtime()</i> ..time.struct_time(tm_year=2023, tm_mon=10, tm_mday=6, tm_hour=13, tm_min=28, tm_sec=59, tm_wday=4, tm_yday=279, tm_isdst=0)<br>
+<i>time.localtime()</i> ..time.struct_time(tm_year=2023, tm_mon=10, tm_mday=6, tm_hour=16, tm_min=29, tm_sec=13, tm_wday=4, tm_yday=279, tm_isdst=0)<br>
+<i>time.ctime()</i> - Thu Aug 31 15:52:18 2023<br>
+local = dt.datetime.fromtimestamp(t)<br>
+zone = dt.timezone(dt.timedelta(seconds=abs(time.timezone))) ..10800сек (3часа)<br>
+local = dt.datetime.fromtimestamp(t, zone) ..2023-10-06 17:00:48.587647+03:00<br>
 <i>time.sleep(1)</i> - задержка 1с<br><br>
+
+start_time = <i>time.monotonic()</i> - замеряем время от start_time.<br>
+print(f"Прошло {time.monotonic() -  start_time}")<br><br>
 
 <b>import datetime as dt</b><br>
 Классы: date, time, datetime<br>
 <i>.date</i><br>
 date(year, month, day)<br>
-print(dt.date(2023,8,31)) .. 2023-08-31<br>
+print(dt.date(2023,8,31)) .. 2023-08-31 (изоформат)<br>
 today = dt.date.today() .. 2023-08-31<br>
 print(f"{today.day}.{today.manth}.{today.year}") .. 31.8.2023<br><br>
 
-today.replace(day=20)<br>
-today - anotherday .. n day 00:00:00<br>
+today.replace(day=20) - изменит только в новой переменной.<br><br>
 
 <i>.time</i><br>
 time([hour][, min][, sec][, microsec]) (без параметров 0:0:0)<br>
@@ -180,12 +189,15 @@ print(dt.time(10,47,20)) .. 10:47:20<br><br>
 datetime(year, month, day [, hour][, min][, sec][, microsec])<br>
 print(dt.datetime(2023,8,31)) .. 2023-08-31 00:00:00<br>
 now = dt.datetime.now()<br> ..2023-08-31 10:58:03.968252<br>
-now.date; now.month; now.year; now.hour, now.minute, now.microsecond<br><br>
+now.date; now.month; now.year; now.hour, now.minute, now.microsecond<br>
+ts = dt.datetime.timestamp(now) ..1696590800.965508<br>
+dt.datetime.fromtimestamp(ts).date() .. 2023-10-06<br><br>
 
 <i>strptime(str, format)</i> - распарсить строку; преобразовать в дату<br>
 %d; %m; %y; %Y; %H; %M; %S - день; номер месяца; год (две цифры); год (4 цифры); час; минута; секунда<br>
 deadline = dt.datetime.strptime("05-22-2017 12:30", "%m-%d-%Y %H:%M")<br>
-print(deadline) .. 2017-05-22 12:30:00<br><br>
+print(deadline) .. 2017-05-22 12:30:00<br>
+print(deadline.date()) ..2017-05-22<br><br>
 
 <i>strftime(format)</i> - для объектов <i>date</i> и <i>time</i>; принимает один параметр - формат<br>
 %a - Wed; %A - Wednesday; %b - Oct; %B - October<br>
@@ -199,6 +211,8 @@ print(now.strftime("%d %b (%A)")) .. 31 Aug (Thursday)<br><br>
 <i>locale.setlocale(locale.LC_ALL, "")</i> - для использования русских(местных) слов<br><br>
 
 <i>dt.timedelta([days][, seconds][, microseconds][, milliseconds][, minutes][, hours][, weeks])</i> - класс;<br>
+now + dt.timedelta(days=100) .. плюс сто дней от now<br><br>
+
 three_hours = dt.timedelta(hours=3, minutes=25) .. 3:25:00<br>
 two_days = dt.timedelta(2, 25) .. 2 days, 0:00:25<br>
 delta = three_hours + two_days .. 2 days, 3:25:25<br><br>
@@ -611,6 +625,22 @@ pip install pywin32; import win32api<br>
 
 pip install py32printing; import win32print<br>
 вывод на принтер через windows<br>
+  </section>
+
+  <section id="s14">
+<b>import threading</b> - многопоточный метод<br>
+def take_a_nap():
+&nbsp;&nbsp;&nbsp;&nbsp;time.sleep(5)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print('Wake up')<br><br>
+
+thread_obj = threading.Thread(target=take_a_nap, args=[], kwargs={})<br>
+thread_obj.start()<br><br>
+
+В качестве аргументов метод принемает название ф-ции, аргументы ф-ции, ключевые слова в качестве словаря (например: {'sep':';'} для ф-ции print)<br><br>
+
+for thred in all_threads:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tread.join() - чтобы все потоки завршили работу перед завершением работы ф-ции.<br>
+print('Done')
   </section>
       </aside>
     </div>

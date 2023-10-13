@@ -16,7 +16,7 @@
 <p><a href="#s2">requests</a></p>
 <p><a href="#s3">beautiful soup</a></p>
 <p><a href="#s4">selenium</a></p>
-</aside>
+            </aside>
 
             <aside class="right"><h2 align="center" id="s0">Web scraping</h2>
     <section id="s1"><h3>webbrowser</h3>
@@ -28,6 +28,8 @@ url = "https://eirc.spb.ru/info/tarif/energosnabzhenie/" - ЕИРЦ<br>
     <section id="s2"><h3>requests</h3></section>
 <p><a href="https://youtu.be/lOfm04oLD1U?si=TBC3Dm3u0Hb0Bd9A" target="_blank" rel="noopener" >Python Hub Studio</a> - (YouTube) генератор для парсинга сайтов.</p>
 <i>pip install requests</i>; <b>import requests</b><br>
+url содержит: protocol//host//port//resource path//query<br>
+Методы: GET, POST, PUT, DELETE, HEAD, TRACE, OPTIONS<br>
 response = requests.get(url, headers) Response object<br>
 Использовать time.sleep(3) и headers = headers(инфо о компе, оболочке)<br>
 type(response) .. &lt;class 'requests.models.Response'><br>
@@ -49,7 +51,11 @@ playFile.close()
 
     <section id="s3"><h3>BeautifulSoup</h3>
 <i>pip install bs4, lxml</i> <b>from bs4 import BeautifulSoup</b><br>
-
+response = requests.get(url)<br>
+soup = BeautifulSoup(response.text, 'lxml')<br>
+div = soup.find('div', class_="name")<br>
+divs = soup.find_all('div', class_="name")<br>
+div.get()<br>
     </section>
 
     <section id="s4"><h3>selenium</h3>

@@ -19,15 +19,15 @@
             </aside>
 
             <aside class="right"><h2 align="center" id="s0">Web scraping</h2>
-    <section id="s1"><h3>webbrowser</h3>
-<b>import webbrowser</b><br>
+    <section id="s1"> <b>import webbrowser</b><br><br>
+
 url = "https://eirc.spb.ru/info/tarif/energosnabzhenie/" - ЕИРЦ<br>
 <i>webbrowser.open(url)</i> - открыть страницу с тарифами<br>
     </section> 
 
-    <section id="s2"><h3>requests</h3></section>
-<p><a href="https://youtu.be/lOfm04oLD1U?si=TBC3Dm3u0Hb0Bd9A" target="_blank" rel="noopener" >Python Hub Studio</a> - (YouTube) генератор для парсинга сайтов.</p>
-<i>pip install requests</i>; <b>import requests</b><br>
+    <section id="s2"><b>import requests</b><br>
+<p><a href="https://www.youtube.com/watch?v=HfBJ0_1c4PU&list=RDCMUCN3nx9hIzgItJeDb5FFfy0Q&index=3" target="_blank" rel="noopener" >Python Hub Studio</a> - (YouTube) requests.</p>
+
 url содержит: protocol//host//port//resource path//query<br>
 Методы: GET, POST, PUT, DELETE, HEAD, TRACE, OPTIONS<br>
 response = requests.get(url, headers) Response object<br>
@@ -46,29 +46,54 @@ playFile = open('RomeoAndJuliet.txt', 'wb') - открыть объект для
 for chunk in response.iter_content(100_000):<br>
 &nbsp;&nbsp;&nbsp;&nbsp;playFile.write(chunk)<br>
 playFile.close()
-
     </section>
 
-    <section id="s3"><h3>BeautifulSoup</h3>
-<i>pip install bs4, lxml</i> <b>from bs4 import BeautifulSoup</b><br>
+    <section id="s3"><h3 align="center">BeautifulSoup</h3>
+
+<i>pip install bs4, lxml</i>; <b>from bs4 import BeautifulSoup</b><br><br>
+
 response = requests.get(url)<br>
-soup = BeautifulSoup(response.text, 'lxml')<br>
-div = soup.find('div', class_="name")<br>
-divs = soup.find_all('div', class_="name")<br>
-div.get()<br>
+soup = BeautifulSoup(response.text, 'lxml') - метод text и парсер.<br>
+div = soup.find('div', class_="name") - первый встреченный элемент.<br>
+div.text.strip() - тескт из элемента без пробелов.<br>
+div = soup.find('div', {"class": "name", "id": "aaa"}) - несколько параметров.<br>
+divs = <i>soup.find_all</i>('div', class_="name") - список<br>
+all_a = <i>soup.find_all</i>('a') - получим список всех ссылок.<br>
+<i>div.get()</i><br>
+for item in all_a:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;item_text = item.text - текст ссылки.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;item_url = item.get("href") - url адрес.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;item_url = item["href"] - url адрес.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(f"{item_text}: {item_url})<br><br>
+
+<i>.find_parent() .find_parents()</i><br>
+find_parent - ближайший родитель или указать какой (по классу, id)<br>
+find_parents - доходит до самого верха.<br>
+<i>.next_element .previos_element</i><br>
+по каждому элементу (включая пробельные символы)<br>
+<i>.find_next()</i> - следующий тег.<br>
+<i>.find_next_sibling() .find_previous_sibling()</i><br><br>
+
+find_a_by_text = soup.find('a', text="Одежда для взрослых")<br>
+find_a_by_text = soup.find('a', text=re.compile("Одежда"))<br><br>
+
+
+<p><a href="https://youtu.be/lOfm04oLD1U?si=TBC3Dm3u0Hb0Bd9A" target="_blank" rel="noopener" >Python Hub Studio</a> - (YouTube) генератор для парсинга сайтов.</p>
+<p><a href="https://youtu.be/7hn1_t2ZtJQ?si=XZtP8e4PFwBETwV3" target="_blank" rel="noopener" >PythonToday</a> - (YouTube) парсинг.</p>
     </section>
 
-    <section id="s4"><h3>selenium</h3>
-<i>pip install selenium</i><br>
-<b>from selenium import webdriver</b><br>
+    <section id="s4"><h3 align="center">Selenium</h3>
+
+<i>pip install selenium</i>; <b>from selenium import webdriver</b><br><br>
+
 browser = webdriver.Chrome() - объект; браузер открылся.<br>
 browser.get(url) - открылась запрашиваемая страница.<br>
 методы find_element_*; fine_elements_* (возвращает список)<br>
 Локаторы: ID, NAME, LINK_TEXT, PARTIAL_LINK_TEXT, TAG_NAME, CLASS_NAME, CSS_SELECTOR, XPATH<br>
 browser.find_element(By.LINK_TEXT, 'Sign in') - кнопка Sign in в github<br>
     </section>
-    </aside>
-    </div>
+            </aside>
+        </div>
     </div>
 </body>
 </html>

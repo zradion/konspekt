@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style1.css" />
+    <title>Flask</title>
+</head>
+
+<body>
+    <div class="cont">
+        <div class="left_right">
+          <aside class="left">
+        <p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
+        <p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
+      
+        <p><a href="#s1">Jinja.</a></p>
+        <p><a href="#s2">Flask.</a></p>
+          </aside>
+          
+          <aside class="right"><h1 align="center" id="s0">Flask.</h1>
+  <section id="s1">
+<b>Jinja</b> (дзиндзя) - японское синтоистское святилище и шаблонизатор.<br>
+<b>from jinja2 import Template, escape</b><br>
+<p><a href="https://youtu.be/cFJqMXxVNsI?si=_v7VX6XxCD-vfWsN" target="_blank" rel="noopener" >Jinja2</a> - (YouTube/selfedu) дзиндзя.<br>
+<a href="https://jinja.palletsprojects.com/en/3.0.x/templates/" target="_blank" rel="noopener" >Jinja.pallersprojects.com</a> - документация дзиндзя.</p>
+
+data = '''Строка {{шаблон}} строка'''<br>
+tm = Template(data) - экземпляр класса Template<br>
+msg = tm.render(name='Ted'); print(msg)<br><br>
+
+data = '''{% raw %}Строка {{шаблон}} строка{% endraw %}''' - экранирование<br><br>
+
+tm = Template("{{link | e}}") - экземпляр для экранирования спец символов ссылки.<br>
+msg = tm.render(link=link); print(msg)<br>
+msg = escape(link) - то же через класс escape<br><br>
+
+{%for выражение -%} повторяемый фрагмент {%endfor-%} (минус, чтобы не повторять перенос строки)<br>
+{%if условие %} фрагмент при истинности условия (можно добавить elif) <br>
+{%else -%} при не выполнении условия{%endif%}<br><br>
+
+sum(iterable, attribute=None, start=0)<br>
+  </section>
+
+  <section id="s2">
+<b>from flask import Flask, render_template, escape</b><br>
+<p><a href="https://youtu.be/6jxveKOdyNg?si=iUCIMd7dWP3ZCmYB" target="_blank" rel="noopener" >Flask</a> - (YouTube/selfedu) .</p>
+<i>app = Flask(__name__)</i> - создаём класс.<br>
+@app.route("/")<br>
+@app.route("/index")<br>
+def index():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return "index"
+  </section>
+          </aside>
+        </div>
+    </div>
+</body>
+</html>

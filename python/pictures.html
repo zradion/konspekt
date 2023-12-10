@@ -13,15 +13,19 @@
 <p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
 <p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
 <p><a href="#s1">PIL</a></p>
-<p><a href="#s2">two</a></p>
-<p><a href="#s3">three</a></p>
-<p><a href="#s4">fore</a></p>
+<p><a href="#s2">cv2</a></p>
+<p><a href="#s3">Matplotlib</a></p>
+<p><a href="#s4">Seaborn</a></p>
+<p><a href="#s5">pyautogui</a></p>
+<p><a href="#s6">PyGame</a></p>
             </aside>
 
             <aside class="right"><h2 align="center" id="s0">Pictures</h2>
 
-<section id="s1">
-<p><a href="https://habr.com/ru/articles/681248/" target="_blank" rel="noopener" >библиотека Pillow</a></p>
+    <section id="s1"><h3 align="center">PIL</h3>
+<p><a href="https://pillow.readthedocs.io/en/latest/reference/ImageDraw.html" target="_blank" rel="noopener" >Pillow documentation</a>;
+<a href="https://habr.com/ru/articles/681248/" target="_blank" rel="noopener" >работа с Pillow на русском</a></p>
+
 <i>pip install pillow</i><br>
 <b>from PIL import ImageColor</b> - Python Imaging Library<br><br>
 
@@ -55,25 +59,505 @@ img.save(filename.jpg) - сохранить изображение в любом
 
 img_new = Image.new('RGBA', (200,200), 'red') - красный квадрат 200х200 (если цвет не указывать - бесцветный (transprent), или чёрный для пустого листа)<br><br>
 
+img.getpixel((100, 100)) .. (196, 188, 177) - выбраный пиксель в rgb<br>
+закрасить квадрат чёрным.<br>
+for x in range(100, 200):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for y in range(100):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;img.putpixel((x,y), (0,0,0))<br>
+
 converted_img = img.transpose(Image.FLIP_TOP_BOTTOM) - перевернуть сверху вниз.<br>
 Image.FLIP_LEFT_RIGHT - слева направо<br>
 Image.ROTATE_90 - повернуть против часовой стрелки на (90, 180, 270) градусов<br>
 Image.TRANSPOSE<br>
 Image.TRANSVERSE<br>
-.rotate(45, expand=True) - на 45 градусов против часовой с сохранением углов.<br>
-</section>
+.rotate(45, expand=True) - на 45 градусов против часовой с сохранением углов.<br><br>
+
+<b>from PIL import Image,  ImageDraw, ImageFont</b><br>
+im = Image.new('RGBA', (200,200), 'white')<br>
+draw = ImageDraw.Draw(im)<br><br>
+
+<i>Points</i> - точки<br>
+draw.point([x1,y1,x2,y2...][, fill='red'])<br><br>
+
+<i>Lines</i> - линии<br>
+draw.line([x1,y1,x2,y2][fill='red'][, width=3])<br><br>
+
+<i>Rectangle</i> - прямоугольник<br>
+draw.rectangle([x1,y1,x2,y2][fill='red'][, outline=blue]) верхн.лев, нижн.прав; заполнение, цвет линии<br><br>
+
+<i>Polygons</i> - многоугольник<br>
+draw.polygon((x1,y1, x2, y2, x3, y3, x4, y4), fill='brown', outline='blue')<br><br>
+
+<i>Ellipses</i> - элипсы<br>
+draw.ellipse((x_left, y_top, x_right, y_bottom)[, fill='red'][outline=blue])<br><br>
+
+<i>Text</i><br>
+Pillow создаёт PNG картинки; размер 72 px/inch - 1/72 - точка<br>
+r"C:/Windows/Fonts" - библиотека шрифтов на Windows<br>
+draw.text((x,y), text, fill, font) - верхн.лев угол; текст, цвет, параметры<br><br>
+
+draw.text((50,50), 'Hello', fill='purple') - без настройки шрифта (только цвет)<br>
+fontsFolder = r"C:/Windows/Fonts"<br>
+arialFont = ImageFont.truetype(os.path.join(fontsFolder, 'arial.ttf'), 32)<br>
+draw.text((100,150), 'Howdy', fill='gray', font=arialFont)<br>
+    </section>
+
+    <section id="s2"><h3 align="center">cv2</h3>
+<i>pip install opencv-python</i>; <b>import cv2</b>;
+<b>import cv2_ext</b><br><br>
+
+img = cv2_ext.imread( название файла на кирилице)<br>
+img = cv2.imread('path', cv2.IMREAD_COLOR) второй арг. по умолчанию<br>
+можно cv2.IMRAD_GRAYCALE - возвращает NumPy массив<br>
+cv2.imshow('name', img)  - показать картинку<br>
+cv2.waitKey(0) - задать время показа в млсек(0 - любая клавиша)<br><br>
+
+для google colab нужна заплатка (для показа картинки в браузере)<br>
+from google.colab.patches import cv2_imshow<br>
+cv2_imshow(img) # с подчёркиванием<br><br>
+
+Поменять цветовой код:<br>
+img_color = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)<br>
+cv2.COLOR_GRAY2RGB - ч/б картинку сделать с пиксилями = три числа<br>
+cv2.imshow('name', img_color)<br><br>
+
+img = cv2.GaussianBlur(img, (9, 9), 0) - размыть (цифры нечётные)<br>
+img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) - перевести в серый (один слой)<br>
+img = cv2.Canny(img, 90, 90) - бинарная картинка, чем больше цифры - тем больше
+деталей видно<br><br>
+
+kernel = np.ones((5, 5), np.uint8) - массив 5:5 из натуральных чисел <br>(dtype='uint8)<br>
+img = cv2.dilate(img, kernel, iterations=1) - жирность линий<br>
+img = cv2.erode(img, kernel, iterations=1)<br><br>
+
+photo = np.zeros((450,450,3), dtype='uint8') - чёрная картинка 450:450 с тремя слоями, dtype - натуральные числа<br>
+photo[:] = 255,0,0 - картинка стала синей  (BGR)<br><br>
+
+cv2.imwrite('new_name.png', img)- сохранить в любом формате<br>
+
+img.shape ... (403, 461, 3)<br>
+print("Высота:"+str(img.shape[0]))<br>
+print("Ширина:" + str(img.shape[1]))<br>
+print("Количество каналов:" + str(img.shape[2]))<br><br>
+
+Заменим часть большой картинки по пиксельно:<br>
+    for y in range(img.shape[0]):<br>
+        for x in range(img.shape[1]):<br>
+            img_big[y][x] = img[y][x]<br>
+plt.imshow(img_big)<br><br>
+
+(b,g,r) = img[0,0] - пиксель на img задан в BGR<br>
+print("Красный: {}, Зелёный: {}, Синий: {}".format(r, g, b))<br><br>
+
+Изменить размер:<br>
+img1 = cv2.resize(img, (int(width/2), int(height/2))) # (img, (x, y))<br>
+третий арг. - interpolation<br>
+img2 = cv2.resize(img, (img.shape[1] // 2, img.shape[0] // 2))<br><br>
+
+img[0:100, :] = 255,0,0 - синяя полоса сверху<br>
+cv2.imshow(img, img[0:100, 0:100]) # показать обрезок 100:100<br>
+cv2.imshow(img, img[img.shape[0]-100 : img.shape[0], :]) # y-100, x -весь<br>
+cv2.waitKey(0)<br><br>
+
+photo = np.zeros((450,450,3), dtype='uint8') - чёрный квадрат 450:450, 3 слоя 
+dtype - натуральные числа<br>
+photo[:] = 0, 0, 255 - красный квадрат<br>
+photo[100:200, :] = 255,0,0 - синия полоса y = 100pk<br><br>
+
+Перевернуть:<br>
+img = cv2.flip(img, 1)- 0- по вертикали;1- по горизонтали;-1- и так и эдак<br><br>
+
+Прямоугольник.<br>
+cv2.rectangle(img, (x,y), (x,y), (0,0,0), 2)<br>
+картинка,координаты верхн.лев угла и нижнего правого, цвет, толщина(thickness=2)
+thickness=cv2.FILLED - залить; -1 = то же<br><br>
+
+Линия<br>
+cv2.line(img, (x,y), (x,y), (0,0,255), 3) - координаты двух точек<br>
+cv2.line(img, (0, img.shape[0]//2), (img.shape[1]//2, 0), (0,0,255),3)<br>
+красная линия, толщиной 3, от сереины лев. стороны до середины верхней<br>
+в shape[0] - y<br><br>
+
+Круг.<br>
+cv2.circle(img, (x,y), 50, (0,0,0), -1)<br>
+картинка, координаты центра, радиус в пикселях, цвет, толщина(-1 = max)<br><br>
+
+Надпись.<br>
+cv2.putText(img, 'text', (x,y), cv2FONT_HERSHEY_SIMPLEX,5, (255,0,0), 3)<br>
+картинка, сам текст, координата нижняя левая, шрифт, разммер, цвет, толщина<br><br>
+
+<b>Класс VideoCapture()</b><br>
+cv2.VideoCapture() - создаёт объект захвата видео<br>
+capture = cv2.VedeoCapture('path to file with video')<br>
+isOpened() - ..True - только для файлов; проверка на пригодность<br>
+get()      -  методанные в видео<br>
+width = capture.get(cv2.CAP_PROP_FRAME_WIDTH) - ширина в пикселях<br>
+height = capture.get(cv2.CAP_PROP_FRAME_HEIGHT) - длина кадра в пикселях<br>
+fps = capture.get(cv2.CAP_PROP_FPS) - кол-во кадров в сек.<br>
+posms = capture.get(cv2.CAP_PROP_POS_MSEC)- временная отметка в милисек.<br><br>
+
+file_count = 0<br>
+while capture.isOpend():  # проверка файла на пригодность<br>
+    ret, frame = capture.read() - переменная ret - логическое знач.<br>
+    if ret == True:<br>
+        cv2.putText(frame, 'Something',(x,y),cv2FONT_SIMPLEX,5, (255,0,0), 3)<br>
+        cv2.imshow('name', frame)<br>
+        key = cv2.waitKye(50)<br>
+        if(key == ord('q')) or key == 27:<br>
+            break<br>
+capture.release()<br>
+cv2.destroyAllWindows()<br><br>
+
+cap = cv2.VideoCapture('E:/My Videos/Прикол/Мысли Кеши.mp4')<br>
+while True:<br>
+    success, img = cap.read()<br>
+    img = cv2.resize(img, (img.shape[1]//2, img.shape[0]//2))<br>
+    img = cv2.GaussianBlur(img, (3,3), 0)<br>
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)<br>
+    img = cv2.Canny(img, 150,150)<br><br>
+
+    kernel = np.ones((10,10), np.uint8)<br>
+    img = cv2.dilate(img, kernel, iterations=1)<br>
+    img = cv2.erode(img, kernel, iterations=1)<br>
+    cv2.imshow('result', img)<br>
+    if cv2.waitKey(1) & 0xFF == ord('q'):  # ord - Unicod 'q' = 0xFF<br>
+        break<br><br>
+
+    (key = cv2.waitKey(10 & 0xFF<br>
+    if key == 27):<br>
+        break  ) - Esc - для выключения<br>
+capture.release()<br>
+cv2.destroyAllWindows()<br><br>
+
+cap = cv2.VideoCapture(0) - захват видео с камеры '0'<br>
+cap.set(3, 500)  - ширина<br>
+cap.set(4, 500)  - высота<br><br>
+
+Сохранять файлы из захваченных видеопотоков:<br>
+output = cv2.VideoWriter('сохраняемый файл', cv2.VideoWriter_fourcc\<br>
+        ('M', 'J', 'P', 'G'), 20, frame_size)<br>
+while(capture.isOpened()):<br>
+    ret, frame = capture.read()<br>
+    if ret == True:<br>
+        # запишем кадр в файл<br>
+        output.write(frame)<br>
+    else:<br>
+        print('Поток не захвачен')<br>
+        break<br>
+capture.release()<br>
+output.release()<br><br>
+
+Trackbar<br>
+os.chdir('E:/My Pictures/животные')<br>
+def moveX(val):<br>
+    pass<br>
+def moveY(val):<br>
+    pass<br>
+def radius(val):<br>
+    pass<br>
+cv2.namedWindow('Moving the circle')<br>
+cv2.resizeWindow('Moving the circle', 600, 120)<br>
+cv2.createTrackbar('y', 'Moving the circle', 150, 700, moveX)<br>
+cv2.createTrackbar('x', 'Moving the circle', 260, 700, moveY)<br>
+cv2.createTrackbar('r', 'Moving the circle', 30, 250, radius)<br>
+while(1):<br>
+    img = cv2.imread('Clod Jan.jpg')<br>
+    cv2.cvtColor(img, cv2.COLOR_BGR2RGB)<br>
+    radius = int(cv2.getTrackbarPos('r', 'Moving the circle'))<br>
+    Y = int(cv2.getTrackbarPos('y', 'Moving the circle'))<br>
+    X = int(cv2.getTrackbarPos('x', 'Moving the circle'))<br>
+    cv2.circle(img, (X,Y), radius, (0,0,255), 2)<br>
+    cv2.imshow('img', img)<br>
+    key = cv2.waitKey(1) & 0xFF<br>
+    if key == 27:   # Esc для выключения<br>
+        break<br>
+cv2.destroyAllWindows()<br>
+    </section>
+ 
+    <section id="s3"><h3 align="center">Matplotlib</h3>
+<i>pip install matplotlib</i> <b>import numpy as np<br>
+import matplotlib.pyplot as plt<br>
+%matplotlib inline - для Juputer</b>
+
+<p><a href="https://www.youtube.com/watch?v=clDQPyQJ-hc&list=PLA0M1Bcd0w8xQx-X5a6eSEOYULNSnHN_p" target="_blank" rel="noopener" >Matplotlib (YouTube/sefedu)</a>; <a href="https://devpractice.ru/files/books/python/Matplotlib.book.pdf" target="_blank" rel="noopener" >Matplotlib (pdf)</a></p>
+Воснове объект Figure; в нём объекты Axes, Y axis label, X axis label, Grid, Legend и др.<br>
+типы графиков - Линейный (plot), Ступенчатый (step), Стековый (stackplot), stem-график, Точечный (scatter), Гистокрамма (hist), Столбчатые диаграммы (bar, barh), Круговые (pie), Изображения (imshow), Цветовые (pcolormesh), 3D (plot_surface), Линии уровня (contour)<br><br>
+
+<i>Простой вариант через plt. Задать названия окну, осям (менять шрифт), создать графики (вид линии, цвет, толщина, вид точек, их заполнение, подпись легенд, на графике, LaTex, значения на осях)</i><br><br>
+
+plt.figure(figsize=(10,10))<br>
+plt.plot(x, y); plt.show() - линии и ф-ция, чтобы окно не закрывалось<br>
+Входные данные соответствуют массиву NumPy; если передаётся одно значение(список) - это y, а х будет соответствовать индесам этих значений в списке; если два значения - первый х, потом y; если добавить ещё х и у - будет второй график на этих же осях; или создать ещё plt<br><br>
+
+аргументы: color='b', marker='s', markerfacecolor='w', linewidth=4<br>
+label='название' - plt.legend()<br>
+('-', '--', '-.', ':', '')- linestyle (ls=' ')<br>
+('b', 'g','r', 'c', 'm', 'y', 'k', 'w') - color (c=' ')<br>
+('0', 'v', '^', '&lt;', 's', 'x', 'D', '+', '2') - marker (m=' ')<br>
+fill_between(x, y1, y2=0, where=None, interpolate=False, step=None,<br>
+*, data=None, **kwargs) - заливка областей первый график, график до которого заливать(напр.0.5), where=(y&lt;0), color='g', alpha=0.7 (прозрачность нужна, чтобы видеть скопления точек) <br><br>
+
+lines = plt.plot(x, 'r--o', y, ':m') - сохраним в переменной<br>
+plt.setp(lines, linestyle='-.') - форматирование для lines<br><br>
+
+plt.xlabel('date', fontsize=14) - подпись на оси x<br>
+plt.ylabel('price') - подпись на оси y<br>
+plt.title(u'Стоимость пшеницы') - Заголовок добавим u для кодировки кирилицы<br>
+plt.legend(('СПб', 'Ростов')) - легенды (названия, линии, цвет, размер)<br>
+plt.minorticks_on() - дополнительная сетка<br>
+plt.grid() - сетка<br>
+    (which='major', color='#444', linewidth=1)<br>
+    (which='minor', color='#aaa', ls=':')<br>
+plt.xlim(-1,10) - пределы измерений, можно один<br>
+plt.ylim(1,30)<br>
+plt.fill_between(x, y, 0.5, c='b', alpha=0.5, where=(y&lt;0)) - закрасить, условие<br>
+plt.show() - вывод графика на экран<br><br>
+
+<i>Задаём фигуру и оси.</i><br>
+Несколько координатных осей: если меньше 10 графиков - можно без запятых.<br><br>
+
+fig = plt.figure(figsize=(7,4)) - фигура; размер в дюймах<br>
+ax = fig.add_subplot() - без аргументов - одна ось<br>
+fig.suptitle('Just a fun.', fontsize=14, color='red') - для фигуры<br>
+ax.plot(x,y,label='Line1') - указать лэйбл и вызвать legend<br>
+ax.legend() нотация TeX - [r'$f(x) = a\cdot b + c$']<br>
+ax.set_title('Name') - название ax1<br>
+ax.set_xlabel('0x') - подпись оси x<br>
+ax.set(xlim=(-5, 38), ylim=(-1, 6)) - установка ограничений по осям<br>
+ax.grid()<br><br>
+
+ax1 = plt.subplot(2,2,1)  (две строки, две колонки, первый график)<br>
+plt.plot(np.random.random(10)) - график из 10 точек<br>
+ax2 = plt.subplot(2,2,2)<br>
+ax3 = plt.subplot(2,1,2)  (вторая строка, один график)<br><br>
+
+fig.tight_layout() - уплотнить, чтоб надписи помещались<br><br>
+
+ax1 = fig.add_axes([0,0,1.0,1.0]) - pos_x, pos_y, width, height<br>
+ax1 = fig.add_subplot(1,3,3) - ось занемает 1/3 часть строчки<br><br>
+
+plt.figtext(0.1, 0.9, 'текст на фигуре',
+    bbox={'boxstyle':'darrow', 'facecolor':'b'})<br>
+ax1.text(0.1, 0,7, 'текст в осях)<br>
+ax1.annotate('Anotation', xy=(0.2, 0.4), xytext=(0.6, 0.7),\
+                arrowprops={'facecolor':'blue', 'shrink':0.3})<br>
+f.set(facecolor='#eee') - установки на фигуре<br>
+ax1.set(facecolor='#AAFFAA') - установки на осях<br><br>
+
+ax1.set_xlabel('x-name')<br>
+ax1.plot(np.arange(5, 0, -0.2), '--o', label='Line 1')<br>
+ax1.legend() - ((line1, line2), ['линия1', 'линия2'], loc='upper right',
+        или bbox_to_anchor=(0.5, 0.7))<br><br>
+
+нотация LaTex: [r'$f(x) = a \cdot b + c$, r'$f(x) = k \cdot x + b$']<br>
+from matplotlib.ticker import NullLocator, LinearLocator, MultipleLocator,
+IndexLocator, FixedLocator, NullFormattor, FormftStrFormatter, FuncFormatter
+ScalarFormatteer, <br>
+ax1.grid()<br>
+ax1.xaxis.set_major_locator(NullLocator()) - скрыть метки по оси Х<br>
+ax1.xaxis.set_major_locator(LinearLocator(10)) - определённое кол-во меток<br>
+ax1.xaxis.set_major_locator(MultipleLocator(base=2)) - половина меток<br>
+ax1.xaxis.set_major_locator(IndexLocator(base=2, offset=0)) - шаг и начало<br>
+ax1.xaxis.set_major_locator(FixedLocator([1,4,7,9])) - фиксированые знач.<br><br>
+
+ax1.box(x,y) - боксы по вертикали<br>
+ax1.boxh(x,y) - боксы по горизонтали<br><br>
+
+val = [10, 34, 20, 50]<br>
+labels = ['Toyota', 'BMV', 'Lexus', 'Audi']<br>
+exp = (0.1, 0.2, 0, 0)<br>
+ax.pie(val, labels=labels,autopct='%.2f',wedgeprops=dict(width=0.5), explode=exp
+shadow=True) - круговая диаграмма, доля с точностью до сотых, сделать бублик,
+выдвинуть доли, тени<br><br>
 
 
-<li>Графики, картинки
-    <ul>
-    <li>Matplotlib</li>
-    <li>PIL</li>
-    <li>cv2</li>
-    </ul>
-    </li>  
+fig,ax = plt.subplots(2,2) - создаёт две строки с двумя столбцами<br>
+fig.set_size_inches(7, 4)  - размер в дюймах<br>
+fig.set_facecolor('#eee')  - фон <br>
+ax[0,0].plot(np.arange(0,5,0.2))<br>
+ax[0,0].grid<br>
+ax = fig.add_subplot()<br>
+plt.figtext(0.7, 0.7, 'text in window')<br>
+plt.suptitle('Title')<br>
+ax.set_xlabel('0x')<br>
+ax.set_ylabel('0y')<br>
+ax.text(0.1, 0.1, 'something')<br><br>
+
+fig, ax = plt.subplots()<br>
+fruits = ['apple', 'blueberry', 'cherry', 'orange']<br>
+counts = [40, 100, 30, 55]<br>
+bar_labels = ['red', 'blue', '_red', 'orange']<br>
+bar_colors = ['tab:red', 'tab:blue', 'tab:red', 'tab:orange']<br>
+ax.bar(fruits, counts, label=bar_labels, color=bar_colors)<br>
+ax.set_ylabel('fruit supply')<br>
+ax.set_title('Fruit supply by kind and color')<br>
+ax.legend(title='Fruit color')<br>
+plt.show()<br><br>
+
+<b>from matplotlib.gridspec import GridSpec</b><br>
+fig = plt.figure(figsize=(7,4))<br>
+gs = GridSpec(ncols=3, nrows=2, figure=fig)<br>
+ax1 = plt.subplot(gs[0,0]) - ось первый ряд, первая колонка<br>
+ax1.plot(np.arange(0,5,0.2))<br>
+ax2 = fig.add_subplot(gs[1, 0:2]) - ось срез колонки 1 и 2<br>
+ax2.plot(np.arange(0,5,0.2))<br>
+ax3 = fig.add_subplot(gs[:,2]) - весь второй ряд<br>
+ax3.plot(np.random.random(10))<br>
+plt.show()<br>
+
+df3 = pd.concat([df1, df2], axis=1)<br>
+df3.boxplot() - боксы<br><br>
+
+<b>from matplotlib.image import imread</b><br>
+<b>from PIL import Image</b><br>
+ вывести изображение<br>
+img = imread('path')<br>
+img = Image.open('path')<br><br>
+
+plt.imshow(img)<br>
+plt.imshow(x_train[0], cmap=plt.cm.binary) - ч/б изобр. из сета x_train<br>
+plt.show()               (cmap='gray')<br>
+для google colab нужна заплатка (для показа картинки в браузере)<br>
+from google.colab.patches import cv2_imshow<br>
+cv2_imshow(img) # с подчёркиванием<br><br>
+
+img.shape - размер кортеж (height, width, chanal)<br>
+img.shape[0] - высота<br>
+
+Вырезать участок:
+img_cut = img[100:200, 300:500] - y от 100 до 200 и x от 300 до 500<br><br>
+
+c_img = img.copy() - сделать копию(иначе не изменить изображение)<br>
+c_img.flags<br>
+    C_CONTIGUOUS : True<br>
+    F_CONTIGUOUS : False<br>
+    OWNDATA : True<br>
+    WRITEABLE : True<br>
+    ALIGNED : True<br>
+    WRITEBACKIFCOPY : False<br>
+    UPDATEIFCOPY : False<br><br>
+
+Изменить цвет выбраного участка:<br>
+img[0:100, 0:100] = (255,0,0)<br>
+plt.imshow(img) - верхний левый угол (100:100) стал красным<br><br>
+
+Изменить размер:<br>
+img1 = cv2.resize(img, (500,500))<br><br>
+
+plt.imshow(x_train[1],cmap=plt.cm.binary)<br>
+plt.show() изображение 28х28 пикселей представлено бинарно<br><br>
+
+    </section>
+
+    <section id="s4"><h3 align="center">Seaborn</h3>
+        <b>import seaborn as sns</b>
+
+    </section>
+
+
+    <section id="s5"><h3 align="center">PyAutGUI</h3>
+<p><a href="https://pyautogui.readthedocs.io/en/latest/" target="_blank" rel="noopener" >PyAutoGUI</a></p>
+<i>pip install pyautogui</i> <b>import pyautogui</b><br>
+<i>Для остановки программы - навести курсор на угол дисплея или Ctrl+Alt+Delete - остоновить все программы</i><br><br>
+
+Предосторожности: учитывать разрешение экрана; использовать экран макси; использовать паузы, если что-то должно загрузится; использовать locateOnScreen(), останов программы, если что-то не найти; искать окно по названию, использовать exists(), активировать; исполльзовать максимальное кол-во проверок.<br>
+Передвинуть курсор в верхний левый угол вызовет FailSafeException<br><br>
+
+pyautogui.PAUSE = 0.5 - пауза 0.5сек после каждого вызова pyautogui<br>
+pyautogui.sleep(3) - то же, что и time.sleep()<br>
+pyautogui.countdown(10) - счёт в обратную сторону задерка 1с<br><br>
+
+wh = pyautogui.size() - размер клиенского окна ..Size(width=1920, height=1080)<br>
+wh[0]; wh.width(height) - ширина  и высота в пикселях.<br>
+p = pyautogui.positioin() ... Point(x=311, y=622) получить позицию курсора<br>
+p[0]; p.x - значение x<br>
+pyautogui.moveTo(100,100, duration=0.2) - передвинуть в указанную координату с задержкой 0.2 сек<br>
+pyautogui.move(100,100, duration=0.2) - относительное перемещение с задержкой 0.2 сек<br>
+pyautogui.dragTo() - перетащить.<br>
+pyautogui.drag() - перетащить.<br>
+pyautogui.click(50,50) - без аргументов просто клик; с аргументами в указанной точке; по умолчанию левая клавиша; необязательный аргумент button='left'('right', 'middle').<br>
+pyautogui.rightClick(); pyautogui.mouseDown(); pyautogui.mouseUp(); pyautogui.doubleClick(); pyautogui.scroll()<br>
+pyautogui.mouseInfo() - всплывающее окно (задержка 3сек); позиция, цвет<br><br>
+
+pyautogui.write('Hello', 0.2) - написать; необезательный параметр - задержка после каждого знака; можно вводить одиночные символы, ключевые слова ('enter', 'altleft', 'altright', 'shift', 'esc' и др.); hotkey - горячие клавиши<br>
+<i>pyautogui.write(['\t', '\t'], 0.5)</i> - два раза TAb<br>
+<i>pyautogui.keyDown('shift'); pyautogui.press('4'); pyautogui.keyUp('shift')</i><br>
+<i>pyautogui.hotkey('ctrl', 'c')</i><br>
+
+im = pyautogui.screenshot() - содержит Image оббъект<br>
+puautogui.pixel(x,y) - 'RGB' пиксела<br>
+pyautogui.pixelMatchesColor(x,y,('RGB')) - булевое значение<br><br>
+
+b = pyautogui.locateOnScren('submit.png') - расположение изображения кнопки<br>
+Box(left=643, top=745, width=70, height=29); b[0], b.left<br>
+list(pyautogui.locateAllOnScreen('submit.png')) - если несколько совпадений.<br>
+pyautogui.click((643, 745, 70, 29)) - кликнуть на определённый цвет.<br>
+pyautogui.click('submit.png') - кликнуть на выбранную картинку.<br><br>
+
+fw = pyautogui.getActiveWindow() - активное окно.<br>
+str(fw) .. 'Win32Window left="58", top="202", width="717", height="723", title="*IDLE Shell 3.11.4*"'<br>
+fw.left(right, top, bottom) - px слева(справа, сверху, снизу)<br>
+fw.topleft(topright, bottomleft, bottomright) - углы<br>
+fw.midleft(midright) - середина окна<br>
+fw.size, fw.area, fw.center(fw.centerx, fw.centery), fw.box, fw.title - получить соответствующию координату или задать<br>
+<i>pyautogui.click(fw.left+10, fw.top+20)</i> - точные координаты внутри окна.<br><br>
+
+fw.activate(), fw.maximize(), fw.minimize(), fw.restore(), fw.close()<br>
+isMaximized, isMinimized, isActive, <br><br>
+
+pyautogui.getAllWindows() - список всех открытых окон.<br>
+pyautogui.getAllWindows(x,y) - список окон включающие эти координаты<br>
+pyautogui.getWindowsWithTitle(title) - список имён, которые вкл в себя<br>
+pyautogui.getAllTitles() <br><br>
+
+pyautogui.alert('text') - сообщение и кнопка 'OK'<br>
+pyautogui.confirm('text') - сообщение и 'OK' and 'Cancel'<br>
+pyautogui.prompt('text') - сообщение и поле для вода; вернёт строку<br>
+pyautogui.password('text') - то же, только при вводе видим звёздочки<br><br>
+    </section>
+
+    <section id="s6"><h3 align="center">PyGame</h3>
+<i>рисование графических объектов, отслеживание событий (клавы, мыши, таймера), отслеживание и изменение состояний объектов (анимации, столкновений, быстрой отрисовки изменений на экране, работа со звуковыми эффектами.</i><br><br>
+
+<p><a href="https://pygame.org/docs/" target="_blank" rel="noopener" >документация</a>;
+    <a href="https://www.pygame.org " target="_blank" rel="noopener" >сообщество</a></p>
+
+PyGame - обёртка SDL (Simple Derectmedia Layer)<br>
+<i>pip install pygame</i>; <b>import pygame</b><br>
+<b>pygame.init()</b> - загрузка всех расширений.<br>
+
+sc = pygame.display.set_mode((600, 400), pygame.RESIZABLE) - вызов окна.<br>
+pygame.display.set_caption("Название окна")<br>
+clock = pygame.time.Clock() - встроенная ф-ция задержки цикла.<br>
+FPS = 60<br>
+flRunning = True - флаг, чтобы закончить цикл без ошибки.<br>
+while flRunning:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for event in pygame.event.get():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if event.type == pygame.QUIT: - крестик для закрытия окна.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pygame.quit() - (exit() - завершить всю программу)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flRunning = False<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pygame.delay(20) - задержка на 20мсек.(весь цикл будет зависить от конкретного процессора)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;clock.tick(FPS) - др. вариант задержки встроенная ф-ция (кол-во кадров в сек).<br>
+
+Скорость циклов слишком большая. Для динамических игр достаточно 1/60 кадров в сек = 17 мсек.; для статических 1/30сек = 34мсек.<br>
+<i>FPS</i> - Frames Per Seconds<br><br>
+
+pygame.FULLSCREEN (DOUBLEBUF, HWSURFACE, OPENGL, RESIZABLE, NOFRAME, SCALED)<br><br>
+
+pygame.draw.rect(surface, color, (50,50,150,150), 3) - цвет RGB, если толщина линии не указывается - закрашен полностью.<br>
+pygame.draw.line(surface, color, (50,250), (200,230), 2) - линия<br>
+pygame.draw.aaline(surface, color, (50,250), (200,230)) - сглаженая линия (без толщины)<br>
+pygame.draw.lines(surface, color, True, [(200,80), (250,80), (300,200)],2) - замкнутые линии.<br>
+pygame.draw.aalines(surface,) - тоже сглаженные.<br>
+pygame.draw.polygon(surface, color, [[150,210],[180,250],[90,290][30'230]])
+pygame.draw.circle(surface, color, (300,250), 40) - круг, центр, радиус.<br>
+pygame.draw.ellipse(surface, (300,300,100,50), 1) - элипс, коорд прямоугольника.<br>
+pi = 3.14<br>
+pygame.draw.arc(surface, color, (450,30,50,150), pi, 2*pi, 5)<br>
+    </section>
+
             </aside>
         </div>
     </div>
-
 </body>
 </html>

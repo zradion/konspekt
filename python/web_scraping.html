@@ -6,19 +6,55 @@
     <link rel="stylesheet" href="../css/style1.css" />
     <title>Web scraping</title>
 </head>
+
 <body>
-    <div class="cont">
-        <div class="left_right">
-            <aside class="left">
-<p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
-<p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
+  <div class="cont">
+		<nav class="menu">
+			<ul class="menu_list">
+				<li><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></li>
+				<li>
+					<span>Python</span>
+					<ul class="sub_menu_list">
+						<li><a href="./startPy.html">startPy</a></li>
+						<li><a href="./libraryPy.html">libraryPy</a></li>
+						<li><a href="./dir_and_file.html">Папки и файлы</a></li>
+						<li><a href="./pictures.html">Картинки и графики</a></li>
+						<li><a href="./web_scraping.html">Web scraping</a></li>
+						<li><a href="./flask.html">Flask</a></li>
+						<li>Jungo</li>
+						<li>Искуственный интелект</li>
+					</ul>
+				</li>
+				<li>
+					<span>Frontend</span>
+					<ul class="sub_menu_list">
+						<li><a href="../frontend/html.html">HTML</a></li>
+						<li><a href="../frontend/css.html">CSS</a></li>
+						<li><a href="../frontend/js.html">JavaScript</a></li>
+						<li><a href="../frontend/jsDom.html">JavaScript DOM</a></li>
+					</ul>
+				</li>
+				<li>
+					<span>Books</span>
+					<ul class="sub_menu_list">
+						<li><a href="../books/english.html">Books in English</a></li>
+						<li><a href="../subjects/math.html">Математика</a></li>
+						<li><a href="../subjects/environment.html">Окружение</a></li>
+						<li><a href="">Справочники</a></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+
+    <div class="left_right">
+      <aside class="left">
 <p><a href="#s1">webbrowser</a></p>
 <p><a href="#s2">requests</a></p>
 <p><a href="#s3">beautiful soup</a></p>
 <p><a href="#s4">selenium</a></p>
-            </aside>
+      </aside>
 
-            <aside class="right"><h2 align="center" id="s0">Web scraping</h2>
+      <aside class="right"><h2 align="center" id="s0">Web scraping</h2>
     <section id="s1"> <b>import webbrowser</b><br><br>
 
 url = "https://eirc.spb.ru/info/tarif/energosnabzhenie/" - ЕИРЦ<br>
@@ -92,8 +128,8 @@ browser.get(url) - открылась запрашиваемая страниц�
 Локаторы: ID, NAME, LINK_TEXT, PARTIAL_LINK_TEXT, TAG_NAME, CLASS_NAME, CSS_SELECTOR, XPATH<br>
 browser.find_element(By.LINK_TEXT, 'Sign in') - кнопка Sign in в github<br>
     </section>
-            </aside>
-        </div>
+      </aside>
     </div>
+  </div>
 </body>
 </html>

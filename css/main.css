@@ -1,54 +1,80 @@
-body {
-    margin: auto;
-    background-color: #f1f1f1;
-    color: #0f141e;
-    font-size: 16px;
-    font-weight: normal;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* Для стартовой страницы, books in English,auther, books */
+
+html,body {
+  background-color: #f1f1f1;
+  color: #0f141e;
+  font-size: 20px;
+  font-weight: normal;
+  font-family: serif;
+  box-sizing: border-box;
+  margin: 0;
 }
 
-/* Для домашней страницы */
 .cont {
-  width: 100%;
-  height: 100%;
-  max-width: 700px;
-  margin: 20px auto;
+position: relative;
+width: 100%;
+max-width: 1000px;
+height: 100%;
+max-width: 700px;
+margin: 0 auto;
 }
+
+.content{
+  position:absolute;
+  top:60px;
+  max-width: 700px;
+  margin: auto;
+}
+.library a{
+  text-decoration: none;
+}
+
+/* Стартовая, книги */
 
 .info {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
+nav{
+  position:fixed;
+  z-index: 10;
+  left:0;
+  height: 60px;
+  width: 100%;
+  /* max-width: 1000px; */
+  margin: 0 auto;
+  background-color: cadetblue;
+  padding: 0;
+}
+nav a{
+  text-decoration: none;
+}
 
-nav {
-  max-width: 700px;
-  border-radius: 30px;
+.menu_list{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+}
+.menu_list>li{
+  list-style: none;
   text-align: center;
-  height: 2.5rem;
-  background-color: darkgrey;
+}
+.menu_list>li:hover .sub_menu_list{
+  display: block;
+  list-style-position: inside;
+  text-align:left;
+  background-color: cadetblue;
+  width: 250px;
+  padding: 15px 10px 10px 10px;
+}
+.sub_menu_list{
+  display: none;
 }
 
-nav ul {
-  margin: 0;
-}
-
-nav li {
-  list-style-type: none;
-  display: inline;
-  margin: 0 2rem;
-}
-
-nav img {
+img[alt='home'] {
   width: 40px;
 }
-
-.info {
-  display: flex;
-  margin: 20px;
-  margin-bottom: 20px;
-}
-
 .avatar {
     width: 200px;
     border-radius: 20px;
@@ -61,6 +87,9 @@ nav img {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+.subjects a{
+  text-decoration: none;
 }
 
 .python {

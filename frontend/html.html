@@ -7,14 +7,48 @@
   <title>html</title>
   <link rel="stylesheet" href="../css/style1.css">
 </head>
+
 <body>
 <div class="cont">
+  <nav class="menu">
+    <ul class="menu_list">
+      <li><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></li>
+      <li>
+        <span>Python</span>
+        <ul class="sub_menu_list">
+          <li><a href="../python/startPy.html">startPy</a></li>
+          <li><a href="../python/libraryPy.html">libraryPy</a></li>
+          <li><a href="../python/dir_and_file.html">Папки и файлы</a></li>
+          <li><a href="../python/pictures.html">Картинки и графики</a></li>
+          <li><a href="../python/web_scraping.html">Web scraping</a></li>
+          <li><a href="../python/flask.html">Flask</a></li>
+          <li>Jungo</li>
+          <li>Искуственный интелект</li>
+        </ul>
+      </li>
+      <li>
+        <span>Frontend</span>
+        <ul class="sub_menu_list">
+          <li><a href="../frontend/html.html">HTML</a></li>
+          <li><a href="../frontend/css.html">CSS</a></li>
+          <li><a href="../frontend/js.html">JavaScript</a></li>
+          <li><a href="../frontend/jsDom.html">JavaScript DOM</a></li>
+        </ul>
+      </li>
+      <li>
+        <span>Books</span>
+        <ul class="sub_menu_list">
+          <li><a href="../books/english.html">Books in English</a></li>
+          <li><a href="../subjects/math.html">Математика</a></li>
+          <li><a href="../subjects/environment.html">Окружение</a></li>
+          <li><a href="">Справочники</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
 
-<div class="left_right">
-  <!-- Левая панель -->
-  <aside class="left">
-<p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
-<p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
+  <div class="left_right">
+    <aside class="left">
 <p><a href="#s1">Введение</a></p>
 <p><a href="#s2">Горячие клавиши<br>shortcuts</a></p>
 <p><a href="#s3">Элементы разметки<br>Теги</a></p>
@@ -29,45 +63,45 @@
 <p><a href="#s12">Медиа</a></p>
 <p><a href="#s15">Ссылки</a></p>
   </aside>
-<!-- Правая панель -->
+
   <aside class="right"><h1 align="center" id="s0">HTML</h1>
-  <h3 align="center">Hyper Text Markup Language</h3>
+    <h3 align="center">Hyper Text Markup Language</h3>
 
   <section id="s1"><h3>Базовый документ (! + Tab).</h3>
-    &lt;!DOCTYPE html&gt; - декларация использования HTML 5<br>&lt;html lang="en"&gt;<br>&lt;head&gt;<br>&nbsp;&nbsp;&lt; meta charset="UTF-8"&gt;<br>&nbsp;&nbsp;&lt;meta&gt;<br>&nbsp;&nbsp;&lt;meta&gt;<br>&nbsp;&nbsp;&lt;title&gt;Name of page&lt;/title&gt;<br>&nbsp;&nbsp;&lt;
-    link rel="stylesheet" href="#"&gt;<br>&nbsp;&nbsp;&lt;script src="#" defer&gt;&lt;/script&gt;<br>
-    &lt;/head&gt;<br>&lt;body&gt;&lt;/body&gt;<br>&lt;/html&gt;<br>
+&lt;!DOCTYPE html&gt; - декларация использования HTML 5<br>&lt;html lang="en"&gt;<br>&lt;head&gt;<br>&nbsp;&nbsp;&lt; meta charset="UTF-8"&gt;<br>&nbsp;&nbsp;&lt;meta&gt;<br>&nbsp;&nbsp;&lt;meta&gt;<br>&nbsp;&nbsp;&lt;title&gt;Name of page&lt;/title&gt;<br>&nbsp;&nbsp;&lt;
+link rel="stylesheet" href="#"&gt;<br>&nbsp;&nbsp;&lt;script src="#" defer&gt;&lt;/script&gt;<br>
+&lt;/head&gt;<br>&lt;body&gt;&lt;/body&gt;<br>&lt;/html&gt;<br>
 
-    <h4>Сущности символов:</h4>
-    Между амперсандом и точкой с зпт. вводится имя спецсимвола или его числовой код в десятичной системе или шестнадцатиричной. Например: &amp; lt; или &amp; #60; или &amp; #x0003C; - знак меньше.<br>
-    &amp; lt; &amp; gt; - угловые скобки -  #60, #62<br>
-    &amp; nbsp; - неразрывный пробел - #160<br>
-    &amp; amp; - амперсанд - #38<br>
-    &amp; deg; - &deg; градус<br>
-    <p><a href="https://www.wm-school.ru/html/html_symbols.html" target="_blank" rel="noopener" >wm-shool.ru</a> - Символы</p>
+<h4>Сущности символов:</h4>
+Между амперсандом и точкой с зпт. вводится имя спецсимвола или его числовой код в десятичной системе или шестнадцатиричной. Например: &amp; lt; или &amp; #60; или &amp; #x0003C; - знак меньше.<br>
+&amp; lt; &amp; gt; - угловые скобки -  #60, #62<br>
+&amp; nbsp; - неразрывный пробел - #160<br>
+&amp; amp; - амперсанд - #38<br>
+&amp; deg; - &deg; градус<br>
+<p><a href="https://www.wm-school.ru/html/html_symbols.html" target="_blank" rel="noopener" >wm-shool.ru</a> - Символы</p>
   </section>
 
   <section id="s2"><h3>Горячие клавиши для vs code:</h3>
-    Live Server (Five Server) - (расширение)обновление стр. автоматом<br>
-    Emmet Abbreviation - (расширение)автоподстановка<br>
-    ! + Tab - создать базовый документ<br>
-    lorem10 - десять слов (рыба)<br>
-    . (+Tab) ... &lt;div class=""&gt;&lt;/div><br>
-    .name + Tab - div  с классом name <br>
-    #name + Tab - div  с id="name" <br><br>
-    Ctrl + Shift + P - палитра команд<br>
-    Wrap with Abbrreviation - выбрать команду, тег в который нужно обернуть код<br>
-    Ctrl + F - строка поиска<br>
-    Ctrl + Shift + L - выделить выбр.знач; закр строку поиска;удалять или изменять <br>
-    Ctrl + Shift + K - удалить выбранные строки <br>
-    Ctrl + L - удалить строку со всем содержимым <br>
-    Ctrl + Z - отменить действие<br>
-    Ctrl + / - закоментировать (&lt;!--  --&gt;)<br>
-    Ctrl + (+-)(0) - увеличить массштаб (вернуть по умолчанию) <br>
-    Ctrl + [(]) - сдвигать выделенный блок <br><br>
+Live Server (Five Server) - (расширение)обновление стр. автоматом<br>
+Emmet Abbreviation - (расширение)автоподстановка<br>
+! + Tab - создать базовый документ<br>
+lorem10 - десять слов (рыба)<br>
+. (+Tab) ... &lt;div class=""&gt;&lt;/div><br>
+.name + Tab - div  с классом name <br>
+#name + Tab - div  с id="name" <br><br>
+Ctrl + Shift + P - палитра команд<br>
+Wrap with Abbrreviation - выбрать команду, тег в который нужно обернуть код<br>
+Ctrl + F - строка поиска<br>
+Ctrl + Shift + L - выделить выбр.знач; закр строку поиска;удалять или изменять <br>
+Ctrl + Shift + K - удалить выбранные строки <br>
+Ctrl + L - удалить строку со всем содержимым <br>
+Ctrl + Z - отменить действие<br>
+Ctrl + / - закоментировать (&lt;!--  --&gt;)<br>
+Ctrl + (+-)(0) - увеличить массштаб (вернуть по умолчанию) <br>
+Ctrl + [(]) - сдвигать выделенный блок <br><br>
 
-    Alt + Z - сделать текст читабельным <br>
-    Alt + стрелка вверх(вниз) - переместить выбранную строку, блок <br>
+Alt + Z - сделать текст читабельным <br>
+Alt + стрелка вверх(вниз) - переместить выбранную строку, блок <br>
   </section>
 
   <section id="s3"><h3>Элементы разметки, теги:</h3>

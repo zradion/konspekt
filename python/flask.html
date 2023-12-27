@@ -8,17 +8,51 @@
 </head>
 
 <body>
-    <div class="cont">
-        <div class="left_right">
-          <aside class="left">
-        <p><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></p>
-        <p><a href="#s0"><img src="../img/arrow-top.png" alt="arrow-top"></a></p>
-      
-        <p><a href="#s1">Jinja.</a></p>
-        <p><a href="#s2">Flask.</a></p>
-          </aside>
+  <div class="cont">
+    <nav class="menu">
+      <ul class="menu_list">
+        <li><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></li>
+        <li>
+          <span>Python</span>
+          <ul class="sub_menu_list">
+            <li><a href="./startPy.html">startPy</a></li>
+            <li><a href="./libraryPy.html">libraryPy</a></li>
+            <li><a href="./dir_and_file.html">Папки и файлы</a></li>
+            <li><a href="./pictures.html">Картинки и графики</a></li>
+            <li><a href="./web_scraping.html">Web scraping</a></li>
+            <li><a href="./flask.html">Flask</a></li>
+            <li>Jungo</li>
+            <li>Искуственный интелект</li>
+          </ul>
+        </li>
+        <li>
+          <span>Frontend</span>
+          <ul class="sub_menu_list">
+            <li><a href="../frontend/html.html">HTML</a></li>
+            <li><a href="../frontend/css.html">CSS</a></li>
+            <li><a href="../frontend/js.html">JavaScript</a></li>
+            <li><a href="../frontend/jsDom.html">JavaScript DOM</a></li>
+          </ul>
+        </li>
+        <li>
+          <span>Books</span>
+          <ul class="sub_menu_list">
+            <li><a href="../books/english.html">Books in English</a></li>
+            <li><a href="../subjects/math.html">Математика</a></li>
+            <li><a href="../subjects/environment.html">Окружение</a></li>
+            <li><a href="">Справочники</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="left_right">
+      <aside class="left">
+    <p><a href="#s1">Jinja.</a></p>
+    <p><a href="#s2">Flask.</a></p>
+      </aside>
           
-          <aside class="right"><h1 align="center" id="s0">Flask.</h1>
+      <aside class="right"><h1 align="center" id="s0">Flask.</h1>
   <section id="s1">
 <b>Jinja</b> (дзиндзя) - японское синтоистское святилище и шаблонизатор.<br>
 <b>from jinja2 import Template, escape</b><br>
@@ -39,20 +73,73 @@ msg = escape(link) - то же через класс escape<br><br>
 {%if условие %} фрагмент при истинности условия (можно добавить elif) <br>
 {%else -%} при не выполнении условия{%endif%}<br><br>
 
+<b>Фильтры и макросы </b>(полный список в документации)<br>
 sum(iterable, attribute=None, start=0)<br>
+tpl = "Суммарная стоимость {{cs | sum(attribute='price')}}"<br>
+tm = Template(tmp)<br>
+msg = tm.render(cs = cars) - cars - список словарей по машинам.<br><br>
+
+{%- for u in users -%}<br>
+{% filter upper %}{{u.name}}{% endfilter %}<br>
+{%endfor -%}<br><br>
+
+<b>from jinfa2 import Environment, FileSystemLoader</b> - загрузчик.<br>
+file_loader = FileSystemLoader('templates') - загрузка из папки templates, которая лежит вместе с исполняеым файлом<br>
+env = Environment(loader=file_loader)<br><br>
+
+tm = env.get_template('main.html')<br>
+msg = tm.render(user=persons) - (коллекция persons)<br>
+print(msg)<br><br>
+
+{% include['page1,html','page2.html'..]ignore missing %}<br><br>
+
+{% block name %} - именованые блоки<br><br>
+
+{% extends 'base.html' %}<br>
+{{ super}}<br>
+Содержимое страницы.<br>
+{% endblock %} - расширение шаблонов.<br><br>
+
   </section>
 
   <section id="s2">
 <b>from flask import Flask, render_template, escape</b><br>
 <p><a href="https://youtu.be/6jxveKOdyNg?si=iUCIMd7dWP3ZCmYB" target="_blank" rel="noopener" >Flask</a> - (YouTube/selfedu) .</p>
 <i>app = Flask(__name__)</i> - создаём класс.<br>
-@app.route("/")<br>
+@app.route("/") - декоратор с url адресом<br>
 @app.route("/index")<br>
-def index():<br>
-&nbsp;&nbsp;&nbsp;&nbsp;return "index"
+def index(): - представление (обработчик) запроса<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return "index"<br><br>
+
+@app.route("/index/&lt;username>") - подставить переменную в url<br>
+или переменную с конвертором ("/&lt;path:username>") (int, float)<br><br>
+
+Чтобы воспользоваться шаблонизатором jinja импортируем модуль render_template.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return render_template('index.html')<br><br>
+
+Создаём базовый шаблон.  В нём есть именованые блоки.<br>
+{% extends 'base.html' %}<br>
+{% block content %} - именованый блок расширяем.<br>
+{{ super}}<br>
+Содержимое страницы.<br>
+{% endblock %} - расширение (наследование) шаблонов.<br><br>
+
+<i>Контекст приложения и контекст запроса.</i><br>
+С контекстом приложения связаны <i>g</i> и <i>current_app</i> - глобальные переменные.<br>
+С контекстом запроса - <i>request</i> и <i>session</i><br><br>
+
+<i>from flask import url_for</i><br>
+в ф-ции представления index() можно вызвать print(url_for('index')) и получить url этой страницы.<br>
+Создать контекст запроса (для тестирования) без активации веб-сервера.<br>
+<i>with app.tes_request_context():</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(url_for('index'))<br><br>
+
+<i>url_for('static', filename='css/styles.css')</i><br>
+'static' - каталог расположен на одном уровне вложености с templates; в нём папка 'css';  в ней - 'styles.css'<br><br>
+
   </section>
-          </aside>
-        </div>
+      </aside>
     </div>
+  </div>
 </body>
 </html>

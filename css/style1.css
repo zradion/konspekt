@@ -1,12 +1,12 @@
 
 html,body {
-    background-color: #f1f1f1;
-    color: #0f141e;
-    font-size: 20px;
-    font-weight: normal;
-    font-family: serif;
-    box-sizing: border-box;
-    margin: 0;
+  background-color: #f1f1f1;
+  color: #0f141e;
+  font-size: 20px;
+  font-weight: normal;
+  font-family: serif;
+  box-sizing: border-box;
+  margin: 0;
 }
 
 .cont {
@@ -22,15 +22,12 @@ nav{
   left:0;
   height: 60px;
   width: 100%;
-  /* max-width: 1000px; */
-  margin: 0 auto;
   background-color: cadetblue;
   padding: 0;
 }
 nav a{
   text-decoration: none;
 }
-
 .menu_list{
   display: flex;
   flex-direction: row;
@@ -51,18 +48,18 @@ nav a{
 .sub_menu_list{
   display: none;
 }
-
 img[alt='home'] {
-  width: 40px;
+  width: 30px;
 }
+
 /* контент */
 .left_right {
   position: absolute;
   top:60px;
   z-index: 9;
-  display: flex;
+  /* display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: center; */
 }
 
 .left {

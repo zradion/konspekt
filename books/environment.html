@@ -21,7 +21,7 @@
           <li><a href="../python/pictures.html">Картинки и графики</a></li>
           <li><a href="../python/web_scraping.html">Web scraping</a></li>
           <li><a href="../python/flask.html">Flask</a></li>
-          <li><a href="../python/jungo.html">Jungo</a></li>
+          <li><a href="../python/django.html">Django</a></li>
           <li>Искуственный интелект</li>
         </ul>
       </li>
@@ -53,12 +53,54 @@
 <p><a href="#s3">PyCharm</a></p>
 <p><a href="#s4">GitHub</a></p>
 <p><a href="#s5">Docker</a></p>
+<p><a href="#s6">Linux</a></p>
     </aside>
 
     <aside class="right">
       <section id="s1"><h3 align="center">Windows.</h3>
-................................................................................................................................................................................................<br>
-<i>Ctrl+Alt+T</i> - открыть только что закрытую вкладку.<br>         
+<i>оболочка</i> - программа с которой вы взаимодействуете при выполнении команд в терминале (PowerShell).<br>
+<i>Интерфейс командной строки(CLI)</i> - программа, предназначенная для запуска в оболочке внутри терминала.<br>
+<i>cwd</i> - current working directory<br>
+<i>stdout</i> - стандарный поток вывода<br>
+<i>stderr</i> - стандартный поток ошибок<br><br>
+
+<b>cmdlets</b> - команды в PowerShell<br>
+<i>pwd</i> - показать путь к текущему каталоку(print working directory)<br>
+<i>mkdir FOLDERPATH</i> - создаь новый каталог<br>
+<i>ni FILEPATH</i> - создать новый файл<br>
+<i>clear</i> - очистить окно терминала<br>
+<i>ls</i> - список содержимого папки (list); (dir)<br>
+<i>ls -al</i> - список всего содержимого папки с информацией(два флага all; long)<br>
+<i>cat TARGET</i> - показать содержание TARGET (concatenete)<br>
+<i>cd FOLDERPATH</i> - перейти в каталог (change directory)<br>
+<i>cd ..</i> - перейти в родительский каталог<br>
+<i>echo TEXT</i> - показать текст в терминале<br>
+<i>echo TEXT > TARGET</i> - печать TEXT в файл с именем TARGET<br>
+<i>echo TEXT >> TARGET</i> - добавить TEXT в TARGET<br>
+<i>cp SOURCE TARGET</i> - копировать SOURCE в TARGET<br>
+<i>rni SOURCE TARGET</i> - переименовать SOURCE в TARGET<br>
+<i>python PYTHONFILE</i> - запустить PYTHONFILE<br><br>
+
+echo отправляет строку в stdout; echo > name.py - в файл (создаст или перезапишет); cat name.py - выполнить файл или несколько файлов один за другим;
+
+<i>Переменные среды</i> - переменные с инфо о состоянии среды в которой работает терминал.<br>
+<i>PATH</i> - переменная среды со списком каталогов.<br><br>
+
+<i>python</i> - без аргументов - запустить интерактивный интерпритатор Python(REPL)<br>
+<i>cat ENV:Path</i> - вывести какие пути в вашем PATH<br>
+<i>pip list</i> - список пакетов глобального окружения установленных на компе<br><br>
+
+<i>Get-ExecutionPolicy</i> - проверить разрешены ли сценарии выполнения<br>
+<i>Set-ExecutionPolicy RemoteSigned</i> - запустить в PowerShell от админа, чтобы установить виртуальную среду; выбрать А (для всех) (unrestricted)<br>
+<i>Set-ExecutionPolicy Default</i> - вернуть запрет на использование виртуальной среды<br>
+<i>python -m venv venv</i> - создать папку виртуального окружения<br>
+<i>/venv/Scripts/activate</i> - активировать<br>
+<i>deactivate</i> - деактивировать<br><br>
+
+<br>
+<b>hotkey</b><br>
+<i>Ctrl+Alt+T</i> - открыть только что закрытую вкладку.<br>  
+<i>Win+R</i> - Выполнить<br>
       </section>
 
       <section id="s2"><h3 align="center">Visual Studio Code.</h3>
@@ -70,8 +112,31 @@ minimap - Enabled<br>
 Shift+Ctrl+p - Command Palette; Emmet: Wrap with Abbreviation<br>
 Alt+z - форматирование всего текста<br>
 Ctrl+z - отменить действие<br>
-Shift+alt+&darr; - копировать строку (?)<br>         
-      </section>
+Shift+alt+&darr; - копировать строку (?)<br>  
+
+      </section><h3 align="center">Linux</h3>
+Ctrl+Alt+T - открыть терминал (Bash).<br>
+<i>pwd</i> - показать путь к текущему каталоку<br>
+<i>mkdirFOLDERPATH</i> - создаь новый каталог<br>
+<i>touch FILEPATH</i> - создать новый файл<br>
+<i>clear</i> - очистить окно терминала<br>
+<i>ls</i> - список содержимого папки<br>
+<i>ls -al</i> - список всего содержимого папки с информацией<br>
+<i>cat TARGET</i> - показать содержание TARGET<br>
+<i>cd FOLDERPATH</i> - перейти в каталог<br>
+<i>cd ..</i> - перейти в родительский каталог<br>
+<i>echo TEXT</i> - показать текст в терминале<br>
+<i>echo TEXT > TARGET</i> - печать TEXT в файл с именем TARGET<br>
+<i>echo TEXT >> TARGET</i> - добавить TEXT в TARGET<br>
+<i>cp SOURCE TARGET</i> - копировать SOURCE в TARGET<br>
+<i>mv SOURCE TARGET</i> - переименовать или переместить SOURCE в TARGET<br>
+<i>python PYTHONFILE</i> - запустить PYTHONFILE<br><br>
+
+$ echo "${PATH//:/\n}" - посмотреть переменные окружения.<br>
+<i>python3 venv venv</i> - создать папку виртуального окружения<br>
+<i>source venv/bin/actiate</i> - активировать<br>
+
+      <section id="s6"></section>
     </aside>
   </div>
 </div>

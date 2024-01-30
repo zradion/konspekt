@@ -267,9 +267,66 @@ else:
 
   <section id="s11"><h3 align="center">Regex</h3>
 
-    <b>import re</b><br>
-Regular expressions (regexes)<br>
-Специальные символы: <b>\ . $ ? + * {} [] () | </b> - надо экранировать (\) или использовать сырую строку (r"txt")<br>
+<p><a href="https://habr.com/ru/articles/349860/" target="_blank" rel="noopener" >ShashkovS</a> - регулярные выражения<br>
+<a href="https://proproprogs.ru/modules/literaly-i-simvolnyy-klass" target="_blank" rel="noopener" >proproprogs</a> - регулярные выражения<br>
+<a href="https://docs.python.org/3/library/re.html" target="_blank" rel="noopener" >The Python Tutorial</a> - Python 3.11.4 documentation<br>
+<a href=" https://www.regular-expressions.info/" target="_blank" rel="noopener" >regular-expressions</a> - подробный материал<br>
+<a href="https://regex101.com/" target="_blank" rel="noopener" >regex101</a> - тренеровка</p>
+<b>import re</b> - Regular expressions (regexes)<br><br>
+
+Специальные символы: \ . $ ? + * {} [] () | - надо экранировать (\) <br>
+Символьные классы [а-яА-ЯёЁ0-9], в них спец символы не работают (кроме '\')<br><br>
+<table>
+  <tr><td><b>.</b></td><td>любой символ; кроме \n; с флагом re.DOTALL - весь текст (wildcard)</td></tr>
+  <tr><td><b>\d</b></td><td>любая цифра [0-9]</td></tr>
+  <tr><td><b>\D</b></td><td>любой не цифровой символ [^0-9]</td></tr>
+  <tr><td><b>\s</b></td><td>любой пробельный символ [\t\n\r\f\v]</td></tr>
+  <tr><td><b>\S</b></td><td>любой непробельный символ</td></tr>
+  <tr><td><b>\w</b></td><td>буквы и цифры, знак подчёрк [a-zA-Z0-9] (\w+ выберет слова)</td></tr>
+  <tr><td><b>\W</b></td><td>не буквы и цифры [^а-яА-Я0-9Ёё]</td></tr>
+  <tr><td>  </td></tr>
+  <tr><td><b>|</b></td><td>или</td></tr>
+  <tr><td><b>\b</b></td><td>граница слова</td></tr>
+  <tr><td><b>^</b></td><td>отрицание для символьного класса или начало строки</td></tr>
+  <tr><td><b>$</b></td><td>конец строки</td></tr>
+  <tr><td><b>\A</b></td><td>начало текста</td></tr>
+  <tr><td><b>\B</b></td><td>отсутствие границы слова</td></tr>
+  <tr><td><b>\Z</b></td><td>конец текста</td></tr>
+  <tr><td><b>(?:exp)</b></td><td>не сохраняющие скобки</td></tr>
+  <tr><td><b>(?=exp)</b></td><td>проверка на совпадение</td></tr>
+  <tr><td><b>(?!exp)</b></td><td> проверка на несовпадение</td></tr>
+  <tr><td><b>(?&lt;=exp)</b></td><td>проверка на совпадение ретроспективная</td></tr>
+  <tr><td><b>(?&lt;!exp)</b></td><td> проверка на несовпадение ретроспективная</td></tr>
+</table><br>
+<i>Квантификаторы</i><br>
+{m} - повторений; {mix,max}; {min,}; {,max}<br>
+по умолчанию - жадные(мажорные, greedy)<br>
+со знаком '?' - нежадные(минорные, non-greedy) {2,5}? <br>
+<b>?</b> - {0,1} re.findall(r"стеклянн?ый")<br>
+<b>*</b> - {0,}<br>
+<b>+</b> - {1,}<br><br>
+
+text = "author=Pushkin; title=Onegin; price=200"<br>
+match = re.findall(r"\w+\s*=\s*[^;]+", text) - вывести список из 'ключ=значение' (все знаки пока не встретится ';')<br><br>
+
+text = "&lt;p>Picture &lt;img alt='photo' src='bj.jpg'>in text&lt;/p>"<br>
+match = re.findall(r"&lt;img.*?>", text) - вывести содержание тега img (нежадный поиск до первой угловой скобки)<br>
+match = rt.findall(r"&lt;img\s*=\s*[^>]*?src\s*=\s*[^>]+>", text) - содержимое тега img, все знаки кроме '>' нежадный поиск до 'src', = и все знаки не '>' до угловой скобки<br><br>
+
+text = "lat=5, lon=7, a=3"<br>
+match = re.findall(r"(?:lat|lon)\s*=\s*\d+", text) - используем не сохраняющую скобку и '|' для вывода списка из ключ=значение только для lat and lon<br>
+если использовать сохраняющую скобку вывод будет - ['lat', 'lon']<br>
+если ещё и всё выражение взять в скобки - [('lat=5', 'lat'), ('lon=7', 'lon')]<br>
+если сохр скобки для (lat|lon) и (\d+) - [('lat', '5'), ('lon', '7')]<br><br>
+
+Сохраняющие скобки (при search, fullmatch and finditer) не изменяют вывод, но можно получить инфо по каждой группе (если не используется квантификатор; тогда только для последнего соответсвия) <br>
+Нумерация в группах: pattern = r"((\d)(\d))((\d)(\d))<br>
+0 - весь шаблон; 1 - первые две цифры; 2 - первая цифра; 3 - вторая; 4 - вторые две цифры; 5 - третья цифра; 6 - четвёртая<br>
+match = re.search(r"\s*([А-Яа-яЁё]+)(\d+)\s*", r"--Опять45--")<br>
+print(match[0], <i>match.start</i>(0), <i>match.end</i>(0)) - весь шаблон<br>
+print(match[1], match.start(1), match.end(1)) - первая группа<br>
+print(match.group(1,2,3)) - кортеж из групп<br><br>
+
 pattern = <i>re.compile</i>(r'\d{3}) - pattern передаём в  re.compile() и сохраняем в regex object<br>
 result = <i>re.match</i>(r"word", txt) - только в начале строки<br>
 result = <i>pattern.search</i>(txt).group()<br>
@@ -291,16 +348,7 @@ result = re.search(r"(?P&lt;key>\w+)=(?P&lt;volue>#[\da-fA-F]{6})\b", text) - и
 <i>result.groupdict()</i> .. {'key': 'color', 'volue': '#CC0000'}<br>
 result.expand(r"\g&lt;key> :\g&lt;volue>") .. color: #CC0000<br>
 <i>result.expand</i>(r"\1 :\2") .. color: #CC0000<br><br>
-
 <i>re.findinter</i> - то же, что и search, только исп в циклах для нахождения всех совпадений.<br><br>
-
-Сохраняющие скобки (при search, fullmatch and finditer) не изменяют вывод, но можно получить инфо по каждой группе (если не используется квантификатор; тогда только для последнего соответсвия).<br>
-Нумерация в группах: pattern = r"((\d)(\d))((\d)(\d))<br>
-0 - весь шаблон; 1 - первые две цифры; 2 - первая цифра; 3 - вторая; 4 - вторые две цифры; 5 - третья цифра; 6 - четвёртая<br>
-match = re.search(r"\s*([А-Яа-яЁё]+)(\d+)\s*", r"--Опять45--")<br>
-print(match[0], <i>match.start</i>(0), <i>match.end</i>(0)) - весь шаблон<br>
-print(match[1], match.start(1), match.end(1)) - первая группа<br>
-print(match.group(1,2,3)) - кортеж из групп<br><br>
 
 <i>re.split</i>(pattern, string, maxsplit=0) - разделение по подстрокам, подходящим под шаблон<br>
 print(re.split(r"\W+", "Где скажите мне, мои очки?"))
@@ -333,54 +381,12 @@ result2 = re.sub(r"\s*[\w-]+\s*", replFind, text)<br>
 Можно ссылаться на соответсвующую группу при помоощи \1, \2, ...(если групп больше 9, то \g<12>)<br>
 print(re.sub(r"(\d\d)/(\d\d)/(\d{4})", r"\2.\1.\3", "03/25/2023")) - дата по амер; вернёт в нормальном порядке через точку<br><br>
 
-
-Символьные классы: [A-z][0-9] // одна буква и одна цифра; спец символы здесь не работают(кроме \)<br>
-<table>
-  <tr><td><b>.</b></td><td>любой символ; кроме \n; с флагом re.DOTALL - весь текст (wildcard)</td></tr>
-  <tr><td><b>\d</b></td><td>любая цифра [0-9]</td></tr>
-  <tr><td><b>\D</b></td><td>любой не цифровой символ [^0-9]</td></tr>
-  <tr><td><b>\s</b></td><td>любой пробельный символ [\t\n\r\f\v]</td></tr>
-  <tr><td><b>\S</b></td><td>любой непробельный символ</td></tr>
-  <tr><td><b>\w</b></td><td>буквы и цифры, знак подчёрк [a-zA-Z0-9] (\w+ выберет слова)</td></tr>
-  <tr><td><b>\W</b></td><td>не буквы и цифры [^а-яА-Я0-9Ёё]</td></tr>
-  <tr><td>  </td></tr>
-  <tr><td><b>|</b></td><td>или</td></tr>
-  <tr><td><b>\b</b></td><td>граница слова</td></tr>
-  <tr><td><b>^</b></td><td>отрицание для символьного класса или начало строки</td></tr>
-  <tr><td><b>$</b></td><td>конец строки</td></tr>
-  <tr><td><b>\A</b></td><td>начало текста</td></tr>
-  <tr><td><b>\B</b></td><td>отсутствие границы слова</td></tr>
-  <tr><td><b>\Z</b></td><td>конец текста</td></tr>
-  <tr><td><b>(?:exp)</b></td><td>не сохраняющие скобки</td></tr>
-  <tr><td><b>(?=exp)</b></td><td>проверка на совпадение</td></tr>
-  <tr><td><b>(?!exp)</b></td><td> проверка на несовпадение</td></tr>
-  <tr><td><b>(?&lt;=exp)</b></td><td>проверка на совпадение ретроспективная</td></tr>
-  <tr><td><b>(?&lt;!exp)</b></td><td> проверка на несовпадение ретроспективная</td></tr>
-</table><br>
-
 match = re.findall(r"^&lt;script.*?>([\w\W]+)(?=&lt;/script>)", text, re.MULTILINE) - взять содержимое тега script (без самого script); [\w\W] - что бы вошёл символ переноса строки<br><br>
 
 match = re.findall(r"([-\w]+)[ \t]*=[ \t]*[\" ']([^\" ']+)(?&lt;![ \t])", text, re.MULTILINE) - пары ключ, значение; ключ - символы, дефис; пробел или табуляция; равно; пробел или табуляция; ковычки; содержимое значения(до не кавычки); ретроспективная проверка на наличие пробела или табуляции (не вкл)<br><br>
 
-<i>Квантификаторы</i><br>
- {m} - повторений; {mix,max}; {min,}; {,max}!<br>
- жадные(мажорные, greedy) - по максимуму, нежадные(минорные, non-greedy) {2,5}? <br>
- <b>?</b> - {0,1} re.findall(r"стеклянн?ый")<br>
- <b>*</b> - {0,}<br>
- <b>+</b> - {1,}<br><br>
-
- text = &lt;p> Pic &lt;img='bg.jpg'> in text&lt;/p> <br>
- match = re.findall(r"&lt;img.*?>", text) - нежадный поиск (до первой скобки)<br>
- match = re.findall(r"&lt;img[^>]*>", text) - то же<br><br>
-
- text = "lat=5, lon=3"<br>
- match = re.findall(r"(?:lat|lon)\s*=\s*(\d+)) - или lat или lon в несохраняющих скобках .. ['lat=5', 'lon=3']<br>
- match = re.findall(r"(lat|lon)\s*=\s*(\d+)") - сохраняющие скобки ..[('lat', '5'), ('lon', '3')]<br><br>
-
- (?P<name>...) (?P=name) именованые сохраняющие скобки<br>
-
  <b>flags:</b><br>
- <i>re.A (re.ASCII)</i><br>
+ <i>re.A (re.ASCII)</i> только латинские буквы, цифры и символ подчёркивания<br>
  <i>re.I (re.IGNORCASE)</i> - без учёта реистра символов.(case-insensitive)<br>
  <i>re.M (re.MULTILINE)</i> - влияет на проверки ^, $(с начала строки)<br>
  <i>re.S (re.DOTALL)</i> - ищет по всему тексту<br>
@@ -388,12 +394,7 @@ match = re.findall(r"([-\w]+)[ \t]*=[ \t]*[\" ']([^\" ']+)(?&lt;![ \t])", text, 
  <i>re.DEBUG</i> - режим отладки.<br><br>
 
  Флаги можно комбинировать с помощью пайп (pipe) "|"<br>
- match = re.findall(r"(?im)python", text) - включить флаги в шаблон<br><br>
-
- <p><a href="https://habr.com/ru/articles/349860/" target="_blank" rel="noopener" >ShashkovS</a> - регулярные выражения</p>
- <p><a href="https://proproprogs.ru/modules/literaly-i-simvolnyy-klass" target="_blank" rel="noopener" >proproprogs</a> - регулярные выражения</p>
- <p><a href="https://docs.python.org/3/library/re.html" target="_blank" rel="noopener" >The Python Tutorial</a> - Python 3.11.4 documentation</p>
- <p><a href=" https://www.regular-expressions.info/" target="_blank" rel="noopener" >regular-expressions</a> - подробный материал</p>
+ match = re.findall(r"(?im)python", text) - включить флаги в шаблон
   </section>
 
   <section id="s12"><h3 align="center">Pandas</h3>

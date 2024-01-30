@@ -47,22 +47,93 @@
     </nav>
     <div class="left_right">
       <aside class="left">
-        <p><a href="">One</a></p>
-        <p><a href="">Two</a></p>
+        <p><a href="#s1">Проект</a></p>
+        <p><a href="#s2">Ядро</a></p>
+        <p><a href="#s3">Обработчик</a></p>
       </aside>
 
       <aside class="right">
-
+  <section id="s1"> <h3>Создаём проект; запускаем сервер</h3>
 <b>WSGI</b>(Web Server Gateway Interface) - стандарт взаимодействия между Python-программой, выполняющейся на стороне сервера и самим веб-сервером.<br>
 localhost - 127.0.0.1 локальная сеть компа и её обычный ip адресс.<br>
 в терминале<br>
+Снимаем защиту на изменение сценариев в PowerShell<br>
+<i>Get-ExecutionPolicy</i> - проверить разрешены ли сценарии выполнения<br>
+<i>Set-ExecutionPolicy RemoteSigned</i> - запустить в PowerShell от админа, чтобы установить виртуальную среду; выбрать А (для всех) (unrestricted)<br>
+<i>Set-ExecutionPolicy Default</i> - вернуть запрет на использование виртуальной среды<br><br>
+
+В созданной папке создаём виртуальное окружение и активизируем<br>
 <i>python -m venv venv</i> - создать папку виртуального окружения<br>
 <i>./venv/Scripts/activate</i> - активировать<br>
+<i>deactivate</i> - деактивировать<br>
 <i>pip install django</i><br>
 <i>pip list</i> - список установленых модулей<br>
 <i>django-admin</i> - список команд ядра django<br>
-<i>djungo-admin startproject &lt;name.ru&gt;</i>
+<i>djungo-admin startproject &lt;coolsite&gt;</i> - создаём папку проекта; в ней автоматом создатся папка с таким же названием (пакет конфигурации) и утилита manage.py<br>
+<i>cd coolsite</i> - переходим в эту папку<br>
+<i>python manage.py runserver</i> - запуск сервера<br>
+<i>Ctrl-Break</i> - остановить сервер (при необходимости перезапустить)<br>
+при запуске в папке появляется файл db.sqlite3; при необходимости можно изменить СУБД (PostgreSQL, MariaDB, MySQL, Oracle, SQLite)
+  </section>
 
+  <section id="s2"> <h3>Создать и зарегистрировать приложение (ядра сайта)</h3>
+<i>MTV</i> - (Models, Templates, Views) представление на основе шаблонов и данных<br>
+
+В терминале открываем новую вкладку (пришлось заново активировать env); переходим в каталог нашего проекта;<br>
+<i>python manage.py startapp women</i> - в проекте появилась папка women - новое прилолжение; в ней:<br>
+<i>__init__.py</i> - это приложение - пакет<br>
+<i>migrations</i> - папка для хранения миграций баз данных<br>
+<i>admin.py</i> - связь с админ панелью сайта<br>
+<i>apps.py</i> - настройки<br>
+<i>model.py</i> - орм модели<br>
+<i>tests.py</i> - для тестирования<br>
+<i>views.py</i> - хранение представлений<br>
+<i>db.sqlite3</i><br><br>
+
+зарегистрировать приложение в проекте сайта:<br>
+в файлe конфигурации; открыть <i>settings.py</i>; добавить в список <i>INSTALLED_APPS</i> название приложения (<i>women</i>) или <i>women.apps.WomenConfig</i> так как django будет искать это прилолжение в настройках (<i>apps.py</i>), а там создан <i>class WomenConfig(AppConfig)</i>
+  </section>
+
+  <section id="s3"> <h3>Обработчик главной страницы сайта</h3>
+Представление реализуется или в виде ф-ций или в виде классов; располагаются в <i>views.py</i><br>
+<i>from django.http import HttpResponse</i> - для того, чтобы ф-ция возвращала экземпляр класса HttpResponse<br>
+<i>def index(request):</i> #HttpRequest - класс с инфо о запросе, сесии, куках..<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return HttpResponse("Страница приложения women")<br><br>
+
+Теперь связать эту ф-цию с соответсвующим url адресом.<br>
+В пакете конфигурации открыть <i>url.py</i>;<br>
+<i>from coolsite.women.views import *</i> импортируем всё из <i>coolsite.women</i><br>
+и в список путей <i>urlpatterns</i> (в нём уже есть путь до админки) добавляем ещё один маршрут:<br>
+<i>path('women/', index)</i> - ф-ция <i>path</i>; шаблон (будет добавлятся к домену сайта) и ссылка на ф-цию <i>index</i>, которую мы создали во <i>views.py</i><br>
+если после этого выходит ошибка, то надо <i>coolsite</i> сделать рабочей папкой (правой кнопкой; <i>Mark Directory as</i>; <i>Sources Root</i>)<br><br>
+
+предпочтительный вариант - в пакете конфиг., urls.py указывать список всех путей. Для этого импортируем<br>
+<i>from django.urls import path, include</i><br>
+и в urlpatterns добавляем:<br>
+<i>path('women/', include('women.urls')),</i> -  к доменному имени добавится <i>women</i> и все пути в <i>women.urls.py</i><br><br>
+
+создаём в <i>women</i> файл <i>urls.py</i>; импоритируем:<br>
+<i>from django.urls imort path, re_path</i><br>
+<i>from .views import *</i><br>
+и прописываем все пути:<br>
+urlpatterns = [<br>
+path('', index), - главная страница с префиксом <i>women</i> <br>
+path('cats/', categories)] - добавили новый путь (создано представление <i>categories</i> во <i>views.py</i> ) (#http://127.0.0.1:8000/women/cats/)<br><br>
+
+маршрут может быть дополнен; например:<br>
+<i>path('cats/&lt;int:catid>/', categories)</i>; добавить в ф-цию представления второй аргумент <i>catid</i> - теперь полный маршрут <i>cats/произвольное число</i> <br>
+ещё в качестве расширения может быть:<br>
+<i>str</i> - не пустая строка, исключая '/'<br>
+<i>slug</i> - латиница, дефис, подчёркивание<br>
+<i>uuid</i> - цифры, малые латинские символы, дефис<br>
+<i>path</i> - любая строка, включая '/'<br><br>
+
+re_path() - для использования регулярного выражения; импортируем соотв. модуль; добавляем в women/urls.py ещё один путь:<br>
+<i>re_path(r'^archive/(?P<year>[0-9]{4})/', archive)</i><br>
+во вкладке <i>views.py</i> добавляем ф-цию представления:<br>
+<i>def archive(request, year):</i> year - именованый параметр в рег.выр<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return HttpResponse(f"<h1>Архив по годам</h1><p>{year}</p>")
+  </section>
       </aside>
     </div>
 

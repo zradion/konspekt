@@ -67,7 +67,9 @@ txt, pdf, odf, xlsx, docx<br>
 myfile = open("hello", 'w'); myfile.write('Hello'); <i>myfile.close()</i><br><br>
 
 with open(file, mode, encoding="utf8") as myfile:<br>
-&nbsp;&nbsp;&nbsp;&nbsp; инструкции - <i>менеджер контекста</i>; закроется автоматически<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; print(myfile.readline(), end='') - <i>менеджер контекста</i>; закроется автоматически<br>
+&nbsp;&nbsp;&nbsp;&nbsp; for line in myfile:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(line, end='')<br><br>
 
 <i>myfile.readline()</i>- считывает по одной строке из файла<br>
 <i>myfile.read()</i>- считывает всё содержимое в одну строку<br>

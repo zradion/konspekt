@@ -769,27 +769,94 @@ print(sity.json['lat'], sity.json['lng'])<br>
 <p><a href="https://sqlitebrowser.org" target="_blank" rel="noopener" >DB Browser for SQLite</a><br>
 <i>hot key:</i><br>
 <i>Ctrl+Enter</i> - выполнить<br>
-<a href="https://www.youtube.com/watch?v=TwnCXdCa8qg&list=PLA0M1Bcd0w8x4Inr5oYttMK6J47vxgv6J&index=1" target="_blank" rel="noopener" >SQLite (Sweet Coder)</a><br>
-<a href="https://youtu.be/K1C5JAo7cMU?si=dMn764dqVkZZvzRw" target="_blank" rel="noopener" >SQLite (selfedu)</a></p>
+<a href="https://www.youtube.com/watch?v=TwnCXdCa8qg&list=PLA0M1Bcd0w8x4Inr5oYttMK6J47vxgv6J&index=1" target="_blank" rel="noopener" >SQLite (selfedo)</a><br>
+<a href="https://youtu.be/K1C5JAo7cMU?si=dMn764dqVkZZvzRw" target="_blank" rel="noopener" >SQLite (Sweet Coder)</a></p>
 <i>СУБД</i> - Система Управления Базой Данных (реляционные базы данных <i>relation</i>)<br>
 <i>API</i> - Aplication Progamming Interface<br>
 <i>execute(SQL)</i> - Structured Query Language<br><br>
 
 <b>import sqlite3 as sq</b><br>
+менеджер контекста автоматически подтвердит изменения(commit) и закроет соединение с базой.<br>
 <i>with sq.connect("saper.db") as con:</i> - связь(создание) с файлом<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<i>cur = con.cursor()</i> - возвращает экземпляр класса 'Cursur'<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<i>cur.execute("""  """)</i><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<i>cur.execute("""query""")</i><br><br>
+
+другой способ через блок обработки исключений :<br>
+con = None<br>
+try: - соединение с базой<br>
+except sq.Error as e:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if con: con.rollback() - откатывает все изменения (перед загрузкой данных поставить ключевое слово BEGIN)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Ошибка выполнения запроса")<br>
+finally:
+&nbsp;&nbsp;&nbsp;&nbsp;if con: con.close()<br><br>
 
 <i>CREATE TABLE IF NOT EXISTS users (<br>
 user_id INTEGER PRIMARY KEY AUTOINCREMENT,<br>
 name TEXT NOT NULL,<br>
 age INTEGER NOT NULL DEFAULT 1)</i> - создать табл users (в текущем каталоге), если с таким именем нет; поле user_id (с уникальными значениями, увеличивается на 1), поле name (тип данных-строка, дополнительно -  не может быть пустым); поле age (тип данных-целочисленное, по умолчанию не 0, значение=1); REAL-вещественное; BLOB-двоичные<br>
+<i>rowid</i> - скрытое поле<br>
+<i>cur.lastrowid</i> - какой id был присвоен в последней операции<br>
+используем обратные кавычки, если название поля похоже на служебное слово.<br>
 <i>DROP TABLE IF EXISTS name</i> - удалить таблицу с именем name<br>
-<i>INSERT INTO user(name, gender, age, score) VALUES(Ivan, 1, 20, 1000)</i> - добавить в таблиццу; название полей (если все - можно не указывать; значения для ввода)<br>
-<i>SELECT name, age, score FROM users</i><br>
+<i>INSERT INTO users (name, gender, age, score) VALUES(Ivan, 1, 20, 1000)</i> - добавить в таблиццу; название полей (если все - можно не указывать; значения для ввода)<br>
+<i>SELECT name, age, score FROM users</i>; (SELECT *) - выбрать всё<br>
+<i>SELECT * FROM users WHERE score &lt; 1000</i> - выбрать всё где <i>score</i> &lt; 1000<br>
+<i>SELECT * FROM users WHERE score BETWEEN 500 AND 1000</i> - числа включены<br>
+<i>SELECT * FROM users WHERE name LIKE 'Ivan'</i><br>
+приоритет: NOT, AND, OR<br>
+<i>SELECT rowid,* FROM users</i> - показать поле rowid <br><br>
+
+<i>ORDER BY age</i> - сортировать по возростанию (ASC)<br>
+<i>ORDER BY age DESC</i> - сортировать по убыванию<br>
+<i>LIMIT max [OFFSET offset]</i> - выбрать столько строк [столько пропустить]<br>
+<i>LIMIT offset, max</i> - тоже через зпт<br>
+print(<i>cur.fetchall()</i>) - вывести результат (список кортежей)<br>
+<i>fetchmany(size), fetchone()</i> - вывести определённое кол-во, одну запись<br>
+или по строчно:<br>
+<i>for result in cur</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(result)<br>
+print(cur.rowcount) - кол-во строк в таблице<br><br>
+
+<b>Изменение, удаление записей</b><br>
+<i>UPDATE users SET score = score+500, age=30  WHERE rowid = 1</i> (WHERE name LIKE 'Ivan'; <i>'_'</i> - любой символ, <i>'%'</i> - любое продолжение строки )<br>
+<i>DELETE FROM users WHERE rowid IN(2,5)</i> - удалить записи 2 и 5<br><br>
+
+<b>Агрегирование и группировка GROUP BY</b><br>
+<i>SELECT count(user_id) FROM users WHERE user_id = 1</i> - кол-во строк с user_id = 1<br>
+<i>SELECT count(user_id) as count FROM users WHERE user_id = 1</i> - выбрать синоним (alias) для поля (чтобы не выводилось count(user_id))<br>
+<i>count(), sum(), avr(), min(), max()</i> - кол-во, сумма, среднее арифетическое, минимальное и максимальное значения.<br>
+<i>DISTINCT</i> - уникальные значения<br>
+<i>SELECT count(DISTINCT name) as names FROM users</i><br><br>
+
+<i>SELECT user_id, sum(score) as sum</i> - выбираем поле user_id, подсчитываем сумму очков для каждого игрока, название  для созданного поля sum<br>
+<i>FROM usrs</i><br>
+<i>CROUP BY user_id</i><br><br>
+
+<b>JOIN</b><br>
+<i>SELECT name, gender, games.score FROM games</i><br>
+<i>JOIN users ON games.user_id=users.rowid</i> - условие связывания: внешний ключ = первичному ключу<br>
+<i>LEFT JOIN</i> - возьмёт левую таблицу полностью и даже если нет соответствий  с правой.<br><br>
+
+<b>UNION</b> - объеденит толлько уникальные записи<br>
+<i>SELECT name1, name2 FROM table1</i><br>
+<i>UNION SELECT name3, name4 FROM table2</i><br><br>
+
+Загрузить данные из коллекции (список кортежей); колелекция cars; поля - id, model, price.<br>
+query = """INSERT INTO cars VALUES(NULL, ?, ?)"""<br>
+for car in cars:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cur.execute(query, car)<br><br>
+
+<i>cur.executemany(query, cars)</i> - метод перебирает коллекцию.<br><br>
+
+<i>query = """ UPDATE cars SET price = :Price WHERE model LIKE 'A%' """</i><br>
+<i>cur.execute(query, {Price: 0})</i> - использование именованого параметра; имя параметра Price; и словарь со значениями для моделей начинающихся с A<br><br>
+
+<i>query = """ DELETE FROM cars WHERE model LIKE 'A%';</i><br>
+<i>UPDATE cars SET price = price=1000"""</i><br>
+<i>cur.executescript(query)</i> - выполнить несколько команд (удалить все модели начинающиеся с А а у остальных добавить 1000 к ценнику); с этим методом не используются шаблоны.<br><br>
   </section>
       </aside>
     </div>
-  </div>  
+  </div>
 </body>
 </html>

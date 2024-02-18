@@ -781,6 +781,8 @@ print(sity.json['lat'], sity.json['lng'])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<i>cur = con.cursor()</i> - возвращает экземпляр класса 'Cursur'<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<i>cur.execute("""query""")</i><br><br>
 
+<i>con.row_factory = sq.Row</i> - если добавить эту строчку вывод будет в виде словаря.<br><br>
+
 другой способ через блок обработки исключений :<br>
 con = None<br>
 try: - соединение с базой<br>
@@ -793,18 +795,32 @@ finally:
 <i>CREATE TABLE IF NOT EXISTS users (<br>
 user_id INTEGER PRIMARY KEY AUTOINCREMENT,<br>
 name TEXT NOT NULL,<br>
-age INTEGER NOT NULL DEFAULT 1)</i> - создать табл users (в текущем каталоге), если с таким именем нет; поле user_id (с уникальными значениями, увеличивается на 1), поле name (тип данных-строка, дополнительно -  не может быть пустым); поле age (тип данных-целочисленное, по умолчанию не 0, значение=1); REAL-вещественное; BLOB-двоичные<br>
+age INTEGER NOT NULL DEFAULT 1)</i> - создать табл users (в текущем каталоге), если с таким именем нет; поле user_id (с уникальными значениями, увеличивается на 1), поле name (тип данных-строка, дополнительно -  не может быть пустым); поле age (тип данных-целочисленное, по умолчанию не 0, значение=1); REAL-вещественное; BLOB-двоичные; UNIQUE, DEFAULT, NOT NULL, CHECK (age > 0 AND age &lt; 100)<br>
 <i>rowid</i> - скрытое поле<br>
 <i>cur.lastrowid</i> - какой id был присвоен в последней операции<br>
 используем обратные кавычки, если название поля похоже на служебное слово.<br>
-<i>DROP TABLE IF EXISTS name</i> - удалить таблицу с именем name<br>
+<i>DROP TABLE IF EXISTS name</i> - удалить таблицу с именем name<br><br>
+
+<b>внесение, изменение, удаление записей</b><br>
 <i>INSERT INTO users (name, gender, age, score) VALUES(Ivan, 1, 20, 1000)</i> - добавить в таблиццу; название полей (если все - можно не указывать; значения для ввода)<br>
-<i>SELECT name, age, score FROM users</i>; (SELECT *) - выбрать всё<br>
-<i>SELECT * FROM users WHERE score &lt; 1000</i> - выбрать всё где <i>score</i> &lt; 1000<br>
-<i>SELECT * FROM users WHERE score BETWEEN 500 AND 1000</i> - числа включены<br>
-<i>SELECT * FROM users WHERE name LIKE 'Ivan'</i><br>
-приоритет: NOT, AND, OR<br>
-<i>SELECT rowid,* FROM users</i> - показать поле rowid <br><br>
+<i>INSERT INTO users DEFAULT VALUES;</i> - столбцы, для которых определены значения  по умолчанию и нет NOT NULL, получат эти значения; остальные NULL<br>
+<i>INSERT INTO users (name, age) VALUES</i><br>
+<i>('Tom', 37), ('Bob', 34)</i> - добавить две строки<br>
+Загрузить данные из коллекции (список кортежей); колелекция cars; поля - id INTEGER PRIMARY KEY AUTOINCREMENT, model, price.<br>
+query = """INSERT INTO cars VALUES(NULL, ?, ?)"""<br>
+for car in cars:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cur.execute(query, car)<br><br>
+
+<i>cur.executemany(query, cars)</i> - метод перебирает коллекцию.<br><br>
+
+<i>query = """ UPDATE cars SET price = :Price WHERE model LIKE 'A%' """</i><br>
+<i>cur.execute(query, {Price: 0})</i> - использование именованого параметра; имя параметра Price; и словарь со значениями для моделей начинающихся с A<br><br>
+
+<i>query = """ DELETE FROM cars WHERE model LIKE 'A%';</i><br>
+<i>UPDATE cars SET price = price=1000"""</i><br>
+<i>cur.executescript(query)</i> - выполнить несколько команд (удалить все модели начинающиеся с 'А', а у остальных добавить 1000 к ценнику); с этим методом не используются шаблоны.<br><br>
+<i>UPDATE users SET score = score+500, age=30  WHERE rowid = 1</i> (WHERE name LIKE 'Ivan'; <i>'_'</i> - любой символ, <i>'%'</i> - любое продолжение строки )<br>
+<i>DELETE FROM users WHERE rowid IN(2,5)</i> - удалить записи 2 и 5<br><br>
 
 <i>ORDER BY age</i> - сортировать по возростанию (ASC)<br>
 <i>ORDER BY age DESC</i> - сортировать по убыванию<br>
@@ -817,9 +833,20 @@ print(<i>cur.fetchall()</i>) - вывести результат (список �
 &nbsp;&nbsp;&nbsp;&nbsp;print(result)<br>
 print(cur.rowcount) - кол-во строк в таблице<br><br>
 
-<b>Изменение, удаление записей</b><br>
-<i>UPDATE users SET score = score+500, age=30  WHERE rowid = 1</i> (WHERE name LIKE 'Ivan'; <i>'_'</i> - любой символ, <i>'%'</i> - любое продолжение строки )<br>
-<i>DELETE FROM users WHERE rowid IN(2,5)</i> - удалить записи 2 и 5<br><br>
+<b>изменение таблицы</b><br>
+<i>ALTER TABLE users RENAME TO people</i> - переименовать таблицу<br>
+<i>ALTER TABLE users ADD COLUMN email  TEXT NOT NULL</i> - добавим столбец с ограничением<br>
+<i>ALTER TABLE users RENAME COLUMN email TO login</i><br>
+<i>ALTER TABLE users DROP COLUMN login</i><br><br>
+
+<b>фильтрация данных. WHERE</b><br>
+<i>SELECT name, age, score FROM users</i>; (SELECT *) - выбрать всё<br>
+<i>SELECT * FROM users WHERE score &lt; 1000</i> - выбрать всё где <i>score</i> &lt; 1000<br>
+<i>SELECT * FROM users WHERE score BETWEEN 500 AND 1000</i> - числа включены<br>
+<i>SELECT * FROM users WHERE name LIKE 'Ivan'</i><br>
+приоритет: NOT, AND, OR<br>
+<i>SELECT name, prod_count * price AS total_sum FROM products</i> - в таблице есть три поля; выбрать поле name и поле, которое будет содержать  произведение двух других полей с новым названием<br>
+<i>SELECT rowid,* FROM users</i> - показать поле rowid <br><br>
 
 <b>Агрегирование и группировка GROUP BY</b><br>
 <i>SELECT count(user_id) FROM users WHERE user_id = 1</i> - кол-во строк с user_id = 1<br>
@@ -841,19 +868,88 @@ print(cur.rowcount) - кол-во строк в таблице<br><br>
 <i>SELECT name1, name2 FROM table1</i><br>
 <i>UNION SELECT name3, name4 FROM table2</i><br><br>
 
-Загрузить данные из коллекции (список кортежей); колелекция cars; поля - id, model, price.<br>
-query = """INSERT INTO cars VALUES(NULL, ?, ?)"""<br>
-for car in cars:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;cur.execute(query, car)<br><br>
+<b>загрузка картинок в таблицу</b> (кактинки в папке 'avas'; 1.png, 2.png...; в созданной таблице user_img поля id, name, ava BLOB)<br>
+<i>def readAva(n):</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<i>try:</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>with open(f"avas/{n}.png", 'rb') as f:</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>return f.read()</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<i>except IDError as e:</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>print(e)</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>return False</i><br><br>
 
-<i>cur.executemany(query, cars)</i> - метод перебирает коллекцию.<br><br>
+<i>img = readAva(1)</i><br>
+<i>if img:</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<i>binary = sq.Binary(img)</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<i>query = """INSERT INTO users VALUES (NULL, 'Joe', ?)"""</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<i>cur.execute(qyery, (binary,))</i><br><br>
 
-<i>query = """ UPDATE cars SET price = :Price WHERE model LIKE 'A%' """</i><br>
-<i>cur.execute(query, {Price: 0})</i> - использование именованого параметра; имя параметра Price; и словарь со значениями для моделей начинающихся с A<br><br>
+<b>сохранение картинки из таблицы в cwd</b><br>
+<i>def writeAva(name, data):</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<i>try:</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>with open(name, 'wb') as f:</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>f.write(data)</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<i>except IDError as e:</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>print(e)</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>return False</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;return True<br><br>
 
-<i>query = """ DELETE FROM cars WHERE model LIKE 'A%';</i><br>
-<i>UPDATE cars SET price = price=1000"""</i><br>
-<i>cur.executescript(query)</i> - выполнить несколько команд (удалить все модели начинающиеся с А а у остальных добавить 1000 к ценнику); с этим методом не используются шаблоны.<br><br>
+(db.row_factory = sq.Row) - добавим метод, чтобы вызывать название поля как ключ словаря<br>
+<i>cur.execute("""SELECT ava FROM user_img LIMIT 1""")</i><br>
+<i>img = cur.fetchone()['ava']</i><br>
+<i>writeAva("name.png", img)</i> - записали изображение в cwd  как 'name.png'<br><br>
+
+<b>Дата и время</b><br>
+<i>SELECT</i><br>
+<i>date(time-value, modifier, modifier,..) AS date</i>,<br>
+<i>time() AS time</i>,<br>
+<i>datetime() AS datetime,</i><br>
+<i>datetime(1092941466),</i> - дней с начала юлианской эпохи (INTEGER или REAL)<br>
+<i>julianday() AS julian,</i> - дней с начала юлианского периода (24 ноября 4714 до н.э.)<br>
+<i>strftime(format, time-valum, modifier, modifier..)</i><br><br>
+
+Если не передаются параметры (или стоит 'now'), то они возвращают текущие дату и время.<br>
+<i>YYYY-MM-DD HH:MM:SS.SSS</i> - параметр time-value, может между датой и временем быть разделитель 'T'<br>
+модификаторы:<br>
+<i>SELECT date('now', '-2 days', '1 months', '3 hours', '35 miutes', '-45.1 seconds', '11 years'),</i> - к текущей дате прибавить месяц, отныть 2 дня..<br>
+<i>'start of month', 'start of year', 'start of day'</i> - вернуть в начало месяца, года, дня<br>
+<i>'weekday 0', 'weekday 1'..</i> - сдвинуть на воскр, понедельник..<br>
+<i>unixepch</i> - возвращает кол-во секунд с эпохи  UNIX (только с форматом 'DDDDDDDDDD')<br>
+<i>localtime</i> - местное время<br>
+<i>uts</i> - UTC<br><br>
+<i>Форматирование дат и времени</i>
+<table>
+  <tr><td>%d</td><td> - день месяца в формате 00</td></tr>
+  <tr><td>%f</td><td> - секунды в формате  SS.SSS</td></tr>
+  <tr><td>%H</td><td> - час в формате 00-24</td></tr>
+  <tr><td>%j</td><td> - день года в формате 001-366</td></tr>
+  <tr><td>%J</td><td> - дней с начала юдианской эпохи</td></tr>
+  <tr><td>%m</td><td> - месяц в формате 01-12</td></tr>
+  <tr><td>%M</td><td> - минута в формате 00-59</td></tr>
+  <tr><td>%s</td><td> - секунд с 1970-01-01</td></tr>
+  <tr><td>%S</td><td> - секунды в формате 00-59</td></tr>
+  <tr><td>%w</td><td> - день недели в формате 0-6 (0 - вск)</td></tr>
+  <tr><td>%W</td><td> - номер недели года в формате 00-53</td></tr>
+  <tr><td>%Y</td><td> - год в формате 0000-9999</td></tr>
+  <tr><td>%%</td><td> - экранирует символ '%'</td></tr>
+</table>
+<i>SELECT strftime('%d.%m.%Y', '2021-12-01');</i> - 01.12.2021<br><br>
+
+сохранять дату можно с типом TEXT,<br>
+или с типом  REAL - тогда будет сохранено кол-во дней с начала юлианской эпохи.<br>
+<i>SELECT date_time,  datetime(date_time) FROM users</i> - поле date_time сохранено с типом REAL, второе поле возвращает обычную дату<br><br>
+
+<b>Создание бэкапа БД</b><br>
+открываем  БД; записываем её в файл 'sql_damp.sql'<br>
+with sq.connect("cars.db") as con:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cur = con.cursor()<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;with open('sql_damp.sql', 'w') as f:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for sql in con.iterdump():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f.write(sql)<br><br>
+
+Для восстановления БД открываем файл 'sql_damp.sql' для чтения; и запускаем executescript()<br>
+sql = f.read()<br>
+cur.executescript(sql)<br>
   </section>
       </aside>
     </div>

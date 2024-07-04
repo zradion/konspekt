@@ -21,7 +21,12 @@
             <li><a href="./web_scraping.html">Web scraping</a></li>
             <li><a href="./flask.html">Flask</a></li>
             <li><a href="./django.html">Django</a></li>
-            <li>Искуственный интелект</li>
+            <li>Искуственный интелект
+              <ul>
+                <li><a href="./gym.html">Gym</a></li>
+                <li><a href="./ml.html">ML</a></li>
+                <li><a href="./nlp.html">NLP</a></li>
+              </ul>
           </ul>
         </li>
         <li>
@@ -83,6 +88,8 @@ with open(file, mode, encoding="utf8") as myfile:<br>
 
 <i>dir(Path)</i> - все методы.<br>
 <i>p = Path("C:/Users/Al/spam.txt")</i><br>
+BASE_DIR = Path(__file__).resolve().parent.parent - абсолютный путь к файлу и вернуться на два шага назад<br>
+TAMPLATES_DIR = BASE_DIR.joinpath('tamplates') - добавить к пути<br>
 Path.cwd() - текущая рабочая папка (current working directory)<br>
 Path('spam', 'bacon', 'eggs') ..WindowsPath('spam/bacon/eggs') - объект<br>
 str(Path(r'E:/spam') / 'bacon' / 'eggs') .. 'E:\\spam\\bacon\\eggs'<br><br>
@@ -94,12 +101,12 @@ p = Path.home(); print(p) .. C:\Users\zradi<br><br>
 for file in [list_of_files]:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;print(Path(p, file)) .. абсолюный путь до файла.<br><br>
 
-if not p.exist():<br>
-&nbsp;&nbsp;&nbsp;&nbsp; Path(r"E:/waffles").mkdir() - создать папку, если такой нет<br><br>
-
 p = p / 'hello.txt' - сохранили в p путь до текстового файла (или создали его)<br>
 <i>p.write_text('Hello') </i>- записали в файл слово; вернёт кол-во знаков<br>
 <i>p.read_text()</i> .. 'Hello'<br><br>
+
+with open(p, mode='wt') as config:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;config.write('text here') - контекстный менеджер<br><br>
 
 <i>p.anchor</i> .."C:\\"<br>
 <i>p.parent</i> ..WindowsPath(("C:/Users/Al")) - объект<br>
@@ -121,7 +128,30 @@ for file in list(p.glob('*.py')):<br>
 
 <i>p.exists()</i> - Этот файл существует?<br>
 <i>p.is_file()</i> - Это файл?<br>
-<i>p.is_dir()</i> - Это папка?<br>
+<i>p.is_dir()</i> - Это папка?<br><br>
+
+dir_path = Path('new_dir')<br>
+dir_path.<b>mkdir(exists_ok=True)</b> - создаём папку (если уже существует - не вызовет искл.)<br>
+if dir_path.exists() and dir_path.is_dir():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dir_path.<b>rmdir()</b> - удалить папку<br>
+if file_path.exists() and file_path.is_file():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;file_path.<b>unlink()</b> - удалить файл<br>
+old_file_path.<b>rename</b>(new_file_path) - переименовать файл или папку<br><br>
+
+<i>Переименовать файлы</i><br>
+import os, shutil, re<br>
+from pathlib import Path<br>
+med = r'C:/Users/zradi/Documents/my_doc/my_med'<br>
+pattern1 = r'(\d{4})_(\d{2})_(\d{2})_(.*)'<br>
+pattern2 = r'\1-\2-\3_\4'<br><br>
+
+for folder, subfolder, filenames in os.walk(med):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;    for file in filenames:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        if re.search(pattern1, file):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;old_name = Path(folder)/re.search(pattern1, file)[0]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_name = Path(folder)/re.sub(pattern1, pattern2, file)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shutil.move(old_name, new_name)<br>
+
     </section>
 
     <section id="s3">

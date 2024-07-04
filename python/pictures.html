@@ -22,7 +22,12 @@
 						<li><a href="./web_scraping.html">Web scraping</a></li>
 						<li><a href="./flask.html">Flask</a></li>
 						<li><a href="./django.html">Django</a></li>
-						<li>Искуственный интелект</li>
+            <li>Искуственный интелект
+              <ul>
+                <li><a href="./gym.html">Gym</a></li>
+                <li><a href="./ml.html">ML</a></li>
+                <li><a href="./nlp.html">NLP</a></li>
+              </ul>
 					</ul>
 				</li>
 				<li>
@@ -311,13 +316,14 @@ cv2.destroyAllWindows()<br>
     </section>
  
     <section id="s3"><h3 align="center">Matplotlib</h3>
-<i>pip install matplotlib</i> <b>import numpy as np<br>
+<i>pip install matplotlib</i><br>
+<b>import numpy as np<br>
 import matplotlib.pyplot as plt<br>
 %matplotlib inline - для Juputer</b>
 
 <p><a href="https://www.youtube.com/watch?v=clDQPyQJ-hc&list=PLA0M1Bcd0w8xQx-X5a6eSEOYULNSnHN_p" target="_blank" rel="noopener" >Matplotlib (YouTube/sefedu)</a>; <a href="https://devpractice.ru/files/books/python/Matplotlib.book.pdf" target="_blank" rel="noopener" >Matplotlib (pdf)</a></p>
 Воснове объект Figure; в нём объекты Axes, Y axis label, X axis label, Grid, Legend и др.<br>
-типы графиков - Линейный (plot), Ступенчатый (step), Стековый (stackplot), stem-график, Точечный (scatter), Гистокрамма (hist), Столбчатые диаграммы (bar, barh), Круговые (pie), Изображения (imshow), Цветовые (pcolormesh), 3D (plot_surface), Линии уровня (contour)<br><br>
+типы графиков - Линейный (plot), Ступенчатый (step), Стековый (stackplot), stem-график, Точечный (scatter), Гистограмма (hist), Столбчатые диаграммы (bar, barh), Круговые (pie), Изображения (imshow), Цветовые (pcolormesh), 3D (plot_surface), Линии уровня (contour)<br><br>
 
 <i>Простой вариант через plt. Задать названия окну, осям (менять шрифт), создать графики (вид линии, цвет, толщина, вид точек, их заполнение, подпись легенд, на графике, LaTex, значения на осях)</i><br><br>
 
@@ -483,6 +489,7 @@ img1 = cv2.resize(img, (500,500))<br><br>
 plt.imshow(x_train[1],cmap=plt.cm.binary)<br>
 plt.show() изображение 28х28 пикселей представлено бинарно<br><br>
 
+plt.xticks(rotation='vertical')- метки по оси Х
     </section>
 
     <section id="s4"><h3 align="center">Seaborn</h3>

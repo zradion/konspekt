@@ -427,7 +427,7 @@ sorted(mySeries) - список отсортированых значений (l
 .index, .dype<br><br>
 
 s = pd.Series(range(50)); s[3:40:3] - срез от 3 до 39 шаг 3(-3 обратный счёт)<br>
-s.loc[[2,3]] - выбор двух строк; срез вкл оба знач; s.iloc[5:2:-1]<br>
+s.loc[[2,3]] - выбор двух строк; срез вкл оба знач; s.iloc[5:2:-1]<br><br>
 
 <i>df = pd.DataFrame(data, columns=[list], index=[list])</i><br> 
 ..&lt;class 'pandas.core.frame.DataFrame'></class><br><br>
@@ -446,7 +446,7 @@ df = pd.read_csv(path, index_col='date', sep=';') - индексами сдел�
    sep- разделитель, header=None, skiprow=[0,1,3], usecols=None, nrows = None - кол-во строк, encoding='1251', na_values = ['NA', 'Missing'] (заменить значения на пустые)<br>
 d_parser = lambda x: pd.datetime.strptime(x, '%Y-%m-%d %I-%p')<br>
 df = pd.read_csv(path, parse_dates=['date'], date_parser=d_parser) - 'date' - Dtype - datetime64[ns]
-    (index_col='date', parse_dates=True)<br>
+    (index_col='date', parse_dates=True); index_col=0 (первый столбец без имени станет индексами)<br>
 df = pd.read_csv(path, usecols=[], nrows=100) - выбрать колонки и кол-во строк/вывода<br>
 custom_datetime = lambda x: datetime.strptime(x, '%d%m%Y %H:%M:%S')<br>
 df = pd.read_csv('тест2.csv', parse_dates=['date'], parse_dates=True,date_parser=custom_datetime)<br>
@@ -514,6 +514,7 @@ df['name_columns'], df.name_columns - колонка Series<br>
 df[2:4] - сокращённое две строки df<br><br>
 
 <b>Индексы</b><br>
+df.index.dtype - тип данных<br>
 df.reset_index(inplace=True) - индексы стали первым столбцом<br>
 df.reset_index(drop=True, inplace=True)- переустановить индексы<br>
 df.set_index('month', inplace=True) - столбец 'month' стал индексами<br>
@@ -525,7 +526,8 @@ df.index[df.svechi == 206795]  - индекс значения 206795<br>
 df.sort_index(axis=0, inplace=True)<br>
 df.rename(index={'old': 'new'}, inplace=True)<br>
 df.index = [список новых индексов]<br>
-df.index.names = ['month'] - переименовали колонку с индексами<br><br>
+df.index.names = ['month'] - переименовали колонку с индексами<br>
+df.rename_axis('manth', axis='rows') <br><br>
 
 <b>Столбец</b><br>
 df = pd.read_csv(path, names=[list], skiprows=[0])- поменяли заголовки,
@@ -552,6 +554,10 @@ df.drop(['name_column'], axsis=1, inplace=True)         - удалить сто�
 df = df.drop(['name1_column', 'name2_column'], axis=1)  - удалить столбецы<br>
 df.pop('name_column')                                   - удалить столбец<br>
 df = df[['column1', 'column3']] - выбрать нужные столбцы<br><br>
+
+df[pd.isnull(df.country)] - df в котором название стран пропущено<br>
+df.country.fillna('Unknown') - заменить пропущенные значения на 'Unknown'<br>
+df.name.replace('Bob', 'Dan') - заменить имя в колонке<br><br>
 
 df.groupby('Cluster').mean() - сгрупировали по столбцу Cluster и посчитали
   среднее значение<br>
@@ -664,7 +670,7 @@ suffixes=('_x', '_y'), copy=True, indicator=False, validate=None) <br>
 df1.merge(df2, left_on='A', right_on='A1', how='inner')- из левого фрэйма 'A' \
 <br><br>
 
-<b>Concatenate</b><br>
+<b>Concatenate</b> - исаользуем, когда фрэймы имеют одинаковые поля<br>
 pandas.concat(objs, axis=0, join='outer', join_axes=None, ignore_index=False, \
 keys=None, levels=None, names=None, verify_integrity=False, sort=None, \
 copy=True)<br>
@@ -690,7 +696,11 @@ df_marks = pd.DataFrame(mydict)<br>
 mean = df_marks.mean() ... среднее знач. по каждой колонке<br>
 mean = df_marks.mean().mean() ... по всем колонкам<br>
 mean = df_marks.mean(axis=1) ... по строкам<br>
-print(pd.concat([df_marks['names'], mean], axis=1)) - столбецы 'name' + 'mean'<br>
+print(pd.concat([df_marks['names'], mean], axis=1)) - столбецы 'name' + 'mean'<br><br>
+
+масимальное вычисленное значение соответсвует названию:<br>
+bargain_idx = (reviews.points / reviews.price).idxmax()<br>
+bargain_wine = reviews.loc[bargain_idx, 'title']<br><br>
 
 extr = df['name_column'].str.extract(r"^(\d{4})", flag=0, expand=False)
    выбрали необходимое с помощью рег.выраж.<br><br>
@@ -703,14 +713,14 @@ df = pd.DataFrame(np.random.rand(100000,2), columns=['a','b']) - тестовы�
 df.describe()<br>
 fin=[] - сумма а и b<br>
 for i,row in df.iterrows():<br>
-    fin.append(row['a'] + row['b']) - медленно<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fin.append(row['a'] + row['b']) - медленно<br>
 for i in range(len(df)):<br>
-    fin.append(df['a'].loc[i]+df['b'].loc[i])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fin.append(df['a'].loc[i]+df['b'].loc[i])<br>
 for i in range(len(df)):<br>
-    fin.append(df['a'].iloc[i]+df['b'].iloc[i])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fin.append(df['a'].iloc[i]+df['b'].iloc[i])<br>
 df.apply(lambda row: row['a']+row['b'], axis=1).to_list()<br>
 for row in df.itertuples():<br>
-    fin.append(row[1]+row[2])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fin.append(row[1]+row[2])<br>
 %timeit [a+b for a,b in zip(df['a'],df['b'])]<br>
 (df['a'] + df['b']).to_list()<br>
 %timeit (df['a'].values + df['b'].values).tolist() - быстро<br><br>
@@ -724,8 +734,11 @@ contry_grp['SocialMedia'].value_counts().loc['India'] - посчитать ск�
 
 Поле по которому объеденяются фрэймы уходит в индекс;
 column1_g = df.groupby('column1')['column2'].max() - для сводных таблиц; 1колонка - для которой формируем данные (или список колонок); 2колонка из которой берутся данные; и агрегативная ф-ция (count(), mean(), sum(), nunique(), min(), max())<br>
-fst_pay = df_pay.groupby(['user', 'geo'])['pay_date'].min().reset_index() - группируем по двум столбцам и расчитываем дату первой оплаты, сбрасываем индекс.<br>
+fst_pay = df_pay.groupby(['user', 'geo'])['pay_date'].min().reset_index() - группируем по двум столбцам и расчитываем дату первой оплаты, сбрасываем индекс.(.sort_index(ascending=True) - сортировать индекс)<br>
 fst_pay = fst_pay.reset_index() можно отдельно<br><br>
+
+кол-во строк в каждой группе<br><br>
+reviews_written = reviews.groupby('taster_twitter_handle').size()<br><br>
 
 Для грипировки по датам - колонка в формате datetime<br>
 df['column'].groupby(df['date'].dt.month).nunique() - по месяцам(дням, годам)<br>
@@ -810,6 +823,21 @@ df['education_lv'].replace('prymary school', 'school') - для всех нео�
 d = dict(primary='school', high='school')<br>
 df['education_lv'].map(d)<br><br>
 
+n_trop = reviews.description.map(lambda desc: "tropical" in desc).sum() - в колонке 'description' посчитали количество слов 'tropical'<br><br>
+
+<i>Создать Series по условию из колонок 'country' and ' 'points'</i><br>
+def stars(row):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if row.country == 'Canada':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 3<br>
+&nbsp;&nbsp;&nbsp;&nbsp;elif row.points >= 95:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 3<br>
+&nbsp;&nbsp;&nbsp;&nbsp;elif row.points >= 85:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 1<br><br>
+
+star_ratings = reviews.apply(stars, axis='columns')<br><br>
+
 <i>Фильтрация по квантилю</i><br>
 q = df.city_index.quantile(0.25) - 25% значений в этой колонке имеют значение q<br><br>
 
@@ -826,6 +854,9 @@ kind=[plot, area, bar, barh, box, hexbin, hist, kde, density, line, pie, scatter
 rot=15 - развернуть названия на 15 градусовf<br>
 df.groupby('education', dropna=False)['target'].mean().plot(kind='bar') - столбчатая диаграмма зависимость от образования<br>
 plt.hist(df.Age), plt.show() - гистограмма показывает сколько записей на каждый возраст<br><br>
+
+bargain_idx = (reviews.points / reviews.price).idxmax() - максимальное знач балов к цене (индекс)<br>
+bargain_wine = reviews.loc[bargain_idx, 'title'] - по индексу -название вина<br><br>
 
 <i>Игрушечные данные</i><br>
 t = pd.DataFrame(dict(col1=[1,2,3,float('nan')],<br>

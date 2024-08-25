@@ -90,6 +90,10 @@ img.format .. 'JPEG'<br>
 img.size .. (1920, 1273) - width, height<br>
 img.mode .. 'RGB'<br><br>
 
+if img.mode in ['RGBA', 'P']:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;img.convert('RGB')<br><br>
+
+
 img_cropped = img.crop((300,150,700,1000)) - верхн.левая и нижняя правая точки (обрезаное изображение).<br>
 img_copy = img.copy() - копия.<br>
 img_copy.paste(img_new, (0,0)) - вставить новое изображение, координата верхнего левого угла (не создаёт нового файла).<br>

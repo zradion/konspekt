@@ -24,9 +24,9 @@
 						<li><a href="./django.html">Django</a></li>
             <li>Искуственный интелект
               <ul>
-                <li><a href="./gym.html">Gym</a></li>
                 <li><a href="./ml.html">ML</a></li>
                 <li><a href="./nlp.html">NLP</a></li>
+                <li><a href="./gym.html">Gym</a></li>
               </ul>
 					</ul>
 				</li>
@@ -43,9 +43,9 @@
 					<span>Books</span>
 					<ul class="sub_menu_list">
 						<li><a href="../books/english.html">Books in English</a></li>
-						<li><a href="../subjects/math.html">Математика</a></li>
-						<li><a href="../subjects/environment.html">Окружение</a></li>
-						<li><a href="">Справочники</a></li>
+						<li><a href="../books/math.html">Математика</a></li>
+						<li><a href="../books/environment.html">Окружение</a></li>
+						<li><a href="../books/digest.html">Справочники</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -497,7 +497,67 @@ plt.xticks(rotation='vertical')- метки по оси Х
     </section>
 
     <section id="s4"><h3 align="center">Seaborn</h3>
-        <b>import seaborn as sns</b>
+<b>import seaborn as sns</b><br>
+pd.plotting.register_matplotlib_converters()<br>
+import matplotlib.pyplot as plt<br>
+%matplotlib inline<br><br>
+
+<i>Trends</i> - A trend is defined as a pattern of change.<br>
+sns.lineplot - Line charts are best to show trends over a period of time, and multiple lines can be used to show trends in more than one group.<br><br>
+
+<i>Relationship</i> - There are many different chart types that you can use to understand relationships between variables in your data.<br>
+sns.barplot - Bar charts are useful for comparing quantities corresponding to different groups.<br>
+sns.heatmap - Heatmaps can be used to find color-coded patterns in tables of numbers.<br>
+sns.scatterplot - Scatter plots show the relationship between two continuous variables; if color-coded, we can also show the relationship with a third categorical variable.<br>
+sns.regplot - Including a regression line in the scatter plot makes it easier to see any linear relationship between two variables.<br>
+sns.lmplot - This command is useful for drawing multiple regression lines, if the scatter plot contains multiple, color-coded groups.<br>
+sns.swarmplot - Categorical scatter plots show the relationship between a continuous variable and a categorical variable.<br><br>
+
+<i>Distribution</i> - We visualize distributions to show the possible values that we can expect to see in a variable, along with how likely they are.<br>
+sns.histplot - Histograms show the distribution of a single numerical variable.<br>
+sns.kdeplot - KDE plots (or 2D KDE plots) show an estimated, smooth distribution of a single numerical variable (or two numerical variables).<br>
+sns.jointplot - This command is useful for simultaneously displaying a 2D KDE plot with the corresponding KDE plots for each individual variable.<br><br>
+
+plt.figure(figsize=(14,6)) - width and height of the figure (in inches)<br>
+plt.title('Name') - title<br>
+plt.xlabel('Date') - label for gorisontal axis<br>
+plt.show()<br><br>
+
+<i>Line charts</i> - подходят для отображения тенденций за определённое время в одной и больше групп<br>
+sns.lineplot(data=spotyfy_data) - <i>line chart</i> линейный график, все солбцы(data=df)<br>
+sns.lineplot(data=spotyfy_data['Sape of you'], label='Sape of you')<br><br>
+
+<i>Bar charts</i><br>
+sns.barplot(x=flight_data.index, y=flight_data['NK'])<br>
+plt.ylabel('Arrival delay (in minutes)')<br><br>
+
+<i>Heatmaps</i><br>
+sns.heatmap(data=flight_data, annot=True) - df с окрашеными ячейками<br>
+annot=True - значения тоже будут отображаться на графике<br><br>
+
+Body Mass Index(<i>BMI</i>) = kg/m<sup>2</sup><br><br>
+
+<i>Scatter plots</i> - отношения между двумя непрерывными переменными, а с добавлением цвета отношения с третьей категориальной переменной<br>
+sns.scatterplot(x=insurance_data['bmi'], y=insurance_data['charges'], hue=insurance_data['smoker'])- индекс веса и роста, стоимость страховки, разделить цветами курящих и некурящих.<br>
+sns.regplot(x=insurance_data['bmi'], y=insurance_data['charges']) - добавить линии регрессии (regression line)<br>
+
+sns.lmplot(x="bmi", y="charges", hue="smoker", data=insurance_data) - добавить две линии регрессии для курильщиков и некурильщиков (аргументы вводятся иначе)<br>
+sns.swarmplot(x=insurance_data['smoker'], y=insurance_data['charges']) - график показывает по категориям сколько платят курилщ. и некурулщ<br><br>
+
+<i>Histograms</i><br>
+sns.histplot(iris_data['Petal Length (cm)']) - кол-во записей на размер листика<br>
+sns.histplot(data=iris_data, x='Petal Length (cm)', hue='Species') -  в одном графике три гистограммы на каждый вид (разными цветами и с легендой)<br><br>
+
+<i>Density plots</i> - график плотности<br>
+<i>KDE</i> - kernel density estimate (оценка плотности ядра)<br>
+sns.kdeplot(data=iris_data['Petal Length (cm)'], fill=True) - примрно тоже, только вместо кол-ва - плотность<br>
+<i>2D KDE plot</i><br>
+sns.jointplot(x=iris_data['Petal Length (cm)'], y=iris_data['Sepal Width (cm)'], kind="kde")<br>
+sns.kdeplot(data=iris_data, x='Petal Length (cm)', hue='Species', shade=True) - kde для всех видов (три)<br><br>
+
+<i>Styles</i><br>
+sns.set_style('whitegrid'); (darkgrid, white, dark, ticks)<br><br>
+
 
     </section>
 

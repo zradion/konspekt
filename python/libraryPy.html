@@ -23,9 +23,9 @@
             <li><a href="./django.html">Django</a></li>
             <li>Искуственный интелект
               <ul>
-                <li><a href="./gym.html">Gym</a></li>
                 <li><a href="./ml.html">ML</a></li>
                 <li><a href="./nlp.html">NLP</a></li>
+                <li><a href="./gym.html">Gym</a></li>
               </ul>
           </ul>
         </li>
@@ -429,6 +429,12 @@ sorted(mySeries) - список отсортированых значений (l
 s = pd.Series(range(50)); s[3:40:3] - срез от 3 до 39 шаг 3(-3 обратный счёт)<br>
 s.loc[[2,3]] - выбор двух строк; срез вкл оба знач; s.iloc[5:2:-1]<br><br>
 
+df.dtypes; df.Name.dtype<br>
+float   -           (float64)<br>
+int     -             (int64)<br>
+datetime-    (datetime64[ns])<br>
+string  -            (object)<br><br>
+
 <i>df = pd.DataFrame(data, columns=[list], index=[list])</i><br> 
 ..&lt;class 'pandas.core.frame.DataFrame'></class><br><br>
 
@@ -557,6 +563,8 @@ df = df[['column1', 'column3']] - выбрать нужные столбцы<br>
 
 df[pd.isnull(df.country)] - df в котором название стран пропущено<br>
 df.country.fillna('Unknown') - заменить пропущенные значения на 'Unknown'<br>
+.fillna(dict(name=value))<br>
+df.country.mode()[0] - самое частое<br>
 df.name.replace('Bob', 'Dan') - заменить имя в колонке<br><br>
 
 df.groupby('Cluster').mean() - сгрупировали по столбцу Cluster и посчитали
@@ -568,6 +576,8 @@ df.loc[df.Name == 'Bob', 'Name'] = 'Kat' - в столбце Name заменил
 room3 = df.room3<br>
 room3.loc[room3 > 100] - в столбце room3 значения больше 100<br><br>
 
+result_df.date = result_df.date.apply(lambda i: i[:10]) - сохранить только 10 знаков<br><br>
+
 <b>Строки</b><br>
 df.loc['May'] = [list] - изменить/создать строку с индексом 'May'<br>
 df.loc[len(df)]; df.iloc[-1] - последняя строка<br>
@@ -577,6 +587,8 @@ df.append(pd.Series(['bar', 4], index=['A', 'B'], ignor_index=True))<br>
 df = df.drop(1, axis=0) - удалить первую строку<br>
 df.drop('name_index',axis=0, inplace=True) - удалить строку<br>
 df.drop(df.tail(1).index, inplace=True) - удалить последнюю строку<br><br>
+
+df1 = df[:-n] - удалить n строк<br><br>
 
 line = pd.DataFrame({dict}, index=[3]) - вставить строку<br>
 df2 = concat([df.iloc[:2], line, df.liloc[3:]].reset_index(drop=True))<br>
@@ -594,7 +606,9 @@ ascending - по возрастанию<br>
 kind= [quicksort, mergesort, heapsort]<br>
 key = любая ф-ция<br>
 df.sort_values(by=['date', 'start'], ascending=[True, False], inplace=True)<br><br>
- 
+
+abr_df.sort_values(by=['type', 'vol'], inplace=True, key=lambda col: col.str.lower())<br><br>
+
 df = pd.concat([df1, dff2], ignore_index=True) - индексы(цифры) переустановить<br>
  
 set_option<br>
@@ -857,6 +871,8 @@ plt.hist(df.Age), plt.show() - гистограмма показывает ск�
 
 bargain_idx = (reviews.points / reviews.price).idxmax() - максимальное знач балов к цене (индекс)<br>
 bargain_wine = reviews.loc[bargain_idx, 'title'] - по индексу -название вина<br><br>
+
+cols_with_missing = [col for col in X_train.columns if X_train[col].isnull().any()] - выбрать колонки в которых есть пропущенные значения.<br><br>
 
 <i>Игрушечные данные</i><br>
 t = pd.DataFrame(dict(col1=[1,2,3,float('nan')],<br>

@@ -23,9 +23,9 @@
             <li><a href="./django.html">Django</a></li>
             <li>Искуственный интелект
               <ul>
-                <li><a href="./gym.html">Gym</a></li>
                 <li><a href="./ml.html">ML</a></li>
                 <li><a href="./nlp.html">NLP</a></li>
+                <li><a href="./gym.html">Gym</a></li>
               </ul>
           </ul>
         </li>
@@ -42,9 +42,9 @@
           <span>Books</span>
           <ul class="sub_menu_list">
             <li><a href="../books/english.html">Books in English</a></li>
-            <li><a href="../subjects/math.html">Математика</a></li>
-            <li><a href="../subjects/environment.html">Окружение</a></li>
-            <li><a href="">Справочники</a></li>
+            <li><a href="../books/math.html">Математика</a></li>
+            <li><a href="../books/environment.html">Окружение</a></li>
+            <li><a href="../books/digest.html">Справочники</a></li>
           </ul>
         </li>
       </ul>
@@ -52,12 +52,206 @@
     <div class="left_right">
       <aside class="left">
   
-    <p><a href="#s1">one</a></p>
-
+    <p><a href="#s1">Decision Tree model</a></p>
+    <p><a href="#s2">Random Forests</a></p>
+    <p><a href="#s3">Pipelines</a></p>
       </aside>
     
       <aside class="right"><h1 align="center" id="s0">Машинное обучение</h1>
-.......................................................................................................................................
+
+<p><a href="https://scikit-learn.org/stable/index.html" target="_blank" rel="noopener" >scikit-learn</a> - популярная библиотека для  данных в DataFrames (сайкит-лёрн).</p>
+
+<section id="s1"><h3 align="center">Decision Tree model</h3>
+<i>decision tree</i> - дерево принятия решений.<br>
+<i>prediction target</i> - column we want to predict; by convention is called <b>y</b><br>
+y = melburn_data.Price<br>
+<i>features</i> - (особенность, признак) columns that are inputted into our model; by convention is called <b>X</b><br>
+<i>validation data</i> - данные для проверки<br><br>
+
+<i>positively correlated</i><br>
+<i>regression line</i><br>
+<i>a strong correlation</i><br>
+<i>categorical variable</i><br>
+<i>Ordinal encoding</i> assigns each unique value to a different integer.<br>
+<i>ordinal variables</i> - порядковые переменные<br>
+<i>One-hot encoding</i> - 1 0 0, 0 1 0<br>
+<i>nominal variables</i> - номинальные переменные<br><br>
+
+X.describe(); X.head() - quickly review<br><br>
+
+X_full.dropna(axis=0, subset=['SalePrice'], inplace=True) - удалить строки в которых 'SalePrice' пропущено.<br>
+melb_predictors = data.drop(['Price'], axis=1) - df без одного столбца<br>
+X = melb_predictors.select_dtypes(exclude=['object']) - выбрать стобцы не 'object' (numerical)<br><br>
+
+X_train.shape - (строки, колонки)<br>
+missing_val_count_by_column = (X_train.isnull().sum()) - кол-во пропущенных знач в каждом столбце (Series)<br>
+print(missing_val_count_by_column[missing_val_count_by_column > 0] .sort_values(ascending=False)) - пропустить столбцы с 0; отсортировать по убыванию.<br><br>
+
+cols_with_missing = [col for col in X_train.columns if X_train[col].isnull().any()] - столбцы в которых есть пропущенные значения<br>
+reduced_X_train = X_train.drop(columns_with_missing, axis=1) - сохранить df без столбцов с пропусками<br><br>
+
+<i>from sklearn.impute import SimpleImputer</i><br>
+# для заменны данных на среднее значение, медиану, заданное знач, самое частое<br><br>
+
+my_imputer = SimpleImputer()<br>
+categorical_imputer = SimpleImputer(strategy="constant" , fill_value = "missing")<br>
+door_imputer = SimpleImputer(strategy = "constant" , fill_value = 4)<br><br>
+
+imputed_X_train = pd.DataFrame(my_imputer.fit_transform(X_train)) - заменить пропущенные данные средними значениями из столбца (strategy="mean", median, most frequent or constant, fill_value=None)<br>
+imputed_X_valid = pd.DataFrame(my_imputer.transform(X_valid)) - в данные для проверки вставляем уже вычисленное значение.<br>
+imputed_X_train.columns = X_train.columns - <ins>названия колонок удалились</ins> - восстановить<br><br>
+
+<i>Define</i><br>
+<i>Fit</i><br>
+<i>Predict</i><br>
+<i>Evaluate</i><br><br>
+
+<i>from sklearn.tree import DecisionTreeRegressor</i><br>
+#это класс для построения решающих деревьев в задачах регрессии<br><br>
+
+<i>melbourne_model = DecisionTreeRegressor(random_state=1)</i> - что бы обеспечить одинаковые р-ты при каждом запуске.<br>
+melbourn_model.fit(X,y) - fit model<br>
+melbourne_model.predict(X.head()) - попробуем предсказать цены на первые пять домов в таблице... [1035000. 1465000. 1600000. 1876000. 1636000.]<br><br>
+
+Mean Absolute Error (also called MAE) - средняя абсолютная погрешность<br>
+error=|actual−predicted|; we then take the average of those absolute errors<br>
+On average, our predictions are off by about X - данные отличаются примерно на Х<br><br>
+
+<i>from sklearn.metrics import mean_absolute_error</i><br>
+# для вычисления MAE<br><br>
+
+predicted_home_prices = melbourne_model.predict(X)- список предсказаных знач<br>
+mean_absolute_error(y, predicted_home_prices) - MAE; in-sample scores (использованы для тренировки и проверки одни данные)<br><br>
+
+<i>from sklearn.model_selection import train_test_split</i><br>
+# для разбивки данных на тренировочные и проверочные<br><br>
+
+train_X, val_X, train_y, val_y = train_test_split(X, y, random_state = 0, train_size=0.8, test_size=0.2)<br>
+melbourne_model = DecisionTreeRegressor()<br>
+melbourne_model.fit(train_X, train_y)<br>
+val_predictions = melbourne_model.predict(val_X)<br>
+print(mean_absolute_error(val_y, val_predictions))<br><br>
+
+<i>Underfitting and Overfitting</i><br>
+(невозможность поймать закономерности и ложные закономерности, которые не повторятся)<br>
+#ф-ция принемает максимальное число узлов и разбитые данные<br>
+def get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;model = DecisionTreeRegressor(max_leaf_nodes=max_leaf_nodes, random_state=0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;model.fit(train_X, train_y)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;preds_val = model.predict(val_X)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mae = mean_absolute_error(val_y, preds_val)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return(mae)<br><br>
+
+#подберём из списка максимального кол-ва узлов лучший вариант<br>
+for max_leaf_nodes in [5, 50, 500, 5000]:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;my_mae = get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(f"Max leaf nodes: {max_leaf_nodes}  \t\t Mean Absolute Error:  {my_mae}")<br><br>
+
+scores = {leaf_size: get_mae(leaf_size, train_X, val_X, train_y, val_y) for leaf_size in candidate_max_leaf_nodes}<br>
+best_tree_size = min(scores, key=scores.get)<br><br>
+</section>
+
+<section id="s2"><h3 align="center">Random Forests</h3>
+
+<i>from sklearn.ensemble import RandomForestRegressor</i><br>
+<i>from sklearn.metrics import mean_absolute_error</i><br><br>
+
+forest_model = RandomForestRegressor(random_state=1)<br>
+forest_model.fit(train_X, train_y)<br>
+melb_preds = forest_model.predict(val_X)<br>
+print(mean_absolute_error(val_y, melb_preds))<br><br>
+
+<i>from sklearn.preprocessing import OrdinalEncoder</i><br>
+# для замены данных на произвольные числа<br><br>
+
+ordinal_encoder = OrdinalEncoder()<br>
+s = (X_train.dtypes == 'object')<br>
+object_cols = list(s[s].index) - список колонок типа 'object'<br>
+label_X_train[object_cols] = ordinal_encoder.fit_transform(X_train[object_cols])<br>
+label_X_valid[object_cols] = ordinal_encoder.transform(X_valid[object_cols]) - в заданных колонках поменяли данные (категориальные) на случайные числа<br><br>
+
+low_cardinality_cols = [cname for cname in X_train_full.columns if X_train_full[cname].nunique() &lt; 10 and X_train_full[cname].dtype == "object"] - список столбцов категориальных с низким кол-вом уникальных элементов.<br>
+numerical_cols = [cname for cname in X_train_full.columns if X_train_full[cname].dtype in ['int64', 'float64']] - столбцы с числами<br>
+my_cols = low_cardinality_cols + numerical_cols<br>
+X_train = X_train_full[my_cols].copy()<br>
+X_valid = X_valid_full[my_cols].copy()<br><br>
+
+<i>from sklearn.preprocessing import OneHotEncoder</i><br><br>
+
+oh_encoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False) - аргументы, чтобы избежать ошибок, когда в проверочных данных есть данные, которых нет в тренировочных и чтобы кодированные данные возвращались как массив numpy<br><br>
+
+# Выбираем столбцы с низким кол-вом элементов; трансформируем их с помощью 'OneHotEncoder' (восстонавливаем индексы); удаляем из df все категориальные столбцы; конкотинируем оставшиеся и перекодированые; проверяем, чтобы все названия столбцов были '.astype(str)'; считаем MAE<br><br>
+
+oh_cols_train =  pd.DataFrame(oh_encoder.fit-transform(X_train[object_cols]))<br>
+oh_cols_valid = pd.DataFrame(oh_encoder.transform(X_valid[object_cols]))<br><br>
+
+oh_cols_train.index = X_train.index - вернуть индексы (в оба df)<br>
+num_X_train = X_train.drop(object_cols, axis=1) - удалить некодированые столбцы<br>
+oh_X_train = pd.concat([num_X_train, oh_cols_train], axis=1) - добавить кодированые<br>
+oh_X_train.columns = oh_X_train.columns.astype(str) - все столбцы должны быть 'string type'<br><br>
+
+object_cols = [col for col in X_train.columns if X_train[col].dtype == "object"] - список столбцов типа 'object'<br>
+good_label_cols = [col for col in object_cols if set(X_valid[col]).issubset(set(X_train[col]))] - хорошие столбцы, если в проверочных данных есть такие же данные как в тренировочных<br>
+bad_label_cols = list(set(object_cols)-set(good_label_cols)) - остальные плохие<br><br>
+
+# Get number of unique entries in each column with categorical data<br>
+object_nunique = list(map(lambda col: X_train[col].nunique(), object_cols)) - из списка колонок создаём список кол-ва уникальных знач в этих колонках<br>
+d = dict(zip(object_cols, object_nunique)) - создаём словарь назв_кол: кол-во уникал.знач<br><br>
+
+# Print number of unique entries by column, in ascending order<br>
+sorted(d.items(), key=lambda x: x[1]) - сортируем словарь по значениям<br><br>
+
+<i>the cardinality of categorical variable</i> - как много уникальных знач. в столбце<br><br>
+</section>
+
+<section id="s3"><h3 align="center">Pipelines</h3>
+
+  <i>Define Preprocessing Steps</i><br>
+
+<ul><li>imputes missing values in numerical data, and</li>
+<li>imputes missing values and applies a one-hot encoding to categorical data</li></ul>
+
+from sklearn.compose import ColumnTransformer<br>
+from sklearn.pipeline import Pipeline<br>
+from sklearn.impute import SimpleImputer<br>
+from sklearn.preprocessing import OneHotEncoder<br><br>
+
+# Preprocessing for numerical data<br>
+numerical_transformer = SimpleImputer(strategy='constant')<br><br>
+
+# Preprocessing for categorical data<br>
+categorical_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='most_frequent')),
+    ('onehot', OneHotEncoder(handle_unknown='ignore'))
+])<br><br>
+
+# Bundle preprocessing for numerical and categorical data<br>
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('num', numerical_transformer, numerical_cols),
+        ('cat', categorical_transformer, categorical_cols)
+    ])<br><br>
+
+    <i>Define the Model</i><br><br>
+
+from sklearn.ensemble import RandomForestRegressor<br>
+model = RandomForestRegressor(n_estimators=100, random_state=0)<br><br>
+
+    <i>Crate and Evaluate the Pipeline</i><br>
+
+<ul><li>With the pipeline, we preprocess the training data and fit the model in a single line of code</li>
+<li>With the pipeline, we supply the unprocessed features in X_valid to the predict() command, and the pipeline automatically preprocesses the features before generating predictions</li></ul>
+
+from sklearn.metrics import mean_absolute_error<br>
+my_pipeline = Pipeline(steps=[('preprocessor', preprocessor), ('model', model)])<br>
+my_pipeline.fit(X_train, y_train)<br>
+preds = my_pipeline.predict(X_valid)<br>
+
+# Evaluate the model<br>
+score = mean_absolute_error(y_valid, preds)<br>
+print('MAE:', score)<br><br>
+
+</section>
       </aside>
     </div>
   </div>

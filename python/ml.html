@@ -55,6 +55,8 @@
     <p><a href="#s1">Decision Tree model</a></p>
     <p><a href="#s2">Random Forests</a></p>
     <p><a href="#s3">Pipelines</a></p>
+    <p><a href="#s4">XGBoost</a></p>
+
       </aside>
     
       <aside class="right"><h1 align="center" id="s0">Машинное обучение</h1>
@@ -176,7 +178,8 @@ my_cols = low_cardinality_cols + numerical_cols<br>
 X_train = X_train_full[my_cols].copy()<br>
 X_valid = X_valid_full[my_cols].copy()<br><br>
 
-<i>from sklearn.preprocessing import OneHotEncoder</i><br><br>
+<i>from sklearn.preprocessing import OneHotEncoder</i><br>
+# для замены данных кодированием в несколько столбцов<br><br>
 
 oh_encoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False) - аргументы, чтобы избежать ошибок, когда в проверочных данных есть данные, которых нет в тренировочных и чтобы кодированные данные возвращались как массив numpy<br><br>
 
@@ -242,7 +245,6 @@ model = RandomForestRegressor(n_estimators=100, random_state=0)<br><br>
 <ul><li>With the pipeline, we preprocess the training data and fit the model in a single line of code</li>
 <li>With the pipeline, we supply the unprocessed features in X_valid to the predict() command, and the pipeline automatically preprocesses the features before generating predictions</li></ul>
 
-from sklearn.metrics import mean_absolute_error<br>
 my_pipeline = Pipeline(steps=[('preprocessor', preprocessor), ('model', model)])<br>
 my_pipeline.fit(X_train, y_train)<br>
 preds = my_pipeline.predict(X_valid)<br>
@@ -250,6 +252,20 @@ preds = my_pipeline.predict(X_valid)<br>
 # Evaluate the model<br>
 score = mean_absolute_error(y_valid, preds)<br>
 print('MAE:', score)<br><br>
+
+<i>Cross-Validation</i><br><br>
+# разбиваем данные на на 5 (например) частей; поочереди каждая часть становится проверочной;  затем замер точности -  подходит для небольших датасетов.<br><br>
+
+<i>from sklearn.model_selection import cross_val_score</i><br><br>
+
+# Multiply by -1 since sklearn calculates *negative* MAE<br>
+scores = -1 * cross_val_score(my_pipeline, X, y,
+                              cv=5,
+                              scoring='neg_mean_absolute_error')<br>
+print("Average MAE score:", scores.mean())<br>
+</section>
+
+<section id="s4"><h3 align='center'>XGBoost</h3>
 
 </section>
       </aside>

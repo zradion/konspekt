@@ -56,12 +56,13 @@
     <p><a href="#s2">Random Forests</a></p>
     <p><a href="#s3">Pipelines</a></p>
     <p><a href="#s4">XGBoost</a></p>
-
+    <p><a href="#s5">Ещё</a></p>
       </aside>
     
       <aside class="right"><h1 align="center" id="s0">Машинное обучение</h1>
 
 <p><a href="https://scikit-learn.org/stable/index.html" target="_blank" rel="noopener" >scikit-learn</a> - популярная библиотека для  данных в DataFrames (сайкит-лёрн).</p>
+<p><a href="https://proproprogs.ru/neural_network/struktura-i-princip-raboty-polnosvyaznyh-neyronnyh-setey" target="_blank" rel="noopener" >SelfEdu</a> - Сергей Балакирев. Нейронные сети.</p>
 
 <section id="s1"><h3 align="center">Decision Tree model</h3>
 <i>decision tree</i> - дерево принятия решений.<br>
@@ -265,8 +266,54 @@ scores = -1 * cross_val_score(my_pipeline, X, y,
 print("Average MAE score:", scores.mean())<br>
 </section>
 
-<section id="s4"><h3 align='center'>XGBoost</h3>
+<section id="s4"><h3 align='center'>XGBoost (extreme gradient boosting)</h3>
 
+<i>gradient boosting</i> - градиентное повышение<br>
+<i>gradient descent</i> - градиентный спуск<br>
+<i>ensemble methods</i> - методы ансамбля<br>
+<i>from xgboost import XGBRegressor</i><br><br>
+
+# начинается с инициализации одной модели, предсказанные значения используются для вычисления функции потерь, затем начинается цикл, который добавляет модели в ансамбль для уменьшения потерь и повторение.<br><br>
+
+my_model = XGBRegressor(n_estimators=500, learning_rate=0.05, n_jobs=4)<br>
+my_model.fit(X_train, y_train,<br>
+    early_stoping_rounds=5,<br>
+    eval_set=[(X_valid, y_valid)],<br>
+    verbose=False)<br><br>
+
+XGBoost has a few parameters that can dramatically affect accuracy and training speed:<br>
+<i>n_estimators</i> - сколько циклов моделирования = кол-ву моделей (слишком низкое или слишком высокое - недообучение и переобучение). Обычно 100-1000<br>
+<i>learnin_rate</i> = 0.05 - скорость обучения<br>
+<i>early_stopping_rounds=5</i> - Хорошо n_estimators поставить повыше, а этот параметр закончит цикл, когда закончится улучшение модели; значение задаёт кол_во циклов в течении которых нет улучшений.<br>
+<i>eval_set</i> - параметр, чтобы выделить данные для проверочной оценки.<br>
+<i>n_jobs</i> - для больших данных можно паралелить (обычно по кол-ву ядер накомпе)<br><br>
+
+predictions_1 = my_model.predict(X_valid) - проверяем первую модель<br>
+mean_absolute_error(y_valid, predictions_1) - средняя ошибка<br><br>
+</section>
+
+<section id="s5"><h3 align='center'>Ещё</h3>
+<i>Data Leakage</i><br>
+# происходит, когда данные о цели есть при тренировки модели, но нет в готовой модели или в готовой модели есть данные, которые изменятся.<br>
+<i>target leakage</i> and <i>train-test contamination</i><br><br>
+
+<i>Feature Engineering</i><br>
+# добавить столбцы показывающие соотношение разных переменных.<br>
+X = df.copy()<br>
+y = X.pop("CompressiveStrength")<br>
+X["FCRatio"] = X["FineAggregate"] / X["CoarseAggregate"]<br>
+X["AggCmtRatio"] = (X["CoarseAggregate"] + X["FineAggregate"]) / X["Cement"]<br>
+X["WtrCmtRatio"] = X["Water"] / X["Cement"]<br><br>
+
+model = RandomForestRegressor(criterion="absolute_error", random_state=0)<br>
+score = cross_val_score(
+    model, X, y, cv=5, scoring="neg_mean_absolute_error"
+)
+score = -1 * score.mean()<br>
+print(f"MAE Score with Ratio Features: {score:.4}")<br><br>
+
+<i>feature utility metric</i> - показатель полезности<br>
+<i>mutaul information (MI)</i> - взаимная информация (насколько знание одной величины уменьшает неопределённость другой)<br>
 </section>
       </aside>
     </div>

@@ -19,6 +19,7 @@
 						<li><a href="./libraryPy.html">libraryPy</a></li>
 						<li><a href="./dir_and_file.html">Папки и файлы</a></li>
 						<li><a href="./pictures.html">Картинки и графики</a></li>
+            <li><a href="./data_analysis.html">Анализ данных</a></li>
 						<li><a href="./web_scraping.html">Web scraping</a></li>
 						<li><a href="./flask.html">Flask</a></li>
 						<li><a href="./django.html">Django</a></li>
@@ -497,6 +498,7 @@ plt.xticks(rotation='vertical')- метки по оси Х
     </section>
 
     <section id="s4"><h3 align="center">Seaborn</h3>
+<i>pip install seaborn</i><br>
 <b>import seaborn as sns</b><br>
 pd.plotting.register_matplotlib_converters()<br>
 import matplotlib.pyplot as plt<br>
@@ -517,6 +519,12 @@ sns.swarmplot - Categorical scatter plots show the relationship between a contin
 sns.histplot - Histograms show the distribution of a single numerical variable.<br>
 sns.kdeplot - KDE plots (or 2D KDE plots) show an estimated, smooth distribution of a single numerical variable (or two numerical variables).<br>
 sns.jointplot - This command is useful for simultaneously displaying a 2D KDE plot with the corresponding KDE plots for each individual variable.<br><br>
+
+df = sns.load_dataset('titanic') - загрузить датасет из интернета (Seaborn - Load Sample Datasets)<br><br>
+
+sns.countplot(data=df, x='workclass')<br>
+plt.title('Distribution of Workclass')<br>
+plt.xticks(rotation=45)<br><br>
 
 plt.figure(figsize=(14,6)) - width and height of the figure (in inches)<br>
 plt.title('Name') - title<br>
@@ -564,7 +572,8 @@ sns.set_style('whitegrid'); (darkgrid, white, dark, ticks)<br><br>
 
     <section id="s5"><h3 align="center">PyAutGUI</h3>
 <p><a href="https://pyautogui.readthedocs.io/en/latest/" target="_blank" rel="noopener" >PyAutoGUI</a></p>
-<i>pip install pyautogui</i> <b>import pyautogui</b><br>
+<i>pip install pyautogui</i><br>
+<b>import pyautogui</b><br>
 <i>Для остановки программы - навести курсор на угол дисплея или Ctrl+Alt+Delete - остоновить все программы</i><br><br>
 
 Предосторожности: учитывать разрешение экрана; использовать экран макси; использовать паузы, если что-то должно загрузится; использовать locateOnScreen(), останов программы, если что-то не найти; искать окно по названию, использовать exists(), активировать; исполльзовать максимальное кол-во проверок.<br>

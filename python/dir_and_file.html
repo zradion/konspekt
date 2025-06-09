@@ -18,6 +18,7 @@
             <li><a href="./libraryPy.html">libraryPy</a></li>
             <li><a href="./dir_and_file.html">Папки и файлы</a></li>
             <li><a href="./pictures.html">Картинки и графики</a></li>
+            <li><a href="./data_analysis.html">Анализ данных</a></li>
             <li><a href="./web_scraping.html">Web scraping</a></li>
             <li><a href="./flask.html">Flask</a></li>
             <li><a href="./django.html">Django</a></li>
@@ -42,9 +43,9 @@
           <span>Books</span>
           <ul class="sub_menu_list">
             <li><a href="../books/english.html">Books in English</a></li>
-            <li><a href="../subjects/math.html">Математика</a></li>
-            <li><a href="../subjects/environment.html">Окружение</a></li>
-            <li><a href="">Справочники</a></li>
+            <li><a href="../books/math.html">Математика</a></li>
+            <li><a href="../books/environment.html">Окружение</a></li>
+            <li><a href="../books/digest.html">Справочники</a></li>
           </ul>
         </li>
       </ul>
@@ -66,7 +67,8 @@
 txt, pdf, odf, xlsx, docx<br>
 <i>cwd (./)</i> - current working directory (текущий католог (папка))<br>
 <i>../ - родительская (parent) папка</i><br>
-Путь к файлу может быть строкой или объектом Path<br><br>
+Путь к файлу может быть строкой или объектом Path<br>
+Используем форвардслэш т.к бэкслэш используется в Mac and linus подругому<br><br>
 
 <i>open(file, mode)</i>; ('r', 'w', 'a', 'b') - встроенный модуль; путь к файлу, флаг (по умолчанию 'r'); открыть (создать) файл; прочитать, записать, переписать, добавить; бинарный ('br', 'bw');<br>
 myfile = open("hello", 'w'); myfile.write('Hello'); <i>myfile.close()</i><br><br>
@@ -79,7 +81,11 @@ with open(file, mode, encoding="utf8") as myfile:<br>
 <i>myfile.readline()</i>- считывает по одной строке из файла<br>
 <i>myfile.read()</i>- считывает всё содержимое в одну строку<br>
 <i>myfile.readlines()</i>- считывает все строки в список<br>
-<i>myfile.write("Text in file")</i> - записать текст в файл; флаг 'w' - перезапишет, 'a' - добавление<br>
+<i>myfile.write("Text in file")</i> - записать текст в файл; флаг 'w' - перезапишет, 'a' - добавление<br><br>
+
+correct_text = incorrect_text.encode('windows-1251').decode('utf-8')<br>
+также можно использовать 'Notepad++' (Кодировка - преобразовать в UTF-8)<br>
+или 'VS Code' (нажать на кодировку внизу затем выбрать сохранить с кодировкой - UTF-8)
     </section>
 
     <section id="s2">
@@ -92,11 +98,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent - абсолютный пут�
 TAMPLATES_DIR = BASE_DIR.joinpath('tamplates') - добавить к пути<br>
 Path.cwd() - текущая рабочая папка (current working directory)<br>
 Path('spam', 'bacon', 'eggs') ..WindowsPath('spam/bacon/eggs') - объект<br>
-str(Path(r'E:/spam') / 'bacon' / 'eggs') .. 'E:\\spam\\bacon\\eggs'<br><br>
+str(Path(r'E:/spam') / 'bacon' / 'eggs') .. 'E:\\spam\\bacon\\eggs' (комбинируем Path and strings)<br><br>
 
 g = Path(r"G:/"); g.exists() .. False - флэшка не вставлена<br><br>
 
-p = Path.home(); print(p) .. C:\Users\zradi<br><br>
+p = Path.home(); print(p) .. 'C:\Users\zradi' (str(p)) - из объекта в строку<br><br>
 
 for file in [list_of_files]:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;print(Path(p, file)) .. абсолюный путь до файла.<br><br>
@@ -396,7 +402,9 @@ content.xml; mimetype; meta.xml; styles.xml; META-INF/manifest.xml<br><br>
 <i>writer = PyPDF2.PdfWriter()</i> - объект для записи<br>
 <i>writer.add_page(reader.pages[0])</i> - поместить в объект открытую страницу.<br>
 <i>with open(path, 'wb) as obj:</i> - write-binary<br>
-&nbsp;&nbsp;&nbsp;&nbsp;writer.write(obj) - записать writer в новый файл.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;writer.write(obj) - записать writer в новый файл.<br><br>
+
+
     </section>
             </aside>
         </div>

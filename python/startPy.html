@@ -19,6 +19,7 @@
           <li><a href="./libraryPy.html">libraryPy</a></li>
           <li><a href="./dir_and_file.html">Папки и файлы</a></li>
           <li><a href="./pictures.html">Картинки и графики</a></li>
+          <li><a href="./data_analysis.html">Анализ данных</a></li>
           <li><a href="./web_scraping.html">Web scraping</a></li>
           <li><a href="./flask.html">Flask</a></li>
           <li><a href="./django.html">Django</a></li>
@@ -82,7 +83,19 @@ ASCII - кодовая таблица.<br>
 # - hash character - используется для комментариев.<br><br>
 
 expressions (выражения) - результат - значение.<br>
-statements (инструкции) - выполняют действие (def, if, elif, else, while, break, continue, pass, for in, match, импортирование модуля).<br><br>
+statements (инструкции, оператор) - выполняют действие (def, if, elif, else, while, break, continue, pass, for in, match, импортирование модуля).<br><br>
+
+import sys<br>
+while True:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;playMove = input('Enter r(ock) p(aper) s(cissors) or q(uit) :')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if playMove == 'q':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print('By')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys.exit()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;elif playMove in 'rps':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print('Type one of r, p, s, q')<br>
+if playMove == 'r':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print('rock')<br><br>
 
 <i>match some_expr:</i><br>
 &nbsp;&nbsp;&nbsp;&nbsp; case 1:<br>
@@ -116,6 +129,9 @@ input('enter your name: ')<br>
 dir(__builtins__) - список встроенных ф-ций (двойные подчёркивания - системные атрибуты или магические методы)<br>
 print(id(name)) - адрес объекта с именем name; цифры<br><br>
 
+print(x if x else 'There is not x')<br>
+return 0 if x &lt; 0.5 else 1<br><br>
+
 <i>yield</i><br><br>
 
 <b>функция</b> &lt;class 'function'><br>
@@ -130,9 +146,16 @@ print(id(name)) - адрес объекта с именем name; цифры<br>
 
  my_fn() - вызов функции (без аргументов; с позиционными аргументами; с кортежем из любого ко-ва позиционных аргументов (*arg); перебирать эти элементы можно по индексу(arg[1], arg[2]); ключевые слова (a='Bob', b=23); с аргум и их знач в виде словаря (**person))<br><br>
 
-<i>def my_fn(**person):</i><br>
-&nbsp;&nbsp;&nbsp;&nbsp; info = f"{person.get('name')} wrote {person['qty']} storis" // если ключа 'name' нет вернёт None<br>
-&nbsp;&nbsp;&nbsp;&nbsp; return info<br><br>
+def my_fn(**kwargs):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;info = ", ".join(f"{key}: {value}" for key, value in kwargs.items())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return info<br><br>
+
+# Вызов с именованными аргументами<br>
+print(my_fn(name="Bob", qty=5, role="author"))  # name: Bob, qty: 5, role: author<br><br>
+
+# Можно передать словарь через **<br>
+data = {"name": "Alice", "age": 30, "books": 12}<br>
+print(my_fn(**data))  # name: Alice, age: 30, books: 12<br><br>
 
 <i>def my_fn(value, multiplier=1):</i> ф-ция со значением по умолчанию<br>
 если при вызове ф-ции будет дан один аргумент, то значение второго по умолчанию; вторым параметром может быть ф-ция:<br><br>
@@ -168,7 +191,10 @@ print(info)<br><br>
  <b>zip - &lt;class 'zip'>:</b><br>
 fruits = ['apl', 'ban', 'lime']; qnt = range(1, 4); str1 = 'abc'<br>
 new_zip = zip(fruits, qnt, str1)<br>
-print(list(new_zip)) .. [('apl', 1, 'a'), ('ban', 2, 'b'), ('lime', 3, 'c')]<br>
+print(list(new_zip)) .. [('apl', 1, 'a'), ('ban', 2, 'b'), ('lime', 3, 'c')]<br><br>
+
+list(map(list, zip(*tableData))) - transpose из списка списков - список из списков первых эл, вторых ..<br><br>
+
 new_dict = dict(new_zip) - если в new_zip два элемента можно его конвертировать в словарь<br>
 new_dict = {k:v for k,v in zip(gnt, fruits)}<br>
     </section>
@@ -180,7 +206,7 @@ x = y - копия y; изначально один id; если изменят�
 
 / - деление; возвращает с дробной частью<br>
 // - деление; возвращает целое число (-7 // 2 .. -4)<br>
-% - возвращает остаток от деления (-7 % 2 .. -1)<br>
+% - возвращает остаток от деления (-7 % 2 .. -1; -1 % 60 ..59)<br>
 ** - возведение в степень (to the power of)<br>
 
 _ - в интерактивном режиме последнее значение присваеватся переменной _<br>
@@ -193,6 +219,7 @@ for i in range(20):<br>
 
 abs(-5) .. 5<br>
 min(1,2,7,-3) .. -3; max(1,2,7,-3) .. 7<br>
+numOpen = min(5, len(linkElems)) - кол-во элементов 5 или меньше<br>
 pow(10, 2) .. 100; pow(27, 1/3) .. 3<br>
 int(5.8) .. 5<br>
 <i>round(number [,ndigits=None])</i> - округление с точностью до.<br>
@@ -246,7 +273,10 @@ string = 'What a beautiful world!'<br><br>
 <i>sorted(string)</i> - сортирует неизменяемые объекты (возвр список)<br>
 (' ').join(список) - вернёт строку из списка строк<br>
 <i>string.split(символ)</i> - вернёт список по разделителю (без аргумента - по пробелам)<br>
-<i>re.split(pattern, string)</i> - (import re)<br>
+<i>re.split(pattern, string)</i> - (import re)<br><br>
+
+'-'.join('There can be only one.'.split())<br><br>
+
 .partition(шаблон) - вернёт список из трёх элементов; можно использовать множественное присвоение: before, sep, after = string.partition('word')<br>
 ('11').zfill(width) - кол-во знаков; добавит 0 в начале<br>
 ord(символ) - символ в код, chr(число) - из кода в символ<br>
@@ -263,8 +293,19 @@ print(f"MAE Baseline Score: {baseline_score:.4}") ...8.232<br><br>
 
 r"C:\My Doc\try.py" - сырая строка (row string)<br>
 f"just string {varible}"<br>
-"my name %s, my age %s"%(name, age)<br>
+"my name %s, my age %s"%(name, age)<br><br>
 
+модуль pyperclip (pip install pyperclip) - используется, чтобы копировать текст в буфер обена (clipboard) и из буфера обмена.<br>
+модуль sys.argv[1] - первая команда из командной строки<br><br>
+
+<i>добавить в начале каждой строки &#9913;</i><br>
+Ctrl-A; Ctrl-C - выбрать всю страницу (или выделить часть) и скопировать в буфер (получится одна длинная строка)<br>
+text = pyperclip.paste() - из буфера обмена<br>
+lines = text.split('\n') - в список<br>
+for i in range(len(lines)):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;lines[i] = '&#9913;' + lines[i]<br>
+text = '\n'.join(lines) - обратно в строку<br>
+pyperclip.copy(text) - вернуть в буфер обмена<br>
     </section>
 
     <section id="s4"><h3>Список (list):</h3>
@@ -321,7 +362,10 @@ sum([a for a in lst if a]) - если в списке lst есть 'None' и н�
 'Moscow, Peter, Tver'.split() - преобразовать в список<br>
 (', ').join(['moscow', 'peter', 'tver']) - преобразовать в строку с разделителем<br>
 any(list)<br>
-all(list); пустой список == True
+all(list); пустой список == True<br><br>
+
+a = list(map(int, input('numbers separated by comma: ').split(',')))
+
     </section>
 
     <section id="s5"><h3>Словарь (dictionary):</h3>
@@ -396,7 +440,7 @@ clear,update,pop<br>
     </section>
 
     <section id="s8"><h3>map, filter, yield</h3>
-<i>map(func, iterables)</i> - ф-ия применяется к каждому элементу<br>
+<i>map(func, iterables)</i> - ф-ция применяется к каждому элементу<br>
 cities = ['Moscow', 'StPeterburg', 'Tver1']<br>
 print(list(map(len, cities))) - список из длин слов<br>
 print(list(map(str.upper, cities))) - список в верхнем регистре<br>
@@ -407,7 +451,7 @@ print(map(symbols, cities)) - список в нижнем регистре<br>
 print(list(map(str.lower, cities))) - тоже<br>
 print(list(map(lambda s: s[::-1], map(str.lower, cities)))) - список городов в нижнем регистре перевёрнутые<br><br>
 
-print(list(map(int, input('put in: ').split()))) - ввести с клавиатуры цифры; преобразовать из них список<br><br>
+print(list(map(int, input('put in: ').split()))) - ввести с клавиатуры числа через пробел; преобразовать из них список чисел<br><br>
 
 <i>filter(func, iterables)</i> - ф-ция проверяет условие к кажому элементу<br>
 print(list(filter(str.isalpha, cities)))<br>
@@ -426,7 +470,22 @@ except KeyboardInterrupt:<br>
 &nbsp;&nbsp;&nbsp;&nbsp; sys.exit() // Ctrl + c - останов программы без выброса ошибки.<br><br>
 finally:<br><br>
 
-<i>assert</i> условие, 'коментарий'<br><br>
+<b>assert</b> условие, 'коментарий'<br><br>
+# перекрёсток: север-юг = зелёный; восток-запад = красный<br>
+# ф-ция перекл светофор; assert ловит если оказалось, что красного нет нигде<br>
+market_2nd = {'ns': 'green', 'ew': 'red'}<br><br>
+
+def switchLights(stoplight):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for key in stoplight.keys():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if stoplight[key] == 'green':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stoplight[key] = 'yellow'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif stoplight[key] == 'yellow':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stoplight[key] = 'red'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif stoplight[key] == 'red':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stoplight[key] = 'green'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;assert 'red' in stoplight.values(),'Neither light is red! ' + str(stoplight)<br><br>
+
+switchLights(market_2nd)<br><br>
 
 <i>ZeroDivisionError</i><br>
 <i>KeyboardInterrupt</i><br>

@@ -19,6 +19,7 @@
 						<li><a href="./libraryPy.html">libraryPy</a></li>
 						<li><a href="./dir_and_file.html">Папки и файлы</a></li>
 						<li><a href="./pictures.html">Картинки и графики</a></li>
+            <li><a href="./data_analysis.html">Анализ данных</a></li>
 						<li><a href="./web_scraping.html">Web scraping</a></li>
 						<li><a href="./flask.html">Flask</a></li>
 						<li><a href="./django.html">Django</a></li>
@@ -43,9 +44,9 @@
 					<span>Books</span>
 					<ul class="sub_menu_list">
 						<li><a href="../books/english.html">Books in English</a></li>
-						<li><a href="../subjects/math.html">Математика</a></li>
-						<li><a href="../subjects/environment.html">Окружение</a></li>
-						<li><a href="">Справочники</a></li>
+						<li><a href="../books/math.html">Математика</a></li>
+						<li><a href="../books/environment.html">Окружение</a></li>
+						<li><a href="../books/digest.html">Справочники</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -127,11 +128,87 @@ find_a_by_text = soup.find('a', text=re.compile("Одежда"))<br><br>
 
 <i>pip install selenium</i>; <b>from selenium import webdriver</b><br><br>
 
-browser = webdriver.Chrome() - объект; браузер открылся.<br>
-browser.get(url) - открылась запрашиваемая страница.<br>
-методы find_element_*; fine_elements_* (возвращает список)<br>
-Локаторы: ID, NAME, LINK_TEXT, PARTIAL_LINK_TEXT, TAG_NAME, CLASS_NAME, CSS_SELECTOR, XPATH<br>
-browser.find_element(By.LINK_TEXT, 'Sign in') - кнопка Sign in в github<br>
+Скачайте драйвер для Яндекс.Браузер (YandexDriver)<br>
+Яндекс использует свой форк Chromium, поэтому нужен специальный драйвер.<br>
+
+Скачайте последнюю версию YandexDriver с официального сайта:<br>
+🔗 https://github.com/yandex/YandexDriver/releases<br>
+
+Выберите версию, соответствующую вашей версии Яндекс.Браузера<br>
+
+Распакуйте .exe-файл (например, yandexdriver.exe) в удобную папку (например, C:\WebDriver\).<br>
+# Укажите путь к драйверу YandexDriver<br>
+driver_path = r'C:\WebDriver\yandexdriver.exe'  # или другой путь<br>
+
+# Настройки для Яндекс.Браузера<br>
+options = webdriver.ChromeOptions()<br>
+
+# Указываем путь к исполняемому файлу Яндекс.Браузера (если стандартный путь не работает)<br>
+options.binary_location = r'C:\Users\Ваш_Пользователь\AppData\Local\Yandex\YandexBrowser\Application\browser.exe'<br>
+
+# Инициализация драйвера<br>
+driver = webdriver.Chrome(executable_path=driver_path, options=options)<br>
+
+# Открываем Яндекс<br>
+driver.get("https://ya.ru")<br>
+
+# Закрываем браузер через 5 секунд (для примера)<br>
+import time<br>
+time.sleep(5)<br>
+driver.quit()<br><br>
+
+# <i> FireFox</i><br>
+from selenium import webdriver<br>
+browser = webdriver.Firefox() # запускается браузер FireFox<br>
+browser.get('https://inventwithpython.com') # открывается страница<br><br>
+
+<i>find_element_*</i> - возвращает единичный WebElement object<br>
+<i>find_elements_*</i> - возвращает список WebElement_* objects<br><br>
+
+browser.find_element_by_class_name(name)<br>
+browser.find_elements_by_class_name(name) Elements that use the CSS
+class name<br><br>
+
+browser.find_element_by_css_selector(selector)<br>
+browser.find_elements_by_css_selector(selector) Elements that match the CSS
+selector<br><br>
+
+browser.find_element_by_id(id)<br>
+browser.find_elements_by_id(id) Elements with a matching id
+attribute value<br><br>
+
+browser.find_element_by_link_text(text)<br>
+browser.find_elements_by_link_text(text) <a> elements that completely
+	match the text provided<br><br>
+
+browser.find_element_by_partial_link_text(text)<br>
+browser.find_elements_by_partial_link_text(text) <a> elements that contain the
+	text provided<br><br>
+
+browser.find_element_by_name(name)<br>
+browser.find_elements_by_name(name) Elements with a matching name
+attribute value<br><br>
+
+browser.find_element_by_tag_name(name)<br>
+browser.find_elements_by_tag_name(name) Elements with a matching tag name
+(case-insensitive; an <a> element is
+matched by 'a' and 'A')<br><br>
+
+tag_name - The tag name, such as 'a' for an <a> element<br>
+
+get_attribute(name) - The value for the element’s name attribute<br>
+
+text - The text within the element, such as 'hello' in <span>hello </span><br>
+
+clear() - For text field or text area elements, clears the text typed into it<br>
+
+is_displayed() - Returns True if the element is visible; otherwise returns False<br>
+
+is_enabled() - For input elements, returns True if the element is enabled; otherwise returns False<br>
+
+is_selected() - For checkbox or radio button elements, returns True if the element is selected; otherwise returns False<br>
+
+location - A dictionary with keys 'x' and 'y' for the position of the element in the page<br><br>
     </section>
       </aside>
     </div>

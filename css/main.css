@@ -112,9 +112,9 @@ article {
 margin-left: 15px;
 }
 
-article p {
+/* article p {
 text-indent: 20px;
-}
+} */
 
 .links {
   display:flex

@@ -19,6 +19,7 @@
           <li><a href="../python/libraryPy.html">libraryPy</a></li>
           <li><a href="../python/dir_and_file.html">Папки и файлы</a></li>
           <li><a href="../python/pictures.html">Картинки и графики</a></li>
+          <li><a href="../python/data_analysis.html">Анализ данных</a></li>
           <li><a href="../python/web_scraping.html">Web scraping</a></li>
           <li><a href="../python/flask.html">Flask</a></li>
           <li><a href="../python/django.html">Django</a></li>
@@ -62,6 +63,7 @@
 <p><a href="#s6">Linux</a></p>
 <p><a href="#s7">Jupyter</a></p>
 <p><a href="#s8">Google Sheets</a></p>
+<p><a href="#s9">Google Colab</a></p>
     </aside>
 
     <aside class="right">
@@ -106,9 +108,21 @@ echo отправляет строку в stdout; echo > name.py - в файл (
 <i>/venv/Scripts/activate</i> - активировать<br>
 <i>deactivate</i> - деактивировать<br><br>
 
-<br>
+<i>bat file</i><br>
+пишем в блокноте, сохраняем в удобном месте, название и выбираем расширение 'для всех файлов', можно запустить двойным кликом или в строке поиска вписать название и если есть аргументы через пробелы<br>
+@echo off # отключает вывод лишних служебных сообщений<br>
+cd /d "C:\Users\zradi\Documents\my_py\avto_rem" # переход в папку (/d сменить диск, если нужно)<br>
+python avto_rem.py # запускает скрипт (при необходимости путь к Python "C:\Python39\python.exe" avto_rem.py)<br>
+pause # остовляет окно открытым, @pause - "press any key to coninue..."<br>
+%* - после выполняемого файла добавить любые аргументы команды<br>
+python script читает команды в sys.argv list<br>
+
 <b>hotkey</b><br>
-<i>Ctrl+Alt+T</i> - открыть только что закрытую вкладку.<br><br>
+<i>Ctrl+Alt+T</i> - открыть только что закрытую вкладку.<br>
+<i>Ctrl+A</i> - выбрать всю страницу<br>
+<i>Ctrl+C</i> - скопировать выбранное в буфер обмена<br>
+<i>Ctrl+V</i> - вставить из буфера обмена<br>
+<i>Ctrl+X</i> - вырезать выбранное<br><br>
 
 <i>Win+R</i> - окно Выполнить<br>
 <i>cmd</i> - в окне 'выполнить' - командная строка<br>
@@ -125,6 +139,7 @@ Live Server, Prettier-Code, Python, Code Runner, vscode-icons <br><br>
 
 Ctrl+, - настройки<br>
 minimap - Enabled<br>
+autosave - afterDelay - сохранять автоматически<br>
 Shift+Ctrl+p - Command Palette; Emmet: Wrap with Abbreviation<br>
 Alt+z - форматирование всего текста<br>
 Ctrl+z - отменить действие<br>
@@ -185,8 +200,21 @@ Shortcuts (список в 'Help').<br>
 =DCOUNT() - кол-во знач по подходящему критерию<br>
 =ВПР(C2;'Jan23'!C1:D4;2;) - C2 - ячейка с названием; 'Jan23'!C1:D4 - название листа и диапазон в котором будем искать по названию; 2 - порядковый номер столбца, где лежит кол-во проданых едениц; точка с зпт в конце - поиск точного совпадения<br>
 =МАКС<br>
+     </section>
 
-      </section>
+     <section id="s9"><h3 align="center">Google Colab</h3>
+<i>Скачать датасет из Kaggle</i><br>
+выбрать файл - нажать dawnload (скачался archive.zip; переименовать) - переити на Google Disk - My Drive - data - Name скаченого файла - New - File upload - на загруженный файл правой кнпкой - Share - Change to anyone with the link - Copy link - открыть ноутбук - текстовая ячейка - вставить - ячейка для кода<br>
+! gdown --id (скопированная часть ссылки после d/)<br>
+! unzip /content/hr-analytics.zip # разархивировали в папке в CO<br><br>
+
+<i>Ctrl M</i> - перевести колаб в режим горячая кнопка;<br>
+после <i>d</i> - удалить ячейку<br>
+<i>b</i> - below - вставить ячейку ниже<br>
+<i>a</i> - above - вставить ячейку выше<br>
+<i>m</i> - сделать ячейку текстовой<br>
+<i>y</i> - сделать ячейку кодом<br><br>
+     </section>
     </aside>
   </div>
 </div>

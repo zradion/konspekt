@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style1.css" />
+    <title>data_analysis</title>
+</head>
+<body>
+  <div class="cont">
+    <nav class="menu">
+      <ul class="menu_list">
+        <li><a href="../index.html"><img src="../img/icon-home.png" alt="home"></a></li>
+        <li>
+          <span>Python</span>
+          <ul class="sub_menu_list">
+            <li><a href="./startPy.html">startPy</a></li>
+            <li><a href="./libraryPy.html">libraryPy</a></li>
+            <li><a href="./dir_and_file.html">Папки и файлы</a></li>
+            <li><a href="./pictures.html">Картинки и графики</a></li>
+            <li><a href="./web_scraping.html">Web scraping</a></li>
+            <li><a href="./flask.html">Flask</a></li>
+            <li><a href="./django.html">Django</a></li>
+            <li>Искуственный интелект
+              <ul>
+                <li><a href="./ml.html">ML</a></li>
+                <li><a href="./nlp.html">NLP</a></li>
+                <li><a href="./gym.html">Gym</a></li>
+              </ul>
+          </ul>
+        </li>
+        <li>
+          <span>Frontend</span>
+          <ul class="sub_menu_list">
+            <li><a href="../frontend/html.html">HTML</a></li>
+            <li><a href="../frontend/css.html">CSS</a></li>
+            <li><a href="../frontend/js.html">JavaScript</a></li>
+            <li><a href="../frontend/jsDom.html">JavaScript DOM</a></li>
+          </ul>
+        </li>
+        <li>
+          <span>Books</span>
+          <ul class="sub_menu_list">
+            <li><a href="../books/english.html">Books in English</a></li>
+            <li><a href="../books/math.html">Математика</a></li>
+            <li><a href="../books/environment.html">Окружение</a></li>
+            <li><a href="../books/digest.html">Справочники</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="left_right">
+      <aside class="left">
+        <p>
+        <a href="#so">Анализ данных</a><br>
+        <a href="#s1">прочитать</a><br>
+        <a href="#s2">пропуски</a><br>
+        <a href="#s3">фильтрация</a><br>
+        </p>
+      </aside>
+
+      <aside class="right">
+<section id="s0">
+<h1 align="center" id="s0">Анализ данных на Python</h1>
+<p><a href="https://pandas.pydata.org/docs/reference/index.html" target="_blank" rel="noopener" >pandas</a> - documentation<br>
+<a href="https://rutube.ru/video/53cb1cc5eeb24a8fd20b52a4f9366858/" target="_blank" rel="noopener" >Анализ Данных на Python и Pandas</a> (Глеб Михайлов RuTube)</p>
+........................................................................................................................................................................
+<i>pip install pandas</i><br>
+<i>import pandas as pd</i><br>
+<i>import numpy as np</i><br>
+
+<i>EDA</i> - exploratory data analysis<br>
+<a href="https://www.kaggle.com/datasets/arashnic/hr-analytics-job-change-of-data-scientists">dataset 'HR Analytics'</a><br>
+</section>
+
+<section id="s1"><b>Прочитать</b><br>
+df = pd.read_csv(path, encoding='1251', sep=',', index_col='date', header=None, skiprow=[0,1,2], usecols=None, nrows=None, )<br>
+d_parser = lambda x: pd.datetime.strptime(x, '%Y-%m-%d %I-%p')<br>
+df = pd.read_csv(path, parse_dates=['date'], date_parser=d_parser) - 'date' - Dtype - datetime64[ns]<br>
+(index_col='date', parse_dates=True); index_col=0 (первый столбец без имени станет индексами)<br><br>
+
+df_list = pd.read_html(url) - возвращает список найденых фреймов<br>
+df_list[0].info()<br><br>
+
+df.info(); df.describe() - count, mean, std (стандартное отклонение), min, 25,50,75 процентиль, max для числовых переменных;<br>
+df.head(), df.sample()<br><br>
+
+df['target'].mean() - колонка 'target'(0,1); какая доля (процент) едениц. кол-во ед / на общее кол-во<br>
+</section>
+
+<section id="s2"><b>Пропуски</b><br>
+df.isna().mean().sort_values(ascending=False)[df.isna().mean() > 0] - кол-во пропущенных значений (доля от общего кол-ва); отсортированное по убыванию и по условию, что это не 0<br>
+</section>
+
+<section id="s3"><b>Фильтрация</b><br>
+df.columns - список всех колонок<br>
+del df.name10; df = df.drop('name10', axis=1) - удалить ненужные<br>
+df = df[[name1, name2]] - выбрать df  с нужными колонками<br>
+<i>pandas notation</i><br>
+city_40_male = df[(df['sity'] == 'sity_40'])&(df['gender'] == 'Male')].copy() - фильтрация по условию (<ins>создаём копию</ins>)<br>
+</section>
+
+<section id="s4"><b>Типы переменных</b><br>
+<i>Категориальная</i><br>
+df.gender.unique(), df.gender.nunique() - уникальные значения, кол-во уникал.знач<br>
+df.gender.value_counts(dropna=False) - посчитать кол-во уникальных значений (включая пропущенные)<br>
+df.gender = df.gender.apply(lambda x: 'no_info' if (x == 'Other' or pd.isna(x)) else x) - в колонке были пропущенные знач. и 'Other' - поменяли их на 'no_info'<br><br>
+
+t = df.groupby('gender', dropna=False)['target'].agg(['count', 'mean']) - в этом своднике посчитано кол-во опрошеных по полу и доля желающих смениь работу.<br>
+t['count'].sum() - сложить общее кол-во (все опрошеные)<br>
+df.groupby(['major_discipline', 'gender'])['target'].agg(['count', 'mean']) - сдесь двойной индекс - для каждой дисциплины посчитаны для женщин и мужчин<br><br>
+
+df.gender.hist() - гистограмма<br><br>
+
+<i>Непрерывная</i><br>
+df.city_development_index.hist() - коэфициент показывает уровень развития города; гистограмма - сколько опрошенных живёт в городах с определённым индексом.<br>
+q = df['city_development_index'].quantile(0.25) # (=0.74) - четверть респондентов живёт в городах с индексом ниже 0.74<br>
+len(df[df['city_development_index'] &lt; q]) / len(df) = 0.25<br>
+df['city_development_index_group'] = pd.cut(df['city_development_index'],5) - разбили на равные группы по индексу развития<br>
+df['city_development_index_group_q'] = pd.qcut(df['city_development_index'],5, duplicates='drop') - разбили на группы по кол-ву респондентов; добавили аргумент т.к много одинаковых значений<br>
+df['city_development_index_custom'] = pd.cut(df['city_development_index'], [-float('inf'), 0, 0.1, 0.3, float('inf')]) - свои интервалы от -бесконечности<br><br>
+
+dev_index = df.groupby('city_development_index_group', observed=False)['target'].agg(['count', 'mean']) - сводная таблица по группам<br><br>
+
+<i>Pivot table</i><br>
+df.city_development_idex_group = df.city_development_idex_group.fillna('no_info')<br>
+df.pivot_table(index='city_development_idex_group', values='target', aggfunc=['count', 'mean']) - не включены пропуски и названия колонок стали мультииндексом; можно добавить аргумент columns='gender', что бы сгруппировать и по гендеру.<br>
+dt.columns = ['_'.join(col).strip() for col in dt.columns.values] - преобразовать мультииндекс в одну строку через нижн.подчёрк<br>
+df.reset_index()<br><br>
+
+import seaborn as sns<br>
+sns.heatmap(t) - хитмэп сводной таблички из pivot table<br><br>
+
+<i>Корреляция и phik</i><br>
+df.corr() - матрица корреляции для всего df (поймает только линейные зависимости)<br>
+sns.heatmap(df.corr()) - heatmap для матрицы корреляции<br><br>
+
+! pip install phik<br>
+import phik<br>
+from phik.report import plot_correlation_matrix<br>
+from phik import report<br>
+phik_overview = df.phik_matrix()<br>
+sns.heatmap(phik_overview) - отслеживать нелинейную корреляцию<br>
+phik_overview.target.sort_values(ascending=False)<br><br>
+</section>
+      </aside>
+    </div>
+</body>
+</html>

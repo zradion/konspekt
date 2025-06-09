@@ -18,6 +18,7 @@
             <li><a href="./libraryPy.html">libraryPy</a></li>
             <li><a href="./dir_and_file.html">Папки и файлы</a></li>
             <li><a href="./pictures.html">Картинки и графики</a></li>
+            <li><a href="./data_analysis.html">Анализ данных</a></li>
             <li><a href="./web_scraping.html">Web scraping</a></li>
             <li><a href="./flask.html">Flask</a></li>
             <li><a href="./django.html">Django</a></li>
@@ -42,35 +43,39 @@
           <span>Books</span>
           <ul class="sub_menu_list">
             <li><a href="../books/english.html">Books in English</a></li>
-            <li><a href="../subjects/math.html">Математика</a></li>
-            <li><a href="../subjects/environment.html">Окружение</a></li>
-            <li><a href="">Справочники</a></li>
+            <li><a href="../books/math.html">Математика</a></li>
+            <li><a href="../books/environment.html">Окружение</a></li>
+            <li><a href="../books/digest.html">Справочники</a></li>
           </ul>
         </li>
       </ul>
     </nav>
     <div class="left_right">
       <aside class="left">
-  
-    <p><a href="#s1">random</a></p>
-    <p><a href="#s2">sys</a></p>
-    <p><a href="#s3">copy</a></p>
-    <p><a href="#s4">pyperclip</a></p>
-    <p><a href="#s5">math</a></p>
-    <p><a href="#s6">shelve</a></p>
-    <p><a href="#s7">pickle</a></p>
-    <p><a href="#s8">pprint</a></p>
-    <p><a href="#s9">pyinputplus</a></p>
-    <p><a href="#s10">Время</a></p>
-    <p><a href="#s11">Regex</a></p>
-    <p><a href="#s12">Pandas</a></p>
-    <p><a href="#s13">NumPy</a></p>
-    <p><a href="#s14">TeX</a></p>
-    <p><a href="#s15">pywin32</a></p>
-    <p><a href="#s16">threading</a></p>
-    <p><a href="#s17">geocoder</a></p>
-    <p><a href="#s18">SQLite</a></p>
-    <p><a href="#s19">BigQuery</a></p>
+  <p>
+    <a href="#s0">Библиотеки</a>
+    <a href="#s1">random</a><br>
+    <a href="#s2">sys</a><br>
+    <a href="#s3">copy</a><br>
+    <a href="#s4">pyperclip</a><br>
+    <a href="#s5">math</a><br>
+    <a href="#s6">shelve</a><br>
+    <a href="#s7">pickle</a><br>
+    <a href="#s8">pprint</a><br>
+    <a href="#s9">pyinputplus</a><br>
+    <a href="#s10">Время</a><br>
+    <a href="#s11">Regex</a><br>
+    <a href="#s12">Pandas</a><br>
+    <a href="#s13">NumPy</a><br>
+    <a href="#s14">TeX</a><br>
+    <a href="#s15">pywin32</a><br>
+    <a href="#s16">threading</a><br>
+    <a href="#s17">geocoder</a><br>
+    <a href="#s18">SQLite</a><br>
+    <a href="#s19">BigQuery</a><br>
+    <a href="#s20">subprpcess</a><br>
+    <a href="#s21">colorama</a><br>
+    <a href="#s22">translatepy</a></p>
       </aside>
     
       <aside class="right"><h1 align="center" id="s0">Library for Python.</h1>
@@ -211,8 +216,8 @@ EST, EDT - восточное, западное побережье Америк�
 Unix epoch - начало эпохи (1970, 1, 1, 12, 0, 0)<br><br>
 
 <b>import time</b><br>
-t = <i>time.time()</i> - без аргумента; привязана к системным часам; время в секундах с начала эпохи(1970-01-01 0:00:00 utc)<br>
-Дальше можно подставлять аргумент (секунды)<br><br>
+t = <i>time.time()</i> - без аргумента; привязана к системным часам; время в секундах с начала эпохи(1970-01-01 0:00:00 utc) Unix epoch timestamp<br><br>
+
 start_time = time.time()<br>
 print(f"Start {time.strftime('%H:%M:%S')}")<br>
 <i>time.gmtime()</i> ..time.struct_time(tm_year=2023, tm_mon=10, tm_mday=6, tm_hour=13, tm_min=28, tm_sec=59, tm_wday=4, tm_yday=279, tm_isdst=0)<br>
@@ -264,6 +269,11 @@ print(deadline.date()) ..2017-05-22<br><br>
 %x; %X - дата; время - местный формат<br>
 print(now.strftime("%d %b (%A)")) .. 31 Aug (Thursday)<br><br>
 
+sber = pd.read_excel(r"financial.ods", engine='odf', sheet_name='sber', parse_dates=['date'], date_format='%d.%m.%Y')<br>
+sber.loc[len(sber), ['date', 'sber_total', 's_invest', 'gold_g', 'gold_s',
+                     'silv_g', 'silv_s']] = [today.strftime("%d.%m.%Y"),
+                     sber_total, s_invest, gold_g, gold_s, silv_g, silv_s]<br><br>
+
 <i>import locale</i><br>
 <i>locale.setlocale(locale.LC_ALL, "")</i> - для использования русских(местных) слов<br><br>
 
@@ -283,7 +293,21 @@ elif now.day == deadline.day and now.month == deadline.month:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;print("today")<br>
 else:
 &nbsp;&nbsp;&nbsp;&nbsp;period = deadline - now<br>
-&nbsp;&nbsp;&nbsp;&nbsp;print(f"осталось {period.days} дней")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(f"осталось {period.days} дней")<br><br>
+
+<b>import calendar</b><br>
+today = dt.datetime.(2025,2,16)<br>
+res = calendar.monthrange(today.year, today.month) ... (5, 28)<br><br>
+
+<b>from threading import Thread</b><br>
+# выполнение двух ниток потока<br>
+def takeAnap():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time.sleep(5)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print('Wake up')<br><br>
+
+threadObj = Thread(target=takeAnap)<br>
+threadObj.start()<br>
+print('The end')<br>
   </section>
 
   <section id="s11"><h3 align="center">Regex</h3>
@@ -378,12 +402,14 @@ print(match.group(0,1,2,3)) - кортеж из групп 0 - всё совпа
 
 <b>re.split</b>(pattern, string, maxsplit=0) - разделение по подстрокам, подходящим под шаблон; выбрать разделитель<br>
 print(re.split(r"\W+", "Где скажите мне, мои очки?"))
-... ["Где", "скажите", "мне", "мои", "очки"] - список без пробелов<br><br>
+... ["Где", "скажите", "мне", "мои", "очки", " "] - список без пробелов<br><br>
+
+[i.lower() for i in re.split(r"\W+", text) if i] # слова в нижнем регистре без пробела в конце<br><br>
 
 <b>re.sub</b>(pattern, repl, string, count=0, flags) - (substitution) заменить все непересекающиесся шаблоны на repl (строка или ф-ция)<br>
 result2 = re.sub(r"old", r"new", txt) - заменить<br><br>
 
-<b>re.subn</b> - тоже плюс кол-во замен<br><br>
+<b>re.subn</b> - тоже; плюс кол-во замен<br><br>
 
 pattern = <i>re.compile</i>(r'\d{3}') - шаблон передаём в  re.compile() и сохраняем в regex object<br>
 result = <i>pattern.search</i>(txt).group()<br>
@@ -419,11 +445,11 @@ print(re.sub(r"(\d\d)/(\d\d)/(\d{4})", r"\2.\1.\3", "03/25/2023")) - дата п
 
   <section id="s12"><h3 align="center">Pandas</h3>
 
-<p><a href="https://pandas.pydata.org/docs/reference/index.html" target="_blank" rel="noopener" >pandas</a></p>
-<i>pip insall pandas</i><br>
-<b>import pandas as pd</b><br><br>
+<p><a href="https://pandas.pydata.org/docs/reference/index.html" target="_blank" rel="noopener" >pandas</a><br>
+<a href="https://yandex.ru/video/preview/15221246385215675350" target="_blank" rel="noopener" >Анализ Данных на Python и Pandas</a></p>
 
-<i>EDA</i> - Ecploratory Data Analysis<br>
+<i>pip install pandas</i><br>
+<b>import pandas as pd</b><br><br>
 
 <b>Series</b><br>
 mySeries = pd.Series(my_dict) - ключи будут индексами; можно обращатся по ключу (mySeries.Name)<br>
@@ -461,6 +487,11 @@ df = pd.DataFrame([Series1, Series2]) - две строки в df<br><br>
 <b>Прочитать, выгрузить в другой формат</b><br>
 df = pd.read_csv(path, index_col='date', sep=';') - индексами сделать 'date'
    sep- разделитель, header=None, skiprow=[0,1,3], usecols=None, nrows = None - кол-во строк, encoding='1251', na_values = ['NA', 'Missing'] (заменить значения на пустые)<br>
+col_names = [список новых заголовков]<br>
+data = pd.read_csv(path, names=col_names, skiprows=[0]) - новые заголовки,
+строку со старыми пропустить<br>
+skiprows = [0,3,5] - пропустить указанные строки<br>
+header= None, skiprows=[0] -  удалить заголовки<br><br>
 d_parser = lambda x: pd.datetime.strptime(x, '%Y-%m-%d %I-%p')<br>
 df = pd.read_csv(path, parse_dates=['date'], date_parser=d_parser) - 'date' - Dtype - datetime64[ns]
     (index_col='date', parse_dates=True); index_col=0 (первый столбец без имени станет индексами)<br>
@@ -482,16 +513,8 @@ df = pd.read_sql_query(query, db)<br><br>
 df_list = pd.read_html(url) - возвращает список найденых фреймов<br>
 df_list[0].info()<br><br>
 
-df.rename(index={'old': 'new'}, columns={'old': 'new'}, inplace=True)<br>
 df.describe() - статистики по столбцам<br>
-pd.options.mode.chained_assignment = None <br>
-df.fillna(0, inplace=True) - заменим пропуски данных нулями<br><br>
-
-col_names = [список новых заголовков]<br>
-data = pd.read_csv(path, names=col_names, skiprows=[0]) - новые заголовки,
-строку со старыми пропустить<br>
-skiprows = [0,3,5] - пропустить указанные строки<br>
-header= None, skiprows=[0] -  удалить заголовки<br><br>
+pd.options.mode.chained_assignment = None - Чтобы временно отключить предупреждение <br><br>
 
 Поменять в столбце "вид" название растений на цифры<br>
 lablel_encode = {'вид': {'iris0': 0, 'iris1': 1, 'iris2': 2}}<br>
@@ -547,6 +570,10 @@ df.rename(index={'old': 'new'}, inplace=True)<br>
 df.index = [список новых индексов]<br>
 df.index.names = ['month'] - переименовали колонку с индексами<br>
 df.rename_axis('manth', axis='rows') <br><br>
+
+df = df.set_index('enrollee_id').reset_index(drop=True).rename_axis('enrollee_id').reset_index() -  установили индексы; переустановили [0,1..] (теперь колонка называется 'Index'); переименовали; вернули как колонку<br>
+<i># Избавиться от мультииндекса.</i> (теперь он один через подчёркивание)<br>
+t.columns = ['_'.join(col).strip() for col in t.columns.values]<br><br>
 
 <b>Столбец</b><br>
 df = pd.read_csv(path, names=[list], skiprows=[0])- поменяли заголовки,
@@ -640,6 +667,8 @@ df[df.prodact.str.contains('LG', regex=True, na=False)] - метод 'str' пр�
 df = df[['name1', 'name2']][filter].copy() - две колонки по условию; сохранить копию<br> 
 df[filter].loc[:, ['name1', 'name2']] - тоже<br><br>
 
+df[~df.column.isna()]  # все не-пропущенные значения<br><br>
+
 <b>Время</b><br>
 <i>NaT</i> - not a time; эквивалент NaN<br>
 timestamp = pd.Timestamp("2023-03-25 15:30:00") - Timestamp('2023-03-25 15:30:00')<br>
@@ -697,7 +726,7 @@ suffixes=('_x', '_y'), copy=True, indicator=False, validate=None) <br>
 df1.merge(df2, left_on='A', right_on='A1', how='inner')- из левого фрэйма 'A' \
 <br><br>
 
-<b>Concatenate</b> - исаользуем, когда фрэймы имеют одинаковые поля<br>
+<b>Concatenate</b> - используем, когда фрэймы имеют одинаковые поля<br>
 pandas.concat(objs, axis=0, join='outer', join_axes=None, ignore_index=False, \
 keys=None, levels=None, names=None, verify_integrity=False, sort=None, \
 copy=True)<br>
@@ -729,6 +758,20 @@ print(pd.concat([df_marks['names'], mean], axis=1)) - столбецы 'name' + 
 bargain_idx = (reviews.points / reviews.price).idxmax()<br>
 bargain_wine = reviews.loc[bargain_idx, 'title']<br><br>
 
+reviews.loc[reviews.country.isin(['Itali', 'France'])] - выбрать строки в которых страна Италия или Франция.<br>
+reviews.loc[reviews.price.notnull()] - фрейм в котором price != 0<br><br>
+
+ф-ция map принемает каждое значение Series  и возвращает новое Series<br>
+review_points_mean = reviews.points.mean()<br>
+reviews.points.map(lambda p: p - review_points_mean)<br><br>
+
+то же с apply<br>
+def remean_points(row):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;row.points = row.points - review_points_mean<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return row<br>
+
+reviews.apply(remean_points, axis='columns')<br><br>
+
 extr = df['name_column'].str.extract(r"^(\d{4})", flag=0, expand=False)
    выбрали необходимое с помощью рег.выраж.<br><br>
 
@@ -752,9 +795,9 @@ for row in df.itertuples():<br>
 (df['a'] + df['b']).to_list()<br>
 %timeit (df['a'].values + df['b'].values).tolist() - быстро<br><br>
 
-from pandas.plotting import scatter_matrix<br><br>
-
 <b>Grouping and Aggregating</b><br>
+reviews.groupby('points').points.count() - сгрупировать по 'points' и посчитать сколько строк с каждым значением 'points'<br>
+reviews.groupby('points').price.min() - минимальная цена на кажое значение 'points'<br>
 contry_grp = df.groupby(['Country'], dropna=False) - DataFrameGroupBy object (по столбцу 'Contry'), учитываем пропущенные значения<br>
 contry_grp.get_group('India') - df отсортирован по одной стране.<br>
 contry_grp['SocialMedia'].value_counts().loc['India'] - посчитать сколько чел в Индии пользуются какими Media<br>
@@ -792,18 +835,23 @@ user_info['type'] = user_info['temp'].apply(my_func) - к столбцу 'temp' 
 &nbsp;&nbsp;&nbsp;&nbsp;<i>return dt.datetime.fromtimestamp(tmstmp).date()</i><br><br>
 
 <b>Анализ данных</b><br>
+<i>Пропуски</i><br>
+df[df.Gender.isna()] (df[pd.isna(df.Gender)]) - df в котором пропущены знач в колонке 'Gender'<br>
+df.room.isna().sum() - кол-во пустых строк<br>
+df.isna().mean().sort_values(ascending=False) - посмотреть пропущенные  знач по каждому столбцу сортированые по убыванию (доля пропущенных значений к общему кол-ву)<br><br>
+
+df.isin(["?"]).sum() - посчитать в разных столбцах сколько '?'<br><br>
+
+Для непрерывных значений смотрим гистограмму (х - разные значения; у - кол-во значений)<br>
+df.something.hist()<br><br>
+или<br>
 df.describe() - для колонок с числовыми данными count, mean, std, min, 25%, 50%, 75%, max по каждой колонке.<br>
 df.describe(include='all') - для всех колонок.<br><br>
 
 df.sort_values([name1, name2], ascending=[False, True], inplace=False, key=lambda x: x.str.lower())<br>
 df.names.unique() - уникальные значения в столбце names<br>
-df.names.nunique() - кол-во уникальных значений<br>
-df.names.value_counts() - кол-во разных значений; аргумент [normalize=True] - в долях от общего кол-ва.<br><br>
+df.names.nunique() - кол-во уникальных значений<br><br>
 
-.isna(), isnull(), notna(), .notnull() - возвращает булевое знач<br>
-df[df.Gender.isna()] (df[pd.isna(df.Gender)]) - df в котором пропущены знач в колонке 'Gendeer'<br>
-.sum() - суммирует<br>
-df.room.isna().sum() - кол-во пустых строк<br>
 .fillna(0, inplace=True) - заменить пустые значения на указаное<br>
 df.fillna(method='pad')
 df.name = df['name'].fillna('unknown') - заменить значения в столбце<br>
@@ -814,23 +862,32 @@ df.name = df['name'].fillna('unknown') - заменить значения в с
 df['room'].min(); df['room'].max()<br><br>
 
 tenis.name = tenis.name.replace('Roger', 'Robert')<br>
+
+Для категориальных значений<br>
+df.names.value_counts() - кол-во разных значений; аргумент [normalize=True] - в долях от общего кол-ва.<br><br>
+
+df.gender.value_counts(dropna=False) - (observed=False) посмотреть категориальную колонку, учитывать пропущенные знач.<br><br>
+
+df.gender.apply(lambda x: 'no_info' if (x == 'Other' or pd.isna(x)) else x).value_counts(dropna=False) - заменить в колонке пропуски и other на 'no_info'<br><br>
+
+.isna(), isnull(), notna(), .notnull() - возвращает булевое знач<br>
+.sum() - суммирует<br><br>
+
 label_encode = {'column_name': {'iris0': 0, 'iris1': 1}}<br>
 df1 = df.replace(label_encode)<br>
 df[name].count() - посчитать количество элементов<br>
 df[name].value_counts() - посчитать кол-во каждого элемента<br>
 x = iris.iloc[:,:-1].values - список списков - значения 4 из 5 столбцов<br><br>
 
-df.isna().mean().sort_values(ascending=False) - посмотреть пропущенные  знач по каждому столбцу сортированые по убыванию<br><br>
-
-Тип переменных - непрерывная или категориальная(male, female)<br>
-для непрерывных смотрим гистограмму df.Age.hist()<br>
-plt.hist(df.Age), plt.show() - гистограмма показывает сколько записей на каждый возраст<br><br>
-
+<i># Разбить непрерывную переменную на 5 групп</i> (также работает гистограмма)<br>
 df['age_cut'] = pd.cut(df.Age, 5)<br>
+# или нарезать группы в ручную<br>
 df['age_cut'] = pd.cut(df.Age, [-float('inf'),0,18,30,float('inf')])<br>
 df.groupby('age_cut', observed=False)[].agg(['count', 'sum', 'mean']).reset_index() - разбили колонку 'Age' на 5 частей и сгруппировали данные по каждой<br><br>
 
-df.gender.value_counts(dropna=False) - (observed=False) посмотреть категориальную колонку, учитывать пропущенные знач.<br><br>
+# Что бы разбить по кол-ву строк (не значение переменной) используем qcut()<br>
+df['city_development_q'] = pd.qcut(df['city_development'], 5, duplicates='drop') - дополнительный параметр, если много одинаковых данных<br>
+df.groupby('city_development_q', dropna=False)['target'].agg(['count', 'mean'])<br><br>
 
 Что бы объеденить какие-то группы<br>
 Не используем циклы для pandas. Используем apply<br>
@@ -839,7 +896,7 @@ def education_gr(x):<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 'school'<br>
 &nbsp;&nbsp;&nbsp;&nbsp;if x in ['masters', 'phd']:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 'mast and phd'<br>
-return x<br><br>
+&nbsp;&nbsp;&nbsp;return x # всё, что не попало в группы<br><br>
 
 df['new_exucation'] = df['education_lv'].apply(educatin_gr) - создали новую колонку с новыми группами<br><br>
 
@@ -882,6 +939,21 @@ rot=15 - развернуть названия на 15 градусовf<br>
 df.groupby('education', dropna=False)['target'].mean().plot(kind='bar') - столбчатая диаграмма зависимость от образования<br>
 plt.hist(df.Age), plt.show() - гистограмма показывает сколько записей на каждый возраст<br><br>
 
+sns.countplot(data=df, x='workclass')<br>
+plt.xticks(rotation=45)<br><br>
+
+plt.hist(df[df['income'] == '>50K']['age'].dropna(), bins=20, alpha=0.5, label='>50K', color='blue')<br><br>
+
+numerical_columns = df.select_dtypes(include=['int64', 'float64']).columns<br>
+df[numerical_columns].hist(figsize=(12, 10), bins=20, edgecolor="black")<br>
+plt.suptitle("Distribution of Numerical Features", fontsize=16)<br><br>
+
+sns.boxplot(x='education', y='hours-per-week', data=df)<br><br>
+
+distribution = df['marital-status'].value_counts()<br>
+plt.pie(distribution, labels=distribution.index, autopct='%1.1f%%', colors=['blue', 'orange', 'green', 'red', 'purple'], startangle=140)<br><br>
+
+***<br>
 bargain_idx = (reviews.points / reviews.price).idxmax() - максимальное знач балов к цене (индекс)<br>
 bargain_wine = reviews.loc[bargain_idx, 'title'] - по индексу -название вина<br><br>
 
@@ -954,11 +1026,11 @@ print(sity.json['lat'], sity.json['lng'])<br>
 
   <section id="s18"><h3 align="center">SQL</h3>
     
-<p><a href="https://sqlitebrowser.org" target="_blank" rel="noopener" >DB Browser for SQLite</a><br>
+<a href="https://sqlitebrowser.org" target="_blank" rel="noopener" >DB Browser for SQLite</a><br>
 <i>hot key:</i><br>
 <i>Ctrl+Enter</i> - выполнить<br>
 <a href="https://www.youtube.com/watch?v=TwnCXdCa8qg&list=PLA0M1Bcd0w8x4Inr5oYttMK6J47vxgv6J&index=1" target="_blank" rel="noopener" >SQLite (selfedo)</a><br>
-<a href="https://youtu.be/K1C5JAo7cMU?si=dMn764dqVkZZvzRw" target="_blank" rel="noopener" >SQLite (Sweet Coder)</a></p>
+<a href="https://youtu.be/K1C5JAo7cMU?si=dMn764dqVkZZvzRw" target="_blank" rel="noopener" >SQLite (Sweet Coder)</a><br>
 <i>SQL</i> - Structured Query Language<br>
 <i>СУБД</i> - Система Управления Базой Данных (реляционные базы данных <i>relation</i>)<br>
 <i>API</i> - Aplication Progamming Interface
@@ -1157,14 +1229,22 @@ pip install faker; import faker; fake = faker.Faker(); fake.name() - произ�
 
 <section id="s19"><h5 align="center">BigQuery</h5>
 
+<a href="https://cloud.google.com/bigquery?hl=ru" target="_blank" rel="noopener" >BigQuery</a><br>
 <i>from google.cloud import bigquery</i><br>
-<i>client = bigquery.Client()</i> - создаём объект 'Client' он содержит проект и связь с BigQuery<br>
+<i>client</i> - содержит проекты и связь с BigQuery<br>
+<i>проект</i> - содержит датасеты<br>
+<i>датасет</i> - содержит коллекцию таблиц<br>
+<i>таблица</i> - содержит информацию по каждому полю (название, тип данных, режим, описание)<br><br>
+
+<i>client = bigquery.Client()</i> - создаём объект client()<br>
 <i>dataset_ref = client.dataset("hacker_news", project="bigquery-public-data")</i> - доступ к датасету; название и соответствующий проект<br>
 <i>dataset = client.get_dataset(dataset_ref)</i> - коллекция таблиц<br><br>
 
 tables = list(client.list_tables(dataset)) - получить список таблиц в датасете<br>
 for table in tables: - получить имена таблиц<br>
 &nbsp;&nbsp;&nbsp;&nbsp;print(table.table_id)<br><br>
+
+list_of_tables = [table.table_id for table in list(client.list_tables(dataset))]<br><br>
 
 table_ref = dataset_ref.table('full') - доступ к таблице название 'full'<br>
 table = client.get_table(table_ref)<br><br>
@@ -1182,11 +1262,13 @@ FROM `bigquery-public-dada.pet_records.pets` # в обратных ковычк�
 WHERE Animal = 'Cat' # условие (clause) <br>
 """<br><br>
 
-SELECT DISTINCT country (уникальные значения в колонке)<br><br>
+SELECT DISTINCT country (уникальные значения в колонке)<br>
+WHERE Name LIKE '%ipl%' # % - wildcard<br><br>
 
+<b>Submiting the query to the dataset</b> - отправка запроса<br>
 query_job = client.query(query)<br>
 us_cities = query_job.to_dataframe() - запрос - города US из OpenAQ dataset<br>
-us_cities.city.value_counts().head() - df 'us_cities', columns 'citiy', кол-во значений.<br><br>
+us_cities.city.value_counts().head() - df 'us_cities', column 'city', кол-во значений.<br><br>
 
 <b>Kaggle</b> - лимит на скачивание датасетов 5ТБ в месяц<br>
 dry_run_config = bigquery.QueryJobConfig(dry_run=True) - создаём объект для расчёта объёма запроса<br>
@@ -1203,8 +1285,191 @@ safe_query_job = client.query(query, job_config=safe_config)<br><br>
 # API request - try to run the query, and return a pandas DataFrame<br>
 safe_query_job.to_dataframe() - выдаст ошибку если больше заявленого<br><br>
 
-<b>Group By, Having & Count</b><br>
+<b>GROUP BY, HAVING & COUNT</b><br>
+<i>aggregate function</i> - takes many values and returns one.(COUNT(ID), SUM(),AVG(), MIN(), MAX()); возвращает колонку f0__<br>
+query = """SELECT Animal, COUNT(ID) # (COUNT(1) AS NameColumns) - считать строки, переименовать колонку<br>
+FROM `bigquery-public-data.pet_records.pets`<br>
+GROUP BY Animal # - посчиатать кол-во каждого животного<br>
+HAVING COUNT(ID) > 1""" # - при условии - больше одного<br><br>
+
+`by` AS author - если название стобца совпадает с каким-нибудь ключевым словом - берём в обратные ковычки и лучше заменить название<br><br>
+
+<b>ORDER BY</b> - сортирует числа или текст в алфавитном порядке<br>
+SELECT ID, Name, Animal<br>
+FROM `bigquery-public-data.pet_records.pets`<br>
+ORDER BY Animal DESC # (descending - убывание)<br><br>
+
+<b>Dates</b><br>
+<a href="https://cloud.google.com/bigquery/docs/reference/legacy-sql#datetimefunctions" target="_blank" rel="noopener" >Date and time functions</a><br>
+There are two ways that dates can be stored in BigQuery: as a DATE or as a DATETIME.<br>
+DATE - YYYY-[M]M-[D]D<br>
+DATETIME - YYYY-[M]M-[D]D + ВРЕМЯ<br><br>
+
+<b>EXTRACT</b><br>
+SELECT name, EXTRACT(DAY from Date) AS Day # выбрать имя и день из колонки 'Date'<br>
+Посчитать кол-во ДТП по дням недели:<br>
+query = """SELECT COUNT(consecutive_number) AS num_accidents, EXTRACT(DAYOFWEEK FROM timestamp_of_crash) AS day_of_week<br>
+FROM `bigquery-public-data.nhtsa_traffic_fatalities.accident_2015`<br>
+GROUP BY day_of_week<br>
+ORDER BY num_accidents DESC""" # сортировать в порядке убывания(1 - Sunday, 7 - Saturday)<br><br>
+
+WHERE indicator_code = 'SE.XPD.TOTL.GD.ZS' and year &gt;= 2010 and year &lt;= 2017<br><br>
+
+<b>WITH ... AS</b><br>
+<i>A common table expression</i> (or CTE) is a temporary table that you return within your query.<br><br>
+
+query_with_CTE = """ WITH time AS (<br>
+SELECT DATE(block_timestamp) AS trans_date # ф-ция DATE  возвращает дату из datetime()<br>
+FROM `bigquery-public-data.crypto_bitcoin.transactions`)<br>
+SELECT COUNT(1) AS transactions, trans_date # считаем кол-во трансакций по дням.<br>
+FROM time<br>
+GROUP BY trans_date<br>
+ORDER BY trans_date"""<br><br>
+
+<i>посчитаем среднюю скорость за час в поездках за 3 месяца и не нулевые</i><br>
+WITH RelevantRides AS(<br>
+SELECT EXTRACT(HOUR FROM trip_start_timestamp) AS hour_of_day, trip_miles,trip_seconds<br>
+FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`<br>
+WHERE trip_start_timestamp > '2016-01-01' AND trip_start_timestamp < '2016-04-01'<br> AND trip_seconds > 0 AND trip_miles > 0)<br>
+SELECT hour_of_day, COUNT(1) AS num_trips, <br>
+3600 * SUM(trip_miles) / SUM(trip_seconds) AS avg_mph<br>
+FROM RelevantRides<br>
+GROUP BY hour_of_day<br>
+ORDER BY hour_of_day<br><br>
+
+<b>Joining Data</b><br>
+# объеденить таблицу собственников животных (как о) с таблицей самих животных по номеру ID. (только пересекающиеся множества)<br>
+SELECT o.Name AS Owner_Name, p.Name AS Pet_Name<br>
+FROM `bigquery-public-data.pet_records.owners` AS o<br>
+INNER JOIN `bigquery-public-data.pet_records.pets` AS p<br>
+ON p.ID = o.Pet_ID<br><br>
+
+LEFT JOIN, RIGHT JOIN, FULL JOIN - строки не имеющие совпадения будут иметь значение NULL<br>
+UNION ALL - конкатенация колонок вертикально (со всеми повторениями)<br>
+UNION DISTINCT - без повторений<br><br>
+
+# все посты на 1 января с количеством комментариев<br>
+WITH c AS(<br>
+SELECT parent, COUNT(*) as num_comments<br>
+FROM `bigquery-public-data.hacker_news.comments` <br>
+GROUP BY parent)<br>
+SELECT s.id as story_id, s.by, s.title, c.num_comments<br>
+FROM `bigquery-public-data.hacker_news.stories` AS s<br>
+LEFT JOIN c ON s.id = c.parent<br>
+WHERE EXTRACT(DATE FROM s.time_ts) = '2012-01-01'<br>
+ORDER BY c.num_comments DESC<br><br>
+
+# время между появлением вопроса и первого комента<br>
+SELECT q.id AS q_id,<br>
+MIN(TIMESTAMP_DIFF(a.creation_date, q.creation_date, SECOND)) as time_to_answer<br>
+FROM `bigquery-public-data.stackoverflow.posts_questions` AS q<br>
+LEFT JOIN `bigquery-public-data.stackoverflow.posts_answers` AS a<br>
+ON q.id = a.parent_id<br>
+WHERE q.creation_date >= '2018-01-01' and q.creation_date &lt; '2018-02-01'<br>
+GROUP BY q_id<br>
+ORDER BY time_to_answer<br><br>
+
+first_result = client.query(first_query).result().to_dataframe()<br>
+print("Percentage of answered questions: %s%%" % \<br>
+      (sum(first_result["time_to_answer"].notnull()) / len(first_result) * 100))<br>
+print("Number of questions:", len(first_result))<br><br>
+
+<b>Analyic Functions</b> (windows functions calls)<br>
+# разделить на группы; сортировать по дате; посчитать среднее значение между двумя соседними значениями (window frame)<br>
+SELECT *, AVG(time)OVER(<br>
+PARTITION BY id <br>
+ORDERD BY date <br>
+ROWS BETWEEN 1 PRECEDING AND CURRENT ROW) as avg_time<br><br>
+
+ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING - all rows in the partition.<br><br>
+
+<i>Analytic aggregate functions</i>: MIN() or MAX(), AVG() or SUM(), COUNT()<br>
+<i>Analytic navigation functions</i>: FIRST_VALUE() or LAST_VALUE(), LEAD() and LAG()<br>
+<i>Analystic numbering functions</i>: ROW_NUMBER(), RANK()<br><br>
+
+# Query to track beginning and ending stations on October 25, 2015, for each bike<br>
+start_end_query = """SELECT bike_number,<br>
+    TIME(start_date) AS trip_time,<br>
+    FIRST_VALUE(start_station_id)<br>
+        OVER (PARTITION BY bike_number<br>
+              ORDER BY start_date<br>
+              ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING<br>
+              ) AS first_station_id,<br>
+    LAST_VALUE(end_station_id)<br>
+        OVER (PARTITION BY bike_number<br>
+              ORDER BY start_date<br>
+              ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING<br>
+              ) AS last_station_id,<br>
+    start_station_id,<br>
+    end_station_id<br>
+FROM `bigquery-public-data.san_francisco.bikeshare_trips`<br>
+WHERE DATE(start_date) = '2015-10-25' <br>
+"""<br>
+# Run the query, and return a pandas DataFrame<br>
+start_end_result = client.query(start_end_query).result().to_dataframe()<br><br>
+
+# Датасет Чикаго такси; добавить колонку в которой время (в мин) между завершением заказа и началом следующего.<br>
+break_time_query = """SELECT taxi_id,<br>
+  trip_start_timestamp,<br>
+  trip_end_timestamp,<br>
+  TIMESTAMP_DIFF(trip_start_timestamp, <br>
+    LAG(trip_end_timestamp, 1) <br>
+  OVER (PARTITION BY taxi_id <br>
+        ORDER BY trip_start_timestamp), MINUTE) as prev_break<br>
+FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`<br>
+WHERE DATE(trip_start_timestamp) = '2013-10-03' <br>
+"""<br><br>
+
+<b>Nested and Repeated Data</b><br>
+# табл. с животными и табл. с их игрушками; собираем в одну табл. причём в колонке 'Toy' собрана инфо из двух колонок - вложеная колонка (<ins>nested columns</ins> have type STUCT or RECORD)<br>
+<i>SchemaField('Toy', 'RECORD', 'NULLABLE', None, (<br>
+  &#160;&#160;&#160;SchemaField('Name', 'STRING', 'NULLABLE', None, ())<br>
+  &#160;&#160;&#160;SchemaField('Type', 'STRING', 'NULLABLE', None, ())))</i><br><br>
+
+SELECT Name AS Pet_Name, Toy.Name AS Toy_Name, Toy.Type AS Toy_type<br><br>
+
+# в табл. с игрушками несколько игрушек для одного животного - повторяющиеся данные; тогда в схеме таблице для колонки 'Toys' mode = 'REPEATED' - <ins>repeated data</ins><br>
+<i>SchemaField('Toys', 'STRING', 'REPEATED', None, ())</i><br><br>
+
+<b>Writing Efficient Queries</b><br>
+from time import time<br>
+client = bigquery.Client()<br><br>
+
+def show_amount_of_data_scanned(query):<br>
+&#160;&#160;&#160;# dry_run lets us see how much data the query uses without running it<br>
+&#160;&#160;&#160;dry_run_config = bigquery.QueryJobConfig(dry_run=True)<br>
+&#160;&#160;&#160;query_job = client.query(query, job_config=dry_run_config)<br>
+&#160;&#160;&#160;print('Data processed: {} GB'.format(round(query_job.total_bytes_processed / 10**9, 3)))<br><br>
+    
+def show_time_to_run(query):<br>
+&#160;&#160;&#160;time_config = bigquery.QueryJobConfig(use_query_cache=False)<br>
+&#160;&#160;&#160;start = time()<br>
+&#160;&#160;&#160;query_result = client.query(query, job_config=time_config).result()<br>
+&#160;&#160;&#160;end = time()<br>
+&#160;&#160;&#160;print('Time to run: {} seconds'.format(round(end-start, 3)))<br><br>
+
+* Only select the columns you want<br>
+* Read less data<br>
+* Avoid N:N JOINs (объединение болших массивов)<br>
   </section>
+
+  <section id="s20"><b>import subprocess</b><br>
+subprocess.Popen('C:\\Windows\\System32\\calc.exe') - калькулятор<br>
+paintProc = subprocess.Popen('c:\\Windows\\System32\\mspaint.exe') - paint<br>
+paintProc.poll() - вернёт 0, если процесс завершон без ошибок<br>
+paintProc.wait()<br>
+subprocess.Popen(['C:\\Windows\\notepad.exe', \
+                'C:\\Users\\zradi\\Documents\\my_py\\avto_rem\\avto_rem.txt']) - запустить бллокнот и текстовый файл<br>
+  </section>
+
+  <section id="s21"><i>pip install colorama</i><br>
+<a href="https://pypi.org/project/colorama/" target="_blank" rel="noopener" >colorama</a> - раскрасить 'print'<br>
+  </section>
+
+  <section id="s22"><i>pip install translatepy</i><br>
+<a href="https://pypi.org/project/translatepy/" target="_blank" rel="noopener" >translatepy</a> - переводчик<br>
+  </section>
+
       </aside>
     </div>
   </div>

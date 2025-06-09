@@ -18,6 +18,7 @@
             <li><a href="./libraryPy.html">libraryPy</a></li>
             <li><a href="./dir_and_file.html">Папки и файлы</a></li>
             <li><a href="./pictures.html">Картинки и графики</a></li>
+            <li><a href="./data_analysis.html">Анализ данных</a></li>
             <li><a href="./web_scraping.html">Web scraping</a></li>
             <li><a href="./flask.html">Flask</a></li>
             <li><a href="./django.html">Django</a></li>
@@ -52,11 +53,12 @@
     <div class="left_right">
       <aside class="left">
   
-    <p><a href="#s1">Decision Tree model</a></p>
-    <p><a href="#s2">Random Forests</a></p>
-    <p><a href="#s3">Pipelines</a></p>
-    <p><a href="#s4">XGBoost</a></p>
-    <p><a href="#s5">Ещё</a></p>
+    <p><a href="#s1">Decision Tree model</a><br>
+    <a href="#s2">Random Forests</a><br>
+    <a href="#s3">Pipelines</a><br>
+    <a href="#s4">XGBoost</a><br>
+    <a href="#s5">Ещё</a><br>
+    <a href="#s6">Tensorflow.Keras</a></p>
       </aside>
     
       <aside class="right"><h1 align="center" id="s0">Машинное обучение</h1>
@@ -64,10 +66,18 @@
 <p><a href="https://scikit-learn.org/stable/index.html" target="_blank" rel="noopener" >scikit-learn</a> - популярная библиотека для  данных в DataFrames (сайкит-лёрн).</p>
 <p><a href="https://proproprogs.ru/neural_network/struktura-i-princip-raboty-polnosvyaznyh-neyronnyh-setey" target="_blank" rel="noopener" >SelfEdu</a> - Сергей Балакирев. Нейронные сети.</p>
 
+1. Обучение с учителем (Supervised Learning)<br>
+2. Обучение без учителя (Unsupervised Learning)<br>
+3. Обучение с подкреплением (Reinforcement Learning)<br><br>
+
+Простейшая нейросеть (НС) - персептрон<br>
+входной слой; скрытые слои; выходной слой<br>
+нейрон это сумматор входных сигналлов, сумму пропускает через функцию активации<br><br>
+
 <section id="s1"><h3 align="center">Decision Tree model</h3>
 <i>decision tree</i> - дерево принятия решений.<br>
 <i>prediction target</i> - column we want to predict; by convention is called <b>y</b><br>
-y = melburn_data.Price<br>
+y = melburn_data.Price # столбец с ценой на недвижимость.<br>
 <i>features</i> - (особенность, признак) columns that are inputted into our model; by convention is called <b>X</b><br>
 <i>validation data</i> - данные для проверки<br><br>
 
@@ -81,6 +91,14 @@ y = melburn_data.Price<br>
 <i>nominal variables</i> - номинальные переменные<br><br>
 
 X.describe(); X.head() - quickly review<br><br>
+
+df.duplicated().sum()<br>
+df = df.drop_duplicates()<br><br>
+
+df.isin(["?"]).sum() сколько в столбцах есть значений '?'<br><br>
+
+for col in df.columns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(col,df[col].unique())<br><br>
 
 X_full.dropna(axis=0, subset=['SalePrice'], inplace=True) - удалить строки в которых 'SalePrice' пропущено.<br>
 melb_predictors = data.drop(['Price'], axis=1) - df без одного столбца<br>
@@ -110,9 +128,9 @@ imputed_X_train.columns = X_train.columns - <ins>названия колонок
 <i>Evaluate</i><br><br>
 
 <i>from sklearn.tree import DecisionTreeRegressor</i><br>
-#это класс для построения решающих деревьев в задачах регрессии<br><br>
+#это класс для построения решающих деревьев в задачах регрессии; Принемает параметр max_leaf_nodes=кол-во ветвей; много ветвей - мало данных в каждой (переобучение); мало - недообучение; и random_state=любая цифра для одинаковых расчётов.<br><br>
 
-<i>melbourne_model = DecisionTreeRegressor(random_state=1)</i> - что бы обеспечить одинаковые р-ты при каждом запуске.<br>
+<i>melbourne_model = DecisionTreeRegressor(random_state=1)</i> - что бы обеспечить одинаковые рез-ты при каждом запуске.<br>
 melbourn_model.fit(X,y) - fit model<br>
 melbourne_model.predict(X.head()) - попробуем предсказать цены на первые пять домов в таблице... [1035000. 1465000. 1600000. 1876000. 1636000.]<br><br>
 
@@ -150,6 +168,7 @@ for max_leaf_nodes in [5, 50, 500, 5000]:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;my_mae = get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;print(f"Max leaf nodes: {max_leaf_nodes}  \t\t Mean Absolute Error:  {my_mae}")<br><br>
 
+# Here is a short solution with a dict comprehension. (создаём словарь и находим минимальное значение в нём)<br>
 scores = {leaf_size: get_mae(leaf_size, train_X, val_X, train_y, val_y) for leaf_size in candidate_max_leaf_nodes}<br>
 best_tree_size = min(scores, key=scores.get)<br><br>
 </section>
@@ -314,6 +333,68 @@ print(f"MAE Score with Ratio Features: {score:.4}")<br><br>
 
 <i>feature utility metric</i> - показатель полезности<br>
 <i>mutaul information (MI)</i> - взаимная информация (насколько знание одной величины уменьшает неопределённость другой)<br>
+</section>
+
+<section id="s6"><h3 align="center">Tensorflow.Keras</h3>
+<i>from tensorflow import keras</i><br>
+<i>from tensorflow.keras import layers</i><br><br>
+
+# Create a network with 1 linear unit (три входа и один выход)<br>
+model = keras.Sequential([layers.Dense(units=1, input_shape=[3])])<br><br>
+
+w, b = model.weights - веса в виде массива (изначально произвольные) и bias(сдвиг)<br>
+print(f"Weights\n{w}\n\nBias\n{b}")<br><br>
+
+import tensorflow as tf<br>
+import matplotlib.pyplot as plt<br><br>
+
+model = keras.Sequential([
+    layers.Dense(1, input_shape=[1]),
+])<br>
+
+x = tf.linspace(-1.0, 1.0, 100)<br>
+y = model.predict(x)<br>
+
+plt.figure(dpi=100)<br>
+plt.plot(x, y, 'k')<br>
+plt.xlim(-1, 1)<br>
+plt.ylim(-1, 1)<br>
+plt.xlabel("Input: x")<br>
+plt.ylabel("Target y")<br>
+w, b = model.weights # you could also use model.get_weights() here<br>
+plt.title("Weight: {:0.2f}\nBias: {:0.2f}".format(w[0][0], b[0]))<br>
+#plt.title(f"Weight: {w[0][0]}\nBias: {b[0]}")<br>
+plt.show()<br><br>
+
+<i>Deep Neural Networks</i><br>
+<i>convolutional layers</i> - свёрточные<br>
+<i>recurrent layers</i> - рекурсивные<br>
+<i>activation functions</i> - ф-ция активации; без неё нейронные сети могут изучать только линейные связи<br>
+<i>rectifier function max(0,x)</i> - самая распостраненная - выпрямительная (ReLU - rectified linear unit)<br>
+<i>inputs, hidden, linear (output)</i> - входной слой, скрытый, выходной (линейный не имеет ф-ции активации - для задач регрессии и с ф-цией активации - для задач классификации)<br><br>
+
+model = keras.Sequential([<br>
+    layers.Dense(units=4, activation='relu', input_shape=[2]),<br>
+    layers.Dense(units=3, activation='relu'),<br>
+    layers.Dense(units=1),<br>
+]) # список слоёв<br><br>
+
+<i>The Loss Function</i> - measures how good the network's predictions are<br>
+<i>mean absolute error or MAE</i> - для задач регресии<br>
+<i> mean-squared error (MSE) or the Huber loss (both available in Keras)</i><br><br>
+
+<i>optimizer</i> - tell the network how to change its weights<br>
+<i>Stochastic Gradient Descent (SGD)</i> - Стохастический (случайные выборки) градиентный спуск<br>
+<i>minibatch (or batch) and epoch</i> -  случайная выборка и полный круг тренинга данных<br>
+<i>learning rate</i> - скорость обучения<br><br>
+
+# Добавить к модели (adam - алгоритм с адаптивной скоростью)<br>
+model.compile(<br>
+    optimizer="adam",<br>
+    loss="mae",<br>
+)<br><br>
+
+
 </section>
       </aside>
     </div>

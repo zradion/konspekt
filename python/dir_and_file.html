@@ -83,7 +83,8 @@ with open(file, mode, encoding="utf8") as myfile:<br>
 <i>myfile.readlines()</i>- считывает все строки в список<br>
 <i>myfile.write("Text in file")</i> - записать текст в файл; флаг 'w' - перезапишет, 'a' - добавление<br><br>
 
-correct_text = incorrect_text.encode('windows-1251').decode('utf-8')<br>
+<b>изменить кодировку</b><br>
+correct_text = incorrect_text.encode('windows-1251').decode('utf-8', errors='replace')<br>
 также можно использовать 'Notepad++' (Кодировка - преобразовать в UTF-8)<br>
 или 'VS Code' (нажать на кодировку внизу затем выбрать сохранить с кодировкой - UTF-8)
     </section>

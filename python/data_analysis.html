@@ -85,6 +85,8 @@ df_list[0].info()<br><br>
 df.info(); df.describe() - count, mean, std (стандартное отклонение), min, 25,50,75 процентиль, max для числовых переменных;<br>
 df.head(), df.sample()<br><br>
 
+data.describe(include = "object")<br><br>
+
 df['target'].mean() - колонка 'target'(0,1); какая доля (процент) едениц. кол-во ед / на общее кол-во<br>
 </section>
 
@@ -130,6 +132,15 @@ df.reset_index()<br><br>
 
 import seaborn as sns<br>
 sns.heatmap(t) - хитмэп сводной таблички из pivot table<br><br>
+
+sns.histplot(data['area'].dropna(),kde = True) - гистограмма с обработкой пропущенных знаяений и с плавной кривой характерезующей значения.<br><br>
+
+plt.figure(figsize=(10, 6))  # Adjust plot size<br>
+sns.countplot(x=col, data=data, palette='pastel', order=data[col].value_counts().index)  # Sort bars by frequency<br>
+plt.title(f"Count of {col}", fontsize=14)  # Add title<br>
+plt.xlabel(col, fontsize=12)  # Label x-axis<br>
+plt.ylabel("Count", fontsize=12)  # Label y-axis<br>
+plt.xticks(rotation=45)  # Rotate x-labels if needed<br><br>
 
 <i>Корреляция и phik</i><br>
 df.corr() - матрица корреляции для всего df (поймает только линейные зависимости)<br>

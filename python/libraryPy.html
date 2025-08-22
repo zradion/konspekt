@@ -53,12 +53,13 @@
     <div class="left_right">
       <aside class="left">
   <p>
-    <a href="#s0">Библиотеки</a>
+    <a href="#s0">Библиотеки</a><br>
     <a href="#s1">random</a><br>
+    <a href="#s1.1">math</a><br>
+    <a href="#s1.2">string</a><br>
     <a href="#s2">sys</a><br>
     <a href="#s3">copy</a><br>
     <a href="#s4">pyperclip</a><br>
-    <a href="#s5">math</a><br>
     <a href="#s6">shelve</a><br>
     <a href="#s7">pickle</a><br>
     <a href="#s8">pprint</a><br>
@@ -81,6 +82,7 @@
       <aside class="right"><h1 align="center" id="s0">Library for Python.</h1>
 
   <section id="s1"> <b>import random</b><br>
+<a href="https://docs.python.org/3/library/random.html#module-random" target="_blank" rel="noopener" >random</a> - Generate pseudo-random numbers<br><br>
 
 <i>random.randint(a, b)</i> - случайное число от a до b, включая оба<br>
 <i>random.choice([list])</i> - слуачайное значение из списка<br>
@@ -92,7 +94,38 @@
 <i>random.seed(123)</i> - указать произвольное число и случайная последовательность будет повторяться.<br><br>
 
 numbers = [random.randint(-10,10) for i in range(20)]
-  </section>  
+  </section>
+  
+  <section id="s1.1"><b>from math import *</b><br>
+<a href="https://docs.python.org/3/library/math.html" target="_blank" rel="noopener" >Math</a> - Mathematical functions<br><br>
+
+<i>gcd(*integers)</i> - Greatest common divisor (наибольший общий делитель)<br>
+<i>lcm(*integers)</i>  Least common multiple (наименьшее общее кратное)<br>
+<i>sqrt(x)</i> - Square root of x (квадратный корень)<br>
+<i>isqrt(n)</i> - Integer square root (целочисленный квадратный корень)<br>
+<i>isfinite(x)</i> - Check if x is neither an infinity nor a NaN<br>
+<i>isnan(x)</i> - Check if x is a NaN (not a number)<br><br>
+
+<i>degrees(x)</i> - Convert angle x from radians to degrees<br>
+<i>radians(x)</i> - Convert angle x from degrees to radians<br>
+<i>sin(x)</i> - Sine of x<br>
+<i>pi</i> - π = 3.141592…<br>
+<i>e</i> - e = 2.718281…<br>
+<i>tau</i> - τ = 2π = 6.283185…<br>
+<i>inf</i> - Positive infinity<br>
+<i>nan</i> - “Not a number” (NaN)<br>
+  </section>
+
+  <section id="s1.2"><b>from string import *</b><br>
+<a href="https://docs.python.org/3/library/string.html#module-string" target="_blank" rel="noopener" >String</a> - Common string operations<br><br>
+
+<i>digits</i> - '0123456789'<br>
+<i>hexdigits</i> - '0123456789abcdefABCDEF'<br>
+<i>punctuation</i> - !"#$%&'()*+,-./:;&lt;=>?@[\]^_`{|}~.<br>
+<i>ascii_letters</i> - 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'<br>
+<i>ascii_lowercase</i> - 'abcdefghijklmnopqrstuvwxyz'<br>
+<i>ascii_uppercase</i> - 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'<br>
+  </section>
 
   <section id="s2"> <b>import sys</b><br>
 
@@ -112,15 +145,6 @@ numbers = [random.randint(-10,10) for i in range(20)]
 pyperclip.copy('Hello, world')<br>
 pyperclip.paste()<br>
   </section>
-
-  <section id="s5"> <b>import math</b><br>
-
-math.pi<br>
-math.ceil(5.2) .. 6<br>
-math.floor(5.99) .. 5<br>
-.sqrt(); .sin(); .cos();<br>
-  </section>
-
 
   <section id="s6"> <b>import shelve</b><br>
 
@@ -618,6 +642,8 @@ room3.loc[room3 > 100] - в столбце room3 значения больше 1
 
 result_df.date = result_df.date.apply(lambda i: i[:10]) - сохранить только 10 знаков<br><br>
 
+df['income_num'] = (df['income'] != '&lt;=50K').astype(int) - изменить значения на 0 и 1<br><br>
+
 <b>Строки</b><br>
 df.loc['May'] = [list] - изменить/создать строку с индексом 'May'<br>
 df.loc[len(df)]; df.iloc[-1] - последняя строка<br>
@@ -807,8 +833,10 @@ column1_g = df.groupby('column1')['column2'].max() - для сводных та�
 fst_pay = df_pay.groupby(['user', 'geo'])['pay_date'].min().reset_index() - группируем по двум столбцам и расчитываем дату первой оплаты, сбрасываем индекс.(.sort_index(ascending=True) - сортировать индекс)<br>
 fst_pay = fst_pay.reset_index() можно отдельно<br><br>
 
-кол-во строк в каждой группе<br><br>
+# кол-во строк в каждой группе<br>
 reviews_written = reviews.groupby('taster_twitter_handle').size()<br><br>
+
+df.groupby(['education', 'educational-num']).size().sort_index(level=1) - двухуровневый индекс; сортируем по второму<br><br>
 
 Для грипировки по датам - колонка в формате datetime<br>
 df['column'].groupby(df['date'].dt.month).nunique() - по месяцам(дням, годам)<br>
@@ -966,6 +994,7 @@ col2=[0]*3 + [1]*1))<br>
 
   <section id="s13"><h3 align="center">NumPy</h3>
 
+<a href="https://habr.com/ru/articles/469355/" target="_blank" rel="noopener" >NumPy</a> - Нескучный туториал<br><br>
 <b>import numpy as np</b><br>
 оси массива; axis0, axis1<br>
 кортеж индексов (0, 1), ранг (размерность) массива<br>
@@ -974,14 +1003,39 @@ a[0] - получить значение по индексу 0, (присвои�
 b = a[[0,0,0,]] - массив из трёх значении a[0]<br>
 c = a[[True, True, False]] - массив из элементов <i>a</i>, соответствующие True<br>
 d = a.reshape(3,3) - изменить размерность массива<br>
-d[1][2] = d[1,2] - значение по индексу - вторая строка, третий столбец<br>
+d[1][2] = d[1,2] - значение по индексу - вторая строка, третий столбец<br><br>
 
 y = np.arange(3,12,3) == range(3,12,3); list(y)<br>
-x = np.array([a*a for a in y])<br>
-np.random.random(10) - 10 значений от 0 до 1<br>
-np.mean(range(5))<br>
+x = np.array([a*a for a in y]) - массив из списка<br>
+np.random.random(10) - список из 10 случайных значений от 0 до 1<br>
+np.random.randint(10) - случайное значение от 0 до 9<br>
+[np.random.randint(10)/10 for i in range(5)] - список из  5 случайных значений<br>
+height = [int(round(x)) for x in np.random.normal(180, 10, 1000)] - случайные числа (вокруг центра распред), распределённые по нормальному(гауссову) закону (std - стандартное откл.), размер (может быть кортежем для матрицы)<br><br>
+
+np.sqrt(2) - корень из 2<br>
+np.radians(135) - 135 градусов в радианах<br>
+np.cos(angle_rad) - косинус угла в радианах<br>
+np.pi - 3.14<br>
+radians = np.deg2rad(degrees)  # Или np.radians(degrees)<br>
+degrees = np.rad2deg(radians)  # Или np.degrees(radians)<br><br>
+
+mean = np.mean(data)          # Среднее<br>
+median = np.median(data)      # Медиана<br>
+Минимальное значение	np.min(data)<br>
+Максимальное значение	np.max(data)<br>
+Дисперсия	np.var(data)<br>
+Квантили	np.quantile(data, [0.25, 0.75])	[5.75, 12.0] (25% и 75%)<br>
+
 np.linspace(-10,10,100) - от -10 до 10 100 точек<br>
-np.random.uniform(size=10) / 100 - 10 точек от 0 до 1 делённые на 100<br>
+np.random.uniform(size=10) / 100 - 10 точек от 0 до 1 делённые на 100<br><br>
+
+det_B = np.linalg.det(B) - определитель матрицы<br>
+
+<b>from scipy import stats</b><br>
+
+mode = stats.mode(data)       # Мода (возвращает объект с values и count)<br>
+std = np.std(data)            # Стандартное отклонение<br>
+
   </section>
 
   <section id="s14"><h3 align="center">TeX</h3></section>
@@ -1456,18 +1510,32 @@ def show_time_to_run(query):<br>
   <section id="s20"><b>import subprocess</b><br>
 subprocess.Popen('C:\\Windows\\System32\\calc.exe') - калькулятор<br>
 paintProc = subprocess.Popen('c:\\Windows\\System32\\mspaint.exe') - paint<br>
-paintProc.poll() - вернёт 0, если процесс завершон без ошибок<br>
+paintProc.poll() - вернёт 0, если процесс завершен без ошибок<br>
 paintProc.wait()<br>
 subprocess.Popen(['C:\\Windows\\notepad.exe', \
-                'C:\\Users\\zradi\\Documents\\my_py\\avto_rem\\avto_rem.txt']) - запустить бллокнот и текстовый файл<br>
+                'C:\\Users\\zradi\\Documents\\my_py\\avto_rem\\avto_rem.txt']) - запустить блокнот и текстовый файл<br>
   </section>
 
   <section id="s21"><i>pip install colorama</i><br>
-<a href="https://pypi.org/project/colorama/" target="_blank" rel="noopener" >colorama</a> - раскрасить 'print'<br>
+<a href="https://pypi.org/project/colorama/" target="_blank" rel="noopener" >colorama</a> - раскрасить 'print' (не работает в IDLE)<br><br>
+
+from colorama import init, Fore, Back, Style<br>
+init()<br>
+print(Fore.RED + "Ошибка!" + Style.RESET_ALL)<br>
+print(Fore.GREEN + "Успех!" + Style.RESET_ALL)<br>
+print(Back.CYAN + "Сообщение" + Style.RESET_ALL)<br>
+print(Style.BRIGHT + "Важное предупреждение" + Style.RESET_ALL)<br><br>
+
+init(autoreset=True)  # Теперь не нужно вручную добавлять RESET<br>
+print(Fore.RED + "Этот текст красный")<br><br>
   </section>
 
   <section id="s22"><i>pip install translatepy</i><br>
-<a href="https://pypi.org/project/translatepy/" target="_blank" rel="noopener" >translatepy</a> - переводчик<br>
+<a href="https://pypi.org/project/translatepy/" target="_blank" rel="noopener" >translatepy</a> - переводчик<br><br>
+
+from translatepy import Translator<br>
+translator = Translator()<br>
+print(translator.translate("Hello", "rus"))<br><br>
   </section>
 
       </aside>

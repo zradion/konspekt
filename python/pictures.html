@@ -324,9 +324,11 @@ cv2.destroyAllWindows()<br>
 <i>pip install matplotlib</i><br>
 <b>import numpy as np<br>
 import matplotlib.pyplot as plt<br>
-%matplotlib inline - для Juputer</b>
+%matplotlib inline - для Juputer</b><br>
 
-<p><a href="https://www.youtube.com/watch?v=clDQPyQJ-hc&list=PLA0M1Bcd0w8xQx-X5a6eSEOYULNSnHN_p" target="_blank" rel="noopener" >Matplotlib (YouTube/sefedu)</a>; <a href="https://devpractice.ru/files/books/python/Matplotlib.book.pdf" target="_blank" rel="noopener" >Matplotlib (pdf)</a></p>
+<a href="https://www.youtube.com/watch?v=clDQPyQJ-hc&list=PLA0M1Bcd0w8xQx-X5a6eSEOYULNSnHN_p" target="_blank" rel="noopener" >Matplotlib (YouTube/sefedu)</a>; <a href="https://devpractice.ru/files/books/python/Matplotlib.book.pdf" target="_blank" rel="noopener" >Matplotlib (pdf)</a><br>
+<a href="https://python-scripts.com/matplotlib" target="_blank" rel="noopener" >Matplotlib (Python3)</a><br>
+
 Воснове объект Figure; в нём объекты Axes, Y axis label, X axis label, Grid, Legend и др.<br>
 типы графиков - Линейный (plot), Ступенчатый (step), Стековый (stackplot), stem-график, Точечный (scatter), Гистограмма (hist), Столбчатые диаграммы (bar, barh), Круговые (pie), Изображения (imshow), Цветовые (pcolormesh), 3D (plot_surface), Линии уровня (contour)<br><br>
 
@@ -385,10 +387,9 @@ ax1 = fig.add_subplot(1,3,3) - ось занемает 1/3 часть строч
 
 plt.figtext(0.1, 0.9, 'текст на фигуре',
     bbox={'boxstyle':'darrow', 'facecolor':'b'})<br>
-ax1.text(0.1, 0,7, 'текст в осях)<br>
-ax1.annotate('Anotation', xy=(0.2, 0.4), xytext=(0.6, 0.7),\
+ax1.text(0.1, 0,7, 'текст в осях')<br>
+ax1.annotate('Anotation', xy=(0.2, 0.4), xytext=(0.6, 0.7),
                 arrowprops={'facecolor':'blue', 'shrink':0.3})<br>
-f.set(facecolor='#eee') - установки на фигуре<br>
 ax1.set(facecolor='#AAFFAA') - установки на осях<br><br>
 
 ax1.set_xlabel('x-name')<br>
@@ -396,10 +397,12 @@ ax1.plot(np.arange(5, 0, -0.2), '--o', label='Line 1')<br>
 ax1.legend() - ((line1, line2), ['линия1', 'линия2'], loc='upper right',
         или bbox_to_anchor=(0.5, 0.7))<br><br>
 
-нотация LaTex: [r'$f(x) = a \cdot b + c$, r'$f(x) = k \cdot x + b$']<br>
+нотация LaTex: [r'$f(x) = a \cdot b + c$, r'$f(x) = k \cdot x + b$']<br><br>
+
 from matplotlib.ticker import NullLocator, LinearLocator, MultipleLocator,
 IndexLocator, FixedLocator, NullFormattor, FormftStrFormatter, FuncFormatter
-ScalarFormatteer, <br>
+ScalarFormatteer<br><br>
+
 ax1.grid()<br>
 ax1.xaxis.set_major_locator(NullLocator()) - скрыть метки по оси Х<br>
 ax1.xaxis.set_major_locator(LinearLocator(10)) - определённое кол-во меток<br>
@@ -429,6 +432,25 @@ plt.suptitle('Title')<br>
 ax.set_xlabel('0x')<br>
 ax.set_ylabel('0y')<br>
 ax.text(0.1, 0.1, 'something')<br><br>
+
+# Перемещаем левую и нижнюю оси в (0, 0)<br>
+ax.spines['left'].set_position('zero')    # Вертикальная ось (Y) проходит через 0<br>
+ax.spines['bottom'].set_position('zero')  # Горизонтальная ось (X) проходит через 0<br>
+
+# Убираем верхнюю и правую оси<br>
+ax.spines['right'].set_visible(False)<br>
+ax.spines['top'].set_visible(False)<br>
+
+# Добавляем стрелки на осях<br>
+ax.plot(1, 0, ">k", transform=ax.get_yaxis_transform(), clip_on=False)  # Стрелка оси X<br>
+ax.plot(0, 1, "^k", transform=ax.get_xaxis_transform(), clip_on=False)  # Стрелка оси Y<br>
+
+# Подписи осей (горизонтальные)<br>
+ax.set_xlabel('X', loc='right', rotation=0)<br>
+ax.set_ylabel('Y', loc='top', rotation=0)<br>
+
+# Включаем сетку<br>
+ax.grid(True, linestyle='--', alpha=0.7)<br><br>
 
 fig, ax = plt.subplots()<br>
 fruits = ['apple', 'blueberry', 'cherry', 'orange']<br>
@@ -495,6 +517,10 @@ plt.imshow(x_train[1],cmap=plt.cm.binary)<br>
 plt.show() изображение 28х28 пикселей представлено бинарно<br><br>
 
 plt.xticks(rotation='vertical')- метки по оси Х
+
+plt.hist(height, bins) - (гистограмма) кол-во данных по росту; задать интервалы<br>
+plt.bar(year, count) - (бар) кол-во на указанные года<br>
+plt.xticks(rotation='auto', ha='right', fontsize=10)  # ha = 'horizontal alignment'
     </section>
 
     <section id="s4"><h3 align="center">Seaborn</h3>
@@ -514,6 +540,8 @@ sns.scatterplot - Scatter plots show the relationship between two continuous var
 sns.regplot - Including a regression line in the scatter plot makes it easier to see any linear relationship between two variables.<br>
 sns.lmplot - This command is useful for drawing multiple regression lines, if the scatter plot contains multiple, color-coded groups.<br>
 sns.swarmplot - Categorical scatter plots show the relationship between a continuous variable and a categorical variable.<br><br>
+
+plt.pie(distribution, labels=distribution.index, autopct='%1.1f%%', colors=['blue', 'orange', 'green', 'red', 'purple'], startangle=140)<br><br>
 
 <i>Distribution</i> - We visualize distributions to show the possible values that we can expect to see in a variable, along with how likely they are.<br>
 sns.histplot - Histograms show the distribution of a single numerical variable.<br>

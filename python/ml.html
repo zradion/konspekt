@@ -63,8 +63,10 @@
     
       <aside class="right"><h1 align="center" id="s0">Машинное обучение</h1>
 
-<p><a href="https://scikit-learn.org/stable/index.html" target="_blank" rel="noopener" >scikit-learn</a> - популярная библиотека для  данных в DataFrames (сайкит-лёрн).</p>
-<p><a href="https://proproprogs.ru/neural_network/struktura-i-princip-raboty-polnosvyaznyh-neyronnyh-setey" target="_blank" rel="noopener" >SelfEdu</a> - Сергей Балакирев. Нейронные сети.</p>
+<p><a href="https://scikit-learn.org/stable/index.html" target="_blank" rel="noopener" >scikit-learn</a> - популярная библиотека для  данных в DataFrames (сайкит-лёрн).<br>
+<a href="https://proproprogs.ru/neural_network/struktura-i-princip-raboty-polnosvyaznyh-neyronnyh-setey" target="_blank" rel="noopener" >SelfEdu</a> - Сергей Балакирев. Нейронные сети.<br>
+<a href="https://rutube.ru/video/902c2e14e099d41f5f20639c71d6bc8e/">Дмитрий Коробченко</a> - rutube<br>
+</p>
 
 1. Обучение с учителем (Supervised Learning)<br>
 2. Обучение без учителя (Unsupervised Learning)<br>
@@ -110,6 +112,9 @@ print(missing_val_count_by_column[missing_val_count_by_column > 0] .sort_values(
 
 cols_with_missing = [col for col in X_train.columns if X_train[col].isnull().any()] - столбцы в которых есть пропущенные значения<br>
 reduced_X_train = X_train.drop(columns_with_missing, axis=1) - сохранить df без столбцов с пропусками<br><br>
+
+df_train = red_wine.sample(frac=0.7, random_state=0)<br>
+df_valid = red_wine.drop(df_train.index)<br><br>
 
 <i>from sklearn.impute import SimpleImputer</i><br>
 # для заменны данных на среднее значение, медиану, заданное знач, самое частое<br><br>
@@ -381,7 +386,7 @@ model = keras.Sequential([<br>
 
 <i>The Loss Function</i> - measures how good the network's predictions are<br>
 <i>mean absolute error or MAE</i> - для задач регресии<br>
-<i> mean-squared error (MSE) or the Huber loss (both available in Keras)</i><br><br>
+<i>mean-squared error (MSE) or the Huber loss (both available in Keras)</i><br><br>
 
 <i>optimizer</i> - tell the network how to change its weights<br>
 <i>Stochastic Gradient Descent (SGD)</i> - Стохастический (случайные выборки) градиентный спуск<br>

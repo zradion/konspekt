@@ -52,7 +52,7 @@
     </nav>
     <div class="left_right">
       <aside class="left">
-  <p>
+ 
     <a href="#s0">Библиотеки</a><br>
     <a href="#s1">random</a><br>
     <a href="#s1.1">math</a><br>
@@ -76,7 +76,7 @@
     <a href="#s19">BigQuery</a><br>
     <a href="#s20">subprpcess</a><br>
     <a href="#s21">colorama</a><br>
-    <a href="#s22">translatepy</a></p>
+    <a href="#s22">translatepy</a>
       </aside>
     
       <aside class="right"><h1 align="center" id="s0">Library for Python.</h1>
@@ -240,6 +240,7 @@ EST, EDT - восточное, западное побережье Америк�
 Unix epoch - начало эпохи (1970, 1, 1, 12, 0, 0)<br><br>
 
 <b>import time</b><br>
+<a href="https://sky.pro/wiki/media/kak-rabotat-s-modulem-time-v-python/" target="_blank" rel="noopener" >Time</a> - skypro<br><br>
 t = <i>time.time()</i> - без аргумента; привязана к системным часам; время в секундах с начала эпохи(1970-01-01 0:00:00 utc) Unix epoch timestamp<br><br>
 
 start_time = time.time()<br>
@@ -499,7 +500,11 @@ string  -            (object)<br><br>
 <i>df = pd.DataFrame(data, columns=[list], index=[list])</i><br> 
 ..&lt;class 'pandas.core.frame.DataFrame'></class><br><br>
 
-data - список списков, словарь, список словарей<br>
+data - Series, список Series, список списков, словарь, список словарей<br>
+data = pd.Serias([1,2,3,4], name='one')<br>
+df = pd.DataFrame(data) - одна колонка с названием 'one'<br>
+df = pd.DataFrame([data]) - одна строка с индексем 'one'<br><br>
+
 data = {'a':[list], 'b':[list]} ключи - назв.колонок, списки - значения(колонки)<br>
 data = [['Alex', 10], ['Bob', 12], ['Clar', 13]]- список строк, две колонки(стр)<br>
 data = [{dict1}, {dict2}] - каждый словарь - строка<br>
@@ -516,13 +521,26 @@ data = pd.read_csv(path, names=col_names, skiprows=[0]) - новые загол�
 строку со старыми пропустить<br>
 skiprows = [0,3,5] - пропустить указанные строки<br>
 header= None, skiprows=[0] -  удалить заголовки<br><br>
+
 d_parser = lambda x: pd.datetime.strptime(x, '%Y-%m-%d %I-%p')<br>
 df = pd.read_csv(path, parse_dates=['date'], date_parser=d_parser) - 'date' - Dtype - datetime64[ns]
     (index_col='date', parse_dates=True); index_col=0 (первый столбец без имени станет индексами)<br>
 df = pd.read_csv(path, usecols=[], nrows=100) - выбрать колонки и кол-во строк/вывода<br>
 custom_datetime = lambda x: datetime.strptime(x, '%d%m%Y %H:%M:%S')<br>
 df = pd.read_csv('тест2.csv', parse_dates=['date'], parse_dates=True,date_parser=custom_datetime)<br>
-df.to_csv('path', index=False)<br><br>
+df = pd.read_csv('./avto_rem.csv',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sep=None,             # pandas сама угадает разделитель<br>
+&nbsp;&nbsp;&nbsp;&nbsp;on_bad_lines='skip')  # пропустить кривые строки, 'worn' - покажет какие кривые, но загрузит<br><br>
+
+# читаем вообще без разбора, просто список строк<br>
+with open('./avto_rem.csv', encoding='utf-8') as f:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for n, line in enumerate(f, 1):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if n == 4:                 # 4-я строка, где вылезла ошибка<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f'строка {n}: {line}')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print('кол-во полей:', len(line.split(',')))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br><br>
+
+df.to_csv('path', index=False) - отбросить столбец с индексами<br><br>
 
 df = pd.read_excel(path, engine='odf', sheet_name='вещи', index_col='Дата')<br>
 df.to_excel(path) - сохранить в таблице (один лист)<br>
@@ -593,7 +611,8 @@ df.sort_index(axis=0, inplace=True)<br>
 df.rename(index={'old': 'new'}, inplace=True)<br>
 df.index = [список новых индексов]<br>
 df.index.names = ['month'] - переименовали колонку с индексами<br>
-df.rename_axis('manth', axis='rows') <br><br>
+df.rename_axis('manth', axis='rows') <br>
+last_idx = df[col].last_valid_index()          # последний не-NaN<br><br>
 
 df = df.set_index('enrollee_id').reset_index(drop=True).rename_axis('enrollee_id').reset_index() -  установили индексы; переустановили [0,1..] (теперь колонка называется 'Index'); переименовали; вернули как колонку<br>
 <i># Избавиться от мультииндекса.</i> (теперь он один через подчёркивание)<br>
@@ -620,9 +639,9 @@ df.date = pd.DatetimeIndex(df.date) - столбец date - формат вре�
 df.age = df['age'].astype(float) - пустые знач только в float<br>
 df = df.astype({'price': 'int', 'usdprice': 'float'})<br>
 del df['name_column']                                   - удалить столбец<br>
-df.drop(['name_column'], axsis=1, inplace=True)         - удалить столбец<br>
+df.drop(['name_column'], axis=1, inplace=True)         - удалить столбец<br>
 df = df.drop(['name1_column', 'name2_column'], axis=1)  - удалить столбецы<br>
-df.pop('name_column')                                   - удалить столбец<br>
+df.pop('name_column') (на месте, вернёт столбец)        - удалить столбец<br>
 df = df[['column1', 'column3']] - выбрать нужные столбцы<br><br>
 
 df[pd.isnull(df.country)] - df в котором название стран пропущено<br>
@@ -648,8 +667,6 @@ df['income_num'] = (df['income'] != '&lt;=50K').astype(int) - изменить �
 df.loc['May'] = [list] - изменить/создать строку с индексом 'May'<br>
 df.loc[len(df)]; df.iloc[-1] - последняя строка<br>
 df.loc['name']  - строка с именем<br>
-df.append({'A': 'bar', 'B': 4}, ignor_index=True)<br>
-df.append(pd.Series(['bar', 4], index=['A', 'B'], ignor_index=True))<br>
 df = df.drop(1, axis=0) - удалить первую строку<br>
 df.drop('name_index',axis=0, inplace=True) - удалить строку<br>
 df.drop(df.tail(1).index, inplace=True) - удалить последнюю строку<br><br>
@@ -660,10 +677,7 @@ line = pd.DataFrame({dict}, index=[3]) - вставить строку<br>
 df2 = concat([df.iloc[:2], line, df.liloc[3:]].reset_index(drop=True))<br>
 
 line = pd.DataFrame({dict}, index=[2,5])<br>
-df2 = df.append(line, ignor_index=True)<br>
-df2 = df2.sort_index().reset_index(drop=True)<br><br>
-
-третий способ вставить строку<br><br>
+df2 = pd.concat([df2,line], ignore_index=True)<br><br>
 
 <b>Сортировка</b><br>
 df.sort_values(by='name_column', or list of columns, ascending=False, inplace=False, <br>
@@ -675,12 +689,18 @@ df.sort_values(by=['date', 'start'], ascending=[True, False], inplace=True)<br><
 
 abr_df.sort_values(by=['type', 'vol'], inplace=True, key=lambda col: col.str.lower())<br><br>
 
-df = pd.concat([df1, dff2], ignore_index=True) - индексы(цифры) переустановить<br>
+df = pd.concat([df1, dff2], ignore_index=True) - индексы(цифры) переустановить<br><br>
  
-set_option<br>
+<b>set_option</b><br>
 pd.set_option('display.max_rows', None)<br>
 pd.set_option('display.max_columns', None)<br>
 pd.set_option('display.max_colwidth', None)<br><br>
+
+with pd.option_context('display.max_colwidth', None):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(df)<br><br>
+
+print(df.loc['index', 'columns'].to_list) - ячейка без усечения<br>
+print(df.to_string(max_colwidth=None))<br><br>
 
 <b>Фильтрация</b><br>
 query:<br>
@@ -715,7 +735,7 @@ highs = avto['revenue'].resample('m').max() - выборка по месяцам
 highs['2021-01-01'] - выбор по индексу.<br><br>
 
 атрибут 'dt'<br>
-.dt.year, .dt.month, .dt.day, .dt.dayofweek (0 - понедельник)
+.dt.year, .dt.month, .dt.day, .dt.dayofweek (0 - понедельник)<br>
 
 <b>Диапазон дат</b><br>
 pd.date_range(start=datetime(year=2020, month=1, day=1), <br>
@@ -729,11 +749,14 @@ df = pd.concat([df1, df2], ignor_index=True) - восстановить поря
 <b>update</b>:<br>
 обновит только существующие колонки или строки (лишнее игнорирует)<br>
 df = pd.DataFrame(dict(A=[1,2,3], B=[4, 5, 6], C=[7, 8, 9]))<br>
+# <i>обновить два значение в столбце 'B'</i><br>
 new_column = pd.Series([40, 50], name='B', index=[0, 1])<br>
 df.update(new_column) ... обновит стобец "В" два значения<br><br>
 
 new_df = pd.DataFrame(dict(B=[40, 50]), index=[0,1])<br>
 new_df = pd.DataFrame(dict(B=[40, 50, np.nan]))<br>
+# <i>обновить два значения в строке '2'</i><br>
+new_df = pd.DataFrame(dict(B=[10], C=[11]), index=[2])<br>
 df.update(new_df) ... обновит стобец "В" два значения<br><br>
 
 <b>Join</b><br>
@@ -761,7 +784,7 @@ df3 = pd.concat([df1, df2]) - сложились по столбцу<br>
 df3 = pd.concat([df1, df2], axis=1) - получилось два столбца<br>
 
 <i>num = 1</i><br>
-<i>for i in range(len(df)):</i> - пройтись по длине всго df (df.shape[0])<br>
+<i>for i in range(0,len(df),1000):</i> - пройтись по длине всго df (df.shape[0])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<i>tmp = df.iloc[i:i+1000]</i> - df по 1000 строк<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<i>tmp.to_csv(f'somefiles/part_{num}.csv", index=False)</i> - сохранить в csv с номерами<br>
 <i>num += 1</i><br>
@@ -777,8 +800,11 @@ df1.update(df2)- у обоих df колонка с индексами и сто
 df_marks = pd.DataFrame(mydict)<br>
 mean = df_marks.mean() ... среднее знач. по каждой колонке<br>
 mean = df_marks.mean().mean() ... по всем колонкам<br>
-mean = df_marks.mean(axis=1) ... по строкам<br>
+mean = df_marks.mean(axis=1).rename('mean') ... по строкам; (задали название стобца)<br>
 print(pd.concat([df_marks['names'], mean], axis=1)) - столбецы 'name' + 'mean'<br><br>
+
+# <i>новая строка со средними значениями по колонкам</i><br>
+df.loc['mean'] = df.mean()<br><br>
 
 масимальное вычисленное значение соответсвует названию:<br>
 bargain_idx = (reviews.points / reviews.price).idxmax()<br>

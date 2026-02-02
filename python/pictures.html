@@ -65,8 +65,8 @@
       <aside class="right"><h2 align="center" id="s0">Pictures</h2>
 
     <section id="s1"><h3 align="center">PIL</h3>
-<p><a href="https://pillow.readthedocs.io/en/latest/reference/ImageDraw.html" target="_blank" rel="noopener" >Pillow documentation</a>;
-<a href="https://habr.com/ru/articles/681248/" target="_blank" rel="noopener" >работа с Pillow на русском</a></p>
+<a href="https://pillow.readthedocs.io/en/latest/reference/ImageDraw.html" target="_blank" rel="noopener" >Pillow documentation</a>;<br>
+<a href="https://habr.com/ru/articles/681248/" target="_blank" rel="noopener" >работа с Pillow на русском</a><br><br>
 
 <i>pip install pillow</i><br>
 <b>from PIL import ImageColor</b> - Python Imaging Library<br><br>
@@ -94,7 +94,7 @@ img.mode .. 'RGB'<br><br>
 if img.mode in ['RGBA', 'P']:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;img.convert('RGB')<br><br>
 
-
+<i>crop(), resize(), reduce() - возвращают новый объект</i><br>
 img_cropped = img.crop((300,150,700,1000)) - верхн.левая и нижняя правая точки (обрезаное изображение).<br>
 img_copy = img.copy() - копия.<br>
 img_copy.paste(img_new, (0,0)) - вставить новое изображение, координата верхнего левого угла (не создаёт нового файла).<br>
@@ -117,6 +117,9 @@ Image.ROTATE_90 - повернуть против часовой стрелки 
 Image.TRANSPOSE<br>
 Image.TRANSVERSE<br>
 .rotate(45, expand=True) - на 45 градусов против часовой с сохранением углов.<br><br>
+
+.getbands() - сколько слоёв(режимов) в объекте<br>
+.convert() -  конвертировать между режимами<br><br>
 
 <b>from PIL import Image,  ImageDraw, ImageFont</b><br>
 im = Image.new('RGBA', (200,200), 'white')<br>
@@ -145,90 +148,135 @@ draw.text((x,y), text, fill, font) - верхн.лев угол; текст, ц�
 draw.text((50,50), 'Hello', fill='purple') - без настройки шрифта (только цвет)<br>
 fontsFolder = r"C:/Windows/Fonts"<br>
 arialFont = ImageFont.truetype(os.path.join(fontsFolder, 'arial.ttf'), 32)<br>
-draw.text((100,150), 'Howdy', fill='gray', font=arialFont)<br>
+draw.text((100,150), 'Howdy', fill='gray', font=arialFont)<br><br>
+
+<i>загрузили две картинки; сохранили как массивы; вычли один из другого; вывели разницу как картинку</i><br>
+left_array = np.asarray(left)<br>
+difference_array = right_array - left_array<br>
+difference = Image.fromarray(difference_array)<br><br>
+
+<i>для всех картинок в папке включая .gif</i><br>
+for file_path in pic.glob('*'):<br>
+#if re.search(r"Я_", file_path.name)<br>
+&nbsp;&nbsp;&nbsp;try:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;img = Image.open(file_path)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;img.seek(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;plt.figure()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;plt.imshow(img)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;plt.title(file_path.name)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;plt.axis('off')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;plt.show()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;img.close()<br>
+        
+&nbsp;&nbsp;&nbsp;except Exception as e:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"Ошибка при обработке файла {file_path.name}: {e}")<br><br>
     </section>
 
     <section id="s2"><h3 align="center">cv2</h3>
-<i>pip install opencv-python</i>; <b>import cv2</b>;
-<b>import cv2_ext</b><br><br>
 
-img = cv2_ext.imread( название файла на кирилице)<br>
-img = cv2.imread('path', cv2.IMREAD_COLOR) второй арг. по умолчанию<br>
-можно cv2.IMRAD_GRAYCALE - возвращает NumPy массив<br>
-cv2.imshow('name', img)  - показать картинку<br>
-cv2.waitKey(0) - задать время показа в млсек(0 - любая клавиша)<br><br>
+<a href="https://www.mygreatlearning.com/blog/opencv-tutorial-in-python/" target="_blank" rel="noopener" >CV2</a>;<br><br>
+
+<i>pip install opencv-python</i>; <b>import cv2</b><br>
+
+pip install opencv-contrib-python (с доп модулями)<br>
+pip install numpy matplotlib jupyter<br>
+print(cv2.__version__)<br><br>
+
+(cv2 не читает кирилиццу)<br>
+img = cv2.imread('path', flag) - path - 'str', flag по умолчанию cv2.IMREAD_COLOR или 1 (cv2.IMRAD_GRAYCALE (0), cv2.IMREAD_UNCHANGED (-1) с 'alpha') - возвращает NumPy массив<br>
+cv2.imshow('image', img)  - показать картинку (image - новое название)<br>
+cv2.waitKey(0) - задать время показа в млсек(0 - любая клавиша)<br>
+cv2.destroyAllWindows()<br><br>
+
+status = cv2.imwrite(filename, img) - status вернёт True<br><br>
 
 для google colab нужна заплатка (для показа картинки в браузере)<br>
 from google.colab.patches import cv2_imshow<br>
 cv2_imshow(img) # с подчёркиванием<br><br>
 
-Поменять цветовой код:<br>
+<i>Основные операции</i><br>
+px = img[100,100] - пиксель x,y содержит три числа (для BGR)<br>
+blue = img[100,100,0] - взять только синий канал<br>
+img[100,100] = [0,0,0] - переписать пиксель<br><br>
+
+img.item(100,100,2) - взять пиксель с помощью numpy array (быстрее)<br>
+img.itemset((100,100,2),54) - переписать пиксель на значение 54<br><br>
+
+<i>splitting and merging image channels</i><br>
+b,g,r = cv2.split(img) ... b = img[:,:,0]<br>
+img = cv2.merge((b,g,r))<br><br>
+
+img.shape ... (403, 461, 3)<br>
+print("Высота:" + str(img.shape[0]))<br>
+print("Ширина:" + str(img.shape[1]))<br>
+print("Количество каналов:" + str(img.shape[2]))<br>
+img.size ... 557349 (403*461*3)<br>
+img.dtype ... ('unit8')<br><br>
+
+<i>Image ROI</i> (region of interest)<br><br>
+
+<i>Заменим часть большой картинки по пиксельно:</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;for y in range(img.shape[0]):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for x in range(img.shape[1]):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;img_big[y][x] = img[y][x]<br>
+plt.imshow(img_big)<br><br>
+
+<i>в cv2 цветовой код BGR; Поменять цветовой код:</i><br>
 img_color = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)<br>
-cv2.COLOR_GRAY2RGB - ч/б картинку сделать с пиксилями = три числа<br>
-cv2.imshow('name', img_color)<br><br>
+cv2.COLOR_GRAY2RGB - ч/б картинку сделать с пиксилями = три числа<br><br>
 
 img = cv2.GaussianBlur(img, (9, 9), 0) - размыть (цифры нечётные)<br>
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) - перевести в серый (один слой)<br>
 img = cv2.Canny(img, 90, 90) - бинарная картинка, чем больше цифры - тем больше
 деталей видно<br><br>
 
-kernel = np.ones((5, 5), np.uint8) - массив 5:5 из натуральных чисел <br>(dtype='uint8)<br>
+kernel = np.ones((5, 5), np.uint8) - массив 5:5 из единичек<br>
 img = cv2.dilate(img, kernel, iterations=1) - жирность линий<br>
 img = cv2.erode(img, kernel, iterations=1)<br><br>
 
-photo = np.zeros((450,450,3), dtype='uint8') - чёрная картинка 450:450 с тремя слоями, dtype - натуральные числа<br>
-photo[:] = 255,0,0 - картинка стала синей  (BGR)<br><br>
+photo = np.zeros((450,450,3), dtype='uint8') - чёрная картинка 450:450 с тремя слоями<br>
+photo[:] = 255,0,0 - картинка стала синей  (BGR)<br>
+img[0:100, :] = 255,0,0 - синяя полоса сверху<br><br>
 
-cv2.imwrite('new_name.png', img)- сохранить в любом формате<br>
+cv2.imwrite('new_name.png', img)- сохранить в любом формате<br><br>
 
-img.shape ... (403, 461, 3)<br>
-print("Высота:"+str(img.shape[0]))<br>
-print("Ширина:" + str(img.shape[1]))<br>
-print("Количество каналов:" + str(img.shape[2]))<br><br>
+<i>Изменить размер:</i><br>
+cv2.resize(s, size[,fx],fy[,interpolation])<br>
+interpolation = [INTER_LINEAR (default), INTER_NEAREST, INTER_AREA..]<br>
+img_resized=cv2.resize(img, (780, 540), interpolation = cv2.INTER_NEAREST)<br><br>
 
-Заменим часть большой картинки по пиксельно:<br>
-    for y in range(img.shape[0]):<br>
-        for x in range(img.shape[1]):<br>
-            img_big[y][x] = img[y][x]<br>
-plt.imshow(img_big)<br><br>
-
-(b,g,r) = img[0,0] - пиксель на img задан в BGR<br>
-print("Красный: {}, Зелёный: {}, Синий: {}".format(r, g, b))<br><br>
-
-Изменить размер:<br>
-img1 = cv2.resize(img, (int(width/2), int(height/2))) # (img, (x, y))<br>
-третий арг. - interpolation<br>
-img2 = cv2.resize(img, (img.shape[1] // 2, img.shape[0] // 2))<br><br>
-
-img[0:100, :] = 255,0,0 - синяя полоса сверху<br>
 cv2.imshow(img, img[0:100, 0:100]) # показать обрезок 100:100<br>
-cv2.imshow(img, img[img.shape[0]-100 : img.shape[0], :]) # y-100, x -весь<br>
-cv2.waitKey(0)<br><br>
+cv2.imshow(img, img[img.shape[0]-100 : img.shape[0], :]) # y-100, x -весь<br><br>
 
-photo = np.zeros((450,450,3), dtype='uint8') - чёрный квадрат 450:450, 3 слоя 
-dtype - натуральные числа<br>
-photo[:] = 0, 0, 255 - красный квадрат<br>
-photo[100:200, :] = 255,0,0 - синия полоса y = 100pk<br><br>
+<i>Повернуть</i><br>
+cv2.rotate( src, rotateCode[, dst] )<br>
+rotateCode = [ROTATE_90_CLOCKWISE, ROTATE_180, ROTATE_90_COUNTERCLOCKWISE]<br>
+image = cv2.rotate(img, cv2.ROTATE_90_COUNTERCLOCKWISE)<br><br>
 
-Перевернуть:<br>
+<i>Перевернуть:</i><br>
 img = cv2.flip(img, 1)- 0- по вертикали;1- по горизонтали;-1- и так и эдак<br><br>
 
-Прямоугольник.<br>
+<i>Прямоугольник</i><br>
 cv2.rectangle(img, (x,y), (x,y), (0,0,0), 2)<br>
 картинка,координаты верхн.лев угла и нижнего правого, цвет, толщина(thickness=2)
 thickness=cv2.FILLED - залить; -1 = то же<br><br>
 
-Линия<br>
+<i>Линия</i><br>
 cv2.line(img, (x,y), (x,y), (0,0,255), 3) - координаты двух точек<br>
 cv2.line(img, (0, img.shape[0]//2), (img.shape[1]//2, 0), (0,0,255),3)<br>
 красная линия, толщиной 3, от сереины лев. стороны до середины верхней<br>
 в shape[0] - y<br><br>
 
-Круг.<br>
+<i>Круг</i><br>
 cv2.circle(img, (x,y), 50, (0,0,0), -1)<br>
 картинка, координаты центра, радиус в пикселях, цвет, толщина(-1 = max)<br><br>
 
-Надпись.<br>
+<i>Многоугольник (Polylines)</i><br>
+cv2.polyLine(image, arr, is_closed, color, thickness)<br>
+pts = np.array([[100,50],[200,300],[700,200],[500,100]], np.int32) - вершины<br>
+cv2.polylines(img, [pts], True, (0,255,255), 3)<br><br>
+
+<i>Надпись</i><br>
 cv2.putText(img, 'text', (x,y), cv2FONT_HERSHEY_SIMPLEX,5, (255,0,0), 3)<br>
 картинка, сам текст, координата нижняя левая, шрифт, разммер, цвет, толщина<br><br>
 
@@ -243,35 +291,35 @@ fps = capture.get(cv2.CAP_PROP_FPS) - кол-во кадров в сек.<br>
 posms = capture.get(cv2.CAP_PROP_POS_MSEC)- временная отметка в милисек.<br><br>
 
 file_count = 0<br>
-while capture.isOpend():  # проверка файла на пригодность<br>
-    ret, frame = capture.read() - переменная ret - логическое знач.<br>
-    if ret == True:<br>
-        cv2.putText(frame, 'Something',(x,y),cv2FONT_SIMPLEX,5, (255,0,0), 3)<br>
-        cv2.imshow('name', frame)<br>
-        key = cv2.waitKye(50)<br>
-        if(key == ord('q')) or key == 27:<br>
-            break<br>
+while capture.isOpened():  # проверка файла на пригодность<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ret, frame = capture.read() - переменная ret - логическое знач.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if ret == True:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cv2.putText(frame, 'Something',(x,y),cv2.FONT_HERSHEY_SIMPLEX,5, (255,0,0), 3)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cv2.imshow('name', frame)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key = cv2.waitKey(50)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(key == ord('q')) or key == 27:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>
 capture.release()<br>
 cv2.destroyAllWindows()<br><br>
 
 cap = cv2.VideoCapture('E:/My Videos/Прикол/Мысли Кеши.mp4')<br>
 while True:<br>
-    success, img = cap.read()<br>
-    img = cv2.resize(img, (img.shape[1]//2, img.shape[0]//2))<br>
-    img = cv2.GaussianBlur(img, (3,3), 0)<br>
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)<br>
-    img = cv2.Canny(img, 150,150)<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;success, img = cap.read()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;img = cv2.resize(img, (img.shape[1]//2, img.shape[0]//2))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;img = cv2.GaussianBlur(img, (3,3), 0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;img = cv2.Canny(img, 150,150)<br><br>
 
-    kernel = np.ones((10,10), np.uint8)<br>
-    img = cv2.dilate(img, kernel, iterations=1)<br>
-    img = cv2.erode(img, kernel, iterations=1)<br>
-    cv2.imshow('result', img)<br>
-    if cv2.waitKey(1) & 0xFF == ord('q'):  # ord - Unicod 'q' = 0xFF<br>
-        break<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;kernel = np.ones((10,10), np.uint8)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;img = cv2.dilate(img, kernel, iterations=1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;img = cv2.erode(img, kernel, iterations=1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cv2.imshow('result', img)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if cv2.waitKey(1) & 0xFF == ord('q'):  # ord - Unicod 'q' = 0xFF<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br><br>
 
-    (key = cv2.waitKey(10 & 0xFF<br>
-    if key == 27):<br>
-        break  ) - Esc - для выключения<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(key = cv2.waitKey(10 & 0xFF<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if key == 27):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break  ) - Esc - для выключения<br>
 capture.release()<br>
 cv2.destroyAllWindows()<br><br>
 
@@ -280,43 +328,43 @@ cap.set(3, 500)  - ширина<br>
 cap.set(4, 500)  - высота<br><br>
 
 Сохранять файлы из захваченных видеопотоков:<br>
-output = cv2.VideoWriter('сохраняемый файл', cv2.VideoWriter_fourcc\<br>
-        ('M', 'J', 'P', 'G'), 20, frame_size)<br>
+output = cv2.VideoWriter('сохраняемый файл', cv2.VideoWriter_fourcc
+&nbsp;&nbsp;&nbsp;&nbsp;('M', 'J', 'P', 'G'), 20, frame_size)<br>
 while(capture.isOpened()):<br>
-    ret, frame = capture.read()<br>
-    if ret == True:<br>
-        # запишем кадр в файл<br>
-        output.write(frame)<br>
-    else:<br>
-        print('Поток не захвачен')<br>
-        break<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ret, frame = capture.read()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if ret == True:<br>
+# запишем кадр в файл<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output.write(frame)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print('Поток не захвачен')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>
 capture.release()<br>
 output.release()<br><br>
 
 Trackbar<br>
 os.chdir('E:/My Pictures/животные')<br>
 def moveX(val):<br>
-    pass<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pass<br>
 def moveY(val):<br>
-    pass<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pass<br>
 def radius(val):<br>
-    pass<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pass<br>
 cv2.namedWindow('Moving the circle')<br>
 cv2.resizeWindow('Moving the circle', 600, 120)<br>
 cv2.createTrackbar('y', 'Moving the circle', 150, 700, moveX)<br>
 cv2.createTrackbar('x', 'Moving the circle', 260, 700, moveY)<br>
 cv2.createTrackbar('r', 'Moving the circle', 30, 250, radius)<br>
 while(1):<br>
-    img = cv2.imread('Clod Jan.jpg')<br>
-    cv2.cvtColor(img, cv2.COLOR_BGR2RGB)<br>
-    radius = int(cv2.getTrackbarPos('r', 'Moving the circle'))<br>
-    Y = int(cv2.getTrackbarPos('y', 'Moving the circle'))<br>
-    X = int(cv2.getTrackbarPos('x', 'Moving the circle'))<br>
-    cv2.circle(img, (X,Y), radius, (0,0,255), 2)<br>
-    cv2.imshow('img', img)<br>
-    key = cv2.waitKey(1) & 0xFF<br>
-    if key == 27:   # Esc для выключения<br>
-        break<br>
+&nbsp;&nbsp;&nbsp;&nbsp;img = cv2.imread('Clod Jan.jpg')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cv2.cvtColor(img, cv2.COLOR_BGR2RGB)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;radius = int(cv2.getTrackbarPos('r', 'Moving the circle'))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Y = int(cv2.getTrackbarPos('y', 'Moving the circle'))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;X = int(cv2.getTrackbarPos('x', 'Moving the circle'))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cv2.circle(img, (X,Y), radius, (0,0,255), 2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cv2.imshow('img', img)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;key = cv2.waitKey(1) & 0xFF<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if key == 27:   # Esc для выключения<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>
 cv2.destroyAllWindows()<br>
     </section>
  
@@ -329,7 +377,7 @@ import matplotlib.pyplot as plt<br>
 <a href="https://www.youtube.com/watch?v=clDQPyQJ-hc&list=PLA0M1Bcd0w8xQx-X5a6eSEOYULNSnHN_p" target="_blank" rel="noopener" >Matplotlib (YouTube/sefedu)</a>; <a href="https://devpractice.ru/files/books/python/Matplotlib.book.pdf" target="_blank" rel="noopener" >Matplotlib (pdf)</a><br>
 <a href="https://python-scripts.com/matplotlib" target="_blank" rel="noopener" >Matplotlib (Python3)</a><br>
 
-Воснове объект Figure; в нём объекты Axes, Y axis label, X axis label, Grid, Legend и др.<br>
+В основе объект Figure; в нём объекты Axes, Y axis label, X axis label, Grid, Legend и др.<br>
 типы графиков - Линейный (plot), Ступенчатый (step), Стековый (stackplot), stem-график, Точечный (scatter), Гистограмма (hist), Столбчатые диаграммы (bar, barh), Круговые (pie), Изображения (imshow), Цветовые (pcolormesh), 3D (plot_surface), Линии уровня (contour)<br><br>
 
 <i>Простой вариант через plt. Задать названия окну, осям (менять шрифт), создать графики (вид линии, цвет, толщина, вид точек, их заполнение, подпись легенд, на графике, LaTex, значения на осях)</i><br><br>
@@ -355,11 +403,12 @@ plt.title(u'Стоимость пшеницы') - Заголовок добав�
 plt.legend(('СПб', 'Ростов')) - легенды (названия, линии, цвет, размер)<br>
 plt.minorticks_on() - дополнительная сетка<br>
 plt.grid() - сетка<br>
-    (which='major', color='#444', linewidth=1)<br>
-    (which='minor', color='#aaa', ls=':')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(which='major', color='#444', linewidth=1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(which='minor', color='#aaa', ls=':')<br>
 plt.xlim(-1,10) - пределы измерений, можно один<br>
 plt.ylim(1,30)<br>
 plt.fill_between(x, y, 0.5, c='b', alpha=0.5, where=(y&lt;0)) - закрасить, условие<br>
+plt.axis('off') - не показывать оси<br>
 plt.show() - вывод графика на экран<br><br>
 
 <i>Задаём фигуру и оси.</i><br>
@@ -386,10 +435,10 @@ ax1 = fig.add_axes([0,0,1.0,1.0]) - pos_x, pos_y, width, height<br>
 ax1 = fig.add_subplot(1,3,3) - ось занемает 1/3 часть строчки<br><br>
 
 plt.figtext(0.1, 0.9, 'текст на фигуре',
-    bbox={'boxstyle':'darrow', 'facecolor':'b'})<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bbox={'boxstyle':'darrow', 'facecolor':'b'})<br>
 ax1.text(0.1, 0,7, 'текст в осях')<br>
 ax1.annotate('Anotation', xy=(0.2, 0.4), xytext=(0.6, 0.7),
-                arrowprops={'facecolor':'blue', 'shrink':0.3})<br>
+&nbsp;&nbsp;&nbsp;&nbsp;arrowprops={'facecolor':'blue', 'shrink':0.3})<br>
 ax1.set(facecolor='#AAFFAA') - установки на осях<br><br>
 
 ax1.set_xlabel('x-name')<br>
@@ -477,6 +526,13 @@ plt.show()<br>
 df3 = pd.concat([df1, df2], axis=1)<br>
 df3.boxplot() - боксы<br><br>
 
+plt.style.use('seaborn-whitegrid')<br>
+# Set Matplotlib defaults<br>
+plt.rc('figure', autolayout=True)<br>
+plt.rc('axes', labelweight='bold', labelsize='large',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;titleweight='bold', titlesize=18, titlepad=10)<br>
+plt.rc('animation', html='html5')<br><br>
+
 <b>from matplotlib.image import imread</b><br>
 <b>from PIL import Image</b><br>
  вывести изображение<br>
@@ -498,13 +554,13 @@ img_cut = img[100:200, 300:500] - y от 100 до 200 и x от 300 до 500<br>
 
 c_img = img.copy() - сделать копию(иначе не изменить изображение)<br>
 c_img.flags<br>
-    C_CONTIGUOUS : True<br>
-    F_CONTIGUOUS : False<br>
-    OWNDATA : True<br>
-    WRITEABLE : True<br>
-    ALIGNED : True<br>
-    WRITEBACKIFCOPY : False<br>
-    UPDATEIFCOPY : False<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;C_CONTIGUOUS : True<br>
+&nbsp;&nbsp;&nbsp;&nbsp;F_CONTIGUOUS : False<br>
+&nbsp;&nbsp;&nbsp;&nbsp;OWNDATA : True<br>
+&nbsp;&nbsp;&nbsp;&nbsp;WRITEABLE : True<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ALIGNED : True<br>
+&nbsp;&nbsp;&nbsp;&nbsp;WRITEBACKIFCOPY : False<br>
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATEIFCOPY : False<br><br>
 
 Изменить цвет выбраного участка:<br>
 img[0:100, 0:100] = (255,0,0)<br>
@@ -549,6 +605,8 @@ sns.kdeplot - KDE plots (or 2D KDE plots) show an estimated, smooth distribution
 sns.jointplot - This command is useful for simultaneously displaying a 2D KDE plot with the corresponding KDE plots for each individual variable.<br><br>
 
 df = sns.load_dataset('titanic') - загрузить датасет из интернета (Seaborn - Load Sample Datasets)<br><br>
+
+dataset_names = sns.get_dataset_names() - список всех датасетов<br>
 
 sns.countplot(data=df, x='workclass')<br>
 plt.title('Distribution of Workclass')<br>

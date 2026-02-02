@@ -68,9 +68,16 @@
 <i>pip install pandas</i><br>
 <i>import pandas as pd</i><br>
 <i>import numpy as np</i><br>
+<i>import matplotlib.pyplot as plt</i><br>
+<i>import seaborn as sb</i><br><br>
+
+<i>plt.style.use('fivethirtyeight')</i><br>
+<i>import warnings</i><br>
+<i>warnings.filterwarnings('ignore')</i><br>
+<i>%matplotlib inline</i><br><br>
 
 <i>EDA</i> - exploratory data analysis<br>
-<a href="https://www.kaggle.com/datasets/arashnic/hr-analytics-job-change-of-data-scientists">dataset 'HR Analytics'</a><br>
+<a href="https://www.kaggle.com/datasets/arashnic/hr-analytics-job-change-of-data-scientists" target="_blank">dataset 'HR Analytics'</a><br>
 </section>
 
 <section id="s1"><b>Прочитать</b><br>
@@ -130,10 +137,12 @@ df.pivot_table(index='city_development_idex_group', values='target', aggfunc=['c
 dt.columns = ['_'.join(col).strip() for col in dt.columns.values] - преобразовать мультииндекс в одну строку через нижн.подчёрк<br>
 df.reset_index()<br><br>
 
+<i>na</i> - not available<br><br>
+
 import seaborn as sns<br>
 sns.heatmap(t) - хитмэп сводной таблички из pivot table<br><br>
 
-sns.histplot(data['area'].dropna(),kde = True) - гистограмма с обработкой пропущенных знаяений и с плавной кривой характерезующей значения.<br><br>
+sns.histplot(data['area'].dropna(),kde = True) - гистограмма с обработкой пропущенных значений и с плавной кривой характерезующей значения.<br><br>
 
 plt.figure(figsize=(10, 6))  # Adjust plot size<br>
 sns.countplot(x=col, data=data, palette='pastel', order=data[col].value_counts().index)  # Sort bars by frequency<br>
@@ -153,6 +162,15 @@ from phik import report<br>
 phik_overview = df.phik_matrix()<br>
 sns.heatmap(phik_overview) - отслеживать нелинейную корреляцию<br>
 phik_overview.target.sort_values(ascending=False)<br><br>
+
+<i>groupby</i><br>
+df['year'] = df.date.dt.year #добавим столбец в котором только год<br>
+filtered_df = df[df['notes_a'].str.contains('штраф', case=False, na=False)] - фильтр строк, где в примечаниях есть штраф, нечувств. к регистру и игнорирует пропущенные знач.<br>
+result = filtered_df.groupby('year').agg(<br>
+    count_fines=('notes_a', 'count'),  # количество строк со словом 'штраф'<br>
+    total_fines=('expense', 'sum')     # сумма штрафов<br>
+).reset_index()<br><br>
+
 </section>
       </aside>
     </div>

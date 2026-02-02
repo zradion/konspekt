@@ -94,19 +94,23 @@ correct_text = incorrect_text.encode('windows-1251').decode('utf-8', errors='rep
 создать объект из пути; создать папку (не рекурсивно), текстовый файл; написать (сложить) путь, разобрать путь на состаляющие; генератор списка файлов; проверить файл это или папка; существует ли такой путь.<br><br>
 
 <i>dir(Path)</i> - все методы.<br>
-<i>p = Path("C:/Users/Al/spam.txt")</i><br>
-BASE_DIR = Path(__file__).resolve().parent.parent - абсолютный путь к файлу и вернуться на два шага назад<br>
-TAMPLATES_DIR = BASE_DIR.joinpath('tamplates') - добавить к пути<br>
 Path.cwd() - текущая рабочая папка (current working directory)<br>
-Path('spam', 'bacon', 'eggs') ..WindowsPath('spam/bacon/eggs') - объект<br>
-str(Path(r'E:/spam') / 'bacon' / 'eggs') .. 'E:\\spam\\bacon\\eggs' (комбинируем Path and strings)<br><br>
-
-g = Path(r"G:/"); g.exists() .. False - флэшка не вставлена<br><br>
-
+Path(__file__) - текущий файл<br>
 p = Path.home(); print(p) .. 'C:\Users\zradi' (str(p)) - из объекта в строку<br><br>
 
 for file in [list_of_files]:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;print(Path(p, file)) .. абсолюный путь до файла.<br><br>
+
+for child in p.iterdir():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(child) - вернёт содержимое всего каталога<br><br>
+
+BASE_DIR = Path(__file__).resolve().parent.parent - абсолютный путь к файлу и вернуться на два шага назад<br>
+TAMPLATES_DIR = BASE_DIR.joinpath('tamplates') - добавить к пути<br><br>
+
+Path('spam', 'bacon', 'eggs') ..WindowsPath('spam/bacon/eggs') - объект<br>
+str(Path(r'E:/spam') / 'bacon' / 'eggs') .. 'E:\\spam\\bacon\\eggs' (комбинируем Path and strings)<br><br>
+
+g = Path(r"G:/"); g.exists() .. False - флэшка не вставлена<br><br>
 
 p = p / 'hello.txt' - сохранили в p путь до текстового файла (или создали его)<br>
 <i>p.write_text('Hello') </i>- записали в файл слово; вернёт кол-во знаков<br>
@@ -138,7 +142,7 @@ for file in list(p.glob('*.py')):<br>
 <i>p.is_dir()</i> - Это папка?<br><br>
 
 dir_path = Path('new_dir')<br>
-dir_path.<b>mkdir(exists_ok=True)</b> - создаём папку (если уже существует - не вызовет искл.)<br>
+dir_path.<b>mkdir(parents=False, exists_ok=False)</b> - создаём папку (аргументы по умолчанию выдадут ошибку: FileNotFound, FileExists)<br>
 if dir_path.exists() and dir_path.is_dir():<br>
 &nbsp;&nbsp;&nbsp;&nbsp;dir_path.<b>rmdir()</b> - удалить папку<br>
 if file_path.exists() and file_path.is_file():<br>
@@ -249,7 +253,7 @@ compress_size - размер после сжатия<br>
 file_size - оригинальный размер файла<br>
 is_dir() - это папка (else: это файл)<br><br>
 
-with ZipFile("meta.zip", "r") as myzip:<br>
+with zipfile.ZipFile("meta.zip", "r") as myzip:<br>
 &nbsp;&nbsp;&nbsp;&nbsp; for item in myzip.infolist():<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print(f"File Name: {item.filename} Date: {item.date_time} Size: {item.file_size}") - перечислит инфо для каждого файла<br><br>
 
@@ -270,11 +274,11 @@ newZip = zipfile.ZipFile('new.zip', 'w') - открыть ZipFile object в ре
 newZip.write('spam.txt', compress_type=zipfile.ZIP_DEFLATED)<br>
 newZip.close()<br><br>
 
-with ZipFile('spam.zip', 'w') as myzyp: - менеджер контекста<br>
+with zipfile.ZipFile('spam.zip', 'w') as myzyp: - менеджер контекста<br>
 &nbsp;&nbsp;&nbsp;&nbsp; pass - пустой zipfile создан и закрыт. <br><br>
 
 При записи первый параметр - записываемый файл, второй - имя внутри архива (если добавляем файл с уже имеющимся именем); ZIP_DEFLATED надо импортировать из zipfile<br>
-with ZipFile('new.zip', 'a', compression=ZIP_DEFLATED, compresslevel=3) as myzip:<br>
+with zipfile.ZipFile('new.zip', 'a', compression=ZIP_DEFLATED, compresslevel=3) as myzip:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;myzip.write('hello.txt', 'hello1.txt')<br>
 &nbsp;&nbsp;&nbsp;&nbsp;myzip.write('forest.jpg')<br>
     </section>

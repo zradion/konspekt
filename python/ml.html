@@ -63,36 +63,36 @@
     
       <aside class="right"><h1 align="center" id="s0">Машинное обучение</h1>
 
-<p><a href="https://scikit-learn.org/stable/index.html" target="_blank" rel="noopener" >scikit-learn</a> - популярная библиотека для  данных в DataFrames (сайкит-лёрн).<br>
+<a href="https://scikit-learn.org/stable/index.html" target="_blank" rel="noopener" >scikit-learn</a> - популярная библиотека для  данных в DataFrames (сайкит-лёрн).<br>
+<a href="https://www.kaggle.com/" target="_blank" rel="noopener" >kaggle.com</a><br>
 <a href="https://proproprogs.ru/neural_network/struktura-i-princip-raboty-polnosvyaznyh-neyronnyh-setey" target="_blank" rel="noopener" >SelfEdu</a> - Сергей Балакирев. Нейронные сети.<br>
-<a href="https://rutube.ru/video/902c2e14e099d41f5f20639c71d6bc8e/">Дмитрий Коробченко</a> - rutube<br>
-</p>
+<a href="https://rutube.ru/video/902c2e14e099d41f5f20639c71d6bc8e/" target="_,blank" rel="noopener">Дмитрий Коробченко</a> - rutube (классификация ирисов)<br><br>
 
 1. Обучение с учителем (Supervised Learning)<br>
 2. Обучение без учителя (Unsupervised Learning)<br>
 3. Обучение с подкреплением (Reinforcement Learning)<br><br>
 
-Простейшая нейросеть (НС) - персептрон<br>
-входной слой; скрытые слои; выходной слой<br>
-нейрон это сумматор входных сигналлов, сумму пропускает через функцию активации<br><br>
+import warnings<br>
+warnings.filterwarnings('ignore')<br><br>
 
-<section id="s1"><h3 align="center">Decision Tree model</h3>
-<i>decision tree</i> - дерево принятия решений.<br>
+<b>Подготовка данных</b><br><br>
+
 <i>prediction target</i> - column we want to predict; by convention is called <b>y</b><br>
 y = melburn_data.Price # столбец с ценой на недвижимость.<br>
 <i>features</i> - (особенность, признак) columns that are inputted into our model; by convention is called <b>X</b><br>
-<i>validation data</i> - данные для проверки<br><br>
+X = melburn_data.drop(['Prise'], axis=1)<br><br>
 
+<i>validation data</i> - данные для проверки<br>
 <i>positively correlated</i><br>
 <i>regression line</i><br>
 <i>a strong correlation</i><br>
-<i>categorical variable</i><br>
+<i>categorical variable</i> - need preprocessing<br>
 <i>Ordinal encoding</i> assigns each unique value to a different integer.<br>
 <i>ordinal variables</i> - порядковые переменные<br>
 <i>One-hot encoding</i> - 1 0 0, 0 1 0<br>
 <i>nominal variables</i> - номинальные переменные<br><br>
 
-X.describe(); X.head() - quickly review<br><br>
+df.describe(); df.head() - quickly review<br><br>
 
 df.duplicated().sum()<br>
 df = df.drop_duplicates()<br><br>
@@ -102,19 +102,48 @@ df.isin(["?"]).sum() сколько в столбцах есть значени�
 for col in df.columns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;print(col,df[col].unique())<br><br>
 
-X_full.dropna(axis=0, subset=['SalePrice'], inplace=True) - удалить строки в которых 'SalePrice' пропущено.<br>
+df.dropna(axis=0, subset=['SalePrice'], inplace=True) - удалить строки в которых 'SalePrice' пропущено.<br>
 melb_predictors = data.drop(['Price'], axis=1) - df без одного столбца<br>
 X = melb_predictors.select_dtypes(exclude=['object']) - выбрать стобцы не 'object' (numerical)<br><br>
 
-X_train.shape - (строки, колонки)<br>
+# "Cardinality" means the number of unique values in a column<br>
+# Select categorical columns with relatively low cardinality (convenient but arbitrary)<br>
+low_cardinality_cols = [cname for cname in X_train_full.columns if X_train_full[cname].nunique() < 10 and 
+                        X_train_full[cname].dtype == "object"]<br>
+
+# Select numerical columns<br>
+numerical_cols = [cname for cname in X_train_full.columns if X_train_full[cname].dtype in ['int64', 'float64']]<br>
+
+# Keep selected columns only<br>
+my_cols = low_cardinality_cols + numerical_cols<br>
+X_train = X_train_full[my_cols].copy()<br><br>
+
+s = (X_train.dtypes == 'object')<br><br>
+
+# Get number of unique entries in each column with categorical data<br>
+object_nunique = list(map(lambda col: X_train[col].nunique(), object_cols))<br>
+d = dict(zip(object_cols, object_nunique))<br><br>
+
+# Print number of unique entries by column, in ascending order<br>
+sorted(d.items(), key=lambda x: x[1])<br>
+card = pd.DataFrame(dict(name=object_cols, num=object_nunique))<br><br>
+
+df.shape - (строки, колонки)<br>
 missing_val_count_by_column = (X_train.isnull().sum()) - кол-во пропущенных знач в каждом столбце (Series)<br>
 print(missing_val_count_by_column[missing_val_count_by_column > 0] .sort_values(ascending=False)) - пропустить столбцы с 0; отсортировать по убыванию.<br><br>
 
+<i>посчитать кол-во пропущенных значении в каждом столбце; вывести рез-ат отсортированный по возростания без нулевых значений</i><br>
 cols_with_missing = [col for col in X_train.columns if X_train[col].isnull().any()] - столбцы в которых есть пропущенные значения<br>
+home_data.isna().sum()[home_data.isna().sum()>0].sort_values(ascending=False)<br><br>
+
+<i>посчитать кол-во уникальных значений в стобце (включая пустые)</i><br>
+home_data['1stFlrSF'].value_counts(dropna=False)<br><br>
+
 reduced_X_train = X_train.drop(columns_with_missing, axis=1) - сохранить df без столбцов с пропусками<br><br>
 
-df_train = red_wine.sample(frac=0.7, random_state=0)<br>
-df_valid = red_wine.drop(df_train.index)<br><br>
+# Заменит в df стобцах с двумя значениями на 1 и 0; изменит название столбца (gender_Male...)<br>
+df=pd.get_dummies(df,columns=['gender','drug_name'],drop_first=True)<br>
+df=df.astype(int)<br><br>
 
 <i>from sklearn.impute import SimpleImputer</i><br>
 # для заменны данных на среднее значение, медиану, заданное знач, самое частое<br><br>
@@ -127,36 +156,95 @@ imputed_X_train = pd.DataFrame(my_imputer.fit_transform(X_train)) - замени
 imputed_X_valid = pd.DataFrame(my_imputer.transform(X_valid)) - в данные для проверки вставляем уже вычисленное значение.<br>
 imputed_X_train.columns = X_train.columns - <ins>названия колонок удалились</ins> - восстановить<br><br>
 
+<i>from sklearn.model_selection import train_test_split</i><br>
+# для разбивки данных на тренировочные и проверочные<br><br>
+
+# Remove rows with missing target, separate target from predictors<br>
+X.dropna(axis=0, subset=['SalePrice'], inplace=True)<br>
+y = X.SalePrice              <br>
+X.drop(['SalePrice'], axis=1, inplace=True)<br>
+
+# Break off validation set from training data<br>
+X_train_full, X_valid_full, y_train, y_valid = train_test_split(X, y, train_size=0.8, test_size=0.2,
+                                                                random_state=0)<br>
+
+# "Cardinality" means the number of unique values in a column<br>
+# Select categorical columns with relatively low cardinality (convenient but arbitrary)<br>
+low_cardinality_cols = [cname for cname in X_train_full.columns if X_train_full[cname].nunique() < 10 and 
+                        X_train_full[cname].dtype == "object"]<br>
+
+# Select numeric columns<br>
+numeric_cols = [cname for cname in X_train_full.columns if X_train_full[cname].dtype in ['int64', 'float64']]<br>
+
+# Keep selected columns only<br>
+my_cols = low_cardinality_cols + numeric_cols<br>
+X_train = X_train_full[my_cols].copy()<br>
+X_valid = X_valid_full[my_cols].copy()<br>
+X_test = X_test_full[my_cols].copy()<br>
+
+# One-hot encode the data (to shorten the code, we use pandas)<br>
+X_train = pd.get_dummies(X_train)<br>
+X_valid = pd.get_dummies(X_valid)<br>
+X_test = pd.get_dummies(X_test)<br>
+X_train, X_valid = X_train.align(X_valid, join='left', axis=1)<br>
+X_train, X_test = X_train.align(X_test, join='left', axis=1)<br><br>
+
+# <i>для нейронных сетей</i>:<br>
+df_train = df.sample(frac=0.7, random_state=0)<br>
+df_valid = df.drop(df_train.index)<br><br>
+
+# Scale to [0, 1]<br>
+max_ = df_train.max(axis=0)<br>
+min_ = df_train.min(axis=0)<br>
+df_train = (df_train - min_) / (max_ - min_)<br><br>
+
+# Split features and target<br>
+X_train = df_train.drop('quality', axis=1)<br>
+X_valid = df_valid.drop('quality', axis=1)<br>
+y_train = df_train['quality']<br>
+y_valid = df_valid['quality']<br><br>
+
+# <i>Сохраняем в X копию; удаляем из неё столбец "цели" и сохраняем "цель" в Y</i><br>
+X = hotel.copy()<br>
+Y = X.pop('is_canceled')<br><br>
+
+# <i>Преобразуем столбец месяца с помощью map в цифры</i><br>
+X['month'] = X['month'].map(dict(January=1, February=2...))<br><br>
+
+df['Heart Disease']=pd.get_dummies(df['Heart Disease'],drop_first=True,dtype=int)<br><br>
+
+df['income_num'] = (df['income'] != '&lt;=50K').astype(int) - изменить значения на 0 и 1<br><br>
+
+# <i>Преобразуем категориальные столбцы - объеденяем какие-то значения в группы с помощью apply()</i><br><br>
+
+# <i>Сохраняем в отдельных переменных список числовых столбцов и список категориальных столбцов.</i><br><br>
+
 <i>Define</i><br>
 <i>Fit</i><br>
 <i>Predict</i><br>
-<i>Evaluate</i><br><br>
+<i>Evaluate</i> - Determine how accurate the model's predictions are.<br><br>
+
+<section id="s1"><h3 align="center">Decision Tree model (дерево принятия решений).</h3>
 
 <i>from sklearn.tree import DecisionTreeRegressor</i><br>
 #это класс для построения решающих деревьев в задачах регрессии; Принемает параметр max_leaf_nodes=кол-во ветвей; много ветвей - мало данных в каждой (переобучение); мало - недообучение; и random_state=любая цифра для одинаковых расчётов.<br><br>
 
+<i>датасет по объектам недвижимости; возьмём несколько признаков (features); потренеруем модель и предскажем цены на несколько домов</i><br>
 <i>melbourne_model = DecisionTreeRegressor(random_state=1)</i> - что бы обеспечить одинаковые рез-ты при каждом запуске.<br>
 melbourn_model.fit(X,y) - fit model<br>
-melbourne_model.predict(X.head()) - попробуем предсказать цены на первые пять домов в таблице... [1035000. 1465000. 1600000. 1876000. 1636000.]<br><br>
+predictions = melbourne_model.predict(X)- список предсказаных знач<br><br>
+
+# сравним реальную стоимость из датасета и предсказанную<br>
+home_data['y'] = predictions - новый столбец в df<br>
+home_data[['SalePrice', 'y']].head()<br><br>
+
+# замерим точность (accuracy) - сложить разницу в значениях в каждой строке и разделить на количество строк<br><br>
+<i>from sklearn.metrics import mean_absolute_error</i><br>
+mean_absolute_error(home_data.SalePrice, y) ..число<br><br>
 
 Mean Absolute Error (also called MAE) - средняя абсолютная погрешность<br>
 error=|actual−predicted|; we then take the average of those absolute errors<br>
 On average, our predictions are off by about X - данные отличаются примерно на Х<br><br>
-
-<i>from sklearn.metrics import mean_absolute_error</i><br>
-# для вычисления MAE<br><br>
-
-predicted_home_prices = melbourne_model.predict(X)- список предсказаных знач<br>
-mean_absolute_error(y, predicted_home_prices) - MAE; in-sample scores (использованы для тренировки и проверки одни данные)<br><br>
-
-<i>from sklearn.model_selection import train_test_split</i><br>
-# для разбивки данных на тренировочные и проверочные<br><br>
-
-train_X, val_X, train_y, val_y = train_test_split(X, y, random_state = 0, train_size=0.8, test_size=0.2)<br>
-melbourne_model = DecisionTreeRegressor()<br>
-melbourne_model.fit(train_X, train_y)<br>
-val_predictions = melbourne_model.predict(val_X)<br>
-print(mean_absolute_error(val_y, val_predictions))<br><br>
 
 <i>Underfitting and Overfitting</i><br>
 (невозможность поймать закономерности и ложные закономерности, которые не повторятся)<br>
@@ -180,6 +268,9 @@ best_tree_size = min(scores, key=scores.get)<br><br>
 
 <section id="s2"><h3 align="center">Random Forests</h3>
 
+<i>from sklearn.ensemble import RandomForestClassifier</i><br>
+<i>from tensorflow.keras.models import Sequential</i><br>
+<i>from tensorflow.keras.layers import Dense,Dropout</i><br>
 <i>from sklearn.ensemble import RandomForestRegressor</i><br>
 <i>from sklearn.metrics import mean_absolute_error</i><br><br>
 
@@ -249,15 +340,15 @@ numerical_transformer = SimpleImputer(strategy='constant')<br><br>
 
 # Preprocessing for categorical data<br>
 categorical_transformer = Pipeline(steps=[
-    ('imputer', SimpleImputer(strategy='most_frequent')),
-    ('onehot', OneHotEncoder(handle_unknown='ignore'))
+&nbsp;&nbsp;&nbsp;&nbsp;('imputer', SimpleImputer(strategy='most_frequent')),
+&nbsp;&nbsp;&nbsp;&nbsp;('onehot', OneHotEncoder(handle_unknown='ignore'))
 ])<br><br>
 
 # Bundle preprocessing for numerical and categorical data<br>
 preprocessor = ColumnTransformer(
-    transformers=[
-        ('num', numerical_transformer, numerical_cols),
-        ('cat', categorical_transformer, categorical_cols)
+&nbsp;&nbsp;&nbsp;&nbsp;transformers=[
+&nbsp;&nbsp;&nbsp;&nbsp;('num', numerical_transformer, numerical_cols),
+&nbsp;&nbsp;&nbsp;&nbsp;('cat', categorical_transformer, categorical_cols)
     ])<br><br>
 
     <i>Define the Model</i><br><br>
@@ -337,67 +428,202 @@ score = -1 * score.mean()<br>
 print(f"MAE Score with Ratio Features: {score:.4}")<br><br>
 
 <i>feature utility metric</i> - показатель полезности<br>
-<i>mutaul information (MI)</i> - взаимная информация (насколько знание одной величины уменьшает неопределённость другой)<br>
+<i>mutual information (MI)</i> - взаимная информация (насколько знание одной величины уменьшает неопределённость другой)<br>
 </section>
 
 <section id="s6"><h3 align="center">Tensorflow.Keras</h3>
-<i>from tensorflow import keras</i><br>
-<i>from tensorflow.keras import layers</i><br><br>
 
-# Create a network with 1 linear unit (три входа и один выход)<br>
-model = keras.Sequential([layers.Dense(units=1, input_shape=[3])])<br><br>
+<a href="https://www.tensorflow.org/" target="_blank" rel="noopener" >TensorFlow</a><br>
 
-w, b = model.weights - веса в виде массива (изначально произвольные) и bias(сдвиг)<br>
-print(f"Weights\n{w}\n\nBias\n{b}")<br><br>
-
+pip install tensorflow, tf-nightly, keras, sklearn<br>
+на IDLE не работает (Anaconda, Jupyter Notebook)<br>
+import numpy as np<br>
 import tensorflow as tf<br>
+from tensorflow import keras<br>
+from tensorflow.keras import layers<br>
 import matplotlib.pyplot as plt<br><br>
 
-model = keras.Sequential([
-    layers.Dense(1, input_shape=[1]),
-])<br>
+Простейшая нейросеть (НС) - персептрон<br>
+входной слой; скрытые слои; выходной слой<br>
+нейрон это сумматор входных сигналлов, сумму пропускает через функцию активации<br><br>
 
-x = tf.linspace(-1.0, 1.0, 100)<br>
-y = model.predict(x)<br>
+# Нейронная сеть для перевода градусов Цельсия в градусы Форенгейта (F = C * 1.8 + 32)<br>
+# Создаём модель:<br>
+<i>model = keras.Sequential()</i><br><br>
 
+# Один вход (+bias), один слой с одним нейроном, один выход, активация линейная f(x) = x<br>
+<i>model.add(Dense(units=1, input_shape=(1,), activation='linear'))</i><br><br>
+
+# Компилируем модель (даже если не обучаем, это нужно для инициализации весов)<br>
+<i>model.compile(optimizer='sgd', loss='mse')</i><br><br>
+
+optimizer = [optimizer=keras.optimizers.Adam(0.1), 'sgd'] (λ = 0.1 - шаг сходимости (по умолчанию 0.001))<br>
+loss =['mean_squared_error', ] - ф-ция потерь<br><br>
+
+# Обучаем модель. (списки гр.Цельсия(c) и соответств. гр.Форенгейта(f); 500 циклов - после каждого коректировка весов(epochs); verbose - не показывать текущею информацию)<br>
+log = model.fit(c,f,epochs=500,verbose=False)<br>
+plt.plot(log.history['loss']) - график потерь (знач. на каждую итерацию)<br>
+print(model.predict([100])) - предсказать 100 ℃ в ℉<br>
+print(model.get_weights()) - вывести расчитанные веса (1.8, 32)<br><br>
+
+w,b = model.weights - матрица весов и биас<br><br>
+
+# Генерируем входные данные<br>
+x = tf.linspace(-1.0, 1.0, 100)<br><br>
+
+# Делаем предсказания (на не обученной модели — веса случайные)<br>
+y = model.predict(x)<br><br>
+
+# Рисуем график<br>
 plt.figure(dpi=100)<br>
-plt.plot(x, y, 'k')<br>
+plt.plot(x, y, 'k', label='Prediction')<br>
 plt.xlim(-1, 1)<br>
 plt.ylim(-1, 1)<br>
 plt.xlabel("Input: x")<br>
-plt.ylabel("Target y")<br>
-w, b = model.weights # you could also use model.get_weights() here<br>
-plt.title("Weight: {:0.2f}\nBias: {:0.2f}".format(w[0][0], b[0]))<br>
-#plt.title(f"Weight: {w[0][0]}\nBias: {b[0]}")<br>
+plt.ylabel("Target: y")<br>
+plt.title("Weight: {:0.2f}\nBias: {:0.2f}".format(<br>
+    model.get_weights()[0][0][0],  # вес<br>
+    model.get_weights()[1][0]       # смещение<br>
+))<br>
+plt.grid(True, linestyle='--', alpha=0.5)<br>
+plt.legend()<br>
 plt.show()<br><br>
 
-<i>Deep Neural Networks</i><br>
+<i>Deep Neural Networks</i> глубокие нейронные сети<br>
+<i>fully-connected neural network</i> полносвязанные нейронные сети<br>
+<i>regression and classification</i> решают задачи по регрессии и классификации<br>
 <i>convolutional layers</i> - свёрточные<br>
 <i>recurrent layers</i> - рекурсивные<br>
 <i>activation functions</i> - ф-ция активации; без неё нейронные сети могут изучать только линейные связи<br>
 <i>rectifier function max(0,x)</i> - самая распостраненная - выпрямительная (ReLU - rectified linear unit)<br>
 <i>inputs, hidden, linear (output)</i> - входной слой, скрытый, выходной (линейный не имеет ф-ции активации - для задач регрессии и с ф-цией активации - для задач классификации)<br><br>
 
+<i>создаём последовательную полносвязанную сеть</i><br>
 model = keras.Sequential([<br>
-    layers.Dense(units=4, activation='relu', input_shape=[2]),<br>
-    layers.Dense(units=3, activation='relu'),<br>
-    layers.Dense(units=1),<br>
-]) # список слоёв<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.Dense(units=4, activation='relu', input_shape=[2]),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.Dense(units=3, activation='relu'),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.Dense(units=1),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;]) # список слоёв<br><br>
 
-<i>The Loss Function</i> - measures how good the network's predictions are<br>
+<i>The Loss Function</i> - measures how good the network's predictions are (ф-ция потерь показывает насколько отличаются предсказанные данные от настоящих):<br>
 <i>mean absolute error or MAE</i> - для задач регресии<br>
 <i>mean-squared error (MSE) or the Huber loss (both available in Keras)</i><br><br>
 
 <i>optimizer</i> - tell the network how to change its weights<br>
 <i>Stochastic Gradient Descent (SGD)</i> - Стохастический (случайные выборки) градиентный спуск<br>
-<i>minibatch (or batch) and epoch</i> -  случайная выборка и полный круг тренинга данных<br>
+<i>minibatch (or batch) and epoch</i> -  случайная выборка и полный цикл тренинга выборки<br>
 <i>learning rate</i> - скорость обучения<br><br>
 
-# Добавить к модели (adam - алгоритм с адаптивной скоростью)<br>
+<i># Добавить к модели (adam - алгоритм с адаптивной скоростью)</i><br>
 model.compile(<br>
-    optimizer="adam",<br>
-    loss="mae",<br>
-)<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;optimizer="adam",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;loss="mae")<br><br>
+
+<i># Create training and validation splits</i><br>
+df_train = red_wine.sample(frac=0.7, random_state=0)<br>
+df_valid = red_wine.drop(df_train.index)<br>
+max_ = df_train.max(axis=0)<br>
+min_ = df_train.min(axis=0)<br>
+df_train = (df_train - min_) / (max_ - min_) # Scale to [0, 1]<br>
+df_valid = (df_valid - min_) / (max_ - min_)<br>
+X_train = df_train.drop('quality', axis=1)<br>
+X_valid = df_valid.drop('quality', axis=1)<br>
+y_train = df_train['quality']<br>
+y_valid = df_valid['quality']<br><br>
+
+<i># другой способ на 'fuel' dataset</i><br>
+from sklearn.preprocessing import StandardScaler, OneHotEncoder<br>
+from sklearn.compose import make_column_transformer, make_column_selector<br>
+from sklearn.model_selection import train_test_split<br><br>
+
+X = fuel.copy()<br>
+y = X.pop('FE')<br><br>
+
+preprocessor = make_column_transformer(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(StandardScaler(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;make_column_selector(dtype_include=np.number)),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(OneHotEncoder(sparse=False),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;make_column_selector(dtype_include=object)),<br>
+)<br>
+
+X = preprocessor.fit_transform(X)<br>
+y = np.log(y) # log transform target instead of standardizing<br><br>
+
+<i># тренеруем модель(выборка =256; 10 раз)</i><br>
+history = model.fit(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;X_train, y_train,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;validation_data=(X_valid, y_valid),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;batch_size=256,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;epochs=10)<br><br>
+
+<i># 'fit' метод сохраняет историю в history object; конвертируем данные в pandas, чобы построить график</i><br>
+history_df = pd.DataFrame(history.history)<br>
+history_df['loss'].plot()<br><br>
+
+1. Запускать алгоритм для разных начальных значений весовых коэффициентов. И, затем, отобрать лучший вариант. Начальные значения генерируем случайным образом в окрестности нуля, кроме тех, что относятся к bias’ам.<br>
+2. Запускаем алгоритм обучения с оптимизацией по Adam или Нестерову для ускорения обучения НС.<br>
+3. Выполнять нормировку входных значений и запоминать нормировочные параметры min, max из обучающей выборки.<br>
+4. Помещать в обучающую выборку самые разнообразные данные примерно равного количества.<br>
+5. Наблюдения на вход сети подавать случайным образом, корректировать веса после серии наблюдений, разбитых на mini-batch.<br>
+6. Использовать минимальное необходимое число нейронов в нейронной сети.<br>
+7. Разбивать все множество наблюдений на три выборки: обучающую, валидации и тестовую.<br>
+8. при малом числе слоев можно использовать гиперболическую и сигмоидальную функции активации или ReLu, при числе слоев от 8 и более – ReLu и ее вариации.<br>
+9. для задач регрессии у выходных нейронов использовать линейную (linear) функцию активации, для задач классификации не пересекающихся классов – softmax.<br><br>
+
+<i>Capacity</i> refers to size and complexity; if network is underfitting you shoud to increasing its capacity; To increase the capacity of a network:<br>
+make it wider(more units) - more suitable for linear relationships<br>
+make it deeper(more layers) - for nonlinear ones<br><br>
+
+От переобучения - <i>Early Stoping</i> - останов обучения, когда кривые потерь тренеровочного и проверочного сета начинают расходится. В Керас для этого существуют callback ф-ции<br><br>
+
+<i>from tensorflow.keras import callbacks</i><br>
+early_stopping = callbacks.EarlyStopping(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;min_delta=0.001, # minimium amount of change to count as an improvement<br>
+&nbsp;&nbsp;&nbsp;&nbsp;patience=20, # how many epochs to wait before stopping<br>
+&nbsp;&nbsp;&nbsp;&nbsp;restore_best_weights=True,<br>
+)<br>
+history = model.fit(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;X_train, y_train,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;validation_data=(X_valid, y_valid),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;batch_size=256,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;epochs=500,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;callbacks=[early_stopping], # put your callbacks in a list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;verbose=0,  # turn off training log<br>
+)<br>
+
+history_df = pd.DataFrame(history.history)<br>
+history_df.loc[:, ['loss', 'val_loss']].plot();<br>
+print("Minimum validation loss: {}".format(history_df['val_loss'].min()))<br><br>
+
+От переобучения поможет layers.Dropout(rate=0.3) - проредит,  и нормализация после каждого слоя<br><br>
+
+model = keras.Sequential([<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.Dense(1024, activation='relu', input_shape=[11]),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.Dropout(0.3),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.BatchNormalization(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.Dense(1024, activation='relu'),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.Dropout(0.3),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.BatchNormalization(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.Dense(1024, activation='relu'),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.Dropout(0.3),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.BatchNormalization(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.Dense(1),<br>
+])<br><br>
+
+# <i>Бинарная классификация binary classification</i><br>
+Разделение на два класса. Для начала присвоить числовое значение классам (0,1)<br>
+accuracy = number_correct / total<br>
+ф-ция потерь - Cross-entropy - измеряет расстояние между вероятностями<br>
+активационная ф-ция - sigmoid activation<br>
+
+</section>
+
+<section>
+<b>Computer Vision</b><br>
+<i>convolutional neural networks (convnet or CNN)</i> - свёрточные нейронные сети<br>
+<i>image classification</i><br>
+<i>convolutional base and dense head</i><br>
+
 
 
 </section>
